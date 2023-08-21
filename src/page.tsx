@@ -144,18 +144,18 @@ const Page = () => {
 			const _eyeParams = {};
 			const _noseParams = {};
 
-			[...archetype?.params.values()].forEach( (p: param) => {
+			Array.from(archetype?.params.values() || []).forEach( (p: param) => {
 
 				_archetypeParams[p.name] = p.value; 
 
 			});
 
-			[...paramsForEyes?.values()].forEach( (p: param) => {
+			Array.from(paramsForEyes?.values() || []).forEach( (p: param) => {
 
 				_eyeParams[p.name] = p.value;
 			});
 
-			[...paramsForNose?.values()].forEach( (p: param) => {
+			Array.from(paramsForNose?.values() || []).forEach( (p: param) => {
 
 				_noseParams[p.name] = p.value;
 			}); 
@@ -181,18 +181,18 @@ const Page = () => {
 			const _eyeParams = {};
 			const _noseParams = {};
 
-			[...selectedArchetype?.params.values()].forEach( (p: param) => {
+			Array.from(selectedArchetype?.params.values() || []).forEach( (p: param) => {
 
 				_archetypeParams[p.name] = p.value; 
 
 			});
 			
-			[...paramsForEyes.values()].forEach( (p: param) => {
+			Array.from(paramsForEyes.values() || []).forEach( (p: param) => {
 
 				_eyeParams[p.name] = p.value;
 			});
 
-			[...paramsForNose.values()].forEach( (p: param) => {
+			Array.from(paramsForNose.values() || []).forEach( (p: param) => {
 
 				_noseParams[p.name] = p.value;
 			});
@@ -222,18 +222,18 @@ const Page = () => {
 			const _eyeParams = {};
 			const _noseParams = {};
 
-			[...selectedArchetype?.params.values()].forEach( (p: param) => {
+			Array.from(selectedArchetype?.params.values() || []).forEach( (p: param) => {
 
 				_archetypeParams[p.name] = p.value; 
 
 			});
 
-			[...paramsForEyes.values()].forEach( (p: param) => {
+			Array.from(paramsForEyes.values() || []).forEach( (p: param) => {
 
 				_eyeParams[p.name] = p.value;
 			});
 
-			[...paramsForNose.values()].forEach( (p: param) => {
+			Array.from(paramsForNose.values() || []).forEach( (p: param) => {
 
 				_noseParams[p.name] = p.value;
 			});
