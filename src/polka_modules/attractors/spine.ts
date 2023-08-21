@@ -22,7 +22,7 @@ class Spine extends AttractorObject {
 	private _arrow: any;
 
 
-	static project( positionData: any, length: number ) {
+	static project( length: number, positionData: any = [0,0] ) {
 
 		let _projectedPath
 
@@ -75,7 +75,7 @@ class Spine extends AttractorObject {
 
 		const _path = Spine.project( positionData, length );
 
-	 	super( _path.getPointAt( _path.length/2 ), _path.bounds.size );
+	 	super( _path.bounds.size, _path.getPointAt( _path.length/2 ) );
 
 		this.ID += `< Spine`;
 

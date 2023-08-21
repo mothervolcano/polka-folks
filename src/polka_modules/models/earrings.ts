@@ -50,8 +50,8 @@ export class Earrings extends BaseModel {
 		const O = this.owner.getAtt(ATT).locate(c);
 		
 
-		const attA1 = new Orbital( O, plumbSize );
-		const attA2 = new Orbital( attA1.locate(0.75), beadSize);
+		const attA1 = new Orbital( plumbSize, O );
+		const attA2 = new Orbital( beadSize, attA1.locate(0.75) );
 		
 		attA1.placeAt( O, attA1.locate(0.25).offsetBy( plumbSize * -1, 'VER' ) );
 		attA2.placeAt( attA1.locate(0.75), attA2.locate(0.25) );

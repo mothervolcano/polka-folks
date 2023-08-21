@@ -58,8 +58,8 @@ class JulieHairline extends BaseModel {
 		// .............................................
 		// Construction 1/2
 
-		const attMajor = new Orbital( [0,0], [ sizeMajor, sizeMajor * ratioMajor] );
-		const attMinor = new Orbital( [0,0], [sizeMinor, sizeMinor * ratioMinor ] );
+		const attMajor = new Orbital( [ sizeMajor, sizeMajor * ratioMajor] );
+		const attMinor = new Orbital( [sizeMinor, sizeMinor * ratioMinor ] );
 
 		attMajor.anchorAt( O );
 		attMinor.anchorAt( B )

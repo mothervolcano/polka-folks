@@ -1,10 +1,10 @@
-import AttractorNode from '../../lib/topo/core/attractorNode';
+import AttractorField from '../../lib/topo/core/attractorField';
 import Eclipse from './eclipse';
 import HyperPoint from '../../lib/topo/core/hyperPoint';
 
 
 
-class EclipseField extends AttractorNode {
+class EclipseField extends AttractorField {
 
 	
 	private threshold: number;
@@ -31,7 +31,7 @@ class EclipseField extends AttractorNode {
 			this.isRendered = false;
 		}
 
-		this._attractor = new Eclipse( this.position, this.size, this.threshold )
+		this._attractor = new Eclipse( this.size, this.position, this.threshold )
 		this._attractor.orientation = this.orientation;
 		this._attractor.polarity = this.polarity;
 		

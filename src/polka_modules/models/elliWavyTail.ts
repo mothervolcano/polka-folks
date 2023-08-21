@@ -70,7 +70,7 @@ class ElliWavyTail extends BaseModel {
 
 		// field.addAttractors( [ att1_r, att2_r, att3_r, att3_l, att2_l, att1_l ] );
 
-		const tipAtt = new Orbital( [0,0], this.PHI.M / num )
+		const tipAtt = new Orbital( this.PHI.M / num )
 
 		const atts = [ tipAtt ];
 
@@ -78,8 +78,8 @@ class ElliWavyTail extends BaseModel {
 
 			const size = this.PHI.L / ( num );
 
-			atts.push( new Orbital([0,0], size ) );
-			atts.unshift( new Orbital([0,0], size ) );
+			atts.push( new Orbital( size ) );
+			atts.unshift( new Orbital( size ) );
 
 		}
 

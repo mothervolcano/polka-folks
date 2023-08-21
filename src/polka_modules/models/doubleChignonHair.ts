@@ -64,8 +64,8 @@ class DoubleChignonHair extends BaseModel {
 
 		const field = new OrbitalField( O, [ area * wfRatio, area * hfRatio ] );
 
-		const attL = new Orbital( [0,0], [ size * wRatio, size * hRatio ] );
-		const attR = new Orbital( [0,0], [ size * wRatio, size * hRatio ] );
+		const attL = new Orbital( [ size * wRatio, size * hRatio ] );
+		const attR = new Orbital( [ size * wRatio, size * hRatio ] );
 
 		field.addAttractors( [ attR, attL ] );
 

@@ -25,7 +25,7 @@ abstract class AttractorObject extends DisplayObject {
 	public isAxisLocked: boolean;
 
 
-	constructor( position: any, size: any ) {
+	constructor( size: any, position: any = [0,0] ) {
 
 		super( position, size );
 
@@ -35,10 +35,7 @@ abstract class AttractorObject extends DisplayObject {
 		this._orientation = 1;
 		this._polarity = 1;
 
-		const anchor = new HyperPoint( position, null, null );
-		anchor.spin = 1;
-
-		this._anchor = anchor;
+		this._anchor = convertToHyperPoint(position);
 
 		this._radius = null; // The radius value will depend on the type of attractor eg. Orbital, Spine and therefore it is defined by the subclass.
 
@@ -255,7 +252,8 @@ abstract class AttractorObject extends DisplayObject {
 
 			return null
 		}
-	}
+	};
+
 
 	public locateFirstIntersection( item: any, orient: boolean = false ): any { // TODO: returns a hyperpoint
 
@@ -283,7 +281,8 @@ abstract class AttractorObject extends DisplayObject {
 				return pt;
 			}
 		}
-	}
+	};
+
 
 	public locateLastIntersection( item: any, orient: boolean = false ): any {
 
@@ -311,13 +310,6 @@ abstract class AttractorObject extends DisplayObject {
 			}
 		}
 	};
-
-
-	// public locateAllIntersections( item: any ): any[] {
-
-	// 	// TODO
-	// };
-
 
 
 	public moveBy( by: number, along: any ) {

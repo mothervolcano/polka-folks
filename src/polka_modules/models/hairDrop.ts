@@ -55,7 +55,7 @@ class HairDrop extends BaseModel {
 
 		const field = new OrbitalField( O, sizeMajor );
 
-		const att = new Orbital( [0,0], sizeMinor );
+		const att = new Orbital( sizeMinor );
 
 		field.addAttractor( att, null );
 

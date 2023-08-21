@@ -55,7 +55,7 @@ class SydHair extends BaseModel {
 
 		const field = new OrbitalField( O, volume );
 
-		const att = new Orbital( [0,0], r );
+		const att = new Orbital( r );
 
 		field.addAttractor( att, position );
 

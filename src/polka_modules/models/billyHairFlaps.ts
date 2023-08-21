@@ -55,9 +55,9 @@ class BillyHairFlaps extends BaseModel {
 
 		const field = new SpinalField( [ A.scaleHandles(0), B.scaleHandles(0) ], null, 1, 1, 'DIRECTED' );
 
-		const attL = new Orbital( [0,0], size );
-		const attR = new Orbital( [0,0], size );
-		const attC = new Orbital( [0,0], gap );
+		const attL = new Orbital( size );
+		const attR = new Orbital( size );
+		const attC = new Orbital( gap );
 
 		field.addAttractors( [ attL, attR ] );
 

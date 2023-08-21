@@ -50,8 +50,8 @@ export class HairPanache extends BaseModel {
 		const flatness = 0.75;
 		const width = 4/3;
 
-		const attBase = new Orbital( [0,0], [ baseSize * flatness, baseSize * width ] );
-		const attTop = new Orbital( [0,0], [ topSize * flatness, topSize * width ] );
+		const attBase = new Orbital( [ baseSize * flatness, baseSize * width ] );
+		const attTop = new Orbital( [ topSize * flatness, topSize * width ] );
 
 		const field = new OrbitalField( O, this.radius );
 

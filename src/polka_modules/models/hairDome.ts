@@ -61,8 +61,8 @@ class HairDome extends BaseModel {
 
 
 		const field = new OrbitalField( O, this.field.attractor.radius );
-		field.addAttractor( new Orbital( [0,0], size ), null );
-		field.addAttractor( new Orbital( [0,0], size ), null );
+		field.addAttractor( new Orbital( size ), null );
+		field.addAttractor( new Orbital( size ), null );
 
 		
 		// .............................................

@@ -109,13 +109,13 @@ class Necklace extends BaseModel {
 		// plot the points for drawing
 
 
-		const paths1 = [ 'L(0)', ...field1.locate( 0 ).map( (P) => new Orbital( P, 10 ).path ) ];
+		const paths1 = [ 'L(0)', ...field1.locate( 0 ).map( (P) => new Orbital( 10, P ).path ) ];
 
-		const paths2 = [ 'L(0)', ...field2.locate( 0 ).map( (P) => new Orbital( P, 6 ).path ) ];
+		const paths2 = [ 'L(0)', ...field2.locate( 0 ).map( (P) => new Orbital( 6, P ).path ) ];
 
-		const paths3 = [ 'L(0)', ...field3.locate( 0 ).map( (P) => new Orbital( P, 5 ).path ) ];
+		const paths3 = [ 'L(0)', ...field3.locate( 0 ).map( (P) => new Orbital( 5, P ).path ) ];
 
-		const paths4 = [ 'L(0)', ...field4.locate( 0 ).map( (P) => new Orbital( P, 4 ).path ) ];
+		const paths4 = [ 'L(0)', ...field4.locate( 0 ).map( (P) => new Orbital( 4, P ).path ) ];
 
 		// ..............................................
 

@@ -66,7 +66,7 @@ class ArcWave extends BaseModel {
 
 		for ( let i=0; i<num; i++ ) {
 
-			field.addAttractor( new Orbital( [0,0], r ), null );
+			field.addAttractor( new Orbital( r ) );
 			
 		}
 

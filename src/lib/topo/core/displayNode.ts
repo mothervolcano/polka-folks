@@ -1,10 +1,10 @@
 // const _ = require('lodash');
 
-import { DisplayFrameType } from '../types'
-import DisplayFrame from './displayFrame';
+import { DisplayObjectType } from '../types'
+import DisplayObject from './displayObject';
 
 
-abstract class DisplayNode extends DisplayFrame {
+abstract class DisplayNode extends DisplayObject {
 
 	
 	private children: Array<any>

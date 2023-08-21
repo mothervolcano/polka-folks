@@ -76,8 +76,8 @@ class ArchiCurlCrown extends BaseModel {
 		// base field construction 
 
 		const baseField = new OrbitalField( this.field.attractor.center, this.field.attractor.radius );
-		baseField.addAttractor( new Orbital([0,0], attSize ), null );
-		baseField.addAttractor( new Orbital([0,0], attSize ), null );
+		baseField.addAttractor( new Orbital( attSize ) );
+		baseField.addAttractor( new Orbital( attSize ) );
 
 
 		// .............................................................
@@ -92,14 +92,14 @@ class ArchiCurlCrown extends BaseModel {
 		// field construction for curls
 
 		const field = new OrbitalField( O, [ coreSize * coreWidthRatio, coreSize * coreHeightRatio ] );
-		const topAtt = new Orbital( [0,0], curlSize );
+		const topAtt = new Orbital( curlSize );
 
 		const atts = [ topAtt ];
 
 		for ( let i=0; i<num; i++ ) {
 
-			atts.push( new Orbital([0,0], curlSize ));
-			atts.unshift( new Orbital([0,0], curlSize ));
+			atts.push( new Orbital( curlSize ));
+			atts.unshift( new Orbital( curlSize ));
 		}
 
 		field.addAttractors( atts );
@@ -147,7 +147,7 @@ class ArchiCurlCrown extends BaseModel {
 
 		// ................
 
-		let curlHollows = field.attractors.map( ( att ) => new Orbital(att.center, att.radius*this.PHILESSER*this.PHILESSER*this.PHILESSER).getPath() );
+		let curlHollows = field.attractors.map( ( att ) => new Orbital( att.radius*this.PHILESSER*this.PHILESSER*this.PHILESSER, att.center ).getPath() );
 
 		curlHollows = curlHollows.filter( (path, i) => i !== num/2 + 1 );
 

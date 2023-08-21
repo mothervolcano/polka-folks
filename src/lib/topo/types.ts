@@ -1,6 +1,6 @@
 import { Point, Segment } from 'paper';
 
-export interface DisplayFrameType {
+export interface DisplayObjectType {
 
   ID: string;
   position: any;

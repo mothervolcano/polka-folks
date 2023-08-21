@@ -48,8 +48,8 @@ class RoundGlasses extends BaseModel {
 
 		const d = measure( A, B );
 
-		const attL = new Orbital( A, d * 2/5 );
-		const attR = new Orbital( B, d * 2/5 );
+		const attL = new Orbital( d * 2/5, A );
+		const attR = new Orbital( d * 2/5, B );
 
 
 		// .............................................

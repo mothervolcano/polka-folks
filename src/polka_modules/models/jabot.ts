@@ -48,7 +48,7 @@ class Jabot extends BaseModel {
 
 		const C = this.field.attractor.locate(c);
 
-		const att1 = new Orbital( C, [ this._jabotSize, this._jabotSize * this.SIN36 ] );
+		const att1 = new Orbital( [ this._jabotSize, this._jabotSize * this.SIN36 ], C );
 
 		const wC = 0.06;
 		const wA = 0.05;

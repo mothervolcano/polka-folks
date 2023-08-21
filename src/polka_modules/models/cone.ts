@@ -54,8 +54,6 @@ class Cone extends Shape {
 
  		const t = c.add( v.multiply(this.radius) );
 
- 		console.log(`------> ${ a }`)
-
  		const Ta = att.locate( normalize( 90-a, 0, 360 ) );
  		const Tb = att.locate( normalize( 90+a, 0, 360 ) );
 

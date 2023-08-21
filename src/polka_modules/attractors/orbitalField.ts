@@ -1,13 +1,11 @@
-// import Layer from '../drawing/layer';
-
-import AttractorNode from '../../lib/topo/core/attractorNode';
+import AttractorField from '../../lib/topo/core/attractorField';
 import Orbital from './orbital';
 import HyperPoint from '../../lib/topo/core/hyperPoint';
 
 import DebugDot from '../../lib/topo/utils/debugDot';
 
 
-class OrbitalField extends AttractorNode {
+class OrbitalField extends AttractorField {
 
 
 	constructor( position: any, radius: number | number[], orientation: number = 1, polarity: number = 1 ) {
@@ -32,7 +30,7 @@ class OrbitalField extends AttractorNode {
 			this.isRendered = false;
 		}
 
-		this._attractor = new Orbital( this.position, this.size );
+		this._attractor = new Orbital( this.size, this.position );
 		this._attractor.orientation = this._orientation;
 		this._attractor.polarity = this._polarity;
 

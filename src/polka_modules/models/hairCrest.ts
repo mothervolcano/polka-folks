@@ -60,8 +60,8 @@ class HairCrest extends BaseModel {
 
 		const field = new OrbitalField( P, [ crestSize, crestSize/1.5 ] );
 
-		const attL = new Orbital([0,0], [ crestSize/1.5, crestSize/2]);
-		const attR = new Orbital([0,0], [ crestSize/1.5, crestSize/2]);
+		const attL = new Orbital( [ crestSize/1.5, crestSize/2]);
+		const attR = new Orbital( [ crestSize/1.5, crestSize/2]);
 
 		field.addAttractors( [ attR, attL ] );
 

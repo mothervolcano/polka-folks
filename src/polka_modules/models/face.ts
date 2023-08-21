@@ -131,8 +131,8 @@ class Face extends BaseModel {
 
 		const eyesField = new EclipseField( this.field.attractor.center, [ this.field.attractor.radius, this.field.attractor.radius ] );
 
-		this._lEye = new Orbital( [0,0], [ eyeSize, eyeSize * eyeRoundness ] )
-		this._rEye = new Orbital( [0,0], [ eyeSize, eyeSize * eyeRoundness ] )
+		this._lEye = new Orbital( [ eyeSize, eyeSize * eyeRoundness ] )
+		this._rEye = new Orbital( [ eyeSize, eyeSize * eyeRoundness ] )
 
 		eyesField.addAttractor( this._lEye );
     eyesField.addAttractor( this._rEye );
@@ -159,8 +159,8 @@ class Face extends BaseModel {
 
 	  
 	  const noseField = new OrbitalField( N, [ noseSize, noseSize ] );
-	  noseField.addAttractor( new Orbital( [0,0], noseSize * this.SIN36 ), null );
-	  noseField.addAttractor( new Orbital( [0,0], noseSize * this.SIN36 ), null );
+	  noseField.addAttractor( new Orbital( noseSize * this.SIN36 ), null );
+	  noseField.addAttractor( new Orbital( noseSize * this.SIN36 ), null );
 
 
     

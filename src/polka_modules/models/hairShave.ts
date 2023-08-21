@@ -71,7 +71,7 @@ class HairShave extends BaseModel {
 		}
 
 		pts = field1.locate(direction);	
-		plots.push( [ instructions1, ...pts.map( (P) => new Orbital( P, size - 1 ).path ) ] );
+		plots.push( [ instructions1, ...pts.map( (P) => new Orbital( size - 1, P ).path ) ] );
 
 
 		// ...................................
@@ -95,7 +95,7 @@ class HairShave extends BaseModel {
 		}
 
 		pts = field2.locate(direction);	
-		plots.push( [ instructions2, ...pts.map( (P) => new Orbital( P, size ).path ) ] );
+		plots.push( [ instructions2, ...pts.map( (P) => new Orbital( size, P ).path ) ] );
 
 
 		//...................................
@@ -119,7 +119,7 @@ class HairShave extends BaseModel {
 		}
 
 		pts = field3.locate(direction);	
-		plots.push( [ instructions3, ...pts.map( (P) => new Orbital( P, size - 2 ).path ) ] );
+		plots.push( [ instructions3, ...pts.map( (P) => new Orbital( size - 2, P ).path ) ] );
 
 
 		// ...................................

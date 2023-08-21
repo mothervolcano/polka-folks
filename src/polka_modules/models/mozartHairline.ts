@@ -44,8 +44,8 @@ class MozartHairline extends BaseModel {
 		const C = this.field.attractor.locate(c);
 
 		const field = new OrbitalField( this.field.attractor.center, this.field.attractor.radius );
-		const attL = new Orbital( [0,0], [ inletSize * 0.75, inletSize * 1 ] );
-		const attR = new Orbital( [0,0], [ inletSize * 0.75, inletSize * 1 ] );
+		const attL = new Orbital( [ inletSize * 0.75, inletSize * 1 ] );
+		const attR = new Orbital( [ inletSize * 0.75, inletSize * 1 ] );
 
 		field.addAttractors( [ attL, attR ] );
 

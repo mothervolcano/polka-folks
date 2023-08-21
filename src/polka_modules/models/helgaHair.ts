@@ -65,7 +65,7 @@ class HelgaHair extends BaseModel {
 		// .............................................
 		// Construction 1/2
 
-		const att = new Orbital( O, [ponySize* this.SIN54, ponySize ] );
+		const att = new Orbital( [ponySize* this.SIN54, ponySize ], O );
 		att.orientation = -1;
 		att.anchorAt( O );
 

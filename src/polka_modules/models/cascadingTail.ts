@@ -58,14 +58,14 @@ class CascadingTail extends BaseModel {
 		// build the field
 
 		const field = new SpinalField( [ A.flip().steer( -60, -180 ), B.flip().steer( -60, 180) ], null, 1, 1, 'DIRECTED' );
-		const centerAtt = new Orbital( [0,0], attSize );
+		const centerAtt = new Orbital( attSize );
 
 		const atts = [ centerAtt ];
 
 		for ( let i=0; i < num; i++ ) {
 
-			atts.push( new Orbital([0,0], attSize ) );
-			atts.unshift( new Orbital([0,0], attSize ) );
+			atts.push( new Orbital( attSize ) );
+			atts.unshift( new Orbital( attSize ) );
 
 		}
 		

@@ -122,7 +122,7 @@ class PompadourWig extends BaseModel {
 
 			const radius = curlSizePatterns[num-1][i] / (num*0.90);
 
-		 	lField.addAttractor( new Orbital( [0,0], radius ), null );
+		 	lField.addAttractor( new Orbital( radius ) );
 	
 		}
 
@@ -137,7 +137,7 @@ class PompadourWig extends BaseModel {
 
 			const radius = curlSizePatterns[num-1][i] / (num*0.90);
 
-			rField.addAttractor( new Orbital( [0,0], radius ), null );
+			rField.addAttractor( new Orbital( radius ) );
 	
 		}
 

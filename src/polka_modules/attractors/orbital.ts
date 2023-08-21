@@ -16,9 +16,9 @@ class Orbital extends AttractorObject {
 	private _fixedOrientation: boolean;
 
 
-	constructor( position: number | number[], radius: number | number[], orientation: number = null ) {
+	constructor( radius: number | number[], position: number | number[] = [0,0], orientation: number = null ) {
 
-		super( position, radius );
+		super( radius, position );
 
 		this.ID += `< Orbital`;
 

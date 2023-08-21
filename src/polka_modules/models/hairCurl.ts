@@ -43,7 +43,7 @@ class HairCurl extends BaseModel {
 		// const att = new Orbital( _C, curlSize, 1 );
 		// att.anchorAt( _C );
 
-		const att = new Orbital( [0,0], [ curlSize*4/3, curlSize*4/3 ] );
+		const att = new Orbital( [ curlSize*4/3, curlSize*4/3 ] );
 
 		this._field.addAttractor( att, c );
 

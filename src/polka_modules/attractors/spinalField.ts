@@ -1,13 +1,12 @@
+import AttractorField from '../../lib/topo/core/attractorField';
+import Spine from './spine';
+import Orbital from './orbital';
 
-import AttractorNode from '../../lib/topo/core/attractorNode'
-import Spine from './spine'
-import Orbital from './orbital'
-
-import { isEven } from '../../lib/topo/utils/helpers'
-
+import { isEven } from '../../lib/topo/utils/helpers';
 
 
-class SpinalField extends AttractorNode {
+
+class SpinalField extends AttractorField {
 
 	private _positionData: any;
 
@@ -42,7 +41,7 @@ class SpinalField extends AttractorNode {
 			this.isRendered = false;
 		}
 
-		this._attractor = new Spine( this._positionData, this._length );
+		this._attractor = new Spine( this._length, this._positionData );
 		this._attractor.orientation = this.orientation;
 		this._attractor.polarity = this.polarity;
 

@@ -52,7 +52,7 @@ class HairWedgeSpike extends BaseModel {
 		// .............................................
 		// Construction
 
-		const att = new Orbital( [0,0], r );
+		const att = new Orbital( r );
 
 		this.field.addAttractor( att, position );
 

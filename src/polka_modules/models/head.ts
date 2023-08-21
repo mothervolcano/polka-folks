@@ -82,10 +82,10 @@ class Head extends BaseModel {
 		this._earsLat = earsLatBaseValue;
 		this._earsScale = earsScaleBaseValue ?? this.SIN72;
 
-		this._head = new Orbital( this.position, this.radius );
+		this._head = new Orbital( this.radius, this.position );
 
-		this._lEar = new Orbital( [0,0], this.SIN.XS );
-		this._rEar = new Orbital( [0,0], this.SIN.XS );
+		this._lEar = new Orbital( this.SIN.XS );
+		this._rEar = new Orbital( this.SIN.XS );
 
 	}
 

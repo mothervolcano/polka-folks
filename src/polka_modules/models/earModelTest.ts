@@ -67,7 +67,7 @@ class EarModelTest extends BaseModel {
 
 		for ( let i=0; i<num; i++ ) {
 
-			const _att = new Orbital( O, size );
+			const _att = new Orbital( size, O );
 			_att.anchorAt(O);
 			_att.moveBy( size + 400, 'HOR' );
 

@@ -1,11 +1,9 @@
-// import * as _ from 'lodash';
-
 import DisplayNode from './displayNode';
 import AttractorObject from './attractorObject';
 import HyperPoint from './hyperPoint';
 
 
-abstract class AttractorNode extends DisplayNode {
+abstract class AttractorField extends DisplayNode {
 
 
 	protected _attractor: any // TODO: cast type
@@ -23,7 +21,7 @@ abstract class AttractorNode extends DisplayNode {
 
 		super( position, size )
 
-		this.ID += ` < AttractorNode`;
+		this.ID += ` < AttractorField`;
 
 		this._orientation = orientation;
 		this._polarity = polarity;
@@ -402,6 +400,6 @@ abstract class AttractorNode extends DisplayNode {
 }
 
 
-export default AttractorNode;
+export default AttractorField;
 
 

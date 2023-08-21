@@ -22,10 +22,10 @@ class Eclipse extends AttractorObject {
 	private threshold: number;
 	private scaleTicks: Array<number> | null
 
-	constructor( position: number, size: number, threshold: number = 0.5 ) {
+	constructor( size: number, position: number | number[] = [0,0], threshold: number = 0.5 ) {
 
 
-		super( position, size );
+		super( size, position );
 
 		this.ID += `< Orbital`;
 
@@ -80,7 +80,7 @@ class Eclipse extends AttractorObject {
 			this.isRendered = false;
 		}
 
-		const guide = new Orbital( this.position, this.size );
+		const guide = new Orbital( this.size, this.position );
 
 
 		const _A = guide.locate( 0.25 - 0.25*this.threshold );

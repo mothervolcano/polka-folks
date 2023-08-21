@@ -77,11 +77,11 @@ class AntoinetteWig extends BaseModel {
 		const baseField = new OrbitalField( O, this._att.size );
 		const topField = new OrbitalField( T, this._att.size );
 
-		const baseAtt_l = new Orbital([0,0], [ baseSize, baseSize ] );
-		const baseAtt_r = new Orbital([0,0], [ baseSize, baseSize ] );
+		const baseAtt_l = new Orbital( [ baseSize, baseSize ] );
+		const baseAtt_r = new Orbital( [ baseSize, baseSize ] );
 
-		const topAtt_l = new Orbital([0,0], [ topSize, topSize*1.5 ] );
-		const topAtt_r = new Orbital([0,0], [ topSize, topSize*1.5 ] );
+		const topAtt_l = new Orbital( [ topSize, topSize*1.5 ] );
+		const topAtt_r = new Orbital( [ topSize, topSize*1.5 ] );
 
 
 		baseField.addAttractors( [ baseAtt_l, baseAtt_r ] );
