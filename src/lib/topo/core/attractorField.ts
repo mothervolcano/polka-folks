@@ -1,3 +1,5 @@
+import { UnitIntervalNumber, PointLike, SizeLike } from '../types';
+
 import DisplayNode from './displayNode';
 import AttractorObject from './attractorObject';
 import HyperPoint from './hyperPoint';
@@ -11,22 +13,20 @@ abstract class AttractorField extends DisplayNode {
 	protected _orientation: number;
 	protected _polarity: number;
 
-	public axisAngle: number;
-
-	protected _span: Array<number>;
-	protected _shift: number;
+	private _span: Array<number>;
+	private _shift: number;
+	
+	private _axisAngle: number;
 	
 
-	constructor(  position: any, size: any, orientation: number = 1, polarity: number = 1 ) {
+	constructor(  position: PointLike | null, size: SizeLike, orientation: number = 1, polarity: number = 1 ) {
 
 		super( position, size )
-
-		this.ID += ` < AttractorField`;
 
 		this._orientation = orientation;
 		this._polarity = polarity;
 
-		this.axisAngle = 0;
+		this._axisAngle = 0;
 
 		this._span = [ 0, 1 ];
 		this._shift = 0;
@@ -48,12 +48,10 @@ abstract class AttractorField extends DisplayNode {
 		return this.getFirstChild();
 	}
 
-
 	get lastAttractor() {
 
 		return this.getLastChild();
 	}
-
 
 	set orientation( value: number ) {
 
@@ -61,12 +59,10 @@ abstract class AttractorField extends DisplayNode {
 		this._orientation = value;
 	}
 
-
 	get orientation() {
 
 		return this._orientation;
 	}
-
 
 	set polarity( value: number ) {
 
@@ -74,10 +70,20 @@ abstract class AttractorField extends DisplayNode {
 		this._polarity = value;
 	}
 
-
 	get polarity() {
 
 		return this._polarity;
+	}
+
+	set axisAngle( value: number ) {
+
+		this._axisAngle = value;
+	}
+
+
+	get axisAngle() {
+
+		return this._axisAngle;
 	}
 
 	protected calculateOrientation( i: number, anchor: any ) {}
@@ -142,7 +148,7 @@ abstract class AttractorField extends DisplayNode {
 	};
 
 
-	public locate( location: any, attractor: any = null, orient: boolean = false ): any {
+	public locate( location: number, attractor: any = null, orient: boolean = false ): any {
 
 		// -------------------------------------------------------
 		// locate on a specified attractor
@@ -176,7 +182,7 @@ abstract class AttractorField extends DisplayNode {
 
 	// }
 
-	public addAttractor( attractor: any, position: any = null ): void {
+	public addAttractor( attractor: any, at: number = null ): void {
 
 		// super.addAttractor( attractor )
 
@@ -187,9 +193,9 @@ abstract class AttractorField extends DisplayNode {
 		// ------------------------------------------------------------
 		// 	
 
-		if ( position !== null ) {
+		if ( at !== null ) {
 
-			const anchor = this._attractor.locate(position);
+			const anchor = this._attractor.locate( at );
 
 			attractor.reset()
 			attractor.isSelfAnchored = true;

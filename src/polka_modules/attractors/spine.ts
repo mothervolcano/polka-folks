@@ -1,8 +1,10 @@
 import { Point, Path, Group } from 'paper';
 
+import { PathLocationData, UnitIntervalNumber, IHyperPoint, PointLike, SizeLike } from '../../lib/topo/types';
+import { validatePointInput, convertToSegment, convertToPoint } from '../../lib/topo/utils/converters';
 
-import AttractorObject from '../../lib/topo/core/attractorObject'
-import HyperPoint from '../../lib/topo/core/hyperPoint'
+import AttractorObject from '../../lib/topo/core/attractorObject';
+import HyperPoint from '../../lib/topo/core/hyperPoint';
 
 
 
@@ -22,7 +24,7 @@ class Spine extends AttractorObject {
 	private _arrow: any;
 
 
-	static project( length: number, positionData: any = [0,0] ) {
+	static project( positionData: PointLike | IHyperPoint | [ IHyperPoint, IHyperPoint ], length: number = null, ) {
 
 		let _projectedPath
 
@@ -48,9 +50,9 @@ class Spine extends AttractorObject {
 		// --------------------------------------------------------------
 		// Create Spine from 1 point
 
-		} else { 
+		} else if ( positionData ) { 
 			
-			const _C = positionData instanceof HyperPoint ? positionData.point : positionData;
+			const _C = convertToPoint( positionData );
 
 			const _vA = new Point( { angle: 180, length: length/2 });
 			const _vB = new Point( { angle: 0, length: length/2 });
@@ -71,13 +73,11 @@ class Spine extends AttractorObject {
 	};
 
 
-	constructor( positionData: any, length: number ) {
+	constructor( length: number, positionData: PointLike | IHyperPoint | [ IHyperPoint, IHyperPoint ] = new HyperPoint( new Point(0,0)) ) {
 
 		const _path = Spine.project( positionData, length );
 
 	 	super( _path.bounds.size, _path.getPointAt( _path.length/2 ) );
-
-		this.ID += `< Spine`;
 
 		// -------------------------------
 		// DEBUG
@@ -123,6 +123,7 @@ class Spine extends AttractorObject {
 		super.render( new Group( [ this._path, this._arrow ] ))
 	}
 
+
 	protected adjustRotationToPosition( position: number ) {
 
 		if ( position > 0.25 && position < 0.75 ) {
@@ -150,7 +151,7 @@ class Spine extends AttractorObject {
 	}
 
 
-	protected calculateLocation( at: number ): any { // TODO: cast type
+	protected getPathLocationDataAt( at: number ): PathLocationData {
 
 		const loc = this._path.getLocationAt( this._path.length * at );
 

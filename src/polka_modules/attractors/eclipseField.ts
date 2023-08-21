@@ -1,3 +1,6 @@
+import { IHyperPoint, PointLike, SizeLike } from '../../lib/topo/types';
+import { validateSizeInput } from '../../lib/topo/utils/converters'
+
 import AttractorField from '../../lib/topo/core/attractorField';
 import Eclipse from './eclipse';
 import HyperPoint from '../../lib/topo/core/hyperPoint';
@@ -8,19 +11,18 @@ class EclipseField extends AttractorField {
 
 	
 	private threshold: number;
+	
 
-	constructor( position: any, size: any, orientation: number = 1, polarity: number = 1 ) {
+	constructor( position: IHyperPoint | null, size: SizeLike | number, orientation: number = 1, polarity: number = 1 ) {
 
-		super( position, size, orientation, polarity )
-		
-		this.ID += `< OrbitalField`;
+		super( position, validateSizeInput(size), orientation, polarity )
 
 		this.threshold = 0.5;
 
 		this.render();
 
 		return this;
-	}
+	};
 
 
 	protected render() {
@@ -41,7 +43,7 @@ class EclipseField extends AttractorField {
 
 		super.render( this._attractor._content );
 
-	}
+	};
 
 
 	protected calculateOrientation( i: number, anchor: HyperPoint ) {
@@ -54,13 +56,13 @@ class EclipseField extends AttractorField {
 
 			return 1;
 		}
-	}
+	};
 	
 
 	protected calculatePolarity( i: number, anchor: HyperPoint ) {
 
 		return this.polarity;
-	}
+	};
 
 
 	protected calculateRotation( i: number, anchor: HyperPoint ) {
@@ -77,7 +79,7 @@ class EclipseField extends AttractorField {
 		}
 
 		return axisAngle;
-	}
+	};
 
 
 	public envelop( value: number ) {
@@ -85,7 +87,7 @@ class EclipseField extends AttractorField {
 		this.threshold = value;
 
 		this.render();
-	}
+	};
 }
 
 

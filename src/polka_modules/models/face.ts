@@ -1,6 +1,6 @@
 import { Path } from 'paper';
 
-import BaseModel from './baseModel';
+import Model from '../core/model';
 import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 import Eclipse from '../attractors/eclipse';
@@ -15,7 +15,7 @@ const GUIDES = '#06E7EF';
 
 
 
-class Face extends BaseModel {
+class Face extends Model {
 
 	private _lEye: any;
 	private _rEye: any;

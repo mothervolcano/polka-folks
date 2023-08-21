@@ -1,5 +1,6 @@
 import { Point } from 'paper';
 
+import { DisplayObjectType, IDisplayObject, IPoint, PointLike, SizeLike } from '../types'
 
 import { validatePointInput, validateSizeInput } from '../utils/converters'
 
@@ -11,13 +12,13 @@ import { validatePointInput, validateSizeInput } from '../utils/converters'
 abstract class DisplayObject {
 
 	public ID: string;
-	protected _content: any;
-	protected _position: any;
-	private _tag: string;
 	public isRendered: boolean;
 	public isRemoved: boolean;
-	private _size: any;
-	private _ratio: number;
+	protected _content: any;
+	protected _position: any; // decide what is the definitive type for position
+	private _tag: string;
+	private _size: any; // decide what is the definitive type for position
+	private _ratio: number; // drop this property
 	private pins: any;
 
 
@@ -87,12 +88,9 @@ abstract class DisplayObject {
 	* @param {any} size - The initial size of the display frame.
 	*/
 
-	constructor( position: any, size: any ) {
+	constructor( position: PointLike, size: SizeLike ) {
 
-		this.ID = 'DisplayObject';
-		this._tag = 'NONE';
 		this._position = validatePointInput( position );
-		// this._position = position || [0, 0];
 		this._size = validateSizeInput( size );
 		this._ratio = 0// null;
 		this._content = null;
@@ -119,7 +117,7 @@ abstract class DisplayObject {
 	* @private
 	*/
 
-	private updatePosition(input: any) {
+	private updatePosition( input: PointLike ): void {
 
 		const output = validatePointInput(input);
 
@@ -141,7 +139,7 @@ abstract class DisplayObject {
 	* @private
 	*/
 
-	private updateSize(input: any) {
+	private updateSize( input: SizeLike ): void {
 		
 		const output = validateSizeInput(input);
 
@@ -265,7 +263,7 @@ abstract class DisplayObject {
    * @protected
    */
 
-	protected getPin(LABEL: string, offset: any) {
+	protected getPin(LABEL: string, offset: any): IPoint {
 
 		if (offset && validatePointInput(offset)) {
 
@@ -289,7 +287,7 @@ abstract class DisplayObject {
    * @throws {Error} If no size is provided.
    */
 
-	protected render( item: any ) {
+	protected render( item: any ): void {
 		
 		if ( item && !this.isRendered ) {
 
@@ -312,7 +310,7 @@ abstract class DisplayObject {
 
    */
 
-	public placeAt( position: any, pivot: any ) {
+	public placeAt( position: PointLike, pivot: PointLike ): void {
 
 		this.updatePosition( position );
 
@@ -329,7 +327,7 @@ abstract class DisplayObject {
   /**
    * Removes the display frame from the layer.
    */
-	public remove() {
+	public remove(): void {
 
 		if (this.isRendered && !this.isRemoved) {
 			

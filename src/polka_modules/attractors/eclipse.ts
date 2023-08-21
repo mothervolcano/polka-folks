@@ -1,5 +1,8 @@
 import { Path, Group } from 'paper';
 
+import { PathLocationData, UnitIntervalNumber, IHyperPoint, PointLike, SizeLike } from '../../lib/topo/types';
+import { validateSizeInput} from '../../lib/topo/utils/converters'
+
 import AttractorObject from '../../lib/topo/core/attractorObject'
 import HyperPoint from '../../lib/topo/core/hyperPoint'
 import Orbital from './orbital'
@@ -22,12 +25,9 @@ class Eclipse extends AttractorObject {
 	private threshold: number;
 	private scaleTicks: Array<number> | null
 
-	constructor( size: number, position: number | number[] = [0,0], threshold: number = 0.5 ) {
+	constructor( size: SizeLike | number, position: PointLike = {x:0, y:0}, threshold: number = 0.5 ) {
 
-
-		super( size, position );
-
-		this.ID += `< Orbital`;
+		super( validateSizeInput(size), position );
 
 		this.threshold = threshold;
 
@@ -39,8 +39,6 @@ class Eclipse extends AttractorObject {
 		this._debugPath4 = new Path()
 
 		this._arrow = new Group()
-
-		console.log(`@Eclipse: ${position} / ${size}`)
 
 		this.render();
 
@@ -133,30 +131,15 @@ class Eclipse extends AttractorObject {
 
 		guide.remove();
 
-		_A.clearGuides()
-		_B.clearGuides()
-		_C1.clearGuides()
-		_C2.clearGuides()
-
-
-		// const _P = this.mapToNonLinearScale( 0.80, values );
-		// console.log(`@ECLIPSE: ${ _P }`)
-
-		// const P = this._path.getLocationAt( len * _P );
-
-		// markPoint( P.point )
-
 	}
 
 
 
-	protected calculateLocation( at: number ): any { // TODO: cast type
+	protected getPathLocationDataAt( at: number ): PathLocationData { // TODO: cast type
 
 		const _at = this.mapToNonLinearScale( at, this.scaleTicks );
 
 		const loc = this._path.getLocationAt( this._path.length * _at );
-
-		console.log(`@Eclipse.calculateLocation: ${this._path.length} / ${at}`)
 
 		return { point: loc.point, tangent: loc.tangent, normal: loc.normal, curveLength: loc.curve.length, pathLength: loc.path.length, at: at };
 	}

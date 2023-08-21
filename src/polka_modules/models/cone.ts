@@ -1,6 +1,6 @@
 import { Point, Path } from 'paper';
 
-import Shape from '../components/shape';
+import Shape from '../core/shape';
 import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 

@@ -1,6 +1,6 @@
 // const _ = require('lodash');
 
-import { DisplayObjectType } from '../types'
+import { DisplayObjectType, IDisplayObject, PointLike, SizeLike } from '../types'
 import DisplayObject from './displayObject';
 
 
@@ -10,11 +10,9 @@ abstract class DisplayNode extends DisplayObject {
 	private children: Array<any>
 
 	
-	constructor( position: any, size: any ) {
+	constructor( position: PointLike, size: SizeLike ) {
 
 		super( position, size );
-
-		this.ID += '< DisplayNode';
 
 		this.children = [];
 

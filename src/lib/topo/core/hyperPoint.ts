@@ -1,3 +1,5 @@
+import { BooleanLike, VectorDirection, IPoint, PointLike, SizeLike } from '../types';
+
 import { validatePointInput } from '../utils/converters'
 
 import DebugDot from '../utils/debugDot'
@@ -5,26 +7,13 @@ import DebugDot from '../utils/debugDot'
 import { Point, Segment, Path, Group } from 'paper';
 
 
-/**
- * Represents a hyperpoint in a drawing.
- * 
- * A hyperpoint is a point extracted from a curve that serves as a guide for drawing. 
- * It encapsulates the position, tangent, normal, and handles of the point. 
- * The hyperpoint is primarily defined at the moment of extraction from the curve.
- * 
- * The HyperPoint class provides methods to manipulate and transform the point along its tangent or normal vector. 
- * It also allows setting the spin or orientation of the curve, as well as retrieving a segment object for creating or adding to a Path object.
- * 
- * By retaining the tangent, normal, and other properties of the hyperpoint, it remains closely related to the underlying curve, enabling consistent modifications and adjustments to the drawing.
- */
-
 class HyperPoint {
 
-	private _point: any;
-	private _handleIn: any;
-	private _handleOut: any;
+	private _point: IPoint;
+	private _handleIn: IPoint;
+	private _handleOut: IPoint;
 
-	private _position: any;
+	private _position: number;
 	private _spin: number;
 	private _polarity: number;
 
@@ -34,8 +23,6 @@ class HyperPoint {
 	    'VER': null,
 	    'HOR': null,
 	};
-
-	public ID: string
 
 	// private _debugPath1: any
 	// private _debugPath2: any
@@ -52,15 +39,12 @@ class HyperPoint {
    * @param {Object|null} handleOut - The handleOut object representing the outgoing handle of the hyperpoint.
    */
 
-	constructor( point: any, handleIn: any, handleOut: any ) {
+	constructor( point: PointLike, handleIn: PointLike | null = null, handleOut: PointLike | null = null ) {
 
-		this.ID = `HyperPoint`;
-
-		// this._point = new Point( point.x, point.y );
 		this._point = validatePointInput( point );
 
-		this._handleIn = handleIn || null;
-		this._handleOut = handleOut || null;
+		this._handleIn = validatePointInput(handleIn);
+		this._handleOut = validatePointInput(handleOut);
 
 		this._spin = 1;
 		this._polarity = 1;
@@ -72,9 +56,11 @@ class HyperPoint {
 		// this._debugDot1 = new Path()
 		// this._debugDot2 = new Path()
 
+		return this;
+
 	}
 
-	set position( value: any ) {
+	set position( value: number ) {
 
 		this._position = value;
 	}
@@ -206,14 +192,9 @@ class HyperPoint {
 		return this.AXIS.RAY;
 	}
 
-	 /**
-   * Gets a segment object representing the hyperpoint.
-   * @param {boolean|0|1} [withInHandle=true] - Specifies whether to include the in handle in the segment.
-   * @param {boolean|0|1} [withOutHandle=true] - Specifies whether to include the out handle in the segment.
-   * @returns {Object} - The segment object representing the hyperpoint.
-   */
+	
 
-	public getSegment( withInHandle: boolean | 0 | 1 = true, withOutHandle: boolean | 0 | 1 = true ): any {
+	public getSegment( withInHandle: BooleanLike = true, withOutHandle: BooleanLike = true ): any {
 	  
 		const includeInHandle = Boolean(withInHandle);
 		const includeOutHandle = Boolean(withOutHandle);		
@@ -245,7 +226,7 @@ class HyperPoint {
   	}
 
 
-	public scaleHandles( scale: number, scaleIn: boolean | 0 | 1 = true, scaleOut: boolean | 0 | 1 = true ): HyperPoint {
+	public scaleHandles( scale: number, scaleIn: BooleanLike = true, scaleOut: BooleanLike = true ): HyperPoint {
 		
 		if (scaleIn) {
 
@@ -277,14 +258,7 @@ class HyperPoint {
 	}
 
 
-	 /**
-   * Offsets the hyperpoint along a specified vector.
-   * @param {number} by - The distance to offset the hyperpoint.
-   * @param {string} along - The direction along which to offset the hyperpoint ('TAN', 'RAY', 'VER', 'HOR').
-   * @returns {HyperPoint} - The HyperPoint instance.
-   */
-
-	public offsetBy( by: any, along: string ): HyperPoint {
+	public offsetBy( by: number, along: VectorDirection ): HyperPoint {
 
 		// console.log(`@${this.ID} --> spin: ${this._spin}`)
 
@@ -308,12 +282,7 @@ class HyperPoint {
 		return this;
 	}
 
-	/**
-   * Steers the hyperpoint by adjusting the handles.
-   * @param {number} tilt - The tilt angle to apply to the handles.
-   * @param {number} aperture - The aperture angle to apply to the handles.
-   * @returns {HyperPoint} - The HyperPoint instance.
-   */
+	
 
 	public steer( tilt: number, aperture: number = 180, hScale: number = 1 ): HyperPoint {
 
@@ -343,7 +312,7 @@ class HyperPoint {
 
 	public clone(): HyperPoint {
 
-	  const clonedPoint = new HyperPoint(
+	  const _clone = new HyperPoint(
 
 	    this._point.clone(),
 	    this._handleIn ? this._handleIn.clone() : null,
@@ -351,11 +320,10 @@ class HyperPoint {
 	    
 	  );
 
-	  clonedPoint.position = this._position;
-	  clonedPoint.spin = this._spin;
+	  _clone.position = this._position;
+	  _clone.spin = this._spin;
 
-	  // Clone the AXIS object
-	  clonedPoint.AXIS = {
+	  _clone.AXIS = {
 
 	    TAN: this.AXIS.TAN ? this.AXIS.TAN.clone() : null,
 	    RAY: this.AXIS.RAY ? this.AXIS.RAY.clone() : null,
@@ -363,9 +331,8 @@ class HyperPoint {
 	    HOR: this.AXIS.HOR ? this.AXIS.HOR.clone() : null,
 	  };
 
-	  // Copy other properties if needed
 
-	  return clonedPoint;
+	  return _clone;
 
 	}
 

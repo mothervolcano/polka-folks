@@ -1,6 +1,6 @@
 import { Path } from 'paper';
 
-import BaseModel from './baseModel';
+import Model from '../core/model';
 import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
@@ -14,7 +14,7 @@ const GUIDES = '#06E7EF';
 
 
 
-class PompadourWig extends BaseModel {
+class PompadourWig extends Model {
 
 	private _att: any;
 
@@ -101,8 +101,8 @@ class PompadourWig extends BaseModel {
 		// Main Field construction
 
 		const field = new OrbitalField( C, [ coreVolume * coreWidthRatio, coreVolume * coreHeightRatio ], 1 );
-		const lField = new OrbitalField( [0,0], [ sideVolume * sideWidthRatio, sideVolume ] );
-		const rField = new OrbitalField( [0,0], [ sideVolume * sideWidthRatio, sideVolume ] );
+		const lField = new OrbitalField( null, [ sideVolume * sideWidthRatio, sideVolume ] );
+		const rField = new OrbitalField( null, [ sideVolume * sideWidthRatio, sideVolume ] );
 
 		field.addAttractors(  [ lField, rField ] );
 

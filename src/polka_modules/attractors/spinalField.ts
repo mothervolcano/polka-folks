@@ -1,3 +1,5 @@
+import { PathLocationData, UnitIntervalNumber, IHyperPoint, PointLike, SizeLike } from '../../lib/topo/types';
+
 import AttractorField from '../../lib/topo/core/attractorField';
 import Spine from './spine';
 import Orbital from './orbital';
@@ -14,13 +16,11 @@ class SpinalField extends AttractorField {
 	private _mode: string;
 	
 	
-	constructor( positionData: any, length: number, orientation: number = 1, polarity: number = 1, mode: string = 'ALTERNATED' ) {
+	constructor( positionData: PointLike, length: number, orientation: number = 1, polarity: number = 1, mode: string = 'ALTERNATED' ) {
 
 		const _path = Spine.project( positionData, length )
 
 		super( _path.getPointAt( _path.length/2 ), _path.bounds.size, orientation, polarity )
-		
-		this.ID += `< OrbitalField`;
 
 		this._positionData = positionData;
 

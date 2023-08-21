@@ -1,6 +1,7 @@
 import { Path } from 'paper';
 
-import BaseModel from './baseModel';
+import Model from '../core/model';
+
 import Orbital from '../attractors/orbital';
 import Spine from '../attractors/spine';
 import SpinalField from '../attractors/spinalField';
@@ -12,7 +13,7 @@ const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class HairShave extends BaseModel {
+class HairShave extends Model {
 
 	private _att: any;
 
@@ -59,7 +60,7 @@ class HairShave extends BaseModel {
 
 		for ( let i=0; i<num; i++ ) {
 
-			field1.addAttractor( new Spine( this.position, distance ), null );
+			field1.addAttractor( new Spine( distance ) );
 
 		}
 
@@ -82,7 +83,7 @@ class HairShave extends BaseModel {
 
 		for ( let i=0; i<num-1; i++ ) {
 
-			field2.addAttractor( new Spine( this._position, distance + size * 4 + i * 2 ), null );
+			field2.addAttractor( new Spine( distance + size * 4 + i * 2 ) );
 
 		}
 
@@ -106,7 +107,7 @@ class HairShave extends BaseModel {
 
 		for ( let i=0; i<num-1; i++ ) {
 
-			field3.addAttractor( new Spine( this._position, distance-2 ), null );
+			field3.addAttractor( new Spine( distance-2 ) );
 
 		}
 

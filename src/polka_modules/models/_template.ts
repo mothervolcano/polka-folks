@@ -1,6 +1,6 @@
 import { Path } from 'paper';
 
-import BaseModel from './baseModel';
+import Model from '../core/model';
 import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
@@ -12,7 +12,7 @@ const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class Model extends BaseModel {
+class NewModel extends Model {
 
 	
 	constructor( field: any, radius: number ) {
@@ -86,13 +86,13 @@ class Model extends BaseModel {
 }
 
 
-let instance: Model | null = null;
+let instance: NewModel | null = null;
 
-export function useModel( field: any, radius: number ): Model {
+export function drawNewModel( field: any, radius: number ): NewModel {
   
   if (!instance) {
 
-    instance = new Model( field, radius );
+    instance = new NewModel( field, radius );
   }
 
   return instance;

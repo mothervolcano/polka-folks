@@ -1,6 +1,7 @@
 import { Path } from 'paper';
 
-import BaseModel from './baseModel';
+import Model from '../core/model';
+
 import Orbital from '../attractors/orbital';
 import Spine from '../attractors/spine';
 import OrbitalField from '../attractors/orbitalField';
@@ -13,7 +14,7 @@ const GUIDES = '#06E7EF';
 
 
 
-class HairSpike extends BaseModel {
+class HairSpike extends Model {
 
 
 	private _length: number;

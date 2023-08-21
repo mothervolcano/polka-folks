@@ -5,6 +5,7 @@ import OrbitalField from '../attractors/orbitalField';
 
 import Pen from '../../lib/topo/tools/pen';
 import Plotter from '../../lib/topo/tools/plotter';
+import { convertToHyperPoint } from '../../lib/topo/utils/converters';
 
 import { metricsFor, PHIGREATER, PHILESSER, SIN54 } from '../styles/metrics';
 import { isEven, genRandom, genRandomDec } from '../../lib/topo/utils/helpers'
@@ -43,12 +44,14 @@ abstract class Archetype {
 	protected _headFeatureModels: any;
 
 
-	constructor( position: any, radius: any ) {
+	constructor( position: any, radius: number ) {
 
 		this._position = position;
 		this._radius = radius;
 
-		this._field = new OrbitalField( position, radius );
+		console.log(`-----> ${position}`)
+
+		this._field = new OrbitalField( convertToHyperPoint(position), radius );
 
 		this._pen = Pen.getInstance();
 		this._plotter = Plotter.getInstance();

@@ -1,6 +1,8 @@
+import { IHyperPoint, PointLike, SizeLike } from '../../lib/topo/types';
+
+import {validateSizeInput} from '../../lib/topo/utils/converters'
 import AttractorField from '../../lib/topo/core/attractorField';
 import Orbital from './orbital';
-import HyperPoint from '../../lib/topo/core/hyperPoint';
 
 import DebugDot from '../../lib/topo/utils/debugDot';
 
@@ -8,18 +10,13 @@ import DebugDot from '../../lib/topo/utils/debugDot';
 class OrbitalField extends AttractorField {
 
 
-	constructor( position: any, radius: number | number[], orientation: number = 1, polarity: number = 1 ) {
+	constructor( position: IHyperPoint | null, radius: SizeLike | number, orientation: number = 1, polarity: number = 1 ) {
 
-		super( position, radius, orientation, polarity )
-		
-		this.ID += `< OrbitalField`;
-
-		// this._TEMP_size = size;
+		super( position, validateSizeInput(radius), orientation, polarity );
 
 		this.render();
 
 		return this;
-
 	}
 
 	protected render() {
@@ -40,7 +37,7 @@ class OrbitalField extends AttractorField {
 
 		super.render( this._attractor._content );
 
-	}
+	};
 
 	protected adjustRotationToPosition( position: number ) {
 
@@ -55,7 +52,7 @@ class OrbitalField extends AttractorField {
 	};
 
 
-	protected calculateOrientation( i: number, anchor: HyperPoint ) {
+	protected calculateOrientation( i: number, anchor: IHyperPoint ) {
 
 		if ( anchor.position > 0.25 && anchor.position < 0.75 ) {
 
@@ -69,14 +66,14 @@ class OrbitalField extends AttractorField {
 	};
 
 
-	protected calculatePolarity( i: number, anchor: HyperPoint ) {
+	protected calculatePolarity( i: number, anchor: IHyperPoint ) {
 
 		return this.polarity;
 		
 	};
 
 
-	protected calculateRotation( att: any, anchor: HyperPoint ) {
+	protected calculateRotation( att: any, anchor: IHyperPoint ) {
 
 		// if ( anchor.position > 0.25 && anchor.position < 0.75 ) {
 

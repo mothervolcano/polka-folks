@@ -1,5 +1,8 @@
 import { Path, Group } from 'paper';
 
+import { PathLocationData, UnitIntervalNumber, IHyperPoint, PointLike, SizeLike } from '../../lib/topo/types';
+import { validateSizeInput} from '../../lib/topo/utils/converters'
+
 import AttractorObject from '../../lib/topo/core/attractorObject'
 import HyperPoint from '../../lib/topo/core/hyperPoint'
 
@@ -16,11 +19,9 @@ class Orbital extends AttractorObject {
 	private _fixedOrientation: boolean;
 
 
-	constructor( radius: number | number[], position: number | number[] = [0,0], orientation: number = null ) {
+	constructor( radius: SizeLike | number, position: PointLike = {x:0, y:0}, orientation: number = null ) {
 
-		super( radius, position );
-
-		this.ID += `< Orbital`;
+		super( validateSizeInput(radius), position );
 
 		this.radius = Array.isArray(radius) ? radius[0] : radius;
 
@@ -65,8 +66,7 @@ class Orbital extends AttractorObject {
 			strokeColor: '#00A5E0'
 		})
 
-		// this._path.fullySelected = true;
-		
+		/* DEBUG */
 		this.addOrientationArrow();
 
 		super.render( new Group( [ this._path, this._arrow ] ) );
@@ -98,7 +98,7 @@ class Orbital extends AttractorObject {
 	};
 
 
-	protected calculateLocation( at: number ): any { // TODO: cast type
+	protected getPathLocationDataAt( at: number ): PathLocationData {
 
 		const loc = this._path.getLocationAt( this._path.length * at );
 

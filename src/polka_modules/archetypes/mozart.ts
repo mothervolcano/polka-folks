@@ -1,6 +1,6 @@
 import { Layer, Path } from 'paper';
 
-import Archetype from './archetype';
+import Archetype from '../core/archetype';
 
 import { drawPompadourWig } from '../models/pompadourWig';
 import { drawAntoinetteWig } from '../models/antoinetteWig';
@@ -296,19 +296,19 @@ class Mozart extends Archetype {
 
 		// ------------------------------------------------------
 
-		this._hairModelsCatalog = [  ];
-		// this._hairModelsCatalog = [ antoinette, pompadour, curlDome ];
+		// this._hairModelsCatalog = [  ];
+		this._hairModelsCatalog = [ antoinette, pompadour, curlDome ];
 		
-		this._hairlinesCatalog = [  ];
-		// this._hairlinesCatalog = [ hairline, bangLine, mozartLine ];
+		// this._hairlinesCatalog = [  ];
+		this._hairlinesCatalog = [ hairline, bangLine, mozartLine ];
 
 		this._hairTailsCatalog = [  ];
 		// this._hairTailsCatalog = [ cascadeTail, wavyTail ];
 
 		this._earAccessoriesCatalog = [ earModelTest ];
 
-		this._neckAccessoriesCatalog = [  ];
-		// this._neckAccessoriesCatalog = [ necklace, jabot ];
+		// this._neckAccessoriesCatalog = [  ];
+		this._neckAccessoriesCatalog = [ necklace, jabot ];
 
 		// this._eyeFeaturesCatalog = [];
 		this._eyeFeaturesCatalog = [ lashesLeft, lashesRight ];

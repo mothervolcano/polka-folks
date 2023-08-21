@@ -1,6 +1,6 @@
 import { Path } from 'paper';
 
-import BaseModel from './baseModel';
+import Model from '../core/model';
 import Orbital from '../attractors/orbital';
 import SpinalField from '../attractors/spinalField';
 
@@ -12,7 +12,7 @@ const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class ArcWave extends BaseModel {
+class ArcWave extends Model {
 	
 		
 	private _num: number;

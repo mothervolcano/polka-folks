@@ -6,7 +6,7 @@ import { metricsFor, SIN9, SIN18, SIN36, SIN54, SIN72, PHIGREATER, PHILESSER } f
 
 
 
-abstract class BaseModel {
+abstract class Model {
 
 	protected _pen: any;
 	protected _path: any;
@@ -237,5 +237,5 @@ abstract class BaseModel {
 
 }
 
-export default BaseModel;
+export default Model;
 

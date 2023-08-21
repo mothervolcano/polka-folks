@@ -1,6 +1,7 @@
 import { Path } from 'paper';
 
-import BaseModel from './baseModel';
+import Model from '../core/model';
+
 import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 import SpinalField from '../attractors/spinalField';
@@ -14,7 +15,7 @@ const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class CascadingTail extends BaseModel {
+class CascadingTail extends Model {
 
 	
 	private _curlNum: number;

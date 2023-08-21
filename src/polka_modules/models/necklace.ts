@@ -1,6 +1,6 @@
 import { Path } from 'paper';
 
-import BaseModel from './baseModel';
+import Model from '../core/model';
 import Orbital from '../attractors/orbital';
 import Spine from '../attractors/spine';
 import OrbitalField from '../attractors/orbitalField';
@@ -12,7 +12,7 @@ const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class Necklace extends BaseModel {
+class Necklace extends Model {
 
 	
 	constructor( field: any, radius: any ) {
@@ -53,38 +53,38 @@ class Necklace extends BaseModel {
 
 		const field1 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
 
-		field1.addAttractor(  new Spine( this.position, distance), null );
-		field1.addAttractor(  new Spine( this.position, distance), null );
-		field1.addAttractor(  new Spine( this.position, distance), null );
-		field1.addAttractor(  new Spine( this.position, distance), null );
-		field1.addAttractor(  new Spine( this.position, distance), null );
+		field1.addAttractor(  new Spine( distance) );
+		field1.addAttractor(  new Spine( distance) );
+		field1.addAttractor(  new Spine( distance) );
+		field1.addAttractor(  new Spine( distance) );
+		field1.addAttractor(  new Spine( distance) );
 
 
 		// ..................................
 
 		const field2 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
 
-		field2.addAttractor(  new Spine( this.position, distance * 2 ), null );
-		field2.addAttractor(  new Spine( this.position, distance * 2 ), null );
-		field2.addAttractor(  new Spine( this.position, distance * 2 ), null );
-		field2.addAttractor(  new Spine( this.position, distance * 2 ), null );
+		field2.addAttractor(  new Spine( distance * 2 ) );
+		field2.addAttractor(  new Spine( distance * 2 ) );
+		field2.addAttractor(  new Spine( distance * 2 ) );
+		field2.addAttractor(  new Spine( distance * 2 ) );
 
 	
 		// ..................................
 
 		const field3 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
 
-		field3.addAttractor(  new Spine( this.position, distance * 3 ), null );
-		field3.addAttractor(  new Spine( this.position, distance * 3 ), null );
-		field3.addAttractor(  new Spine( this.position, distance * 3 ), null );
+		field3.addAttractor(  new Spine( distance * 3 ) );
+		field3.addAttractor(  new Spine( distance * 3 ) );
+		field3.addAttractor(  new Spine( distance * 3 ) );
 
 
 		// ..................................
 
 		const field4 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
 
-		field4.addAttractor(  new Spine( this.position, distance * 4 ), null );
-		field4.addAttractor(  new Spine( this.position, distance * 4 ), null );
+		field4.addAttractor(  new Spine( distance * 4 ) );
+		field4.addAttractor(  new Spine( distance * 4 ) );
 
 
 		

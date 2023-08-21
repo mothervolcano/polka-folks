@@ -1,6 +1,6 @@
 import { Layer, Path } from 'paper';
 
-import Archetype from './archetype';
+import Archetype from '../core/archetype';
 
 import { drawHairSpike } from '../models/hairSpike';
 import { drawHairShave } from '../models/hairShave';

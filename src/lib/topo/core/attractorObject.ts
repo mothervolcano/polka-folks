@@ -1,20 +1,20 @@
+import { PathLocationData, UnitIntervalNumber, BooleanLike, VectorDirection, IPoint, IHyperPoint, PointLike, SizeLike } from '../types';
+
 import DisplayObject from './displayObject';
 import HyperPoint from './hyperPoint';
 import { convertToHyperPoint } from '../utils/converters';
 
 abstract class AttractorObject extends DisplayObject {
 
-
-	// private _dimension: number // Required when Topo types will be finished
 	protected _orientation: number;
 	protected _polarity: number;
 
 	protected _path: any;
-	protected _anchor: any;
+	protected _anchor: IHyperPoint;
 
-	protected _radius: any;
+	protected _radius: SizeLike | number;
 
-	public axisAngle: number;
+	private _axisAngle: number;
 	
 	// STATES. Set at creation time and meant to preserve original settings during transformations and redrawing.
 	// The default is for the fields to organically adjust the attractors. These state properties allow to 
@@ -25,13 +25,10 @@ abstract class AttractorObject extends DisplayObject {
 	public isAxisLocked: boolean;
 
 
-	constructor( size: any, position: any = [0,0] ) {
+	constructor( size: SizeLike, position: PointLike = {x:0, y:0} ) {
 
 		super( position, size );
 
-		this.ID += `< AttractorObject`;
-
-		// this._dimension = null;
 		this._orientation = 1;
 		this._polarity = 1;
 
@@ -39,16 +36,17 @@ abstract class AttractorObject extends DisplayObject {
 
 		this._radius = null; // The radius value will depend on the type of attractor eg. Orbital, Spine and therefore it is defined by the subclass.
 
-		this.axisAngle = 0;
+		this._axisAngle = 0;
+		
 		this.isDisabled = false;
 		this.isAxisLocked = false;
 		this.isSelfAnchored = false;
 
 	};
 
-	protected calculateLocation( pt: any ): any {};
-	protected adjustToOrientation( value: number ): any {};
-	protected adjustToPolarity( value: number ): any {};
+	protected abstract getPathLocationDataAt( pos: number ): PathLocationData;
+	protected abstract adjustToOrientation( value: number ): any;
+	protected abstract adjustToPolarity( value: number ): any;
 
 
 	set orientation( value: number ) {
@@ -81,9 +79,21 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
+	set axisAngle( value: number ) {
+
+		this._axisAngle = value;
+	}
+
+
+	get axisAngle() {
+
+		return this._axisAngle;
+	}
+
+
 	// anchor is set when the attractor is placed in a field
 
-	set anchor( value: any ) {
+	set anchor( pt: IHyperPoint ) {
 
 		console.log(`!ERROR @${this.ID}: Anchor cannot be set directly. Attractor must be placed in and by a Field to be assigned an anchor`);
 
@@ -107,10 +117,12 @@ abstract class AttractorObject extends DisplayObject {
 		return convertToHyperPoint( this._path.bounds.center );
 	};
 
-	set radius( value: number ) {
+	set radius( value: SizeLike | number ) {
 
 		this._radius = value;
 	}
+
+	// TODO: Perhaps a base property called Dimension to apply to both Orbitals and Spines as it would respectively mean radius and length?
 
 	get radius() {
 
@@ -131,6 +143,7 @@ abstract class AttractorObject extends DisplayObject {
 
 	// at is provided by attractors that have paths that are non-linear ie. the input location doesn't match the mapped location.
 	private createAnchor({
+	    
 	    point,
 	    tangent,
 	    normal,
@@ -138,24 +151,12 @@ abstract class AttractorObject extends DisplayObject {
 	    pathLength,
 	    at,
 
-	}: {
-
-	    point: any;
-	    tangent: any; 
-	    normal: any; 
-	    curveLength: number;
-	    pathLength: number; 
-	    at: number; 
-
-	}) {
+	}: PathLocationData ): IHyperPoint {
 		
 		const factor = [0, 0.25, 0.50, 0.75 ].includes(at) ? 1/3 : curveLength/pathLength;
 
 		const hIn = tangent.multiply( curveLength * factor ).multiply( -1 );
 		const hOut = tangent.multiply( curveLength * factor );		
-
-		// const hIn = tangent.multiply( curveLength * 2/6 ).multiply( -1 );
-		// const hOut = tangent.multiply( curveLength * 2/6);
 
 		const anchor = new HyperPoint( point, hIn, hOut );
 
@@ -169,7 +170,7 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	public anchorAt( anchor: HyperPoint, along: string = 'RAY') {
+	public anchorAt( anchor: HyperPoint, along: VectorDirection = 'RAY'): void {
 
 		this._anchor = anchor;
 		this._anchor.spin = this._orientation;
@@ -192,30 +193,28 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	public extractPath( A: any, B: any ): any {
+	public extractPath( A: IHyperPoint | number, B: IHyperPoint | number ): any {
 
 		let P1;
 		let P2;
 
-		if ( A.point ) {
+		if ( typeof A === 'number' ) {
+
+			P1 = this.getPathLocationDataAt( A ).point;
+
+		} else if ( A.point ) {
 
 			P1 = this._path.getNearestLocation( A.point ).point;
 		}
 
-		if ( typeof A === 'number' ) {
-
-			P1 = this.calculateLocation( A ).point;
-		}
-
-
-		if ( B.point ) {
-
-			P2 = this._path.getNearestLocation( B.point ).point;
-		}
 
 		if ( typeof B === 'number' ) {
 
-			P2 = this.calculateLocation( B ).point;
+			P2 = this.getPathLocationDataAt( B ).point;
+
+		} else if ( B.point ) {
+
+			P2 = this._path.getNearestLocation( B.point ).point;
 		}
 
 
@@ -234,13 +233,13 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	public locate( position: any, orient: boolean = false  ): any { // TODO: cast type
+	public locate( at: number, orient: boolean = false  ): IHyperPoint | null { // TODO: cast type
 
-		const curveLocation = this.calculateLocation( position );
+		const locationData = this.getPathLocationDataAt( at );
 
-		if ( curveLocation ) {
+		if ( locationData ) {
 
-			const pt = this.createAnchor( curveLocation );
+			const pt = this.createAnchor( locationData );
 
 			if ( orient && this._orientation === -1 ) { return pt.flip() } 
 
@@ -248,14 +247,14 @@ abstract class AttractorObject extends DisplayObject {
 
 		} else {
 
-			console.log(`! ERROR @ ${this.ID}.locate() : Unable to locate the position`)
+			console.log(`! ERROR @AttractorObject.locate() : Unable to locate at`)
 
 			return null
 		}
 	};
 
 
-	public locateFirstIntersection( item: any, orient: boolean = false ): any { // TODO: returns a hyperpoint
+	public locateFirstIntersection( item: any, orient: boolean = false ): IHyperPoint { // TODO: returns a hyperpoint
 
 		if ( item instanceof AttractorObject ) {
 
@@ -284,7 +283,7 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	public locateLastIntersection( item: any, orient: boolean = false ): any {
+	public locateLastIntersection( item: any, orient: boolean = false ): IHyperPoint {
 
 		if ( item instanceof AttractorObject ) {
 
@@ -312,7 +311,7 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	public moveBy( by: number, along: any ) {
+	public moveBy( by: number, along: VectorDirection ) {
 
 		this._anchor.offsetBy( by, along );
 
@@ -330,7 +329,7 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	public scale( hor: number, ver: number ): any {
+	public scale( hor: number, ver: number ) {
 
 		this._content.scale( hor, ver );
 		this._radius = this._content.bounds.width;
@@ -338,7 +337,7 @@ abstract class AttractorObject extends DisplayObject {
 		return this;
 	};
 
-	public skew( vector: any ): any {
+	public skew( vector: IPoint ): any {
 
 		// this._path.scale( hor, ver )
 		this._content.shear( vector, this._path.position );

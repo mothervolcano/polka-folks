@@ -1,6 +1,7 @@
 import { Path } from 'paper';
 
-import BaseModel from './baseModel';
+import Model from '../core/model';
+
 import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
@@ -10,7 +11,7 @@ const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class HairCurtainHide extends BaseModel {
+class HairCurtainHide extends Model {
 
 
 	

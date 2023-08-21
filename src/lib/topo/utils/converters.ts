@@ -1,5 +1,7 @@
 import { Point, Segment } from 'paper';
 
+import { BooleanLike, IHyperPoint, IPoint, PointLike, SizeLike } from '../types';
+
 import HyperPoint from '../core/hyperPoint'
 
 
@@ -9,7 +11,7 @@ export function convertToPoint( pt: any ) {
 }
 
 
-export function convertToSegment( pt: any, withInHandle: boolean | 0 | 1 = true, withOutHandle: boolean | 0 | 1 = true ) {
+export function convertToSegment( pt: any, withInHandle: BooleanLike = true, withOutHandle: BooleanLike = true ) {
 
   const includeInHandle = Boolean( withInHandle );
   const includeOutHandle = Boolean( withOutHandle );    
@@ -30,18 +32,20 @@ export function convertToSegment( pt: any, withInHandle: boolean | 0 | 1 = true,
 }
 
 
-export function convertToHyperPoint( pt: any ) {
+export function convertToHyperPoint( pt: PointLike ): IHyperPoint {
 
-  const P = new HyperPoint( pt, null, null );
+  const P = new HyperPoint( pt );
   P.spin = 1;
 
-  return P;
+  return P as IHyperPoint;
 }
 
 
 
-export function validatePointInput(input: any): any {
+export function validatePointInput(input: any): IPoint {
 	  
+  if ( input === null ) { return null };
+
   if (Array.isArray(input) && input.length === 2) {
     
     let x = input[0];
@@ -119,7 +123,7 @@ export function validatePointInput(input: any): any {
 
 
 
-export function validateSizeInput( input: any ): any {
+export function validateSizeInput( input: any ): [number, number] {
     
   let validWidth = undefined;
   let validHeight = undefined;

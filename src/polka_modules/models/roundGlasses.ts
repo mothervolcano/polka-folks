@@ -1,6 +1,6 @@
 import { Path } from 'paper';
 
-import BaseModel from './baseModel';
+import Model from '../core/model';
 import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
@@ -13,7 +13,7 @@ const GUIDES = '#06E7EF';
 
 
 
-class RoundGlasses extends BaseModel {
+class RoundGlasses extends Model {
 
 	private _glassSize;
 

@@ -1,6 +1,6 @@
 import { Path } from 'paper';
 
-import BaseModel from './baseModel';
+import Model from '../core/model';
 import Orbital from '../attractors/orbital';
 import Spine from '../attractors/spine';
 import OrbitalField from '../attractors/orbitalField';
@@ -15,7 +15,7 @@ const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class HelgaHair extends BaseModel {
+class HelgaHair extends Model {
 
 	
 	constructor( field: any, radius: number ) {
@@ -91,10 +91,10 @@ class HelgaHair extends BaseModel {
 
 		// const att = new Orbital( [0, 0], [ field.length * elasticSizeRatio * wRatio, field.length * elasticSizeRatio * hRatio] );
 
-		const attL = new Spine( O, field.length * elasticSizeRatio );
-		const attR = new Spine( O, field.length * elasticSizeRatio );
-		const att1 = new Spine( O, field.length * elasticSizeRatio * this.PHILESSER );
-		const att2 = new Spine( O, field.length * elasticSizeRatio * this.PHILESSER );
+		const attL = new Spine( field.length * elasticSizeRatio );
+		const attR = new Spine( field.length * elasticSizeRatio );
+		const att1 = new Spine( field.length * elasticSizeRatio * this.PHILESSER );
+		const att2 = new Spine( field.length * elasticSizeRatio * this.PHILESSER );
 
 		field.addAttractors( [ attL, att1, att2, attR ] );
 
