@@ -1,0 +1,154 @@
+import { Path } from 'paper';
+
+import BaseModel from './baseModel';
+import Orbital from '../attractors/orbital';
+import Spine from '../attractors/spine';
+import OrbitalField from '../attractors/orbitalField';
+import SpinalField from '../attractors/spinalField';
+
+import { markPoint } from '../../lib/topo/utils/helpers';
+
+const DEBUG_GREEN = '#10FF0C';
+const GUIDES = '#06E7EF';
+
+
+class Necklace extends BaseModel {
+
+	
+	constructor( field: any, radius: any ) {
+
+		super( field, radius );
+
+	};
+
+
+	public configure() {
+
+
+	};
+
+
+	public plot( params: any, a: number, b: number ) {
+
+
+		const { } = params;
+
+		// ..........................................................
+		// set the parameters
+
+		const num = 5;
+		const distance = 30;
+		let compression;
+
+
+		// ..........................................................
+		// determine the key points
+
+		const A = this.field.getAttractor().locate(a);
+		const B = this.field.getAttractor().locate(b);
+
+
+		// ..........................................................
+		// build the fields
+
+		const field1 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
+
+		field1.addAttractor(  new Spine( this.position, distance), null );
+		field1.addAttractor(  new Spine( this.position, distance), null );
+		field1.addAttractor(  new Spine( this.position, distance), null );
+		field1.addAttractor(  new Spine( this.position, distance), null );
+		field1.addAttractor(  new Spine( this.position, distance), null );
+
+
+		// ..................................
+
+		const field2 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
+
+		field2.addAttractor(  new Spine( this.position, distance * 2 ), null );
+		field2.addAttractor(  new Spine( this.position, distance * 2 ), null );
+		field2.addAttractor(  new Spine( this.position, distance * 2 ), null );
+		field2.addAttractor(  new Spine( this.position, distance * 2 ), null );
+
+	
+		// ..................................
+
+		const field3 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
+
+		field3.addAttractor(  new Spine( this.position, distance * 3 ), null );
+		field3.addAttractor(  new Spine( this.position, distance * 3 ), null );
+		field3.addAttractor(  new Spine( this.position, distance * 3 ), null );
+
+
+		// ..................................
+
+		const field4 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
+
+		field4.addAttractor(  new Spine( this.position, distance * 4 ), null );
+		field4.addAttractor(  new Spine( this.position, distance * 4 ), null );
+
+
+		
+		// ..........................................................
+		// transform the fields
+
+
+		compression = 1/(field1.length/(num*3));
+		field2.compress(compression, 1-compression);
+		
+
+		compression = 1/(field1.length/(num*6));
+		field3.compress(compression, 1-compression);
+
+		
+		compression = 1/(field1.length/(num*9));
+		field4.compress(compression, 1-compression);
+		
+
+
+		// ..........................................................
+		// plot the points for drawing
+
+
+		const paths1 = [ 'L(0)', ...field1.locate( 0 ).map( (P) => new Orbital( P, 10 ).path ) ];
+
+		const paths2 = [ 'L(0)', ...field2.locate( 0 ).map( (P) => new Orbital( P, 6 ).path ) ];
+
+		const paths3 = [ 'L(0)', ...field3.locate( 0 ).map( (P) => new Orbital( P, 5 ).path ) ];
+
+		const paths4 = [ 'L(0)', ...field4.locate( 0 ).map( (P) => new Orbital( P, 4 ).path ) ];
+
+		// ..............................................
+
+		// const path = new Path({ 
+
+		// 	strokeColor: DEBUG_GREEN,
+		// 	strokeWidth: 2
+		// });
+
+		// this.pen.setPath( path );
+		// this.pen.add( [  P, ...pts ] );
+		// // this.pen.mirrorRepeat('HOR');
+
+		const instructions = {
+
+			level: 0,
+			gradient: null
+		}
+
+		return [ instructions, paths1, paths2, paths3, paths4 ];
+
+	};
+}
+
+
+let instance: Necklace | null = null;
+
+export function drawNecklace( field: any, radius: any ): Necklace {
+  
+  if (!instance) {
+
+    instance = new Necklace( field, radius );
+  }
+
+  return instance;
+};
