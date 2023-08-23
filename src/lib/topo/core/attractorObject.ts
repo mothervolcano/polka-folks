@@ -34,7 +34,7 @@ abstract class AttractorObject extends DisplayObject {
 
 		this._anchor = convertToHyperPoint(position);
 
-		this._radius = null; // The radius value will depend on the type of attractor eg. Orbital, Spine and therefore it is defined by the subclass.
+		this._radius = 0; // The radius value will depend on the type of attractor eg. Orbital, Spine and therefore it is defined by the subclass.
 
 		this._axisAngle = 0;
 		
@@ -95,7 +95,7 @@ abstract class AttractorObject extends DisplayObject {
 
 	set anchor( pt: IHyperPoint ) {
 
-		console.log(`!ERROR @${this.ID}: Anchor cannot be set directly. Attractor must be placed in and by a Field to be assigned an anchor`);
+		console.log(`!ERROR @AttractorObject: Anchor cannot be set directly. Attractor must be placed in and by a Field to be assigned an anchor`);
 
 		// this._anchor = value;
 	};
