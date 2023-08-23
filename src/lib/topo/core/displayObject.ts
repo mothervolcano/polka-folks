@@ -185,7 +185,7 @@ abstract class DisplayObject {
    */
 	set position( input: any ) {
 
-		this.placeAt( input, null );
+		this.placeAt( input );
 	}
 
 
@@ -310,7 +310,7 @@ abstract class DisplayObject {
 
    */
 
-	public placeAt( position: PointLike, pivot: PointLike ): void {
+	public placeAt( position: PointLike, pivot?: PointLike ): void {
 
 		this.updatePosition( position );
 

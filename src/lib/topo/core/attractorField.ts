@@ -19,7 +19,7 @@ abstract class AttractorField extends DisplayNode {
 	private _axisAngle: number;
 	
 
-	constructor(  position: PointLike | null, size: SizeLike, orientation: number = 1, polarity: number = 1 ) {
+	constructor(  position: PointLike, size: SizeLike, orientation: number = 1, polarity: number = 1 ) {
 
 		super( position, size )
 
@@ -134,9 +134,9 @@ abstract class AttractorField extends DisplayNode {
 		} 
 	};
 
-	public getAttractor( i: number = null ): any {
+	public getAttractor( i?: number ): any {
 
-		if ( i !== null ) {
+		if ( typeof i === 'number' ) {
 
 			return this.getChild( i );
 
@@ -144,7 +144,6 @@ abstract class AttractorField extends DisplayNode {
 
 			return this._attractor;
 		}
-
 	};
 
 
@@ -182,7 +181,7 @@ abstract class AttractorField extends DisplayNode {
 
 	// }
 
-	public addAttractor( attractor: any, at: number = null ): void {
+	public addAttractor( attractor: any, at?: number ): void {
 
 		// super.addAttractor( attractor )
 
@@ -193,7 +192,7 @@ abstract class AttractorField extends DisplayNode {
 		// ------------------------------------------------------------
 		// 	
 
-		if ( at !== null ) {
+		if ( typeof at === 'number' ) {
 
 			const anchor = this._attractor.locate( at );
 

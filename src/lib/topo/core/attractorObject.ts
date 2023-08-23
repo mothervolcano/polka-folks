@@ -254,7 +254,7 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	public locateFirstIntersection( item: any, orient: boolean = false ): IHyperPoint { // TODO: returns a hyperpoint
+	public locateFirstIntersection( item: any, orient: boolean = false ) { // TODO: returns a hyperpoint
 
 		if ( item instanceof AttractorObject ) {
 
@@ -283,7 +283,7 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	public locateLastIntersection( item: any, orient: boolean = false ): IHyperPoint {
+	public locateLastIntersection( item: any, orient: boolean = false ) {
 
 		if ( item instanceof AttractorObject ) {
 
@@ -315,7 +315,7 @@ abstract class AttractorObject extends DisplayObject {
 
 		this._anchor.offsetBy( by, along );
 
-		this.placeAt( this._anchor.point, null );
+		this.placeAt( this._anchor.point );
 
 		return this;
 	};
