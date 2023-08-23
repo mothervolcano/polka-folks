@@ -1,21 +1,10 @@
 import { Layer } from 'paper';
 import { paperScope } from './components/paperStage';
 
-import Orbital from './polka_modules/attractors/orbital'
-import OrbitalField from './polka_modules/attractors/orbitalField'
-import SpinalField from './polka_modules/attractors/spinalField'
-import Spine from './polka_modules/attractors/spine'
-import Eclipse from './polka_modules/attractors/eclipse'
-import EclipseField from './polka_modules/attractors/eclipseField'
-
-// import Head from './models/head'
-
 import Nerd from './polka_modules/archetypes/olga';
 import Punk from './polka_modules/archetypes/syd';
 import Baroque from './polka_modules/archetypes/mozart';
 import Monk from './polka_modules/archetypes/monk';
-
-import DebugDot from './lib/topo/utils/debugDot'
 
 import { markPoint } from './lib/topo/utils/helpers';
 
