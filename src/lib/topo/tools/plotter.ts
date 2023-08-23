@@ -28,9 +28,9 @@ class Plotter {
 
 	public getPlot( LABEL: string ) {
 
-		const plots = [];
+		const plots: any[] = [];
 
-		this._chart.forEach( ( plot, hpts ) => {
+		this._chart.forEach( ( plot: any, hpts: any[] ) => {
 
 			if ( plot.label === LABEL ) {
 
