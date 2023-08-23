@@ -44,7 +44,7 @@ export function convertToHyperPoint( pt: PointLike ): IHyperPoint {
 
 export function validatePointInput(input: any): IPoint {
 	  
-  if ( input === null ) { return null };
+  if ( input === null ) { return new Point(0,0) };
 
   if (Array.isArray(input) && input.length === 2) {
     
@@ -123,10 +123,10 @@ export function validatePointInput(input: any): IPoint {
 
 
 
-export function validateSizeInput( input: any ) {
+export function validateSizeInput( input: any ): [number, number] {
     
-  let validWidth = undefined;
-  let validHeight = undefined;
+  let validWidth = 0;
+  let validHeight = 0;
 
   if ( typeof input === 'number' ) {
 

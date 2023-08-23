@@ -1,6 +1,6 @@
 import { IHyperPoint, PointLike, SizeLike } from '../../lib/topo/types';
 
-import {validateSizeInput} from '../../lib/topo/utils/converters'
+import { validatePointInput, validateSizeInput } from '../../lib/topo/utils/converters'
 import AttractorField from '../../lib/topo/core/attractorField';
 import Orbital from './orbital';
 
@@ -12,7 +12,7 @@ class OrbitalField extends AttractorField {
 
 	constructor( position: IHyperPoint | null, radius: SizeLike | number, orientation: number = 1, polarity: number = 1 ) {
 
-		super( position, validateSizeInput(radius), orientation, polarity );
+		super( validatePointInput(position), validateSizeInput(radius), orientation, polarity );
 
 		this.render();
 

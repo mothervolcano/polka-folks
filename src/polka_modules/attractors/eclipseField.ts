@@ -1,5 +1,5 @@
 import { IHyperPoint, PointLike, SizeLike } from '../../lib/topo/types';
-import { validateSizeInput } from '../../lib/topo/utils/converters'
+import { validatePointInput, validateSizeInput } from '../../lib/topo/utils/converters'
 
 import AttractorField from '../../lib/topo/core/attractorField';
 import Eclipse from './eclipse';
@@ -15,7 +15,7 @@ class EclipseField extends AttractorField {
 
 	constructor( position: IHyperPoint | null, size: SizeLike | number, orientation: number = 1, polarity: number = 1 ) {
 
-		super( position, validateSizeInput(size), orientation, polarity )
+		super( validatePointInput(position), validateSizeInput(size), orientation, polarity )
 
 		this.threshold = 0.5;
 
