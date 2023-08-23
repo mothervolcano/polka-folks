@@ -17,7 +17,8 @@ class HyperPoint {
 	private _spin: number;
 	private _polarity: number;
 
-	private AXIS = {
+	private AXIS: any = {
+	    
 	    'TAN': null,
 	    'RAY': null,
 	    'VER': null,
@@ -49,6 +50,9 @@ class HyperPoint {
 		this._spin = 1;
 		this._polarity = 1;
 
+		this._position = 0;
+
+		/* DEBUG */
 		this._debugGuides = new Group();
 
 		// this._debugPath1 = new Path()
@@ -199,8 +203,8 @@ class HyperPoint {
 		const includeInHandle = Boolean(withInHandle);
 		const includeOutHandle = Boolean(withOutHandle);		
 		
-		let hIn = null;
-		let hOut = null;
+		let hIn;
+		let hOut;
 
 		 if (includeInHandle ) {
 		   hIn = this._handleIn;
