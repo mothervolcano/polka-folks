@@ -56,7 +56,7 @@ class Pen {
 	// lA: A handleOut length factor;
 	// lB: B handleIn length factor;
 
-	private plotCurve( t, height, lA, lB ) {
+	private plotCurve( t:number, height:number, lA:number, lB:number ) {
 
 		const a = this.B.point.subtract( this.A.point ).angle;
 		const d = this.A.point.getDistance( this.B.point );
@@ -150,7 +150,7 @@ class Pen {
 	};
 
 
-	private plotFlowCurve( lA, lB ) {
+	private plotFlowCurve( lA:number, lB:number ) {
 
 		const a = this.B.point.subtract(this.A.point).angle;
 		const d = this.A.point.getDistance(this.B.point);
@@ -310,7 +310,7 @@ class Pen {
 	};
 
 
-	public addFlowCurveTo( hpt, handlesLength, hasABhandles ) {
+	public addFlowCurveTo( hpt: any, handlesLength: number, hasABhandles: number | [number, number] ) {
 
 		// check if a segment already exists at the same location
 
@@ -330,15 +330,15 @@ class Pen {
 			}
 		}
 
-		let hasHOut = true;
-		let hasHIn = true;
+		let hasHOut: number | boolean = true;
+		let hasHIn: number | boolean = true;
 
 		if ( hasABhandles != undefined ) {
 
 			if ( Array.isArray( hasABhandles ) )
 			{
-				hasHOut = hasABhandles[0];
-				hasHIn = hasABhandles[1];
+				hasHOut = Boolean(hasABhandles[0]);
+				hasHIn = Boolean(hasABhandles[1]);
 
 			} else { 
 
