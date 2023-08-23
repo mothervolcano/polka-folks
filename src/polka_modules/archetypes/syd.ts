@@ -131,7 +131,7 @@ class Syd extends Archetype {
 		
 		let plots;
 		let sgms;
-		let instructions;
+		let instructions: any;
 
 
 		// -----------------------------------------------------
@@ -142,7 +142,7 @@ class Syd extends Archetype {
 
 			instructions = plot?.shift();
 
-			plot.forEach( (nPlot) => {
+			plot.forEach( (nPlot: any) => {
 
 				if ( Array.isArray(nPlot) ) {
 
@@ -150,7 +150,7 @@ class Syd extends Archetype {
 
 					nPlot.forEach( (path) => {
 
-						this[`l${ nInstructions.level }`].addChild( renderHair( path, this._colorScheme, nInstructions.gradient ) )
+						this[`l${ nInstructions.level }` as keyof Syd].addChild( renderHair( path, this._colorScheme, nInstructions.gradient ) )
 						
 						// path.fullySelected = true;
 
@@ -160,7 +160,7 @@ class Syd extends Archetype {
 
 					const path = nPlot;
 
-					this[`l${instructions.level}`].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+					this[`l${instructions.level}` as keyof Syd].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
 				}
 			});
 		};
@@ -323,7 +323,7 @@ class Syd extends Archetype {
 	// PUBLIC METHODS
 
 
-	public generate( params) {
+	public generate( params: any ) {
 
 		const { headParams, eyeParams, noseParams, archetypeParams } = params;
 		const { } = archetypeParams;
@@ -334,7 +334,7 @@ class Syd extends Archetype {
 
 		this._colorScheme = { ...colors.punkPolka } ;
 		this._colorScheme.skin = this._colorScheme.skin[ genRandom(0, this._colorScheme.skin.length-1) ];
-		this._colorScheme.hair = this._colorScheme.hair.filter( (c) => c !== this._colorScheme.skin );
+		this._colorScheme.hair = this._colorScheme.hair.filter( (c: any) => c !== this._colorScheme.skin );
 		this._colorScheme.hair = this._colorScheme.hair[ genRandom(0, this._colorScheme.hair.length-1) ];
 
 		
@@ -366,7 +366,7 @@ class Syd extends Archetype {
 	};
 
 
-	public model( params ) {
+	public model( params: any ) {
 
 		const { headParams, eyeParams, noseParams, archetypeParams } = params;
 		const { spikeNumCtrl, spikeLengthCtrl, spikeSharpnessCtrl, spikeSpreadCtrl, shrinkRateCtrl, shaveDotsDensity } = archetypeParams;

@@ -293,7 +293,7 @@ class Olga extends Archetype {
 
 		let plots;
 		let sgms;
-		let instructions;
+		let instructions: any;
 
 
 		// -----------------------------------------------------
@@ -311,7 +311,7 @@ class Olga extends Archetype {
 
 				nPlot.forEach( (path) => {
 
-					this[`l${instructions.level}`].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+					this[`l${instructions.level}` as keyof Olga].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
 
 				})
 
@@ -321,7 +321,7 @@ class Olga extends Archetype {
 
 				if ( instructions.complete ) {
 
-					this[`l${instructions.level}`].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+					this[`l${instructions.level}` as keyof Olga].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
 
 				} else {
 
@@ -343,7 +343,7 @@ class Olga extends Archetype {
 
 			if ( instructions.complete ) {
 				
-				this[`l${instructions.level}`].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+				this[`l${instructions.level}` as keyof Olga].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
 
 			} else {
 
@@ -370,7 +370,7 @@ class Olga extends Archetype {
 					path.strokeColor = colors.CHART.get(this._colorScheme.skin).contrast.hex;
 					path.strokeWidth = instructions.thickness;
 
-					this[`l${instructions.level}`].addChild( path );
+					this[`l${instructions.level}` as keyof Olga].addChild( path );
 				})
 
 			} else {
@@ -407,7 +407,7 @@ class Olga extends Archetype {
 	// PUBLIC METHODS
 
 
-	public generate( params ) {
+	public generate( params: any ) {
 
 		const { headParams, eyeParams, noseParams, archetypeParams } = params;
 		const { } = archetypeParams;
@@ -418,7 +418,7 @@ class Olga extends Archetype {
 
 		this._colorScheme = { ...colors.punkPolka } ;
 		this._colorScheme.skin = this._colorScheme.skin[ genRandom(0, this._colorScheme.skin.length-1) ];
-		this._colorScheme.hair = this._colorScheme.hair.filter( (c) => c !== this._colorScheme.skin );
+		this._colorScheme.hair = this._colorScheme.hair.filter( (c: any) => c !== this._colorScheme.skin );
 		this._colorScheme.hair = this._colorScheme.hair[ genRandom(0, this._colorScheme.hair.length-1) ];
 
 
@@ -449,7 +449,7 @@ class Olga extends Archetype {
 	};
 
 
-	public model( params ) {
+	public model( params: any ) {
 
 		const { headParams, eyeParams, noseParams, archetypeParams } = params;
 		const { splitLat, splitAperture } = archetypeParams;

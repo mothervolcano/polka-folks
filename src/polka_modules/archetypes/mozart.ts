@@ -343,8 +343,7 @@ class Mozart extends Archetype {
 
 		let plots;
 		let sgms;
-		let instructions;
-
+		let instructions: any;
 
 		// ............................................................
 
@@ -354,15 +353,15 @@ class Mozart extends Archetype {
 
 			instructions = plot?.shift();
 
-			plot.forEach( (nPlot) => {
+			plot.forEach( (nPlot: any) => {
 
 				if ( Array.isArray(nPlot) ) {
 
-					const nInstructions = nPlot.shift();
+					const nInstructions: any = nPlot.shift();
 
 					nPlot.forEach( (path) => {
 
-						this[`l${ nInstructions.level }`].addChild( renderHair( path, this._colorScheme, nInstructions.gradient ) )
+						this[`l${ nInstructions.level }` as keyof Mozart ].addChild( renderHair( path, this._colorScheme, nInstructions.gradient ) )
 						
 						// path.fullySelected = true;
 
@@ -372,7 +371,7 @@ class Mozart extends Archetype {
 
 					const path = nPlot;
 
-					this[`l${instructions.level}`].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+					this[`l${instructions.level}` as keyof Mozart ].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
 				}
 			});
 		};
@@ -405,7 +404,7 @@ class Mozart extends Archetype {
 
 			if ( instructions.complete ) {
 
-				this[`l${instructions.level}`].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+				this[`l${instructions.level}` as keyof Mozart ].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
 
 			} else {
 
@@ -423,7 +422,7 @@ class Mozart extends Archetype {
 
 			instructions = plot?.shift();
 
-			plot.forEach( ( nPlot ) => {
+			plot.forEach( ( nPlot: any ) => {
 
 				if ( Array.isArray( nPlot ) ) {
 
@@ -498,7 +497,7 @@ class Mozart extends Archetype {
 
 				const path = plot[0];
 				// earwear.fullySelected = true;
-				this[`l${instructions.level}`].addChild( renderEye( path, this._colorScheme, instructions.gradient ) );
+				this[`l${instructions.level}` as keyof Mozart].addChild( renderEye( path, this._colorScheme, instructions.gradient ) );
 			}
 		};
 
@@ -528,7 +527,7 @@ class Mozart extends Archetype {
 
 				const path = plot[0];
 				// earwear.fullySelected = true;
-				this[`l${instructions.level}`].addChild( renderFaceFeature( path, this._colorScheme, instructions.gradient ) );
+				this[`l${instructions.level}` as keyof Mozart].addChild( renderFaceFeature( path, this._colorScheme, instructions.gradient ) );
 			}
 		};
 
@@ -556,7 +555,7 @@ class Mozart extends Archetype {
 	// PUBLIC METHODS
 
 
-	public generate( params ) {
+	public generate( params: any ) {
 
 		const { headParams, eyeParams, noseParams, archetypeParams } = params;
 		const { } = archetypeParams;
@@ -567,7 +566,7 @@ class Mozart extends Archetype {
 
 		this._colorScheme = { ...colors.baroquePolka } ;
 		this._colorScheme.skin = this._colorScheme.skin[ genRandom(0, this._colorScheme.skin.length-1) ];
-		this._colorScheme.hair = this._colorScheme.hair.filter( (c) => c !== this._colorScheme.skin );
+		this._colorScheme.hair = this._colorScheme.hair.filter( (c:any) => c !== this._colorScheme.skin );
 		this._colorScheme.hair = this._colorScheme.hair[ genRandom(0, this._colorScheme.hair.length-1) ];
 
 
@@ -598,7 +597,7 @@ class Mozart extends Archetype {
 	};
 
 
-	public model( params ) {
+	public model( params: any ) {
 
 		const { headParams, eyeParams, noseParams, archetypeParams } = params;
 		const { hairlineRidgeCtrl, hairlineLevelCtrl, heightCtrl, curlNumCtrl, spanCtrl, testCtrl } = archetypeParams;
