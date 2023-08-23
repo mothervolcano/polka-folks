@@ -1,3 +1,5 @@
+import { Layer } from 'paper';
+import { paperScope } from './components/paperStage';
 
 import Orbital from './polka_modules/attractors/orbital'
 import OrbitalField from './polka_modules/attractors/orbitalField'
@@ -17,7 +19,7 @@ import DebugDot from './lib/topo/utils/debugDot'
 
 import { markPoint } from './lib/topo/utils/helpers';
 
-declare const paper: any;
+// declare const paper: any;
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -33,21 +35,9 @@ let polka: any
 
 export function reset() {
 
-  // if ( polka ) {
-
-  //   polka.clear();
-
-  // } else {
-
-  //   paper.project.clear();
-  //   view = paper.project.view
-  //   layer = new paper.Layer()
-
-  // }
-
-    paper.project.clear();
-    view = paper.project.view
-    layer = new paper.Layer()
+    paperScope.project.clear();
+    view = paperScope.project.view
+    layer = new Layer()
 };
 
 
