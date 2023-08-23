@@ -233,7 +233,7 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	public locate( at: number, orient: boolean = false  ): IHyperPoint | null { // TODO: cast type
+	public locate( at: number, orient: boolean = false  ) { 
 
 		const locationData = this.getPathLocationDataAt( at );
 
@@ -247,9 +247,7 @@ abstract class AttractorObject extends DisplayObject {
 
 		} else {
 
-			console.log(`! ERROR @AttractorObject.locate() : Unable to locate at`)
-
-			return null
+			throw new Error( `! ERROR @AttractorObject.locate() : Unable to locate at ${at}`);
 		}
 	};
 
