@@ -123,7 +123,7 @@ export function validatePointInput(input: any): IPoint {
 
 
 
-export function validateSizeInput( input: any ): [number, number] {
+export function validateSizeInput( input: any ) {
     
   let validWidth = undefined;
   let validHeight = undefined;

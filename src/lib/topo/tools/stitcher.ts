@@ -127,7 +127,7 @@ export function mid( hpt1: any, hpt2: any ) {
 }
 
 
-export function curve( A, B, lA: number = 2/3, lB: number = 2/3 ) {
+export function curve( A: any, B: any, lA: number = 2/3, lB: number = 2/3 ) {
 
 	const _A = convertToSegment( A );
 	const _B = convertToSegment( B );

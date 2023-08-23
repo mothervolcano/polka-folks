@@ -80,13 +80,13 @@ export function markPoint( point: any ) {
         });
 }
 
-export function normalize( val, min, max ) 
+export function normalize( val: number, min: number, max: number ) 
 { 
     return (val - min) / (max - min);
 }
 
 
-export function traceSegment( sgm ) {
+export function traceSegment( sgm: any ) {
   
 
     new Path({segments: [ sgm.point, sgm.point.add(sgm.handleOut) ], strokeColor: '#02B7FD'})
