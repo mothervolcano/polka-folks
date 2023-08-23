@@ -66,7 +66,20 @@ class Olga extends Archetype {
 		// ---------------------------------------------
 
 
-		const hairDome = {
+		interface ModelConfig {
+
+			create: (field:any, radius: number) => void; //TODO finish: f can be an AttractorField or AttractorObject
+			use: Function | null; //TODO the type is a model
+			owner: any;
+			type: string;
+			size: number;
+			settings: any[];
+			params: any[];
+			compats: any[];
+		}
+
+
+		const hairDome: ModelConfig = {
 
 			create: (f,r) => drawHairDome(f,r),
 			use: null,
@@ -78,7 +91,7 @@ class Olga extends Archetype {
 			compats: []
 		};
 
-		const ionicHair = {
+		const ionicHair: ModelConfig = {
 
 			create: (f,r) => drawIonicHair(f,r),
 			use: null,
@@ -90,7 +103,7 @@ class Olga extends Archetype {
 			compats: []
 		};
 
-		const dennisHair = {
+		const dennisHair: ModelConfig = {
 
 			create: (f,r) => drawDennisHair(f,r),
 			use: null,
@@ -102,7 +115,7 @@ class Olga extends Archetype {
 			compats: []
 		};
 
-		const hairCurtainHide = {
+		const hairCurtainHide: ModelConfig = {
 
 			create: (f,r) => drawHairCurtainHide(f,r),
 			use: null,
@@ -114,7 +127,7 @@ class Olga extends Archetype {
 			compats: []
 		}
 
-		const hairCape = {
+		const hairCape: ModelConfig = {
 
 			create: (f,r) => drawHairCapeTail(f,r),
 			use: null,
@@ -126,7 +139,7 @@ class Olga extends Archetype {
 			compats: []
 		}
 
-		const hairCap = {
+		const hairCap: ModelConfig = {
 
 			create: (f,r) => drawHairCap(f,r),
 			use: null,
@@ -139,7 +152,7 @@ class Olga extends Archetype {
 		}
 
 
-		const hairCurtain = {
+		const hairCurtain: ModelConfig = {
 
 			create: (f,r) => drawHairCurtain(f,r),
 			use: null,
@@ -151,7 +164,7 @@ class Olga extends Archetype {
 			compats: []
 		}
 
-		const bangs = {
+		const bangs: ModelConfig = {
 
 			create: (f,r) => drawBangHairline(f,r),
 			use: null,
@@ -163,7 +176,7 @@ class Olga extends Archetype {
 			compats: []
 		}
 
-		const billyFlaps = {
+		const billyFlaps: ModelConfig = {
 
 			create: (f,r) => drawBillyHairFlaps(f,r),
 			use: null,
@@ -175,7 +188,7 @@ class Olga extends Archetype {
 			compats: []
 		}
 
-		const arcPattern = {
+		const arcPattern: ModelConfig = {
 
 			create: (f,r) => drawArcWave(f,r),
 			use: null,
@@ -187,7 +200,7 @@ class Olga extends Archetype {
 			compats: []
 		}
 
-		const zigzag = {
+		const zigzag: ModelConfig = {
 
 			create: (f,r) => drawArcWave(f,r),
 			use: null,
@@ -199,7 +212,7 @@ class Olga extends Archetype {
 			compats: []
 		}
 
-		const roundGlasses = {
+		const roundGlasses: ModelConfig = {
 
 			create: (f,r) => drawRoundGlasses(f,r),
 			use: null,
@@ -211,7 +224,7 @@ class Olga extends Archetype {
 			compats: []
 		}
 
-		const billyMonkHair = {
+		const billyMonkHair: ModelConfig = {
 
 			create: (f,r) => drawBillyMonkHair(f,r),
 			use: null,
@@ -223,7 +236,7 @@ class Olga extends Archetype {
 			compats: []
 		}
 
-		const hairModelTest = {
+		const hairModelTest: ModelConfig = {
 
 			create: (f,r) => drawHairModelTest(f,r),
 			use: null,

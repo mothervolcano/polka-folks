@@ -75,9 +75,22 @@ class Mozart extends Archetype {
 		
 		// ---------------------------------------
 
-		const antoinette = {
 
-			create: (f,s) => drawAntoinetteWig(f,s),
+		interface ModelConfig {
+
+			create: (field:any, radius: number) => void; //TODO finish: f can be an AttractorField or AttractorObject
+			use: Function | null; //TODO the type is a model
+			owner: any;
+			size: number;
+			settings: any[];
+			params: any[];
+			compats: any[];
+		}
+
+
+		const antoinette: ModelConfig = {
+
+			create: (f,r) => drawAntoinetteWig(f,r),
 			use: null,
 			owner: null,
 			size: this.PHI.XL,
@@ -86,9 +99,9 @@ class Mozart extends Archetype {
 			compats: []
 		}
 
-		const pompadour = {
+		const pompadour: ModelConfig = {
 
-			create: (f,s) => drawPompadourWig(f,s),
+			create: (f,r) => drawPompadourWig(f,r),
 			use: null,
 			owner: null,
 			size: this.SIN.XL,
@@ -97,9 +110,9 @@ class Mozart extends Archetype {
 			compats: []
 		}
 
-		const curlDome = {
+		const curlDome: ModelConfig = {
 
-			create: (f,s) => drawArchiCurlCrown(f,s),
+			create: (f,r) => drawArchiCurlCrown(f,r),
 			use: null,
 			owner: null,
 			size: this.PHI.XL,
@@ -108,9 +121,9 @@ class Mozart extends Archetype {
 			compats: []
 		}
 
-		const crest = {
+		const crest: ModelConfig = {
 
-			create: (f,s) => drawHairCrest(f,s),
+			create: (f,r) => drawHairCrest(f,r),
 			use: null,
 			owner: null,
 			size: this.PHI.L,
@@ -119,9 +132,9 @@ class Mozart extends Archetype {
 			compats: []
 		}
 
-		const panache = {
+		const panache: ModelConfig = {
 
-			create: (f,s) => new HairPanache(f,s),
+			create: (f,r) => new HairPanache(f,r),
 			use: null,
 			owner: null,
 			size: this.PHI.M,
@@ -130,7 +143,7 @@ class Mozart extends Archetype {
 			compats: []
 		}
 
-		const hairline = {
+		const hairline: ModelConfig = {
 
 			create: (f,r) => drawHairline(f,r),
 			use: null,
@@ -141,9 +154,9 @@ class Mozart extends Archetype {
 			compats: []
 		}
 
-		const bangLine = {
+		const bangLine: ModelConfig = {
 
-			create: (f,s) => drawBangHairline(f,s),
+			create: (f,r) => drawBangHairline(f,r),
 			use: null,
 			owner: null,
 			size: this.PHI.M,
@@ -152,9 +165,9 @@ class Mozart extends Archetype {
 			compats: []
 		}
 
-		const mozartLine = {
+		const mozartLine: ModelConfig = {
 
-			create: (f,s) => drawMozartHairline(f,s),
+			create: (f,r) => drawMozartHairline(f,r),
 			use: null,
 			owner: null,
 			size: this.PHI.M,
@@ -163,9 +176,9 @@ class Mozart extends Archetype {
 			compats: []
 		}
 
-		const cascadeTail = {
+		const cascadeTail: ModelConfig = {
 
-			create: (f,s) => drawCascadingTail(f,s),
+			create: (f,r) => drawCascadingTail(f,r),
 			use: null,
 			owner: null,
 			size: this.PHI.L,
@@ -174,9 +187,9 @@ class Mozart extends Archetype {
 			compats: []
 		}
 
-		const wavyTail = {
+		const wavyTail: ModelConfig = {
 
-			create: (f,s) => drawElliWavyTail(f,s),
+			create: (f,r) => drawElliWavyTail(f,r),
 			use: null,
 			owner: null,
 			size: this.SIN.XL,
@@ -185,9 +198,9 @@ class Mozart extends Archetype {
 			compats: []
 		};
 
-		const earringLeft = {
+		const earringLeft: ModelConfig = {
 
-			create: (f,s) => drawEarrings(f,s),
+			create: (f,r) => drawEarrings(f,r),
 			use: null,
 			owner: null,
 			size: this.SIN.XS,
@@ -196,7 +209,7 @@ class Mozart extends Archetype {
 			compats: []
 		};
 
-		const earringRight = {
+		const earringRight: ModelConfig = {
 
 			create: (f,r) => drawEarrings(f,r),
 			use: null,
@@ -207,7 +220,7 @@ class Mozart extends Archetype {
 			compats: []
 		};
 
-		const lashesLeft = {
+		const lashesLeft: ModelConfig = {
 
 			create: (f,r) => drawEyeLashes(f,r),
 			use: null,
@@ -219,7 +232,7 @@ class Mozart extends Archetype {
 
 		}
 
-		const lashesRight = {
+		const lashesRight: ModelConfig = {
 
 			create: (f,r) => drawEyeLashes(f,r),
 			use: null,
@@ -231,7 +244,7 @@ class Mozart extends Archetype {
 
 		}
 
-		const blushLeft = {
+		const blushLeft: ModelConfig = {
 
 			create: (f,r) => drawBlush(f,r),
 			use: null,
@@ -243,7 +256,7 @@ class Mozart extends Archetype {
 
 		}
 
-		const blushRight = {
+		const blushRight: ModelConfig = {
 
 			create: (f,r) => drawBlush(f,r),
 			use: null,
@@ -255,9 +268,9 @@ class Mozart extends Archetype {
 
 		}
 
-		const jabot = {
+		const jabot: ModelConfig = {
 
-			create: (f,s) => drawJabot(f,s),
+			create: (f,r) => drawJabot(f,r),
 			use: null,
 			owner: null,
 			size: this.SIN.XL,
@@ -266,9 +279,9 @@ class Mozart extends Archetype {
 			compats: []
 		};
 
-		const necklace = {
+		const necklace: ModelConfig = {
 
-			create: (f,s) => drawNecklace(f,s),
+			create: (f,r) => drawNecklace(f,r),
 			use: null,
 			owner: null,
 			size: this.SIN.XS,
@@ -277,7 +290,7 @@ class Mozart extends Archetype {
 			compats: []
 		};
 
-		const earModelTest = {
+		const earModelTest: ModelConfig = {
 
 			create: (f,r) => drawEarModelTest(f,r),
 			use: null,
@@ -315,6 +328,9 @@ class Mozart extends Archetype {
 
 		// this._eyeFeaturesCatalog = [];
 		this._faceFeaturesCatalog = [ blushLeft, blushRight ];
+
+		// this._headFeaturesCatalog = [];
+		this._headFeaturesCatalog = [ ];
 		
 		// ------------------------------------------------------
 

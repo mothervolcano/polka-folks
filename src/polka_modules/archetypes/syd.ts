@@ -55,7 +55,20 @@ class Syd extends Archetype {
 		// ---------------------------------------------
 
 
-		const spike = {
+		interface ModelConfig {
+
+			create: (field:any, radius: number) => void; //TODO finish: f can be an AttractorField or AttractorObject
+			use: Function | null; //TODO the type is a model
+			owner: any;
+			type: string;
+			size: number;
+			settings: any[];
+			params: any[];
+			compats: any[];
+		}
+
+
+		const spike: ModelConfig = {
 
 			create: (f,r) => drawHairSpike(f,r),
 			use: null,
@@ -67,7 +80,7 @@ class Syd extends Archetype {
 			compats: []
 		}
 
-		const hairShave = {
+		const hairShave: ModelConfig = {
 
 			create: (f,r) => drawHairShave(f,r),
 			use: null,
