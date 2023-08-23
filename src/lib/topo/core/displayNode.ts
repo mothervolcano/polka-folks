@@ -41,7 +41,7 @@ abstract class DisplayNode extends DisplayObject {
 
 		if ( this.children[i] ) {
 
-			if ( this.children[i].isRemoved ) { throw new Error(`! ERROR @ DisplayNode.render: ${this.children[i].ID} at ${i} has been removed!`) }
+			if ( this.children[i].isRemoved ) { throw new Error(`! ERROR @ DisplayNode.render: ${this.children[i]} at ${i} has been removed!`) }
 
 			return this.children[i];
 
