@@ -55,6 +55,16 @@ export const defaultPolka = {
 
 }
 
+export const nerdPolka = {
+
+	skin: [ ORANGE, YELLOW, BLUE ],
+	skinShade: null,
+	hair: [ BLACK, ORANGE, YELLOW, BLUE, RED ],
+	hairShade: null,
+	eyes: BLACK
+
+}
+
 export const baroquePolka = {
 
 	skin: [ ORANGE, YELLOW, BLUE ],

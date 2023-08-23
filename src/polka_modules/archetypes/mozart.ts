@@ -70,7 +70,7 @@ class Mozart extends Archetype {
 		
 		// ---------------------------------------
 
-		this._colorScheme = null;
+		this._colorScheme = colors.defaultPolka;
 
 		
 		// ---------------------------------------

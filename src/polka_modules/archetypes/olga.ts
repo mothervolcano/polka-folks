@@ -61,7 +61,7 @@ class Olga extends Archetype {
 
 		// ---------------------------------------------
 
-		this._colorScheme = null;
+		this._colorScheme = colors.defaultPolka;
 
 		// ---------------------------------------------
 
