@@ -41,13 +41,13 @@ abstract class DisplayNode extends DisplayObject {
 
 		if ( this.children[i] ) {
 
-			if ( this.children[i].isRemoved ) { throw new Error(`! ERROR @ ${this.ID}.render: ${this.children[i].ID} at ${i} has been removed!`) }
+			if ( this.children[i].isRemoved ) { throw new Error(`! ERROR @ DisplayNode.render: ${this.children[i].ID} at ${i} has been removed!`) }
 
 			return this.children[i];
 
 		} else {
 
-			throw new Error(`! ERROR @ ${this.ID}.getChild(): no children found at index ${i}. Total num of children is: ${this.children.length}`);
+			throw new Error(`! ERROR @ DisplayNode.getChild(): no children found at index ${i}. Total num of children is: ${this.children.length}`);
 		}
 	}
 
