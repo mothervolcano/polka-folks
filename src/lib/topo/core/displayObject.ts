@@ -11,12 +11,10 @@ import { validatePointInput, validateSizeInput } from '../utils/converters'
 
 abstract class DisplayObject {
 
-	public ID: string;
 	public isRendered: boolean;
 	public isRemoved: boolean;
 	protected _content: any;
 	protected _position: any; // decide what is the definitive type for position
-	private _tag: string;
 	private _size: any; // decide what is the definitive type for position
 	private _ratio: number; // drop this property
 	private pins: any;
@@ -160,22 +158,6 @@ abstract class DisplayObject {
    */
 	get content() {
 		return this._content;
-	}
-
-  /**
-   * Sets the tag of the display frame.
-   * @param {string} TAG - The tag to set.
-   */
-	set tag(TAG: string) {
-		this._tag = TAG;
-	}
-
-  /**
-   * Gets the tag of the display frame.
-   * @returns {string} The tag.
-   */
-	get tag() {
-		return this._tag;
 	}
 
 
