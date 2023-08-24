@@ -23,7 +23,7 @@ class Eclipse extends AttractorObject {
 	private _arrow: any;
 	
 	private threshold: number;
-	private scaleTicks: Array<number> | null
+	private scaleTicks: Array<number>
 
 	constructor( size: SizeLike | number, position: PointLike = {x:0, y:0}, threshold: number = 0.5 ) {
 
@@ -31,7 +31,7 @@ class Eclipse extends AttractorObject {
 
 		this.threshold = threshold;
 
-		this.scaleTicks = null;
+		this.scaleTicks = [];
 
 		this._debugPath1 = new Path()
 		this._debugPath2 = new Path()
