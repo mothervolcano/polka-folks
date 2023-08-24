@@ -8,7 +8,7 @@ export const GUIDE = '#06E7EF';
 
 
 
-export const CHART = new Map([
+export const CHART: any = new Map([
 
    [ RED, { 
           	
