@@ -24,7 +24,7 @@ class Spine extends AttractorObject {
 	private _arrow: any;
 
 
-	static project( positionData: PointLike | IHyperPoint | [ IHyperPoint, IHyperPoint ], length: number = null, ) {
+	static project( positionData: PointLike | IHyperPoint | [ IHyperPoint, IHyperPoint ], length: number | null = null, ) {
 
 		let _projectedPath
 
@@ -37,7 +37,7 @@ class Spine extends AttractorObject {
 
 			// TODO: check if it's a Hyperpoint or paper.segments.
 
-			const sgms = positionData.map( (pt) => pt.getSegment() );
+			const sgms = positionData.map( (pt) => convertToSegment(pt) );
 			
 			_projectedPath = new Path({
 
@@ -50,7 +50,7 @@ class Spine extends AttractorObject {
 		// --------------------------------------------------------------
 		// Create Spine from 1 point
 
-		} else if ( positionData ) { 
+		} else if ( length ) { 
 			
 			const _C = convertToPoint( positionData );
 
@@ -66,10 +66,11 @@ class Spine extends AttractorObject {
 			});
 
 			return _projectedPath;
+
+		} else {
+
+			return new Path( { segments: [ [0,0 ] ]});
 		}
-
-		return null;
-
 	};
 
 
