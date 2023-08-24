@@ -58,10 +58,10 @@ class Freckles extends Model {
 		for ( let i=0; i<num; i++ ) {
 
 			const att1 = new Orbital( sizeMajor );
-			innerField.addAttractor( att1, null );
+			innerField.addAttractor( att1 );
 
 			const att2 = new Orbital( sizeMinor );
-			outerField.addAttractor( att2, null );
+			outerField.addAttractor( att2 );
 		}
 
 

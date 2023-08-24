@@ -14,9 +14,9 @@ const GUIDES = '#06E7EF';
 export class Earrings extends Model {
 
 
-	private _beadSize;
-	private _plumbSize;
-	private _length;
+	private _beadSize: any;
+	private _plumbSize: any;
+	private _length: any;
 
 
 	constructor( field: any, radius: any ) {

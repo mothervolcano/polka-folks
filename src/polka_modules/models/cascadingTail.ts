@@ -85,7 +85,7 @@ class CascadingTail extends Model {
 
 		let dropLen = 0;
 
-		arch( field, ( att, i ) => {  
+		arch( field, ( att: any, i: number ) => {  
 
 			dropLen += curlDropLenStep;
 			att.moveBy( dropLen, 'VER' );

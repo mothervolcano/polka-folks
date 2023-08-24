@@ -23,7 +23,7 @@ class HairCapeTail extends Model {
 	};
 
 
-	public configure( elevationBaseValue ) {
+	public configure( elevationBaseValue: number ) {
 
 		this.level = 0;
 

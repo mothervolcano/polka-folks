@@ -113,7 +113,7 @@ class ArchiCurlCrown extends Model {
 
 		let scaleValue = curlScale;
 
-		arch( field, (att) => { att.scale(scaleValue); scaleValue += scaleStep }, () => scaleValue = curlScale )
+		arch( field, (att: any) => { att.scale(scaleValue); scaleValue += scaleStep }, () => scaleValue = curlScale )
 		
 
 		// .............................................................

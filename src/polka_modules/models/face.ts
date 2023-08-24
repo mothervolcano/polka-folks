@@ -21,15 +21,15 @@ class Face extends Model {
 	private _rEye: any;
 	private _nose: any;
 
-	private _eyeSize: number;
-	private _eyeRoundness: number;
-	private _eyeDistance: number;
-	private _eyeLevel: number;
-	private _eyeAngle: number;
+	private _eyeSize: number = 0;
+	private _eyeRoundness: number = 0;
+	private _eyeDistance: number = 0;
+	private _eyeLevel: number = 0;
+	private _eyeAngle: number = 0;
 
-	private _noseLength: number;
-	private _noseSize: number;
-	private _noseWidth: number;
+	private _noseLength: number = 0;
+	private _noseSize: number = 0;
+	private _noseWidth: number = 0;
 
 	private ATTS: any;
 
@@ -99,7 +99,7 @@ class Face extends Model {
 	};
 
 
-	public plot( eyeParams, noseParams ) {
+	public plot( eyeParams: any, noseParams: any ) {
 
 		const { eyeScaleCtrl, eyeRoundnessCtrl, eyeDistanceCtrl, pTest, pTest2 } = eyeParams;
 		const { noseLengthCtrl, noseScaleCtrl, noseWidthCtrl } = noseParams;
@@ -159,8 +159,8 @@ class Face extends Model {
 
 	  
 	  const noseField = new OrbitalField( N, [ noseSize, noseSize ] );
-	  noseField.addAttractor( new Orbital( noseSize * this.SIN36 ), null );
-	  noseField.addAttractor( new Orbital( noseSize * this.SIN36 ), null );
+	  noseField.addAttractor( new Orbital( noseSize * this.SIN36 ) );
+	  noseField.addAttractor( new Orbital( noseSize * this.SIN36 ) );
 
 
     

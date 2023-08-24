@@ -174,29 +174,29 @@ abstract class Archetype {
 	};
 
 
-	private pickHair( catalog ) {
+	private pickHair( catalog: any[] ) {
 
 		return catalog[ genRandom(0, catalog.length-1) ];
 	};
 
 
-	private pickHairline( catalog ) {
+	private pickHairline( catalog: any[] ) {
 
 		return catalog[ genRandom(0, catalog.length-1) ];
 	};
 
 
-	private pickHairTail( catalog ) {
+	private pickHairTail( catalog: any[] ) {
 
 		return catalog[ genRandom(0, catalog.length-1) ];
 	};
 
-	private pickEarAccessory( catalog ) {
+	private pickEarAccessory( catalog: any[] ) {
 
 		return catalog[ genRandom(0, catalog.length-1) ];
 	};
 
-	private pickNeckAccessory( catalog ) {
+	private pickNeckAccessory( catalog: any[] ) {
 
 		return catalog[ genRandom(0, catalog.length-1) ];
 	};
@@ -236,7 +236,7 @@ abstract class Archetype {
 
 			if ( !model.owner ) { model.owner = this._head };
 			model.use =  model.create( this._head.field, model.size );
-			model.use.configure( ...model.settings.map( (values) => this.randomize(values) ) );
+			model.use.configure( ...model.settings.map( (values: []) => this.randomize(values) ) );
 
 			this._hairModels.push( model );
 
@@ -248,7 +248,7 @@ abstract class Archetype {
 
 				nModel.owner = model.use;
 				nModel.use = nModel.create( model.use.field, nModel.size );
-				nModel.use.configure( ...model.settings.map( (p) => this.randomize(p) ) );
+				nModel.use.configure( ...model.settings.map( (p: []) => this.randomize(p) ) );
 
 				hairQueue.push( nModel );
 
@@ -278,7 +278,7 @@ abstract class Archetype {
 
 			if ( !model.owner ) { model.owner = this._head };
 			model.use = model.create( this._head.field, model.size );
-			model.use.configure( ...model.settings.map( (values) => this.randomize(values) ) );
+			model.use.configure( ...model.settings.map( (values: []) => this.randomize(values) ) );
 
 			this._hairlineModels.push( model );
 
@@ -504,7 +504,7 @@ abstract class Archetype {
 
 	public clear() {
 
-		this._frame.children.forEach( (child) => child.removeChildren() );
+		this._frame.children.forEach( (child: any) => child.removeChildren() );
 
 		const allOtherLayers = paperScope.project.layers.filter( (l) => l.id !== this._frame.id );
 		allOtherLayers.forEach( (layer) => layer.removeChildren() );

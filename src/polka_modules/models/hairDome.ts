@@ -28,7 +28,7 @@ class HairDome extends Model {
 	}
 
 
-	public configure( latBaseValue, cutoffBaseValue, volumeBaseValue ) {
+	public configure( latBaseValue: number, cutoffBaseValue: number, volumeBaseValue: number ) {
 
 		this.level = 2;
 
@@ -62,8 +62,8 @@ class HairDome extends Model {
 
 
 		const field = new OrbitalField( O, this.field.attractor.radius );
-		field.addAttractor( new Orbital( size ), null );
-		field.addAttractor( new Orbital( size ), null );
+		field.addAttractor( new Orbital( size ) );
+		field.addAttractor( new Orbital( size ) );
 
 		
 		// .............................................
