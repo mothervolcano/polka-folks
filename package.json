@@ -1,6 +1,6 @@
 {
-  "homepage": "http://mothervolcano.github.io/polka-folks",
   "name": "polka-folks",
+  "homepage": "http://mothervolcano.github.io/polka-folks",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
