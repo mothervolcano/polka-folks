@@ -69,8 +69,8 @@ class IonicHair extends Model {
 		
 		const field = new OrbitalField( O, this.PHI.L );
 
-		field.addAttractor( new Orbital( size ), null );
-		field.addAttractor( new Orbital( size ), null );
+		field.addAttractor( new Orbital( size ) );
+		field.addAttractor( new Orbital( size ) );
 
 
 		// ........................................

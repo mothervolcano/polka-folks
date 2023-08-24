@@ -85,7 +85,7 @@ class ArthurHair extends Model {
 		_path2.scale(-1,1);
 
 
-		this.path = new CompoundPath(null);
+		this.path = new CompoundPath([]);
 		this.path.addChildren( [ _path1, _path2 ] );
 
 

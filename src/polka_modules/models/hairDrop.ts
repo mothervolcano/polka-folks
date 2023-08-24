@@ -58,7 +58,7 @@ class HairDrop extends Model {
 
 		const att = new Orbital( sizeMinor );
 
-		field.addAttractor( att, null );
+		field.addAttractor( att );
 
 		field.anchorAt( O, 'TAN' );
 

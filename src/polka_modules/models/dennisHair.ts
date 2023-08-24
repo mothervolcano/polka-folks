@@ -116,7 +116,7 @@ class DennisHair extends Model {
 
 
 
-		this.path = new CompoundPath(null)
+		this.path = new CompoundPath([]);
 		this.path.addChildren( [ _path1, _path2 ] );
 
 

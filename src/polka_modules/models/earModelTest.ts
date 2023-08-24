@@ -113,7 +113,7 @@ class EarModelTest extends Model {
 
 		});
 
-		this.path = new CompoundPath(null);
+		this.path = new CompoundPath([]);
 		this.path.addChildren( paths );
 
 		const instructions = {

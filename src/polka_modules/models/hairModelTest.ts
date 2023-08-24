@@ -106,7 +106,7 @@ class HairModelTest extends Model {
 
 		this.wrap( R1, R0 )
 
-		this.path = new CompoundPath(null);
+		this.path = new CompoundPath([]);
 		this.path.addChildren( [ _path1, _path2 ] );
 
 		this.path.fillColor = DEBUG_GREEN
