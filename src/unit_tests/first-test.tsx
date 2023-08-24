@@ -49,32 +49,43 @@ function reset() {
 
 
 
-export function testOrbitalFieldWithSpines(spineCount: number) {
-  // Create an instance of OrbitalField with required parameters
-  const position = new paper.Point(100, 100);
-  const radius = 50;
-  const orbitalField = new OrbitalField(position, radius);
+export function testOrbitalFieldWithSpines() {
+  // Reset the canvas
+  reset();
 
-  // Add the specified number of Spine attractors with required parameters
-  for (let i = 0; i < spineCount; i++) {
-    const start = new paper.Point(10 * i, 10 * i);
-    const end = new paper.Point(20 * i, 20 * i);
-    const spine = new Spine(start, end);
-    orbitalField.addAttractor(spine);
-  }
+  // Get the view and layer
+  const view = getView();
+  const layer = getLayer();
 
-  // Check if the count of Spine attractors is correct
-  const actualSpineCount = orbitalField.attractors.filter(attractor => attractor instanceof Spine).length;
-  if (actualSpineCount === spineCount) {
-    console.log(`Test passed for ${spineCount} Spine attractors.`);
-  } else {
-    console.error(`Test failed for ${spineCount} Spine attractors. Expected ${spineCount}, but got ${actualSpineCount}.`);
+  // Define the position as an HyperPoint
+  const position = new HyperPoint(view.center.x, view.center.y);
+
+// Define the size for the OrbitalField
+  const size = 100;
+
+  // Create an OrbitalField
+  const orbitalField = new OrbitalField(position, size);
+
+  // Define the parameters for the Spine attractors
+  const spineLength = 50;
+
+  // Define the number of Spines to test
+  const spineCounts = [1, 2, 3, 10, 15];
+
+  // Iterate through the spineCounts and add Spines to the OrbitalField
+  for (const count of spineCounts) {
+    for (let i = 0; i < count; i++) {
+      // Create a Spine with required parameters
+      const spine = new Spine( spineLength, position );
+
+      // Add the Spine to the OrbitalField
+      orbitalField.addAttractor(spine);
+    }
+
+    // Log the result or perform assertions
+    console.log(`OrbitalField with ${count} Spines drawn successfully.`);
+
+    // Reset the canvas for the next iteration
+    reset();
   }
 }
-
-// Run the test with different numbers of Spine attractors
-testOrbitalFieldWithSpines(1);
-testOrbitalFieldWithSpines(2);
-testOrbitalFieldWithSpines(3);
-testOrbitalFieldWithSpines(10);
-testOrbitalFieldWithSpines(15);

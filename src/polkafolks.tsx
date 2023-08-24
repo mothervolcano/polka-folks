@@ -4,7 +4,6 @@ import { paperScope } from './components/paperStage';
 import Nerd from './polka_modules/archetypes/olga';
 import Punk from './polka_modules/archetypes/syd';
 import Baroque from './polka_modules/archetypes/mozart';
-import Monk from './polka_modules/archetypes/monk';
 
 import { markPoint } from './lib/topo/utils/helpers';
 
@@ -56,10 +55,6 @@ export function generate(
 
     case 'BAROQUE':
       _archetype = Baroque;
-    break;
-
-    case 'MONK':
-      _archetype = Monk;
     break;
 
   }

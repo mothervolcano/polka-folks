@@ -33,17 +33,6 @@ const Page = () => {
 	}
 
 
-	const monkParams: ParamSet = [
-
-		{ id:'mkp1', 	name: 'numCtrl',		value: 5, 		range: [2,15], 		step: 1, 		label: "Monk P1", },
-		{ id:'mkp2', 	name: 'empty',			value: 3,		range: [1,10], 		step: 1, 		label: "Monk P2", },
-		{ id:'mkp3', 	name: 'latCtrl',		value: 1, 		range: [0,2], 		step: 0.01, 	label: "Monk P3", },
-		{ id:'mkp4', 	name: 'cutoffCtrl',		value: 0.5, 	range: [0,2], 		step: 0.01, 	label: "Monk P4", },
-		{ id:'mkp5', 	name: 'volCtrl',		value: 1, 		range: [0,2], 		step: 0.01, 	label: "Monk P5", },
-		{ id:'mkp6', 	name: 'roundnessCtrl',	value: 1, 		range: [0,2], 		step: 0.01, 	label: "Monk P6", },
-		{ id:'mkp7', 	name: 'indentCtrl',		value: 1, 		range: [0,2], 		step: 0.01, 	label: "Monk P7", },
-	]
-
 	const nerdParams: ParamSet = [
 
 		{ id:'ogp1', 	name: 'splitLat', 		value: 1, 		range: [0,2], 		step: 0.01, 	label: "Split Drop", },
@@ -109,10 +98,6 @@ const Page = () => {
 		{ option: "PUNK", 		label: "Punk", 		icon: "TEST", 	console: "PunkConsole", 	params: punkParams, 			default: false, checked: false },
 		{ option: "BAROQUE", 	label: "Baroque", 	icon: "TEST", 	console: 'BaroqueConsole', 	params: baroqueParams, 			default: false, checked: false },
 		{ option: "NERD", 		label: "Nerd", 		icon: "TEST", 	console: 'NerdConsole', 	params: nerdParams, 			default: false, checked: false },
-		{ option: "MONK", 		label: "Monk", 		icon: "TEST", 	console: 'MonkConsole', 	params: monkParams, 			default: false, checked: false },
-		{ option: "BILLY", 		label: "Billy", 	icon: "TEST", 	console:"", 				params: '', 					default: false, checked: false },
-		{ option: "RAGNAR", 	label: "Ragnar", 	icon: "TEST", 	console: "", 				params: '', 					default: false, checked: false }
-
 	]
 
 
