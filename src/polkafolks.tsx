@@ -8,8 +8,6 @@ import Monk from './polka_modules/archetypes/monk';
 
 import { markPoint } from './lib/topo/utils/helpers';
 
-// declare const paper: any;
-
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 

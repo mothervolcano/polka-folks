@@ -3,6 +3,8 @@ import MonkConsole from './consoles/monkConsole';
 import BaroqueConsole from './consoles/baroqueConsole';
 import PunkConsole from './consoles/punkConsole';
 
+import TestConsole from './console/TestConsole';
+
 
 import NumberStepper from './ui/numberStepper';
 import Slider from './ui/slider';
@@ -38,6 +40,9 @@ const Console = ({
 				break;
 			case 'PUNK':
 				return ( <PunkConsole params={paramsForArchetype} inputHandler={archetypeInputHandler} /> );
+				break;
+			case 'TEST':
+				return ( <TestConsole params={paramsForArchetype} inputHandler={archetypeInputHandler} /> );
 				break;
 		}
 	}
