@@ -17,9 +17,18 @@ const PaperStage = ({
 
 	useEffect( () => {
 
-		paperScope.install(window);
-		paperScope.setup(canvasRef.current);
-		onPaperLoad(true);
+		if ( canvasRef.current === null ) {
+
+			// TODO: handle null case
+
+		} else {
+
+			paperScope.install(window);
+			paperScope.setup(canvasRef.current);
+			onPaperLoad(true);
+
+		}
+
 
 	}, [] );
 
