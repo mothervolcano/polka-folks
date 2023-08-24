@@ -17,7 +17,7 @@ class HairShave extends Model {
 
 	private _att: any;
 
-	private _size;
+	private _size: number = 0;
 
 	constructor( field: any, radius: number ) {
 
@@ -72,7 +72,7 @@ class HairShave extends Model {
 		}
 
 		pts = field1.locate(direction);	
-		plots.push( [ instructions1, ...pts.map( (P) => new Orbital( size - 1, P ).path ) ] );
+		plots.push( [ instructions1, ...pts.map( (P: any) => new Orbital( size - 1, P ).path ) ] );
 
 
 		// ...................................
@@ -96,7 +96,7 @@ class HairShave extends Model {
 		}
 
 		pts = field2.locate(direction);	
-		plots.push( [ instructions2, ...pts.map( (P) => new Orbital( size, P ).path ) ] );
+		plots.push( [ instructions2, ...pts.map( (P: any) => new Orbital( size, P ).path ) ] );
 
 
 		//...................................
@@ -120,7 +120,7 @@ class HairShave extends Model {
 		}
 
 		pts = field3.locate(direction);	
-		plots.push( [ instructions3, ...pts.map( (P) => new Orbital( size - 2, P ).path ) ] );
+		plots.push( [ instructions3, ...pts.map( (P: any) => new Orbital( size - 2, P ).path ) ] );
 
 
 		// ...................................

@@ -13,11 +13,11 @@ const GUIDES = '#06E7EF';
 class ElliWavyTail extends Model {
 
 	
-	private _height: number;
-	private _volume: number;
-	private _waveNum: number;
-	private _span: number;
-	private _length: number;
+	private _height: number = 0;
+	private _volume: number = 0;
+	private _waveNum: number = 0;
+	private _span: number = 0;
+	private _length: number = 0;
 
 
 	constructor( field: any, size: any ) {

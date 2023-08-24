@@ -14,9 +14,9 @@ const GUIDES = '#06E7EF';
 class HairDome extends Model {
 	
 
-	private _lat: number;
-	private _volume: number;
-	private _cutoff: number;
+	private _lat: number = 0;
+	private _volume: number = 0;
+	private _cutoff: number = 0;
 
 
 	constructor( position: any, radius: number ) {

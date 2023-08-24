@@ -14,7 +14,7 @@ class Hairband extends Model {
 
 	private _att: any;
 
-	private _width: number;
+	private _width: number = 0;
 
 	
 	constructor( field: any, size: any ) {

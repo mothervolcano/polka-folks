@@ -20,8 +20,8 @@ class Head extends Model {
 	private _lEar: any;
 	private _rEar: any;
 
-	private _earsLat: number;
-	private _earsScale: number
+	private _earsLat: number = 0;
+	private _earsScale: number = 0;
 
 	private frame: any;
 

@@ -13,9 +13,9 @@ const GUIDES = '#06E7EF';
 class Jabot extends Model {
 
 
-	private _jabotSize: number;
-	private _tieLength1: number;
-	private _tieLength2: number;
+	private _jabotSize: number = 0;
+	private _tieLength1: number = 0;
+	private _tieLength2: number = 0;
 	
 
 	constructor( position: any, radius: any ) {

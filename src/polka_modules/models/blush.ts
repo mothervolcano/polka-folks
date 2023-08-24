@@ -13,7 +13,7 @@ const GUIDES = '#06E7EF';
 
 export class Blush extends Model {
 
-	private _size: number;
+	private _size: number = 0;
 
 	constructor( field: any, radius: number ) {
 

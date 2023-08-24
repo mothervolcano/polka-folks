@@ -15,7 +15,7 @@ const GUIDES = '#06E7EF';
 class HairCurl extends Model {
 
 	
-	private _curlSize: number;
+	private _curlSize: number = 0;
 
 	constructor( field: any, size: number ) {
 

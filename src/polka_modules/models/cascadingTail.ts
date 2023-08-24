@@ -18,7 +18,7 @@ const GUIDES = '#06E7EF';
 class CascadingTail extends Model {
 
 	
-	private _curlNum: number;
+	private _curlNum: number = 0;
 
 
 	constructor( field: any, size: number ) {

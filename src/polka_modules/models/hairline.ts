@@ -14,7 +14,7 @@ const GUIDES = '#06E7EF';
 class Hairline extends Model {
 
 
-	private _ridge: number;
+	private _ridge: number = 0;
 
 
 	constructor( field: any, radius: any ) {

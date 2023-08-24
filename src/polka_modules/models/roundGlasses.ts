@@ -15,7 +15,7 @@ const GUIDES = '#06E7EF';
 
 class RoundGlasses extends Model {
 
-	private _glassSize;
+	private _glassSize = 0;
 
 	constructor( field: any, radius: any ) {
 

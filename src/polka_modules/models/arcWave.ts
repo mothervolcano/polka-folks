@@ -15,8 +15,8 @@ const GUIDES = '#06E7EF';
 class ArcWave extends Model {
 	
 		
-	private _num: number;
-	private _indent: number;
+	private _num: number = 0;
+	private _indent: number = 0;
 
 
 	constructor( position: any, radius: any ) {

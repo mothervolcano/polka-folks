@@ -12,9 +12,9 @@ const GUIDES = '#06E7EF';
 
 class HairCapeTail extends Model {
 
-	private _volume: number;
-	private _elevation: number;
-	private _length: number;
+	private _volume: number = 0;
+	private _elevation: number = 0;
+	private _length: number = 0;
 
 	constructor( field: any, radius: number ) {
 

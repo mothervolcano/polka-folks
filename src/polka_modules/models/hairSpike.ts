@@ -17,9 +17,9 @@ const GUIDES = '#06E7EF';
 class HairSpike extends Model {
 
 
-	private _length: number;
-	private _sharpness: number;
-	private _indent: number;
+	private _length: number = 0;
+	private _sharpness: number = 0;
+	private _indent: number = 0;
 
 	private frame: any;
 

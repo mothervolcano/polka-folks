@@ -15,8 +15,8 @@ const GUIDES = '#06E7EF';
 class HairCurtain extends Model {
 
 
-	private _splitLat: number;
-	private _splitAperture: number;
+	private _splitLat: number = 0;
+	private _splitAperture: number = 0;
 
 
 	constructor( field: any, radius: any ) {
