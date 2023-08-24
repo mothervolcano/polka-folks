@@ -1,9 +1,9 @@
 import { Layer } from 'paper';
 import { paperScope } from './components/paperStage';
 
-import Nerd from './polka_modules/archetypes/olga';
-import Punk from './polka_modules/archetypes/syd';
-import Baroque from './polka_modules/archetypes/mozart';
+import Nerd from './polka_modules/archetypes/nerd';
+import Punk from './polka_modules/archetypes/punk';
+import Baroque from './polka_modules/archetypes/baroque';
 
 import { markPoint } from './lib/topo/utils/helpers';
 

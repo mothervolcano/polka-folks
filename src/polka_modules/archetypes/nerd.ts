@@ -28,7 +28,7 @@ const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class Olga extends Archetype {
+class Nerd extends Archetype {
 
 	private _colorScheme: any;
 	private _hairModelsCatalog: Array<any>;
@@ -311,7 +311,7 @@ class Olga extends Archetype {
 
 				nPlot.forEach( (path) => {
 
-					this[`l${instructions.level}` as keyof Olga].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+					this[`l${instructions.level}` as keyof Nerd].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
 
 				})
 
@@ -321,7 +321,7 @@ class Olga extends Archetype {
 
 				if ( instructions.complete ) {
 
-					this[`l${instructions.level}` as keyof Olga].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+					this[`l${instructions.level}` as keyof Nerd].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
 
 				} else {
 
@@ -343,7 +343,7 @@ class Olga extends Archetype {
 
 			if ( instructions.complete ) {
 				
-				this[`l${instructions.level}` as keyof Olga].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+				this[`l${instructions.level}` as keyof Nerd].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
 
 			} else {
 
@@ -370,7 +370,7 @@ class Olga extends Archetype {
 					path.strokeColor = colors.CHART.get(this._colorScheme.skin).contrast.hex;
 					path.strokeWidth = instructions.thickness;
 
-					this[`l${instructions.level}` as keyof Olga].addChild( path );
+					this[`l${instructions.level}` as keyof Nerd].addChild( path );
 				})
 
 			} else {
@@ -497,7 +497,7 @@ class Olga extends Archetype {
 
 }
 
-export default Olga;
+export default Nerd;
 
 
 

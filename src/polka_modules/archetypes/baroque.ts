@@ -34,7 +34,7 @@ const GUIDES = '#06E7EF';
 
 
 
-class Mozart extends Archetype {
+class Baroque extends Archetype {
 
 	private _colorScheme: any;
 
@@ -361,7 +361,7 @@ class Mozart extends Archetype {
 
 					nPlot.forEach( (path) => {
 
-						this[`l${ nInstructions.level }` as keyof Mozart ].addChild( renderHair( path, this._colorScheme, nInstructions.gradient ) )
+						this[`l${ nInstructions.level }` as keyof Baroque ].addChild( renderHair( path, this._colorScheme, nInstructions.gradient ) )
 						
 						// path.fullySelected = true;
 
@@ -371,7 +371,7 @@ class Mozart extends Archetype {
 
 					const path = nPlot;
 
-					this[`l${instructions.level}` as keyof Mozart ].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+					this[`l${instructions.level}` as keyof Baroque ].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
 				}
 			});
 		};
@@ -404,7 +404,7 @@ class Mozart extends Archetype {
 
 			if ( instructions.complete ) {
 
-				this[`l${instructions.level}` as keyof Mozart ].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+				this[`l${instructions.level}` as keyof Baroque ].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
 
 			} else {
 
@@ -497,7 +497,7 @@ class Mozart extends Archetype {
 
 				const path = plot[0];
 				// earwear.fullySelected = true;
-				this[`l${instructions.level}` as keyof Mozart].addChild( renderEye( path, this._colorScheme, instructions.gradient ) );
+				this[`l${instructions.level}` as keyof Baroque].addChild( renderEye( path, this._colorScheme, instructions.gradient ) );
 			}
 		};
 
@@ -527,7 +527,7 @@ class Mozart extends Archetype {
 
 				const path = plot[0];
 				// earwear.fullySelected = true;
-				this[`l${instructions.level}` as keyof Mozart].addChild( renderFaceFeature( path, this._colorScheme, instructions.gradient ) );
+				this[`l${instructions.level}` as keyof Baroque].addChild( renderFaceFeature( path, this._colorScheme, instructions.gradient ) );
 			}
 		};
 
@@ -684,6 +684,6 @@ class Mozart extends Archetype {
 
 };
 
-export default Mozart;
+export default Baroque;
 
 

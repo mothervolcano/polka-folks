@@ -16,7 +16,7 @@ const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class Syd extends Archetype {
+class Punk extends Archetype {
 
 	private _colorScheme: any;
 	private _hairModelsCatalog: Array<any>;
@@ -150,7 +150,7 @@ class Syd extends Archetype {
 
 					nPlot.forEach( (path) => {
 
-						this[`l${ nInstructions.level }` as keyof Syd].addChild( renderHair( path, this._colorScheme, nInstructions.gradient ) )
+						this[`l${ nInstructions.level }` as keyof Punk].addChild( renderHair( path, this._colorScheme, nInstructions.gradient ) )
 						
 						// path.fullySelected = true;
 
@@ -160,7 +160,7 @@ class Syd extends Archetype {
 
 					const path = nPlot;
 
-					this[`l${instructions.level}` as keyof Syd].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+					this[`l${instructions.level}` as keyof Punk].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
 				}
 			});
 		};
@@ -410,5 +410,5 @@ class Syd extends Archetype {
 }
 
 
-export default Syd;
+export default Punk;
 
