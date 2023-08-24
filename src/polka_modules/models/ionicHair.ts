@@ -29,7 +29,7 @@ class IonicHair extends Model {
 	};
 
 
-	public configure( volumeBaseValue, apertureBaseValue, heightBaseValue ) {
+	public configure( volumeBaseValue: number, apertureBaseValue: number, heightBaseValue: number ) {
 
 		this.level = 2;
 

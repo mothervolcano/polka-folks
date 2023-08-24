@@ -36,8 +36,8 @@ export function plotAllAttractorIntersections( field: any, MODE: string = 'NEXT'
 			plotter = ORDER === 'FIRST' ? plotAttractorLastIntersection : plotAttractorFirstIntersection;
 		}
 
-		let iIntersected;
-		let iIntersector;
+		let iIntersected: any;
+		let iIntersector: any;
 
 
 		switch ( MODE ) {

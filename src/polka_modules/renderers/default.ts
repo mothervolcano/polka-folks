@@ -6,7 +6,7 @@ import { applyShade } from '../../lib/topo/tools/shaders';
 
 export const colorScheme = colors.defaultPolka;
 
-export const renderFace = ( path ) => {
+export const renderFace = ( path: any ) => {
 
 	path.strokeColor = null;
 	path.fillColor = colorScheme.skin;
@@ -14,7 +14,7 @@ export const renderFace = ( path ) => {
 	return path;
 }
 
-export const renderNose = ( path ) => {
+export const renderNose = ( path: any ) => {
 
 	path.strokeColor = null;
 	const shader = path.clone();
@@ -25,7 +25,7 @@ export const renderNose = ( path ) => {
 	return new Group( [ path, shader ] );
 }
 
-export const renderEar = ( path, side ) => {
+export const renderEar = ( path: any, side: any ) => {
 
 	path.strokeColor = null;
 	const shader = path.clone();
@@ -40,7 +40,7 @@ export const renderEar = ( path, side ) => {
 }
 
 
-export const renderEye = ( path, side ) => {
+export const renderEye = ( path: any, side: any ) => {
 
 	path.strokeColor = null;
 	path.fillColor = colorScheme.eyes;
@@ -49,7 +49,7 @@ export const renderEye = ( path, side ) => {
 }
 
 
-export const renderHair = ( path, gradient ) => {
+export const renderHair = ( path: any, gradient: any ) => {
 
 	path.strokeColor = null;
 

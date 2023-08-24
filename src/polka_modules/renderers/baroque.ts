@@ -8,7 +8,7 @@ export const colorScheme = colors.baroquePolka;
 
 
 
-export const renderFaceFeature = ( path, colorScheme, gradient ) => {
+export const renderFaceFeature = ( path: any, colorScheme: any, gradient: any ) => {
 
 	console.log(`... RENDERING FACIAL FEATURE` );
 
@@ -24,7 +24,7 @@ export const renderFaceFeature = ( path, colorScheme, gradient ) => {
 };
 
 
-export const renderFace = ( path, colorScheme ) => {
+export const renderFace = ( path: any, colorScheme: any ) => {
 
 	path.strokeColor = null;
 	path.fillColor = colorScheme.skin;
@@ -33,7 +33,7 @@ export const renderFace = ( path, colorScheme ) => {
 };
 
 
-export const renderNose = ( path, colorScheme ) => {
+export const renderNose = ( path: any, colorScheme: any ) => {
 
 	path.strokeColor = null;
 	const shader = path.clone();
@@ -45,7 +45,7 @@ export const renderNose = ( path, colorScheme ) => {
 };
 
 
-export const renderEar = ( path, colorScheme ) => {
+export const renderEar = ( path: any, colorScheme: any ) => {
 
 	path.strokeColor = null;
 	const shader = path.clone();
@@ -60,7 +60,7 @@ export const renderEar = ( path, colorScheme ) => {
 };
 
 
-export const renderEye = ( path, colorScheme, gradient ) => {
+export const renderEye = ( path: any, colorScheme: any, gradient: any ) => {
 
 	path.strokeColor = null;
 	path.fillColor = colorScheme.eyes;
@@ -69,7 +69,7 @@ export const renderEye = ( path, colorScheme, gradient ) => {
 }
 
 
-export const renderHair = ( path, colorScheme, gradient ) => {
+export const renderHair = ( path: any, colorScheme: any, gradient: any ) => {
 
 	path.strokeColor = null;
 
