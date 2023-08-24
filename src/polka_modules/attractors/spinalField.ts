@@ -16,7 +16,7 @@ class SpinalField extends AttractorField {
 	private _mode: string;
 	
 	
-	constructor( positionData: PointLike, length: number, orientation: number = 1, polarity: number = 1, mode: string = 'ALTERNATED' ) {
+	constructor( positionData: PointLike, length: number | null, orientation: number = 1, polarity: number = 1, mode: string = 'ALTERNATED' ) {
 
 		const _path = Spine.project( positionData, length )
 

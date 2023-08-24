@@ -16,10 +16,10 @@ class Orbital extends AttractorObject {
 	private _debugPath4: any;
 	private _arrow: any;
 
-	private _fixedOrientation: boolean;
+	// private _fixedOrientation: boolean;
 
 
-	constructor( radius: SizeLike | number, position: PointLike = {x:0, y:0}, orientation: number = null ) {
+	constructor( radius: SizeLike | number, position: PointLike = {x:0, y:0}, orientation?: number ) {
 
 		super( validateSizeInput(radius), position );
 
