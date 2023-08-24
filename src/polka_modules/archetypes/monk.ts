@@ -27,18 +27,18 @@ const GUIDES = '#06E7EF';
 class Monk extends Archetype {
 
 	
-	private _hair;
-	private _glasses;
+	// private _hair;
+	// private _glasses;
 
-	private _colorScheme: any;
-	private _hairModelsCatalog: Array<any>;
-	private _hairlinesCatalog: Array<any>;
-	private _hairTailsCatalog: Array<any>;
-	private _earAccessoriesCatalog: Array<any>;
-	private _neckAccessoriesCatalog: Array<any>;
-	private _eyeFeaturesCatalog: Array<any>;
-	private _faceFeaturesCatalog: Array<any>;
-	private _headFeaturesCatalog: Array<any>;
+	// private _colorScheme: any;
+	// private _hairModelsCatalog: Array<any>;
+	// private _hairlinesCatalog: Array<any>;
+	// private _hairTailsCatalog: Array<any>;
+	// private _earAccessoriesCatalog: Array<any>;
+	// private _neckAccessoriesCatalog: Array<any>;
+	// private _eyeFeaturesCatalog: Array<any>;
+	// private _faceFeaturesCatalog: Array<any>;
+	// private _headFeaturesCatalog: Array<any>;
 
 	private l0: any;
 	private l1: any;
@@ -320,7 +320,7 @@ class Monk extends Archetype {
 	// PUBLIC METHODS
 
 
-	public generate( params ) {
+	public generate( params: any ) {
 
 		// const { headParams, eyeParams, noseParams, archetypeParams } = params;	
 		// const { numCtrl, latCtrl } = archetypeParams;
@@ -370,7 +370,7 @@ class Monk extends Archetype {
 	};
 
 
-	public model( params ) {
+	public model( params: any ) {
 
 		// const { headParams, eyeParams, noseParams, archetypeParams } = params;
 		// const { numCtrl, latCtrl, cutoffCtrl, volCtrl, roundnessCtrl, indentCtrl } = archetypeParams;
