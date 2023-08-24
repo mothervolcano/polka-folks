@@ -68,7 +68,15 @@ export function generate(
 
   console.log(`..... Generating Polka: ${archetype}`);
 
-  polka = new _archetype( origin, 100 );
+  if ( _archetype ) {
+
+    polka = new _archetype( origin, 100 );
+
+  } else {
+
+    //TODO: error message
+  }
+
 
   polka.generate( { headParams, eyeParams, noseParams, archetypeParams } );
 
