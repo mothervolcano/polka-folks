@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import Stage from './components/stage'
-import Console from './components/console';
+import TestConsole from './components/consoles/testConsole';
 
 import { reset, generate, regenerate, model } from './polkaLab';
 
@@ -30,52 +30,28 @@ const Lab = () => {
 	}
 
 
-	const nerdParams: ParamSet = [
+	const testParams: ParamSet = [
 
-		{ id: 'ogp1', name: 'splitLat', value: 1, range: [0, 2], step: 0.01, label: "Split Drop", },
-		{ id: 'ogp2', name: 'splitAperture', value: 0.5, range: [0, 2], step: 0.01, label: "Split Aperture", },
-		{ id: 'ogp3', name: '', value: 1, range: [0, 2], step: 1, label: "Olga P3", },
-		{ id: 'ogp4', name: '', value: 0.5, range: [0, 2], step: 1, label: "Olga P4", },
-		{ id: 'ogp5', name: '', value: 1, range: [0, 2], step: 1, label: "Olga P5", },
-		{ id: 'ogp6', name: '', value: 1, range: [0, 2], step: 1, label: "Olga P6", },
-		{ id: 'ogp7', name: '', value: 1, range: [0, 2], step: 1, label: "Olga P7", },
-	]
-
-	const punkParams: ParamSet = [
-
-		{ id: 'syp1', name: 'spikeNumCtrl', value: 5, range: [1, 15], step: 1, label: "Spike Number", },
-		{ id: 'syp5', name: 'shaveDotsDensity', value: 5, range: [3, 10], step: 1, label: "Shaved Head", },
-		{ id: 'syp2', name: 'spikeLengthCtrl', value: 1, range: [0, 2], step: 0.01, label: "Spike Height", },
-		{ id: 'syp3', name: 'spikeSpreadCtrl', value: 0.5, range: [0, 1], step: 0.01, label: "Spike Spread", },
-		{ id: 'syp4', name: 'shrinkRateCtrl', value: 0, range: [0, 1], step: 0.01, label: "Spike Shrink Rate", },
-		{ id: 'syp6', name: 'spikeSharpnessCtrl', value: 1, range: [0, 2], step: 0.01, label: "Spike Sharpness", },
-		{ id: 'syp7', name: '', value: 1, range: [0, 2], step: 0.01, label: "Syd P7", },
-	]
-
-	const baroqueParams: ParamSet = [
-
-		{ id: 'mzp4', name: 'curlNumCtrl', value: 2, range: [1, 6], step: 1, label: "Curls", },
-		{ id: 'mzp5', name: '', value: 1, range: [0, 2], step: 0.01, label: "Mozart P5", },
-		{ id: 'mzp1', name: 'heightCtrl', value: 0.5, range: [0, 1], step: 0.01, label: "Height", },
-		{ id: 'mzp7', name: 'volCtrl', value: 0.5, range: [0, 1], step: 0.01, label: "Volume", },
-		{ id: 'mzp2', name: 'hairlineLevelCtrl', value: 0.5, range: [0, 2], step: 0.01, label: "Hairline Level", },
-		{ id: 'mzp3', name: 'hairlineRidgeCtrl', value: 1, range: [0, 2], step: 0.01, label: "Hairline Ridge", },
-		{ id: 'mzp6', name: 'spanCtrl', value: 1, range: [0, 2], step: 0.01, label: "Span", },
+		{ id: 'ogp1', name: 'count',  				value: 5, 		range: [1, 12], 	step: 1, 		label: "Attractor Count", },
+		{ id: 'ogp2', name: 'splitAperture', 		value: 0.5, 	range: [0, 2], 		step: 0.01, 	label: "Split Aperture", },
+		{ id: 'ogp3', name: 'radius', 				value: 100, 	range: [25, 300], 	step: 1, 		label: "radius", },
+		{ id: 'ogp4', name: 'p4', 					value: 0, 		range: [-180, 180], step: 1, 		label: "Steer Angle", },
+		{ id: 'ogp5', name: '', 					value: 1, 		range: [0, 2], 		step: 1, 		label: "Olga P5", },
+		{ id: 'ogp6', name: '', 					value: 1, 		range: [0, 2], 		step: 1, 		label: "Olga P6", },
+		{ id: 'ogp7', name: '', 					value: 1, 		range: [0, 2], 		step: 1, 		label: "Olga P7", },
 	]
 
 
-	const archetypes: any = [
+	const tests: any = [
 
-		{ option: "PUNK", label: "Punk", icon: "TEST", console: "PunkConsole", params: punkParams, default: false, checked: false },
-		{ option: "BAROQUE", label: "Baroque", icon: "TEST", console: 'BaroqueConsole', params: baroqueParams, default: false, checked: false },
-		{ option: "NERD", label: "Nerd", icon: "TEST", console: 'NerdConsole', params: nerdParams, default: false, checked: false },
+		{ option: "TEST", label: "test", icon: "TEST", console: "TestConsole", params: testParams, default: false, checked: false },
 
 	]
 
 	const [isPaperLoaded, setIsPaperLoaded] = useState(false);
 
-	const [archetype, setArchetype] = useState<Model | null>(null);
-	const [paramsForArchetype, setParamsForArchetype] = useState<ParamSet | null>(null);
+	const [test, setTest] = useState<Model | null>(null);
+	const [paramsForTest, setParamsForTest] = useState<ParamSet | null>(null);
 
 	const [scaleCtrl, setScaleCtrl] = useState(3);
 
@@ -89,11 +65,11 @@ const Lab = () => {
 
 			const _archetypeParams: any = {};
 
-			if (archetype === null) {
+			if (test === null) {
 
 			} else {
 
-				Array.from(archetype.params.values() || []).forEach((p: any) => {
+				Array.from(test.params.values() || []).forEach((p: any) => {
 
 					_archetypeParams[p.name] = p.value; 
 
@@ -105,31 +81,31 @@ const Lab = () => {
 			model(_archetypeParams);
 		}
 
-	}, [scaleCtrl, paramsForArchetype]);
+	}, [ scaleCtrl, paramsForTest ]);
 
 
 	//-----------------------------------------------------------------------
 
-	function handleGenerateAction(selectedArchetype: any) {
+	function handleGenerateAction(selectedTest: any) {
 
 		if (isPaperLoaded) {
 			
-			console.log(`ready to generate ${selectedArchetype.label}`);
+			console.log(`ready to generate ${selectedTest.label}`);
 
 			const _archetypeParams: any = {};
 
-			Array.from(selectedArchetype.params.values() || []).forEach((p: any) => {
+			Array.from(selectedTest.params.values() || []).forEach((p: any) => {
 
 				_archetypeParams[p.name] = p.value; 
 
 			});
 
 			reset();
-			generate(selectedArchetype.option, _archetypeParams);
+			generate( selectedTest.option, _archetypeParams );
 			model(_archetypeParams);
 
-			setArchetype(selectedArchetype);
-			setParamsForArchetype(selectedArchetype.params);
+			setTest(selectedTest);
+			setParamsForTest(selectedTest.params);
 
 		} else {
 
@@ -137,15 +113,15 @@ const Lab = () => {
 	};
 
 
-	function handleRegenerateAction(selectedArchetype: any) {
+	function handleRegenerateAction(selectedTest: any) {
 
 		if (isPaperLoaded) {
 			
-			console.log(`ready to regenerate ${selectedArchetype.label}`);
+			console.log(`ready to regenerate ${selectedTest.label}`);
 
 			const _archetypeParams: any = {};
 
-			Array.from(selectedArchetype?.params.values() || []).forEach((p: any) => {
+			Array.from(selectedTest?.params.values() || []).forEach((p: any) => {
 
 				_archetypeParams[p.name] = p.value; 
 
@@ -163,9 +139,9 @@ const Lab = () => {
 
 	};
 
-	function handleParamCtrlInputForArchetype(updatedParams: ParamSet) {
+	function handleParamCtrlInputForTest(updatedParams: ParamSet) {
 
-		setParamsForArchetype(updatedParams);
+		setParamsForTest(updatedParams);
 	}	
 
 	return (
@@ -178,7 +154,7 @@ const Lab = () => {
 				<Stage
 
 					onPaperLoad={setIsPaperLoaded}
-					options={archetypes}
+					options={tests}
 					onGenerate={handleGenerateAction}
 					onRegenerate={handleRegenerateAction}
 				/>
@@ -189,18 +165,20 @@ const Lab = () => {
 
 			<div className={`absolute top-0 left-0 max-w-[250px] h-fit h-[70vh] m-5 border border-slate-900`} > 
 
-				<Console
+				{
 
-					archetype={archetype}
-					paramsForArchetype={paramsForArchetype}
-					paramsForHead={null}
-					paramsForEyes={null}
-					paramsForNose={null}
-					archetypeInputHandler={handleParamCtrlInputForArchetype}
-					headInputHandler={null}
-					eyesInputHandler={null}
-					noseInputHandler={null}
-				/>
+					paramsForTest && (
+
+						<TestConsole
+
+							params={paramsForTest}
+							inputHandler={handleParamCtrlInputForTest}
+						/>
+
+					)
+
+				}
+
 
 			</div>
 

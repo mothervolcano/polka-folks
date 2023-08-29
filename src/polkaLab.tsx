@@ -40,22 +40,9 @@ export function generate(
 
 	switch (polkaTest) {
 
-		case 'PUNK': 
+		case 'TEST': 
 			_test = testOrbitalFieldWithSpines;
 			break;
-
-		case 'NERD':
-			_test = testOrbitalFieldWithSpines;
-			break;
-
-		case 'BAROQUE':
-			_test = testOrbitalFieldWithSpines;
-			break;
-
-		case 'MONK':
-			_test = testOrbitalFieldWithSpines;
-			break;
-
 	}
 
 
@@ -70,8 +57,9 @@ export function generate(
 		//TODO: error message
 	}
 
+	reset();
 
-	test.generate({ testParams });
+	test( origin, testParams );
 
 };
 
@@ -84,11 +72,9 @@ export function model(
 
 ) {
 
-  origin = view.center;
 
-  const { count } = testParams;
-
-  test( count );
+  reset()
+	test( origin, testParams );
 
 };
 
