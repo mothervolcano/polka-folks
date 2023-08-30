@@ -3,8 +3,12 @@ import { useMediaQuery } from 'react-responsive';
 
 import { useState, useEffect } from 'react';
 
-import Stage from './components/stage'
-import Console from './components/console';
+import Stage from './components/stage';
+import NerdConsole from './components/consoles/nerdConsole';
+import BaroqueConsole from './components/consoles/baroqueConsole';
+import PunkConsole from './components/consoles/punkConsole';
+
+// import Console from './components/console';
 
 import { reset, generate, regenerate, model } from './polkaGenerator';
 
@@ -28,7 +32,7 @@ const Main = () => {
 
 		option: string;
 		label: string;
-		console: string;
+		console: any;
 		params: ParamSet;
 	}
 
@@ -95,9 +99,9 @@ const Main = () => {
 
 	const archetypes: any = [
 
-		{ option: "PUNK", 		label: "Punk", 		icon: "TEST", 	console: "PunkConsole", 	params: punkParams, 			default: false, checked: false },
-		{ option: "BAROQUE", 	label: "Baroque", 	icon: "TEST", 	console: 'BaroqueConsole', 	params: baroqueParams, 			default: false, checked: false },
-		{ option: "NERD", 		label: "Nerd", 		icon: "TEST", 	console: 'NerdConsole', 	params: nerdParams, 			default: false, checked: false },
+		{ option: "PUNK", 		label: "Punk", 		icon: "TEST", 	console: PunkConsole, 		params: punkParams, 			default: false, checked: false },
+		{ option: "BAROQUE", 	label: "Baroque", 	icon: "TEST", 	console: BaroqueConsole, 	params: baroqueParams, 			default: false, checked: false },
+		{ option: "NERD", 		label: "Nerd", 		icon: "TEST", 	console: NerdConsole, 		params: nerdParams, 			default: false, checked: false },
 	]
 
 
@@ -273,6 +277,42 @@ const Main = () => {
 	}
 
 
+	// ------------------------------------------------------------------------
+
+
+
+	// function switchConsole( archetype: Model ) {
+
+
+	// 	const Console = archetype.console;
+
+	// 	return <Console params={paramsForArchetype} inputHandler={handleParamCtrlInputForArchetype};
+
+	// 	// switch( ARCHETYPE ) {
+
+	// 	// 	case 'BAROQUE': 
+	// 	// 		return ( <BaroqueConsole  params={paramsForArchetype} inputHandler={handleParamCtrlInputForArchetype} /> );
+	// 	// 		break;
+	// 	// 	case 'NERD':
+	// 	// 		return ( <NerdConsole params={paramsForArchetype} inputHandler={handleParamCtrlInputForArchetype} /> );
+	// 	// 		break;
+	// 	// 	case 'PUNK':
+	// 	// 		return ( <PunkConsole params={paramsForArchetype} inputHandler={handleParamCtrlInputForArchetype} /> );
+	// 	// 		break;
+	// 	// }
+	// };
+
+
+	const Console = ( props: any ) => {
+
+		const { console, params, inputHandler } = props;
+
+		const ArchetypeConsole = console;
+
+		return ( <ArchetypeConsole  params={params} inputHandler={inputHandler} /> )
+	}
+
+
 	return (
         
         <div className={`relative w-3/4 h-[80vh] m-5 border border-slate-900`}>
@@ -297,7 +337,21 @@ const Main = () => {
 
 		    <div className={`absolute ${ isDesktopOrLaptop ? "top-0" : "top-0" } left-0 ${ isDesktopOrLaptop ? "max-w-[250px]" : "w-full" } ${ isDesktopOrLaptop ? "h-fit" : "h-[70vh]" } m-5 border border-slate-900`} > 
 
-		    	<Console
+
+		    	{
+		    		archetype && ( 
+
+		    		    <Console 
+
+		    		    	console={archetype.console} 
+		    		    	params={paramsForArchetype} 
+		    		    	inputHandler={handleParamCtrlInputForArchetype} 
+		    		    	
+		    		    />)
+		    	}
+
+
+{/*		    	<Console
 
 		    		archetype={archetype}
 		    		paramsForArchetype={paramsForArchetype}
@@ -308,7 +362,7 @@ const Main = () => {
 		    		headInputHandler={handleParamCtrlInputForHead}
 		    		eyesInputHandler={handleParamCtrlInputForEyes}
 		    		noseInputHandler={handleParamCtrlInputForNose}
-		    	/>
+		    	/>*/}
 
 	    		{ !isDesktopOrLaptop && (
 
