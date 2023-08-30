@@ -1,7 +1,14 @@
 import { Layer } from 'paper';
 import { paperScope } from './components/paperStage';
 
-import {  testOrbitalFieldWithSpines } from './unit_tests/first-test'
+import {  
+					testOrbitalFieldWithSpines, 
+					testOrbitalFieldWithOrbitals, 
+					testOrbitalFieldWithOrbitalFields,
+					testSpinalFieldWithSpines,
+					testSpinalFieldWithOrbitals
+
+				} from './unit_tests/first-test'
 
 import { markPoint } from './lib/topo/utils/helpers';
 
@@ -40,8 +47,20 @@ export function generate(
 
 	switch (polkaTest) {
 
-		case 'TEST': 
+		case 'ORBITAL_SPINES': 
 			_test = testOrbitalFieldWithSpines;
+			break;		
+		case 'ORBITAL_ORBITALS': 
+			_test = testOrbitalFieldWithOrbitals;
+			break;		
+		case 'ORBITAL_ORBITAL_FIELDS': 
+			_test = testOrbitalFieldWithOrbitalFields;
+			break;
+		case 'SPINE_SPINES': 
+			_test = testSpinalFieldWithSpines;
+			break;
+		case 'SPINE_ORBITALS': 
+			_test = testSpinalFieldWithOrbitals;
 			break;
 	}
 

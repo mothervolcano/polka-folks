@@ -45,17 +45,13 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 	protected abstract getPathLocationDataAt( pos: number ): PathLocationData;
-	protected abstract adjustToOrientation( value: number ): any;
-	protected abstract adjustToPolarity( value: number ): any;
+	protected abstract adjustToOrientation( anchor: any, isPositive: Function, isNegative: Function ): void;
+	protected abstract adjustToPolarity( anchor: any ): void;
 
 
 	set orientation( value: number ) {
 
-		if ( value !== this._orientation ) {
-
-			this._orientation = value;
-			this.adjustToOrientation( value );
-		}
+		this._orientation = value;
 	};
 
 
@@ -68,8 +64,7 @@ abstract class AttractorObject extends DisplayObject {
 	set polarity( value: number ) {
 
 		this._polarity = value;
-		this.adjustToPolarity( value );
-		// this.scale( 1, this._polarity );
+
 	};
 
 

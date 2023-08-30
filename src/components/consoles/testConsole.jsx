@@ -127,6 +127,19 @@ const TestConsole = ({
 
 					</div>
 
+					<div className={`col-span-8 px-2 w-full h-full flex flex-row items-center border-slate-900`}>
+				
+						<Slider
+							id={params[7].id}
+							min={params[7].range[0]}
+							max={params[7].range[1]}
+							step={params[7].step}
+							defaultValue={ params[7].value }
+							onValueChangeHandler={ handleInput }
+						/>					
+
+					</div>
+
     			</div>
     		</div>
 	        	

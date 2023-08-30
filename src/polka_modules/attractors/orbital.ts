@@ -36,7 +36,7 @@ class Orbital extends AttractorObject {
 
 		
 		// TODO: review this. The idea was to define the orientation permanently and prevent it from being reset by fields
-		if (orientation) this.adjustToOrientation( orientation );
+		// if (orientation) this.adjustToOrientation( orientation );
 
 		// this._fixedOrientation = false;
 
@@ -48,7 +48,7 @@ class Orbital extends AttractorObject {
 
 		return this;
 
-	}
+	};
 
 
 	protected render() {
@@ -73,26 +73,44 @@ class Orbital extends AttractorObject {
 
 	};
 
-	protected adjustRotationToPosition( position: number ) {
 
-		if ( position > 0.25 && position < 0.75 ) {
+	protected adjustRotationToPosition( anchor: any,  isPositive: Function, isNegative: Function ) {
+	
+		if ( isPositive( anchor.position ) ) {
 
-			return 0;
+			this.axisAngle = -180;
+
+		} else  if ( isNegative( anchor.position ) ) {
+
+			this.axisAngle = 0;
 
 		} else {
 
-			return -180;
+			throw new Error( 'POSSIBLY TRYING TO ANCHOR OUTSIDE OF FIELDs BOUNDS' );
 		}
 	};
 
 
-	public adjustToOrientation( value: number ) {
+	public adjustToOrientation( anchor: any,  isPositive: Function, isNegative: Function  ) {
 
-		this.scale( value, 1 );
+		if ( isPositive( anchor.position ) ) {
+
+			this.scale( 1, 1 );
+			this.orientation = 1;
+
+		} else  if ( isNegative( anchor.position ) ) {
+
+			this.scale( -1, 1 );
+			this.orientation = -1;
+
+		} else {
+
+			throw new Error( 'POSSIBLY TRYING TO ANCHOR OUTSIDE OF FIELDs BOUNDS' );
+		}
 	};
 
 
-	protected adjustToPolarity( value: number ) {
+	protected adjustToPolarity( anchor: any ) {
 
 		// this.scale( 1, value );
 	};

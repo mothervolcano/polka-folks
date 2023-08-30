@@ -46,39 +46,22 @@ class EclipseField extends AttractorField {
 	};
 
 
-	protected calculateOrientation( i: number, anchor: HyperPoint ) {
+	protected configureAttractor( att: any, anchor: IHyperPoint ) {
 
-		if ( anchor.position > 0.25 && anchor.position < 0.75 ) {
+		att.adjustRotationToPosition( 
+            anchor,
+            (pos:number) => { return pos < 0.25 || pos > 0.75 }, // the condition of this field for the orientation to be 1
+            (pos:number) => { return pos >= 0.25 && pos <= 0.75 }, // the condition of this field for the orientation to be -1
+		);
+		
+		att.adjustToOrientation( 
+            anchor,
+            (pos:number) => { return pos < 0.25 || pos > 0.75 }, // the condition of this field for the orientation to be 1
+            (pos:number) => { return pos >= 0.25 && pos <= 0.75 }, // the condition of this field for the orientation to be -1
+		);
 
-			return -1;
+		att.adjustToPolarity( anchor );
 
-		} else {
-
-			return 1;
-		}
-	};
-	
-
-	protected calculatePolarity( i: number, anchor: HyperPoint ) {
-
-		return this.polarity;
-	};
-
-
-	protected calculateRotation( i: number, anchor: HyperPoint ) {
-
-		let axisAngle = 0
-
-		if ( anchor.position > 0.25 && anchor.position < 0.75 ) {
-
-			axisAngle = 0;
-
-		} else {
-
-			axisAngle = -180;
-		}
-
-		return axisAngle;
 	};
 
 

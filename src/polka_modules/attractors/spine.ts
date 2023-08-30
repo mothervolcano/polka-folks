@@ -125,31 +125,47 @@ class Spine extends AttractorObject {
 	}
 
 
-	protected adjustRotationToPosition( position: number ) {
+	protected adjustRotationToPosition( anchor: any,  isPositive: Function, isNegative: Function ) {
+	
+		if ( isPositive( anchor.position ) ) {
 
-		if ( position > 0.25 && position < 0.75 ) {
+			this.axisAngle = 0;
 
-			return 0;
+		} else  if ( isNegative( anchor.position ) ) {
+
+			this.axisAngle = 0;
 
 		} else {
 
-			return 0;
+			throw new Error( 'POSSIBLY TRYING TO ANCHOR OUTSIDE OF FIELDs BOUNDS' );
 		}
 	};
 
 
-	protected adjustToOrientation( value: number ) {
+	protected adjustToOrientation( anchor: any,  isPositive: Function, isNegative: Function ) {
 
-		// this.scale( 1, 1 );
+		if ( isPositive( anchor.position ) ) {
 
-		// if ( value === -1 ) { this.rotate(180) }
+			this.orientation = 1;
 
-	}
+		} else if ( isNegative( anchor.position ) ) {
 
-	protected adjustToPolarity( value: number ) {
+			this.orientation = -1;
+
+		} else {
+
+			throw new Error('POSSIBLY TRYING TO PLACE THE ATTRACTOR OUTSIDE OF FIELDs BOUNDS');
+		}
+	};
 
 
-	}
+	protected adjustToPolarity( anchor: any ) {
+
+		// TODO
+
+		this.polarity = 1;
+
+	};
 
 
 	protected getPathLocationDataAt( at: number ): PathLocationData {

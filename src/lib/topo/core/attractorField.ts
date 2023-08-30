@@ -86,9 +86,8 @@ abstract class AttractorField extends DisplayNode {
 		return this._axisAngle;
 	}
 
-	protected calculateOrientation( i: number, anchor: any ) {}
-	protected calculatePolarity( i: number, anchor: any ) {}
-	protected calculateRotation( attractor: any, anchor: any ) {}
+	// MUST BE IMPLEMENTED BY THE SUBCLASSES
+	protected configureAttractor( att: any, anchor: any ) {}
 
 
 	protected filterAttractors() {
@@ -119,15 +118,11 @@ abstract class AttractorField extends DisplayNode {
 
 			const position = ( this._shift + start + step*i ) > 1  ? ( this._shift + start + step*i ) - 1 : ( this._shift + start + step*i );
 
-			console.log(`@AttractorNode: position: ${position}`)
-
 			const anchor = attractor.isSelfAnchored ? this._attractor.locate( attractor.anchor.position ) : this._attractor.locate( position );
 
 			attractor.reset();
 
-			attractor.orientation = this.calculateOrientation( i, anchor );
-			attractor.polarity = this.calculatePolarity( i, anchor );
-			attractor.axisAngle = this.calculateRotation( attractor, anchor );	
+			this.configureAttractor( attractor, anchor );
 
 			attractor.anchorAt( anchor );
 		
@@ -198,9 +193,8 @@ abstract class AttractorField extends DisplayNode {
 
 			attractor.reset()
 			attractor.isSelfAnchored = true;
-			attractor.orientation = this.calculateOrientation( 0, anchor )
-			attractor.polarity = this.calculatePolarity( 0, anchor );
-			attractor.axisAngle = this.calculateRotation( attractor, anchor );
+
+			this.configureAttractor( attractor, anchor );
 			attractor.anchorAt( anchor );
 			
 	
@@ -221,17 +215,17 @@ abstract class AttractorField extends DisplayNode {
 	}
 
 
-	
-
 
 	public anchorAt( anchor: HyperPoint, along: string = 'RAY' ) {
 
 		// this._attractor._anchor = anchor;
 		// this._attractor._anchor.spin = this._orientation;
 
-		this._attractor.orientation = this.orientation;
-		this._attractor.polarity = this.polarity;
-		this._attractor.axisAngle = this.axisAngle;
+		// this._attractor.orientation = this.orientation;
+		// this._attractor.polarity = this.polarity;
+		// this._attractor.axisAngle = this.axisAngle;
+
+		// this.configureAttractor( this._attractor, anchor );
 		this._attractor.anchorAt( anchor, along );
 
 		this.arrangeAttractors( this.filterAttractors() );
@@ -245,16 +239,18 @@ abstract class AttractorField extends DisplayNode {
 
 	public placeAt( position: any, pivot: any ): void {
 
-		const iPos = this.position;
+		// const iPos = this.position;
 
 		super.placeAt( position, pivot );
 
-		for ( const att of this.getChildren() ) {
+		this.arrangeAttractors( this.filterAttractors() );
 
-			const pos = att.position.add( this.position.subtract(iPos) )
+		// for ( const att of this.getChildren() ) {
 
-			att.placeAt( pos )
-		}
+		// 	const pos = att.position.add( this.position.subtract(iPos) )
+
+		// 	att.placeAt( pos )
+		// }
 	};
 
 
@@ -390,8 +386,13 @@ abstract class AttractorField extends DisplayNode {
 
 	public reset(): void {
 
-		this._attractor.reset()
 
+		for ( const att of this.getChildren() ) {
+
+			att.reset();
+		}
+
+		this._attractor.reset();
 		this.render( null );
 	}
 

@@ -46,27 +46,46 @@ class Eclipse extends AttractorObject {
 
 	}
 
-	protected adjustRotationToPosition( position: number ) {
+	protected adjustRotationToPosition( anchor: any,  isPositive: Function, isNegative: Function ) {
+	
+		if ( isPositive( anchor.position ) ) {
 
-		if ( position > 0.25 && position < 0.75 ) {
+			this.axisAngle = -180;
 
-			return 0;
+		} else  if ( isNegative( anchor.position ) ) {
+
+			this.axisAngle = 0;
 
 		} else {
 
-			return -180;
+			throw new Error( 'POSSIBLY TRYING TO ANCHOR OUTSIDE OF FIELDs BOUNDS' );
 		}
 	};
 
-	protected adjustToOrientation( value: number ) {
 
-		this.scale( value, 1 );
-	}
+	public adjustToOrientation( anchor: any,  isPositive: Function, isNegative: Function  ) {
 
-	protected adjustToPolarity( value: number ) {
+		if ( isPositive( anchor.position ) ) {
 
-		// this.scale( 1, value );
-	}
+			this.scale( 1, 1 );
+			this.orientation = 1;
+
+		} else  if ( isNegative( anchor.position ) ) {
+
+			this.scale( -1, 1 );
+			this.orientation = -1;
+
+		} else {
+
+			throw new Error( 'POSSIBLY TRYING TO ANCHOR OUTSIDE OF FIELDs BOUNDS' );
+		}
+	};
+	
+
+	protected adjustToPolarity( anchor: any ) {
+
+		// TODO
+	};
 
 
 	protected render() {

@@ -4,7 +4,7 @@ import AttractorField from '../../lib/topo/core/attractorField';
 import Spine from './spine';
 import Orbital from './orbital';
 
-import { isEven } from '../../lib/topo/utils/helpers';
+import { isEven, isOdd } from '../../lib/topo/utils/helpers';
 
 
 
@@ -16,7 +16,7 @@ class SpinalField extends AttractorField {
 	private _mode: string;
 	
 	
-	constructor( positionData: PointLike, length: number | null, orientation: number = 1, polarity: number = 1, mode: string = 'ALTERNATED' ) {
+	constructor( positionData: PointLike, length: number | null, orientation: number = 1, polarity: number = 1, mode: string = 'DIRECTED' ) {
 
 		const _path = Spine.project( positionData, length )
 
@@ -51,46 +51,102 @@ class SpinalField extends AttractorField {
 
 	};
 
+	protected adjustRotationToPosition( anchor: any, isPositive: Function, isNegative: Function  ) {
 
-	protected calculateOrientation( i: number, anchor: any ) {
+		this._attractor.adjustRotationToPosition( anchor, isPositive, isNegative );
+	};
 
-		if ( isEven(i) ) {
+	protected adjustToOrientation( anchor: any, isPositive: Function, isNegative: Function ) {
 
-			return this.orientation;
+		this._attractor.adjustToOrientation( anchor, isPositive, isNegative );
+	};
 
-		} else {
+	protected adjustToPolarity( anchor: any ) {
 
-			return this._mode === 'DIRECTED' ? this.orientation : this.orientation * -1;
+		this._attractor.adjustToPolarity( anchor );
+	};
+
+
+	protected configureAttractor( att: any, anchor: IHyperPoint ) {
+
+		switch ( this._mode ) {
+
+
+		case 'SYMMETRICAL':
+
+			att.adjustRotationToPosition( 
+
+	        	anchor,
+	        	(pos:number) => { return pos < 0.5  },
+	        	(pos:number) => { return pos >= 0.5 },
+
+	        );
+
+			att.adjustToOrientation( 
+	            anchor,
+	            (pos:number) => { return pos < 0.5  }, // the condition of this field for the orientation to be 1
+	            (pos:number) => { return pos >= 0.5 }, // the condition of this field for the orientation to be -1
+			);
+
+			break;
+
+		case 'ALTERNATED': // TODO: need to know the order of each att
+
+			att.adjustRotationToPosition( 
+
+	        	anchor,
+	        	(pos:number) => { return isEven(pos) },
+	        	(pos:number) => { return isOdd(pos) },
+
+	        );
+
+			att.adjustToOrientation( 
+	            anchor,
+	            (pos:number) => { return isEven(pos)  }, // the condition of this field for the orientation to be 1
+	            (pos:number) => { return isOdd(pos) }, // the condition of this field for the orientation to be -1
+			);
+
+			break;
+
+
+		case 'DIRECTED':
+
+			att.adjustRotationToPosition( 
+
+	        	anchor,
+	        	(pos:number) => { return pos >= 0 },
+	        	(pos:number) => { return false },
+
+	        );
+
+			att.adjustToOrientation( 
+	            anchor,
+	            (pos:number) => { return pos >= 0  }, // the condition of this field for the orientation to be 1
+	            (pos:number) => { return false }, // the condition of this field for the orientation to be -1
+			);
+
+			break;
+
 		}
-	};
+		
+		
+		
+		att.adjustToPolarity( anchor );
+
+	}
 
 
-	protected calculatePolarity( i: number, anchor: any ) {
+	// protected calculateRotation( i: number, anchor: any ) {
 
-		return this.polarity;
+	// 	if ( isEven(i) ) {
 
-		// if ( isEven(i) ) {
+	// 		return 0;
 
-		// 	return this.polarity;
+	// 	} else {
 
-		// } else {
-
-		// 	return this._mode === 'DIRECTED' ? this.polarity : this.polarity * -1;
-		// }
-	};
-
-
-	protected calculateRotation( i: number, anchor: any ) {
-
-		if ( isEven(i) ) {
-
-			return 0;
-
-		} else {
-
-			return this._mode === 'DIRECTED' ? 0 : 180;
-		}
-	};
+	// 		return this._mode === 'DIRECTED' ? 0 : 180;
+	// 	}
+	// };
 
 
 	set mode( value: string ) {

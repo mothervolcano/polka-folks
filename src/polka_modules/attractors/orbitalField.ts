@@ -39,55 +39,61 @@ class OrbitalField extends AttractorField {
 
 	};
 
-	protected adjustRotationToPosition( position: number ) {
 
-		if ( position > 0.25 && position < 0.75 ) {
+	protected adjustRotationToPosition( anchor: any, isPositive: Function, isNegative: Function ) {
 
-			return 0;
+		this._attractor.adjustRotationToPosition( anchor, isPositive, isNegative  );
+	};
 
-		} else {
+	protected adjustToOrientation( anchor: any, isPositive: Function, isNegative: Function ) {
 
-			return -180;
-		}
+		this._attractor.adjustToOrientation( anchor, isPositive, isNegative );
+	};
+
+	protected adjustToPolarity( anchor: any ) {
+
+		this._attractor.adjustToPolarity( anchor );
 	};
 
 
-	protected calculateOrientation( i: number, anchor: IHyperPoint ) {
 
-		if ( anchor.position > 0.25 && anchor.position < 0.75 ) {
+	protected configureAttractor( att: any, anchor: IHyperPoint ) {
 
-			return -1;
-
-		} else {
-
-			return 1;
-		}
-
-	};
-
-
-	protected calculatePolarity( i: number, anchor: IHyperPoint ) {
-
-		return this.polarity;
+		att.adjustRotationToPosition( 
+            anchor,
+            (pos:number) => { return pos < 0.25 || pos > 0.75 }, // the condition of this field for the orientation to be 1
+            (pos:number) => { return pos >= 0.25 && pos <= 0.75 }, // the condition of this field for the orientation to be -1
+		);
 		
-	};
+		att.adjustToOrientation( 
+            anchor,
+            (pos:number) => { return pos < 0.25 || pos > 0.75 }, // the condition of this field for the orientation to be 1
+            (pos:number) => { return pos >= 0.25 && pos <= 0.75 }, // the condition of this field for the orientation to be -1
+		);
 
+		att.adjustToPolarity( anchor );
 
-	protected calculateRotation( att: any, anchor: IHyperPoint ) {
-
-		// if ( anchor.position > 0.25 && anchor.position < 0.75 ) {
-
-		// 	// axisAngle = anchor.normal.angle;
-		// 	axisAngle = 0;
-
-		// } else {
-
-		// 	// axisAngle = anchor.normal.angle-180;
-		// 	axisAngle = -180;
-		// }
-
-		return att.adjustRotationToPosition( anchor.position );
 	}
+
+
+	// protected calculateOrientation( att: any, anchor: IHyperPoint ) {
+
+	// 	att.adjustToOrientation( anchor );
+
+	// };
+
+
+	// protected calculatePolarity( att: any, anchor: IHyperPoint ) {
+
+	// 	att.adjustToPolarity( anchor );
+		
+	// };
+
+
+	// protected calculateRotation( att: any, anchor: IHyperPoint ) {
+
+	// 	att.adjustRotationToPosition( anchor.position );
+	// }
 }
 
 export default OrbitalField

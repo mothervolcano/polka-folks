@@ -36,16 +36,20 @@ const Lab = () => {
 		{ id: 'ogp2', name: 'splitAperture', 		value: 0.5, 	range: [0, 2], 		step: 0.01, 	label: "Split Aperture", },
 		{ id: 'ogp3', name: 'radius', 				value: 100, 	range: [25, 300], 	step: 1, 		label: "radius", },
 		{ id: 'ogp4', name: 'p4', 					value: 0, 		range: [-180, 180], step: 1, 		label: "Steer Angle", },
-		{ id: 'ogp5', name: '', 					value: 1, 		range: [0, 2], 		step: 1, 		label: "Olga P5", },
-		{ id: 'ogp6', name: '', 					value: 1, 		range: [0, 2], 		step: 1, 		label: "Olga P6", },
-		{ id: 'ogp7', name: '', 					value: 1, 		range: [0, 2], 		step: 1, 		label: "Olga P7", },
+		{ id: 'ogp5', name: 'p5', 					value: 0, 		range: [0, 1], 		step: 0.01, 	label: "P5", },
+		{ id: 'ogp6', name: 'p6', 					value: 0, 		range: [0, 1], 		step: 0.01, 		label: "P6", },
+		{ id: 'ogp7', name: 'p7', 					value: 0, 		range: [0, 1], 		step: 0.01, 		label: "P7", },
+		{ id: 'ogp8', name: 'p8', 					value: 0, 		range: [0, 1], 		step: 0.01, 		label: "P8", },
 	]
 
 
 	const tests: any = [
 
-		{ option: "TEST", label: "test", icon: "TEST", console: "TestConsole", params: testParams, default: false, checked: false },
-
+		{ option: "ORBITAL_SPINES", 			label: "Spines in Orbital Field", 			icon: "TEST", console: "TestConsole", params: testParams, default: false, checked: false },
+		{ option: "ORBITAL_ORBITALS", 			label: "Orbitals in Orbital Field", 		icon: "TEST", console: "TestConsole", params: testParams, default: false, checked: false },
+		{ option: "ORBITAL_ORBITAL_FIELDS", 	label: "Orbital Fields in Orbital Field", 	icon: "TEST", console: "TestConsole", params: testParams, default: false, checked: false },
+		{ option: "SPINE_SPINES", 				label: "Spines in Spinal Field", 			icon: "TEST", console: "TestConsole", params: testParams, default: false, checked: false },
+		{ option: "SPINE_ORBITALS", 			label: "Orbitals in Spinal Field", 			icon: "TEST", console: "TestConsole", params: testParams, default: false, checked: false },
 	]
 
 	const [isPaperLoaded, setIsPaperLoaded] = useState(false);
