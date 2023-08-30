@@ -165,7 +165,7 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	public anchorAt( anchor: HyperPoint, along: VectorDirection = 'RAY'): void {
+	public anchorAt( anchor: IHyperPoint, along: VectorDirection = 'RAY'): void {
 
 		this._anchor = anchor;
 		this._anchor.spin = this._orientation;
@@ -174,9 +174,13 @@ abstract class AttractorObject extends DisplayObject {
 
 			if ( along === 'TAN' ) {
 
+				if ( !anchor.tangent ) { throw new Error('Attractor anchor missing tangent vector') };
+
 				this._content.rotation = anchor.tangent.angle;
 
 			} else {
+
+				if ( !anchor.normal ) { throw new Error('Attractor anchor missing normal vector') };
 
 				this._content.rotation = anchor.normal.angle;
 			}	

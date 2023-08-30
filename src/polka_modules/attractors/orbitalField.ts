@@ -39,21 +39,21 @@ class OrbitalField extends AttractorField {
 	};
 
 
-	public adjustRotationToPosition( anchor: any, isPositive: Function, isNegative: Function ) {
+	public adjustRotationToPosition( anchor: IHyperPoint, isPositive: Function, isNegative: Function ) {
 
 		if ( !this._attractor ) { throw new Error('Orbital Field has no defined base attractor') };
 
 		this._attractor.adjustRotationToPosition( anchor, isPositive, isNegative  );
 	};
 
-	public adjustToOrientation( anchor: any, isPositive: Function, isNegative: Function ) {
+	public adjustToOrientation( anchor: IHyperPoint, isPositive: Function, isNegative: Function ) {
 
 		if ( !this._attractor ) { throw new Error('Orbital Field has no defined base attractor') };
 
 		this._attractor.adjustToOrientation( anchor, isPositive, isNegative );
 	};
 
-	public adjustToPolarity( anchor: any ) {
+	public adjustToPolarity( anchor: IHyperPoint ) {
 
 		if ( !this._attractor ) { throw new Error('Orbital Field has no defined base attractor') };
 

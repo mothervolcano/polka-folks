@@ -31,8 +31,6 @@ class Face extends Model {
 	private _noseSize: number = 0;
 	private _noseWidth: number = 0;
 
-	private ATTS: any;
-
 
 	constructor( field: any, radius: number, ) {
 
@@ -71,13 +69,6 @@ class Face extends Model {
 	get nose() {
 
 		return this._nose;
-	}
-
-	public getAtt( ATT: string ) {
-
-		if ( !this.ATTS[ATT] ) { throw new Error( `Missing Attractor for ${ ATT }` ) }
-
-		return this.ATTS[ATT];
 	}
 
 
@@ -126,7 +117,7 @@ class Face extends Model {
 		
 		// .........................................................................
 		// Eyes Construction
-		
+
 
 		const eyesField = new EclipseField( this.field.attractor.center, [ this.radius, this.radius ] );
 

@@ -75,7 +75,7 @@ class ArchiCurlCrown extends Model {
 		// .............................................................
 		// base field construction 
 
-		const baseField = new OrbitalField( this.field.attractor.center, this.field.attractor.radius );
+		const baseField = new OrbitalField( this.field.attractor.center, this.radius );
 		baseField.addAttractor( new Orbital( attSize ) );
 		baseField.addAttractor( new Orbital( attSize ) );
 

@@ -87,8 +87,8 @@ class SydHair extends Model {
 		this.pen.add( [ P1, P2, P3 ] );
 
 		const _path = field.attractor.getPath();
-		_path.divideAt( _path.getNearestLocation( this.owner.rightEar.center.point ) )
-		_path.splitAt( _path.getNearestLocation( this.owner.leftEar.center.point ) );
+		_path.divideAt( _path.getNearestLocation( this.owner.getAtt('EAR_R').center.point ) )
+		_path.splitAt( _path.getNearestLocation( this.owner.getAtt('EAR_L').center.point ) );
 		_path.lastSegment.remove();
 		_path.lastSegment.remove();
 		

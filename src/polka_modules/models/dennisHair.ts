@@ -6,6 +6,7 @@ import OrbitalField from '../attractors/orbitalField';
 
 import { merge, measure, mid, curve, ortoAlign } from '../../lib/topo/tools/stitcher';
 
+import { convertToHyperPoint } from '../../lib/topo/utils/converters';
 import { markPoint, genRandomDec, normalize } from '../../lib/topo/utils/helpers';
 
 const DEBUG_GREEN = '#10FF0C';
@@ -109,7 +110,7 @@ class DennisHair extends Model {
 		this.pen.add( [ B, B1 ] );
 		// this.pen.mirrorRepeat('HOR');
 
-		const headWrap = this.field.attractor.extractPath( _path2.firstSegment, _path2.lastSegment );
+		const headWrap = this.field.attractor.extractPath( convertToHyperPoint(_path2.firstSegment.point), convertToHyperPoint(_path2.lastSegment.point) );
 		headWrap.reverse();
 		this.pen.trim( headWrap );
 		_path2.join(headWrap);

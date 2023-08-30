@@ -56,7 +56,7 @@ class HairShave extends Model {
 		// ...................................
 
 		// const field1 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
-		const field1 = new OrbitalField( this.field.attractor.center, this.field.attractor.radius );
+		const field1 = new OrbitalField( this.field.attractor.center, this.radius );
 
 		for ( let i=0; i<num; i++ ) {
 
@@ -79,7 +79,7 @@ class HairShave extends Model {
 
 		
 		// const field2 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
-		const field2 = new OrbitalField( this.field.attractor.center, this.field.attractor.radius );
+		const field2 = new OrbitalField( this.field.attractor.center, this.radius );
 
 		for ( let i=0; i<num-1; i++ ) {
 
@@ -103,7 +103,7 @@ class HairShave extends Model {
 
 		
 		// const field3 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
-		const field3 = new OrbitalField( this.field.attractor.center, this.field.attractor.radius );
+		const field3 = new OrbitalField( this.field.attractor.center, this.radius );
 
 		for ( let i=0; i<num-1; i++ ) {
 

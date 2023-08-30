@@ -38,8 +38,6 @@ class ArcWave extends Model {
 
 		const { } = params;
 
-		console.log(`@cloudWave ${ this.owner.ID }`)
-
 		// .............................................
 		// Compute parameters
 

@@ -42,7 +42,7 @@ export type RectangleLike = (
  [ number, number, number, number ] | 
  { x: number, y: number, width: number, height: number } | 
  { from: PointLike, to: PointLike }
- 
+
 )
 
 
@@ -87,7 +87,7 @@ export interface IAttractor {
 
 export interface IAttractorField {
 
-  readonly attractor: IAttractor;
+  readonly attractor: IAttractor & IAttractorObject;
   readonly attractors: Array<IAttractor>;
   readonly firstAttractor: IAttractor;
   readonly lastAttractor: IAttractor;
@@ -117,7 +117,21 @@ export interface IOrbital {
 
 }
 
+export interface IModel {
 
+  readonly field: IAttractorField;
+
+  A: IHyperPoint;
+  B: IHyperPoint;
+  C: IHyperPoint;
+  D: IHyperPoint;
+  level: any; // It's a Paper.Layer at the moment. Change when there is a replacement;
+  path: any;
+  radius: number;
+  getAtt( LABEL: string );
+  getPin( LABEL: string );
+
+}
 
 
 

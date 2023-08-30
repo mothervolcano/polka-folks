@@ -25,8 +25,6 @@ class Head extends Model {
 
 	private frame: any;
 
-	private  ATTS: any;
-
 	constructor( field: any, radius: number ) {
 
 		super( field, radius );
@@ -72,10 +70,6 @@ class Head extends Model {
 		return this._rEar;
 	}
 
-	public getAtt( ATT: string ) {
-
-		return this.ATTS[ATT];
-	}
 
 	public configure( earsLatBaseValue: number = 0.01, earsScaleBaseValue: number ) {
 

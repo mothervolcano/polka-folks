@@ -230,7 +230,7 @@ class HyperPoint {
   	}
 
 
-	public scaleHandles( scale: number, scaleIn: BooleanLike = true, scaleOut: BooleanLike = true ): HyperPoint {
+	public scaleHandles( scale: number, scaleIn: BooleanLike = true, scaleOut: BooleanLike = true ) {
 		
 		if (scaleIn) {
 

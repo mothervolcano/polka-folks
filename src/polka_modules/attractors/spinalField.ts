@@ -1,4 +1,4 @@
-import { OrientationType, PolarityType, PathLocationData, UnitIntervalNumber, IHyperPoint, PointLike, SizeLike } from '../../lib/topo/types';
+import { OrientationType, PolarityType, PathLocationData, IHyperPoint, PointLike, SizeLike, IAttractor } from '../../lib/topo/types';
 
 import AttractorField from '../../lib/topo/core/attractorField';
 import Spine from './spine';
@@ -16,7 +16,7 @@ class SpinalField extends AttractorField {
 	private _mode: string;
 	
 	
-	constructor( positionData: PointLike, length: number | null, mode: string = 'DIRECTED' ) {
+	constructor( positionData: IHyperPoint | [ IHyperPoint, IHyperPoint ], length: number | null, mode: string = 'DIRECTED' ) {
 
 		const _path = Spine.project( positionData, length )
 
@@ -52,21 +52,21 @@ class SpinalField extends AttractorField {
 
 	};
 
-	public adjustRotationToPosition( anchor: any, isPositive: Function, isNegative: Function  ) {
+	public adjustRotationToPosition( anchor: IHyperPoint, isPositive: Function, isNegative: Function  ) {
 
 		if ( !this._attractor ) { throw new Error('Orbital Field has no defined base attractor') };
 
 		this._attractor.adjustRotationToPosition( anchor, isPositive, isNegative );
 	};
 
-	public adjustToOrientation( anchor: any, isPositive: Function, isNegative: Function ) {
+	public adjustToOrientation( anchor: IHyperPoint, isPositive: Function, isNegative: Function ) {
 
 		if ( !this._attractor ) { throw new Error('Orbital Field has no defined base attractor') };
 
 		this._attractor.adjustToOrientation( anchor, isPositive, isNegative );
 	};
 
-	public adjustToPolarity( anchor: any ) {
+	public adjustToPolarity( anchor: IHyperPoint ) {
 
 		if ( !this._attractor ) { throw new Error('Orbital Field has no defined base attractor') };
 
@@ -74,7 +74,7 @@ class SpinalField extends AttractorField {
 	};
 
 
-	protected configureAttractor( att: any, anchor: IHyperPoint ) {
+	protected configureAttractor( att: IAttractor, anchor: IHyperPoint ) {
 
 		switch ( this._mode ) {
 

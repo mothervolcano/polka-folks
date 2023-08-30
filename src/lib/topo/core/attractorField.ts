@@ -232,7 +232,7 @@ abstract class AttractorField extends DisplayNode {
 
 
 
-	public anchorAt( anchor: HyperPoint, along: VectorDirection = 'RAY' ) {
+	public anchorAt( anchor: IHyperPoint, along: VectorDirection = 'RAY' ) {
 
 		if ( !this._attractor ) { throw new Error('Attractor Field has no defined base attractor') };
 

@@ -1,5 +1,8 @@
+
 import { Layer } from 'paper';
 import { paperScope } from '../../components/paperStage';
+
+import { OrientationType, PolarityType, IHyperPoint, IAttractor, PointLike, SizeLike } from '../../lib/topo/types';
 
 import OrbitalField from '../attractors/orbitalField';
 
@@ -48,8 +51,6 @@ abstract class Archetype {
 
 		this._position = position;
 		this._radius = radius;
-
-		console.log(`@ ARCHETYPE -----> ${radius}`)
 
 		this._field = new OrbitalField( convertToHyperPoint(position), radius );
 

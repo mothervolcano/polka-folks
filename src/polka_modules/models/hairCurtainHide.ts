@@ -64,7 +64,7 @@ class HairCurtainHide extends Model {
 
 		const AC = this.field.attractor.locate(0.25).offsetBy( level, 'VER' ).scaleHandles(0);
 		const A0 = this.field.attractor.locate(0.75).scaleHandles(0);
-		const A1 = this.field.attractor.locate(0.75).offsetBy( this.field.attractor.radius * -1, 'HOR' ).scaleHandles(0);
+		const A1 = this.field.attractor.locate(0.75).offsetBy( this.radius * -1, 'HOR' ).scaleHandles(0);
 		const A2 = this.field.attractor.locate(0);
 
 		const BC = this.field.attractor.locate(0.25).offsetBy( level, 'VER' );

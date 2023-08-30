@@ -67,8 +67,8 @@ class HairSpike extends Model {
 		const B = this.field.attractor.locate(b);
 
 		C.offsetBy( indent, 'RAY');
-		A.offsetBy( indent, C.normal );  
-		B.offsetBy( indent, C.normal );
+		// A.offsetBy( indent, C.normal );  
+		// B.offsetBy( indent, C.normal );
 
 
 		// .......................................................
