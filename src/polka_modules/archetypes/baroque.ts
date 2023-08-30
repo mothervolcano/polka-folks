@@ -557,7 +557,7 @@ class Baroque extends Archetype {
 
 	public generate( params: any ) {
 
-		const { headParams, eyeParams, noseParams, archetypeParams } = params;
+		const { baseParams, archetypeParams } = params;
 		const { } = archetypeParams;
 
 		console.log(`GENERATING BAROQUE`);
@@ -579,7 +579,7 @@ class Baroque extends Archetype {
 		this.head.configure();
 		this.face.configure( genRandomDec( eyeMinSize, eyeMaxSize ), genRandomDec(0.070, 0.12), genRandomDec( 0.50, 0.60 ) );
 
-		this.face.plot( eyeParams, noseParams );
+		this.face.plot( baseParams );
 
 		// ...............................................................................
 		//
@@ -599,7 +599,7 @@ class Baroque extends Archetype {
 
 	public model( params: any ) {
 
-		const { headParams, eyeParams, noseParams, archetypeParams } = params;
+		const { baseParams, archetypeParams } = params;
 		const { hairlineRidgeCtrl, hairlineLevelCtrl, heightCtrl, curlNumCtrl, spanCtrl, testCtrl } = archetypeParams;
 
 		console.log(`MODELLING BAROQUE`);
@@ -607,7 +607,7 @@ class Baroque extends Archetype {
 		this.clear();
 
 		this.head.plot();
-		this.face.plot( eyeParams, noseParams );
+		this.face.plot( baseParams );
 
 
 		for ( const hair of this.hairModels ) {

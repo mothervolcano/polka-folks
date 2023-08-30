@@ -99,12 +99,10 @@ class Face extends Model {
 	};
 
 
-	public plot( eyeParams: any, noseParams: any ) {
+	public plot( baseParams: any) {
 
-		const { eyeScaleCtrl, eyeRoundnessCtrl, eyeDistanceCtrl, pTest, pTest2 } = eyeParams;
-		const { noseLengthCtrl, noseScaleCtrl, noseWidthCtrl } = noseParams;
+		const { noseLengthCtrl, noseScaleCtrl, noseWidthCtrl, eyeScaleCtrl, eyeRoundnessCtrl, eyeDistanceCtrl, pTest, pTest2 } = baseParams;
 
-		
 		// ------------------------------------------------------------------------
 		// Parameter settings
 

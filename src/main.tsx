@@ -38,7 +38,7 @@ const Main = () => {
 	}
 
 
-	const nerdParams: ParamSet = [
+	const nerdParamsSchema: ParamSet = [
 
 		{ id:'ogp1', 	name: 'splitLat', 		value: 1, 		range: [0,2], 		step: 0.01, 	label: "Split Drop", },
 		{ id:'ogp2', 	name: 'splitAperture', 	value: 0.5,		range: [0,2], 		step: 0.01, 	label: "Split Aperture", },
@@ -49,7 +49,7 @@ const Main = () => {
 		{ id:'ogp7', 	name: '', 				value: 1, 		range: [0,2], 		step: 1, 	 	label: "Olga P7", },
 	]
 
-	const punkParams: ParamSet = [
+	const punkParamsSchema: ParamSet = [
 
 		{ id:'syp1', 	name: 'spikeNumCtrl',		value: 5, 		range: [1,15],		step: 1, 		label: "Spike Number", },
 		{ id:'syp5', 	name: 'shaveDotsDensity',	value: 5, 		range: [3,10],		step: 1, 		label: "Shaved Head", },
@@ -60,7 +60,7 @@ const Main = () => {
 		{ id:'syp7', 	name: '',					value: 1, 		range: [0,2],		step: 0.01, 	label: "Syd P7", },
 	]
 
-	const baroqueParams: ParamSet = [
+	const baroqueParamsSchema: ParamSet = [
 
 		{ id:'mzp4', 	name: 'curlNumCtrl', 		value: 2, 		range: [1,6],		step: 1, 		label: "Curls", },
 		{ id:'mzp5', 	name: '', 					value: 1, 		range: [0,2],		step: 0.01, 	label: "Mozart P5", },
@@ -72,26 +72,16 @@ const Main = () => {
 	]
 
 
-	const headParams: ParamSet = [
+	const baseParamSchema: ParamSet = [
 
-		{ id:'hp1', 	name: '', 			value: 1, 		range: [0,2],		step: 0.01, 	label: "Ears Size", },
-		{ id:'hp2', 	name: '', 			value: 1, 		range: [0,2],		step: 0.01, 	label: "Ears Height", },
-		{ id:'hp3', 	name: '', 			value: 1, 		range: [0,2],		step: 0.01, 	label: "...", },
-	]
-
-
-	const eyeParams: ParamSet = [
-
+		{ id:'hp1', 	name: '', 							value: 1, 		range: [0,2],		step: 0.01, 	label: "Ears Size", },
+		{ id:'hp2', 	name: '', 							value: 1, 		range: [0,2],		step: 0.01, 	label: "Ears Height", },
+		{ id:'hp3', 	name: '', 							value: 1, 		range: [0,2],		step: 0.01, 	label: "...", },
 		{ id:'eyep1', 	name: 'eyeScaleCtrl', 				value: 1, 		range: [0,2],		step: 0.01, 	label: "Eye Size", },
 		{ id:'eyep2', 	name: 'eyeDistanceCtrl', 			value: 1, 		range: [0,2],		step: 0.01, 	label: "Eye Distance", },
 		{ id:'eyep3', 	name: 'eyeRoundnessCtrl', 			value: 1, 		range: [0,2],		step: 0.01, 	label: "Eye Roundness", },
 		{ id:'eyep4', 	name: 'pTest', 						value: 1, 		range: [0,2],		step: 0.01, 	label: "p test 1", },
 		{ id:'eyep5', 	name: 'pTest2', 					value: 0, 		range: [-1,1],		step: 0.01, 	label: "p test 2", },
-	]
-
-
-	const noseParams: ParamSet = [
-
 		{ id:'nsp1', 	name: 'noseLengthCtrl', 			value: 1, 		range: [0,2],		step: 0.01, 	label: "Nose Length", },
 		{ id:'nsp2', 	name: 'noseScaleCtrl', 				value: 1, 		range: [0,2],		step: 0.01, 	label: "Nose Size", },
 		{ id:'nsp3', 	name: 'noseWidthCtrl', 				value: 0, 		range: [0,2],		step: 0.01, 	label: "Nose Width", },
@@ -100,9 +90,9 @@ const Main = () => {
 
 	const archetypes: any = [
 
-		{ option: "PUNK", 		label: "Punk", 		icon: "TEST", 	console: PunkConsole, 		params: punkParams, 			default: false, 	checked: false },
-		{ option: "BAROQUE", 	label: "Baroque", 	icon: "TEST", 	console: BaroqueConsole, 	params: baroqueParams, 			default: false, 	checked: false },
-		{ option: "NERD", 		label: "Nerd", 		icon: "TEST", 	console: NerdConsole, 		params: nerdParams, 			default: false, 	checked: false },
+		{ option: "PUNK", 		label: "Punk", 		icon: "TEST", 	console: PunkConsole, 		params: punkParamsSchema, 			default: false, 	checked: false },
+		{ option: "BAROQUE", 	label: "Baroque", 	icon: "TEST", 	console: BaroqueConsole, 	params: baroqueParamsSchema, 		default: false, 	checked: false },
+		{ option: "NERD", 		label: "Nerd", 		icon: "TEST", 	console: NerdConsole, 		params: nerdParamsSchema, 			default: false, 	checked: false },
 	]
 
 
@@ -113,9 +103,7 @@ const Main = () => {
 
 	const [ inArchetypeGenerationScreen, setInArchetypeGenerationScreen ] = useState<boolean>( true );
 
-	const [ paramsForHead, setParamsForHead ] = useState< ParamSet >( headParams );
-	const [ paramsForEyes, setParamsForEyes ] = useState< ParamSet >( eyeParams );
-	const [ paramsForNose, setParamsForNose ] = useState< ParamSet >( noseParams );
+	const [ baseParams, setBaseParams ] = useState< ParamSet >( baseParamSchema );
 
 	const [ currentArchetype, setCurrentArchetype ] = useState< Model | null >(null);
 	const [ paramsForArchetype, setParamsForArchetype ] = useState< ParamSet | null >( null );
@@ -144,9 +132,7 @@ const Main = () => {
 
 			// reset();
 			const _archetypeParams: any = {};
-			const _headParams: any = {};
-			const _eyeParams: any = {};
-			const _noseParams: any = {};
+			const _baseParams: any = {};
 
 			if ( currentArchetype === null ) {
 
@@ -157,24 +143,17 @@ const Main = () => {
 					_archetypeParams[p.name] = p.value; 
 
 				});	
-
 			}
 
+			Array.from(baseParams?.values() || []).forEach( (p: any) => {
 
-			Array.from(paramsForEyes?.values() || []).forEach( (p: any) => {
-
-				_eyeParams[p.name] = p.value;
+				_baseParams[p.name] = p.value;
 			});
 
-			Array.from(paramsForNose?.values() || []).forEach( (p: any) => {
-
-				_noseParams[p.name] = p.value;
-			}); 
-
-			model( _headParams, _eyeParams, _noseParams, _archetypeParams  );
+			model( _baseParams, _archetypeParams  );
 		}
 
-	}, [ scaleCtrl, paramsForNose, paramsForEyes, paramsForArchetype ] );
+	}, [ scaleCtrl, baseParams, paramsForArchetype ] );
 
 
 	//-----------------------------------------------------------------------
@@ -188,9 +167,7 @@ const Main = () => {
 			console.log(`ready to generate ${ selectedArchetype.label }`);
 
 			const _archetypeParams: any = {};
-			const _headParams: any = {};
-			const _eyeParams: any = {};
-			const _noseParams: any = {};
+			const _baseParams: any = {};
 
 			Array.from(selectedArchetype.params.values() || []).forEach( (p: any) => {
 
@@ -198,20 +175,15 @@ const Main = () => {
 
 			});
 			
-			Array.from(paramsForEyes.values() || []).forEach( (p: any) => {
+			Array.from(baseParams.values() || []).forEach( (p: any) => {
 
-				_eyeParams[p.name] = p.value;
-			});
-
-			Array.from(paramsForNose.values() || []).forEach( (p: any) => {
-
-				_noseParams[p.name] = p.value;
+				_baseParams[p.name] = p.value;
 			});
 
 
 			reset();
-			generate( selectedArchetype.option, _headParams, _eyeParams, _noseParams, _archetypeParams  );
-			model( _headParams, _eyeParams, _noseParams, _archetypeParams );
+			generate( selectedArchetype.option, _baseParams, _archetypeParams  );
+			model( _baseParams, _archetypeParams );
 
 			setCurrentArchetype( selectedArchetype );
 			setParamsForArchetype( selectedArchetype.params );
@@ -233,9 +205,7 @@ const Main = () => {
 			console.log(`ready to regenerate ${ currentArchetype.label }`);
 
 			const _archetypeParams: any = {};
-			const _headParams: any = {};
-			const _eyeParams: any = {};
-			const _noseParams: any = {};
+			const _baseParams: any = {};
 
 			Array.from(currentArchetype?.params.values() || []).forEach( (p: any) => {
 
@@ -243,19 +213,14 @@ const Main = () => {
 
 			});
 
-			Array.from(paramsForEyes.values() || []).forEach( (p: any) => {
+			Array.from(baseParams.values() || []).forEach( (p: any) => {
 
-				_eyeParams[p.name] = p.value;
-			});
-
-			Array.from(paramsForNose.values() || []).forEach( (p: any) => {
-
-				_noseParams[p.name] = p.value;
+				_baseParams[p.name] = p.value;
 			});
 
 			// reset();
-			regenerate( _headParams, _eyeParams, _noseParams, _archetypeParams );
-			model( _headParams, _eyeParams, _noseParams, _archetypeParams );
+			regenerate( _baseParams, _archetypeParams );
+			model( _baseParams, _archetypeParams );
 
 		} else {
 
@@ -266,22 +231,7 @@ const Main = () => {
 	function handleParamCtrlInputForArchetype( updatedParams: ParamSet ) {
 
 		setParamsForArchetype( updatedParams );
-	}	
-
-	// function handleParamCtrlInputForHead( updatedParams: ParamSet ) {
-
-	// 	setParamsForHead( updatedParams );
-	// }	
-
-	// function handleParamCtrlInputForEyes( updatedParams: ParamSet ) {
-
-	// 	setParamsForEyes( updatedParams );
-	// }	
-
-	// function handleParamCtrlInputForNose( updatedParams: ParamSet ) {
-
-	// 	setParamsForNose( updatedParams );
-	// }
+	};	
 
 
 	// ----------------------------------------------

@@ -30,9 +30,7 @@ export function reset() {
 export function generate(
   
   archetype: string,
-  headParams: any,
-  eyeParams: any,
-  noseParams: any,
+  baseParams: any,
   archetypeParams: any,
 
 ) {
@@ -71,7 +69,7 @@ export function generate(
   }
 
 
-  polka.generate( { headParams, eyeParams, noseParams, archetypeParams } );
+  polka.generate( { baseParams, archetypeParams } );
 
 }
 
@@ -79,16 +77,14 @@ export function generate(
 
 export function model(
 
-  headParams: any,
-  eyeParams: any,
-  noseParams: any,
+  baseParams: any,
   archetypeParams: any,
 
 ) {
 
   origin = view.center;
 
-  polka.model( { headParams, eyeParams, noseParams, archetypeParams } );
+  polka.model( { baseParams, archetypeParams } );
 
 }
 
@@ -96,9 +92,7 @@ export function model(
 
 export function regenerate(
 
-  headParams: any,
-  eyeParams: any,
-  noseParams: any,
+  baseParams: any,
   archetypeParams: any,
 
 ) {
@@ -108,7 +102,7 @@ export function regenerate(
   console.log(`..... Regenerating Polka`);
 
   polka.clear();
-  polka.generate( { headParams, eyeParams, noseParams, archetypeParams } );
+  polka.generate( { baseParams, archetypeParams } );
 
 
 }
