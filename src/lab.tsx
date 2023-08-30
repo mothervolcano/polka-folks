@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 
 import Stage from './components/stage'
+import Button from './components/ui/button';
 import TestConsole from './components/consoles/testConsole';
+
+import ArchetypeGenerationModal from './components/modals/archetypeGenerationModal';
 
 import { reset, generate, regenerate, model } from './testGenerator';
 
@@ -25,7 +28,7 @@ const Lab = () => {
 
 		option: string;
 		label: string;
-		console: string;
+		console: any;
 		params: ParamSet;
 	}
 
@@ -45,16 +48,20 @@ const Lab = () => {
 
 	const tests: any = [
 
-		{ option: "ORBITAL_SPINES", 			label: "Spines in Orbital Field", 			icon: "TEST", console: "TestConsole", params: testParams, default: false, checked: false },
-		{ option: "ORBITAL_ORBITALS", 			label: "Orbitals in Orbital Field", 		icon: "TEST", console: "TestConsole", params: testParams, default: false, checked: false },
-		{ option: "ORBITAL_ORBITAL_FIELDS", 	label: "Orbital Fields in Orbital Field", 	icon: "TEST", console: "TestConsole", params: testParams, default: false, checked: false },
-		{ option: "SPINE_SPINES", 				label: "Spines in Spinal Field", 			icon: "TEST", console: "TestConsole", params: testParams, default: false, checked: false },
-		{ option: "SPINE_ORBITALS", 			label: "Orbitals in Spinal Field", 			icon: "TEST", console: "TestConsole", params: testParams, default: false, checked: false },
+		{ option: "ORBITAL_SPINES", 			label: "Spines in Orbital Field", 			icon: "TEST", console: TestConsole, params: testParams, default: false, checked: false },
+		{ option: "ORBITAL_ORBITALS", 			label: "Orbitals in Orbital Field", 		icon: "TEST", console: TestConsole, params: testParams, default: false, checked: false },
+		{ option: "ORBITAL_ORBITAL_FIELDS", 	label: "Orbital Fields in Orbital Field", 	icon: "TEST", console: TestConsole, params: testParams, default: false, checked: false },
+		{ option: "SPINE_SPINES", 				label: "Spines in Spinal Field", 			icon: "TEST", console: TestConsole, params: testParams, default: false, checked: false },
+		{ option: "SPINE_ORBITALS", 			label: "Orbitals in Spinal Field", 			icon: "TEST", console: TestConsole, params: testParams, default: false, checked: false },
 	]
 
 	const [isPaperLoaded, setIsPaperLoaded] = useState(false);
 
-	const [test, setTest] = useState<Model | null>(null);
+	const [ initialized, setInitialized ] = useState(false);
+
+	const [ inTestGenerationScreen, setInTestGenerationScreen ] = useState<boolean>( true );
+
+	const [currentTest, setCurrentTest] = useState<Model | null>(null);
 	const [paramsForTest, setParamsForTest] = useState<ParamSet | null>(null);
 
 	const [scaleCtrl, setScaleCtrl] = useState(3);
@@ -69,11 +76,11 @@ const Lab = () => {
 
 			const _archetypeParams: any = {};
 
-			if (test === null) {
+			if (currentTest === null) {
 
 			} else {
 
-				Array.from(test.params.values() || []).forEach((p: any) => {
+				Array.from(currentTest.params.values() || []).forEach((p: any) => {
 
 					_archetypeParams[p.name] = p.value; 
 
@@ -108,8 +115,12 @@ const Lab = () => {
 			generate( selectedTest.option, _archetypeParams );
 			model(_archetypeParams);
 
-			setTest(selectedTest);
+			setCurrentTest(selectedTest);
 			setParamsForTest(selectedTest.params);
+
+			setInTestGenerationScreen( false );
+
+			if ( !initialized ) { setInitialized(true) };
 
 		} else {
 
@@ -148,6 +159,27 @@ const Lab = () => {
 
 		setParamsForTest(updatedParams);
 	};
+
+
+	// ----------------------------------------------
+	// UI HANDLERS
+
+	function handleNewTestAction() {
+
+		setInTestGenerationScreen( true );
+	}
+
+
+	// ------------------------------------------------------------------------
+
+
+	function switchConsole( test: Model ) {
+
+		const TestConsole = test.console;
+
+		return ( <TestConsole  params={paramsForTest} inputHandler={handleParamCtrlInputForTest} /> )
+	}
+
 		
 
 	return (
@@ -160,32 +192,52 @@ const Lab = () => {
 				<Stage
 
 					onPaperLoad={setIsPaperLoaded}
-					options={tests}
-					onGenerate={handleGenerateAction}
-					onRegenerate={handleRegenerateAction}
 				/>
 
-
 			</div>
 
+			<div className={`absolute top-0 left-0 w-full h-full`}>
+        		
+        		{
 
-			<div className={`absolute top-0 left-0 max-w-[250px] h-fit h-[70vh] m-5 border border-slate-900`} > 
+        			inTestGenerationScreen && (
 
-				{
+        				<ArchetypeGenerationModal 
 
-					paramsForTest && (
+        					initialized={ initialized }
+        					options={ tests }
+        					onGenerate={ handleGenerateAction }
+        					onClose={ () => setInTestGenerationScreen(false) }
+        				/>
 
-						<TestConsole
+        			)
+        		}
 
-							params={paramsForTest}
-							inputHandler={handleParamCtrlInputForTest}
+        	</div>
+
+
+			<div className={`absolute top-0 left-0  max-w-[250px] isDesktopOrLaptop h-fit m-5 border border-slate-900`} > 
+
+		    	{
+		    		currentTest && !inTestGenerationScreen && switchConsole( currentTest )
+		    	}
+
+		    </div>
+
+		    <div className={`absolute top-0 right-0 m-2`}>
+		    	
+		    	{
+
+		    		!inTestGenerationScreen && (
+
+			    		<Button		
+							labelText="new"
+							onClickEventHandler={ handleNewTestAction }
 						/>
-
 					)
+		    	}
 
-				}
-
-			</div>
+		    </div>
 
 		</div>
 

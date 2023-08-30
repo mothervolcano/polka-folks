@@ -4,11 +4,12 @@ import { useMediaQuery } from 'react-responsive';
 import { useState, useEffect } from 'react';
 
 import Stage from './components/stage';
+import Button from './components/ui/button';
 import NerdConsole from './components/consoles/nerdConsole';
 import BaroqueConsole from './components/consoles/baroqueConsole';
 import PunkConsole from './components/consoles/punkConsole';
 
-// import Console from './components/console';
+import ArchetypeGenerationModal from './components/modals/archetypeGenerationModal';
 
 import { reset, generate, regenerate, model } from './polkaGenerator';
 
@@ -99,20 +100,24 @@ const Main = () => {
 
 	const archetypes: any = [
 
-		{ option: "PUNK", 		label: "Punk", 		icon: "TEST", 	console: PunkConsole, 		params: punkParams, 			default: false, checked: false },
-		{ option: "BAROQUE", 	label: "Baroque", 	icon: "TEST", 	console: BaroqueConsole, 	params: baroqueParams, 			default: false, checked: false },
-		{ option: "NERD", 		label: "Nerd", 		icon: "TEST", 	console: NerdConsole, 		params: nerdParams, 			default: false, checked: false },
+		{ option: "PUNK", 		label: "Punk", 		icon: "TEST", 	console: PunkConsole, 		params: punkParams, 			default: false, 	checked: false },
+		{ option: "BAROQUE", 	label: "Baroque", 	icon: "TEST", 	console: BaroqueConsole, 	params: baroqueParams, 			default: false, 	checked: false },
+		{ option: "NERD", 		label: "Nerd", 		icon: "TEST", 	console: NerdConsole, 		params: nerdParams, 			default: false, 	checked: false },
 	]
 
 
 	const [ isDesktopOrLaptop, setIsDesktopOrLaptop ] = useState(false);
 	const [ isPaperLoaded, setIsPaperLoaded ] = useState(false);
 
+	const [ initialized, setInitialized ] = useState(false);
+
+	const [ inArchetypeGenerationScreen, setInArchetypeGenerationScreen ] = useState<boolean>( true );
+
 	const [ paramsForHead, setParamsForHead ] = useState< ParamSet >( headParams );
 	const [ paramsForEyes, setParamsForEyes ] = useState< ParamSet >( eyeParams );
 	const [ paramsForNose, setParamsForNose ] = useState< ParamSet >( noseParams );
 
-	const [ archetype, setArchetype ] = useState< Model | null >(null);
+	const [ currentArchetype, setCurrentArchetype ] = useState< Model | null >(null);
 	const [ paramsForArchetype, setParamsForArchetype ] = useState< ParamSet | null >( null );
 
 	const [ scaleCtrl, setScaleCtrl ] = useState(3);
@@ -143,11 +148,11 @@ const Main = () => {
 			const _eyeParams: any = {};
 			const _noseParams: any = {};
 
-			if ( archetype === null ) {
+			if ( currentArchetype === null ) {
 
 			} else {
 
-				Array.from(archetype.params.values() || []).forEach( (p: any) => {
+				Array.from(currentArchetype.params.values() || []).forEach( (p: any) => {
 
 					_archetypeParams[p.name] = p.value; 
 
@@ -208,8 +213,12 @@ const Main = () => {
 			generate( selectedArchetype.option, _headParams, _eyeParams, _noseParams, _archetypeParams  );
 			model( _headParams, _eyeParams, _noseParams, _archetypeParams );
 
-			setArchetype( selectedArchetype );
+			setCurrentArchetype( selectedArchetype );
 			setParamsForArchetype( selectedArchetype.params );
+
+			setInArchetypeGenerationScreen( false );
+
+			if ( !initialized ) { setInitialized(true) };
 
 		} else {
 
@@ -217,18 +226,18 @@ const Main = () => {
 	};
 
 
-	function handleRegenerateAction( selectedArchetype: any ) {
+	function handleRegenerateAction() {
 
-		if ( isPaperLoaded ) {
+		if ( isPaperLoaded && currentArchetype ) {
 			
-			console.log(`ready to regenerate ${ selectedArchetype.label }`);
+			console.log(`ready to regenerate ${ currentArchetype.label }`);
 
 			const _archetypeParams: any = {};
 			const _headParams: any = {};
 			const _eyeParams: any = {};
 			const _noseParams: any = {};
 
-			Array.from(selectedArchetype?.params.values() || []).forEach( (p: any) => {
+			Array.from(currentArchetype?.params.values() || []).forEach( (p: any) => {
 
 				_archetypeParams[p.name] = p.value; 
 
@@ -244,11 +253,9 @@ const Main = () => {
 				_noseParams[p.name] = p.value;
 			});
 
-
 			// reset();
 			regenerate( _headParams, _eyeParams, _noseParams, _archetypeParams );
 			model( _headParams, _eyeParams, _noseParams, _archetypeParams );
-
 
 		} else {
 
@@ -261,19 +268,28 @@ const Main = () => {
 		setParamsForArchetype( updatedParams );
 	}	
 
-	function handleParamCtrlInputForHead( updatedParams: ParamSet ) {
+	// function handleParamCtrlInputForHead( updatedParams: ParamSet ) {
 
-		setParamsForHead( updatedParams );
-	}	
+	// 	setParamsForHead( updatedParams );
+	// }	
 
-	function handleParamCtrlInputForEyes( updatedParams: ParamSet ) {
+	// function handleParamCtrlInputForEyes( updatedParams: ParamSet ) {
 
-		setParamsForEyes( updatedParams );
-	}	
+	// 	setParamsForEyes( updatedParams );
+	// }	
 
-	function handleParamCtrlInputForNose( updatedParams: ParamSet ) {
+	// function handleParamCtrlInputForNose( updatedParams: ParamSet ) {
 
-		setParamsForNose( updatedParams );
+	// 	setParamsForNose( updatedParams );
+	// }
+
+
+	// ----------------------------------------------
+	// UI HANDLERS
+
+	function handleNewArchetypeAction() {
+
+		setInArchetypeGenerationScreen( true );
 	}
 
 
@@ -291,7 +307,6 @@ const Main = () => {
 	return (
         
         <div className={`relative w-3/4 h-[80vh] m-5 border border-slate-900`}>
-
 		  	
 		  	<div className={`w-full h-full`}>
 
@@ -300,9 +315,6 @@ const Main = () => {
                     <Stage
 
                     	onPaperLoad={setIsPaperLoaded}
-		    			options={archetypes}
-		    			onGenerate={handleGenerateAction}
-		    			onRegenerate={handleRegenerateAction}
                     />
 
 				)}
@@ -310,28 +322,66 @@ const Main = () => {
 		    </div>
 
 
-		    <div className={`absolute ${ isDesktopOrLaptop ? "top-0" : "top-0" } left-0 ${ isDesktopOrLaptop ? "max-w-[250px]" : "w-full" } ${ isDesktopOrLaptop ? "h-fit" : "h-[70vh]" } m-5 border border-slate-900`} > 
+		    <div className={`absolute top-0 left-0 w-full h-full`}>
+        		
+        		{
+
+        			isDesktopOrLaptop && inArchetypeGenerationScreen && (
+
+        				<ArchetypeGenerationModal 
+
+        					initialized={ initialized }
+        					options={ archetypes }
+        					onGenerate={ handleGenerateAction }
+        					onClose={ () => setInArchetypeGenerationScreen(false) }
+        				/>
+
+        			)
+        		}
+
+        	</div>
+
+
+        	<div className={`absolute ${ isDesktopOrLaptop ? "top-0" : "top-0" } left-0 ${ isDesktopOrLaptop ? "max-w-[250px]" : "w-full" } ${ isDesktopOrLaptop ? "h-fit" : "h-[70vh]" } m-5 border border-slate-900`} > 
 
 
 		    	{
-		    		archetype && switchConsole( archetype )
+		    		currentArchetype && !inArchetypeGenerationScreen && switchConsole( currentArchetype )
 		    	}
 
+		    </div>
 
-	    		{ !isDesktopOrLaptop && (
 
+		    <div className={`absolute top-0 right-0 m-2`}>
+		    	
+		    	{
 
-    				<Stage 
+		    		!inArchetypeGenerationScreen && (
 
-		    			onPaperLoad={setIsPaperLoaded}
-		    			options={archetypes}
-		    			onGenerate={handleGenerateAction}
-		    			onRegenerate={handleRegenerateAction}
-		    		/>
-
-	    		)}
+			    		<Button		
+							labelText="new"
+							onClickEventHandler={ handleNewArchetypeAction }
+						/>
+					)
+		    	}
 
 		    </div>
+
+
+		    <div className={`absolute bottom-0 right-0 m-2`}>
+
+		    	{
+
+		    		!inArchetypeGenerationScreen && currentArchetype && (
+
+						<Button	
+							labelText="regenerate"
+							onClickEventHandler={ handleRegenerateAction }
+						/>
+		    		)
+		    	}
+			
+			</div>
 
 		</div>
 
