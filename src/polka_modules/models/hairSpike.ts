@@ -75,7 +75,7 @@ class HairSpike extends Model {
 		// field construction
 
 
-		const field = new SpinalField( this.position, length, 1, 1, 'DIRECTED' );
+		const field = new SpinalField( this.position, length, 'DIRECTED' );
 		field.anchorAt( C, 'RAY' );
 
 		field.addAttractor( new Orbital( [ sharpness, sharpness ] ), 1 );

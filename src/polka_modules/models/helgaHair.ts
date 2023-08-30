@@ -87,7 +87,7 @@ class HelgaHair extends Model {
 		// .............................................
 		// Construction 2/2
 
-		const field = new SpinalField( [ L1, P ], null, 1, 1, 'DIRECTED' );
+		const field = new SpinalField( [ L1, P ], null, 'DIRECTED' );
 
 		// const att = new Orbital( [0, 0], [ field.length * elasticSizeRatio * wRatio, field.length * elasticSizeRatio * hRatio] );
 

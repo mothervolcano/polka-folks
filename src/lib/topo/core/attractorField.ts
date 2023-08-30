@@ -1,4 +1,4 @@
-import { IAttractor, IHyperPoint, VectorDirection, PointLike, SizeLike } from '../types';
+import { OrientationType, PolarityType, IAttractor, IAttractorObject, IHyperPoint, VectorDirection, PointLike, SizeLike } from '../types';
 
 import DisplayNode from './displayNode';
 import AttractorObject from './attractorObject';
@@ -8,10 +8,7 @@ import HyperPoint from './hyperPoint';
 abstract class AttractorField extends DisplayNode {
 
 
-	protected _attractor: any // TODO: cast type
-
-	protected _orientation: number;
-	protected _polarity: number;
+	protected _attractor: IAttractor & IAttractorObject | undefined;
 
 	private _span: Array<number>;
 	private _shift: number;
@@ -23,12 +20,9 @@ abstract class AttractorField extends DisplayNode {
 	public isAxisLocked: boolean;
 	
 
-	constructor(  position: PointLike, size: SizeLike, orientation: number = 1, polarity: number = 1 ) {
+	constructor(  position: PointLike, size: SizeLike ) {
 
 		super( position, size )
-
-		this._orientation = orientation;
-		this._polarity = polarity;
 
 		this._axisAngle = 0;
 
@@ -44,12 +38,17 @@ abstract class AttractorField extends DisplayNode {
 
 	get attractor() {
 
+		if ( !this._attractor ) { throw new Error('Attractor Field has no defined base attractor') };
+
 		return this._attractor;
 	}
 
 	get anchor() {
 
-		return this._attractor.anchor;
+		if ( !this._attractor ) { throw new Error('Attractor Field has no defined base attractor') };
+
+		return this._attractor?.anchor;
+		
 	};
 
 	get attractors() {
@@ -67,26 +66,30 @@ abstract class AttractorField extends DisplayNode {
 		return this.getLastChild();
 	}
 
-	set orientation( value: number ) {
+	set orientation( value: OrientationType ) {
 
-		this.scale( value, 1 );
-		this._orientation = value;
+		if ( !this._attractor ) { throw new Error('Attractor Field has no defined base attractor') };
+
+		this._attractor.orientation = value;
 	}
 
 	get orientation() {
 
-		return this._orientation;
+		if ( !this._attractor ) { throw new Error('Attractor Field has no defined base attractor') };
+
+		return this._attractor.orientation;
 	}
 
-	set polarity( value: number ) {
+	set polarity( value: PolarityType ) {
 
-		this.scale( 1, value );
-		this._polarity = value;
+		if ( !this._attractor ) { throw new Error('Attractor Field has no defined base attractor') };
+		this._attractor.polarity = value;
 	}
 
 	get polarity() {
 
-		return this._polarity;
+		if ( !this._attractor ) { throw new Error('Attractor Field has no defined base attractor') };
+		return this._attractor.polarity;
 	}
 
 	set axisAngle( value: number ) {
@@ -116,6 +119,9 @@ abstract class AttractorField extends DisplayNode {
 	protected arrangeAttractors( attractors: Array<IAttractor>, pTest: boolean = false ) {
 
 
+		if ( !this._attractor ) { throw new Error('AttractorField has no base attractor'); }
+
+
 		const start = this._span[0]
 		const end = this._span[1]
 
@@ -142,9 +148,9 @@ abstract class AttractorField extends DisplayNode {
 		
 		} 
 	};
-	
 
-	public getAttractor( i?: number ): any {
+
+	public getAttractor( i?: number ) {
 
 		if ( typeof i === 'number' ) {
 
@@ -172,7 +178,7 @@ abstract class AttractorField extends DisplayNode {
 	// -------------------------------------------------------
 	// locate on a specified attractor
 
-	public locateOn( attractor: IAttractor | number | null, at: number, orient: boolean = false ) {
+	public locateOn( attractor: IAttractor | number, at: number, orient: boolean = false ) {
 
 		
 		if ( attractor instanceof AttractorObject ) {
@@ -188,7 +194,7 @@ abstract class AttractorField extends DisplayNode {
 
 	public addAttractor( attractor: IAttractor, at?: number ): void {
 
-		// super.addAttractor( attractor )
+		if ( !this._attractor ) { throw new Error('Attractor Field has no defined base attractor') };
 
 		this.add( attractor );
 
@@ -228,22 +234,11 @@ abstract class AttractorField extends DisplayNode {
 
 	public anchorAt( anchor: HyperPoint, along: VectorDirection = 'RAY' ) {
 
-		// this._attractor._anchor = anchor;
-		// this._attractor._anchor.spin = this._orientation;
+		if ( !this._attractor ) { throw new Error('Attractor Field has no defined base attractor') };
 
-		// this._attractor.orientation = this.orientation;
-		// this._attractor.polarity = this.polarity;
-		// this._attractor.axisAngle = this.axisAngle;
-
-		// this.configureAttractor( this._attractor, anchor );
 		this._attractor.anchorAt( anchor, along );
 
 		this.arrangeAttractors( this.filterAttractors() );
-
-		// this.rotate( this.axisAngle );
-
-		// this.placeAt( this._attractor._anchor.point, this._attractor._path.position );
-
 	};
 
 
@@ -266,9 +261,11 @@ abstract class AttractorField extends DisplayNode {
 
 	public moveBy( by: number, along: any ) {
 
-		this._attractor._anchor.offsetBy( by, along );
+		if ( !this._attractor ) { throw new Error('Attractor Field has no defined base attractor') };
 
-		this.placeAt( this._attractor._anchor.point, null );
+		this._attractor.anchor.offsetBy( by, along );
+
+		this.placeAt( this._attractor.anchor.point, null );
 
 		return this;
 	};
@@ -296,6 +293,8 @@ abstract class AttractorField extends DisplayNode {
 	// Rotates the node together with its childs
 
 	public rotate( angle: number ) {
+
+		if ( !this._attractor ) { throw new Error('Attractor Field has no defined base attractor') };
 
 		// if ( !this._attractor.isAxisLocked ) {
 
@@ -402,14 +401,14 @@ abstract class AttractorField extends DisplayNode {
 			att.reset();
 		}
 
-		this._attractor.reset();
+		if ( this._attractor ) { this._attractor.reset() };
 		this.render( null );
 	}
 
 
 	public remove(): void { 
 
-		this._attractor.remove();
+		if ( this._attractor ) { this._attractor.remove() };
 		super.clear();
 	}
  

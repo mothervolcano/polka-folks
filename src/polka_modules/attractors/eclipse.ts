@@ -25,9 +25,9 @@ class Eclipse extends AttractorObject {
 	private threshold: number;
 	private scaleTicks: Array<number>
 
-	constructor( size: SizeLike | number, position: PointLike = {x:0, y:0}, threshold: number = 0.5 ) {
+	constructor( radius: SizeLike | number, position: PointLike = {x:0, y:0}, threshold: number = 0.5 ) {
 
-		super( validateSizeInput(size), position );
+		super( validateSizeInput(radius), position );
 
 		this.threshold = threshold;
 
@@ -46,7 +46,7 @@ class Eclipse extends AttractorObject {
 
 	}
 
-	protected adjustRotationToPosition( anchor: any,  isPositive: Function, isNegative: Function ) {
+	public adjustRotationToPosition( anchor: any,  isPositive: Function, isNegative: Function ) {
 	
 		if ( isPositive( anchor.position ) ) {
 
@@ -82,7 +82,7 @@ class Eclipse extends AttractorObject {
 	};
 	
 
-	protected adjustToPolarity( anchor: any ) {
+	public adjustToPolarity( anchor: any ) {
 
 		// TODO
 	};

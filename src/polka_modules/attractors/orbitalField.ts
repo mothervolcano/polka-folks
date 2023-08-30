@@ -1,18 +1,16 @@
-import { IHyperPoint, PointLike, SizeLike } from '../../lib/topo/types';
+import { OrientationType, PolarityType, IHyperPoint, IAttractor, PointLike, SizeLike } from '../../lib/topo/types';
 
 import { validatePointInput, validateSizeInput } from '../../lib/topo/utils/converters'
 import AttractorField from '../../lib/topo/core/attractorField';
 import Orbital from './orbital';
 
-import DebugDot from '../../lib/topo/utils/debugDot';
-
 
 class OrbitalField extends AttractorField {
 
 
-	constructor( position: IHyperPoint | null, radius: SizeLike | number, orientation: number = 1, polarity: number = 1 ) {
+	constructor( position: IHyperPoint | null, radius: SizeLike | number ) {
 
-		super( validatePointInput(position), validateSizeInput(radius), orientation, polarity );
+		super( validatePointInput(position), validateSizeInput(radius) );
 
 		this.render();
 
@@ -28,36 +26,43 @@ class OrbitalField extends AttractorField {
 		}
 
 		this._attractor = new Orbital( this.size, this.position );
-		this._attractor.orientation = this._orientation;
-		this._attractor.polarity = this._polarity;
+		this._attractor.orientation = 1;
+		this._attractor.polarity = 1;
 
 		this._attractor.getPath().strokeColor = '#FFE44F';
 
 		this.arrangeAttractors( this.filterAttractors() );
 
-		super.render( this._attractor._content );
+		// super.render( this._attractor._content );
+		super.render( this._attractor.path );
 
 	};
 
 
-	protected adjustRotationToPosition( anchor: any, isPositive: Function, isNegative: Function ) {
+	public adjustRotationToPosition( anchor: any, isPositive: Function, isNegative: Function ) {
+
+		if ( !this._attractor ) { throw new Error('Orbital Field has no defined base attractor') };
 
 		this._attractor.adjustRotationToPosition( anchor, isPositive, isNegative  );
 	};
 
-	protected adjustToOrientation( anchor: any, isPositive: Function, isNegative: Function ) {
+	public adjustToOrientation( anchor: any, isPositive: Function, isNegative: Function ) {
+
+		if ( !this._attractor ) { throw new Error('Orbital Field has no defined base attractor') };
 
 		this._attractor.adjustToOrientation( anchor, isPositive, isNegative );
 	};
 
-	protected adjustToPolarity( anchor: any ) {
+	public adjustToPolarity( anchor: any ) {
+
+		if ( !this._attractor ) { throw new Error('Orbital Field has no defined base attractor') };
 
 		this._attractor.adjustToPolarity( anchor );
 	};
 
 
 
-	protected configureAttractor( att: any, anchor: IHyperPoint ) {
+	protected configureAttractor( att: IAttractor, anchor: IHyperPoint ) {
 
 		att.adjustRotationToPosition( 
             anchor,

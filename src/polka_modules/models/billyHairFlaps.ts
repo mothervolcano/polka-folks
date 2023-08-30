@@ -53,7 +53,7 @@ class BillyHairFlaps extends Model {
 		// .............................................
 		// Construction 1/2
 
-		const field = new SpinalField( [ A.scaleHandles(0), B.scaleHandles(0) ], null, 1, 1, 'DIRECTED' );
+		const field = new SpinalField( [ A.scaleHandles(0), B.scaleHandles(0) ], null, 'DIRECTED' );
 
 		const attL = new Orbital( size );
 		const attR = new Orbital( size );

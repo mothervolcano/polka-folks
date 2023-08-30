@@ -125,7 +125,7 @@ class Spine extends AttractorObject {
 	}
 
 
-	protected adjustRotationToPosition( anchor: any,  isPositive: Function, isNegative: Function ) {
+	public adjustRotationToPosition( anchor: any,  isPositive: Function, isNegative: Function ) {
 	
 		if ( isPositive( anchor.position ) ) {
 
@@ -142,7 +142,7 @@ class Spine extends AttractorObject {
 	};
 
 
-	protected adjustToOrientation( anchor: any,  isPositive: Function, isNegative: Function ) {
+	public adjustToOrientation( anchor: any,  isPositive: Function, isNegative: Function ) {
 
 		if ( isPositive( anchor.position ) ) {
 
@@ -159,7 +159,7 @@ class Spine extends AttractorObject {
 	};
 
 
-	protected adjustToPolarity( anchor: any ) {
+	public adjustToPolarity( anchor: any ) {
 
 		// TODO
 

@@ -1,6 +1,6 @@
 import { Path, Group } from 'paper';
 
-import { PathLocationData, UnitIntervalNumber, IHyperPoint, PointLike, SizeLike } from '../../lib/topo/types';
+import { PathLocationData, OrientationType, PolarityType, PointLike, SizeLike, IHyperPoint } from '../../lib/topo/types';
 import { validateSizeInput} from '../../lib/topo/utils/converters'
 
 import AttractorObject from '../../lib/topo/core/attractorObject'
@@ -16,14 +16,21 @@ class Orbital extends AttractorObject {
 	private _debugPath4: any;
 	private _arrow: any;
 
+
+	private _radius: number;
+
 	// private _fixedOrientation: boolean;
 
 
-	constructor( radius: SizeLike | number, position: PointLike = {x:0, y:0}, orientation?: number ) {
+	constructor( radius: SizeLike | number, position: PointLike = {x:0, y:0} ) {
 
 		super( validateSizeInput(radius), position );
 
-		this.radius = Array.isArray(radius) ? radius[0] : radius;
+
+		this._radius =  typeof radius === 'number' ? radius : Array.isArray(radius) ? radius[0] : 'width' in radius ? radius.width : radius.x;
+
+		
+		/* DEBUG */
 
 		this._debugPath1 = new Path();
 		this._debugPath2 = new Path();
@@ -50,6 +57,11 @@ class Orbital extends AttractorObject {
 
 	};
 
+	get radius() {
+
+		return this._radius;
+	}
+
 
 	protected render() {
 
@@ -74,7 +86,7 @@ class Orbital extends AttractorObject {
 	};
 
 
-	protected adjustRotationToPosition( anchor: any,  isPositive: Function, isNegative: Function ) {
+	public adjustRotationToPosition( anchor: IHyperPoint,  isPositive: Function, isNegative: Function ) {
 	
 		if ( isPositive( anchor.position ) ) {
 
@@ -91,7 +103,7 @@ class Orbital extends AttractorObject {
 	};
 
 
-	public adjustToOrientation( anchor: any,  isPositive: Function, isNegative: Function  ) {
+	public adjustToOrientation( anchor: IHyperPoint,  isPositive: Function, isNegative: Function  ) {
 
 		if ( isPositive( anchor.position ) ) {
 
@@ -110,7 +122,7 @@ class Orbital extends AttractorObject {
 	};
 
 
-	protected adjustToPolarity( anchor: any ) {
+	public adjustToPolarity( anchor: IHyperPoint ) {
 
 		// this.scale( 1, value );
 	};

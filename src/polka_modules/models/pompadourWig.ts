@@ -100,7 +100,7 @@ class PompadourWig extends Model {
 		// ................................................
 		// Main Field construction
 
-		const field = new OrbitalField( C, [ coreVolume * coreWidthRatio, coreVolume * coreHeightRatio ], 1 );
+		const field = new OrbitalField( C, [ coreVolume * coreWidthRatio, coreVolume * coreHeightRatio ] );
 		const lField = new OrbitalField( null, [ sideVolume * sideWidthRatio, sideVolume ] );
 		const rField = new OrbitalField( null, [ sideVolume * sideWidthRatio, sideVolume ] );
 

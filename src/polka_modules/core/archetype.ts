@@ -49,7 +49,7 @@ abstract class Archetype {
 		this._position = position;
 		this._radius = radius;
 
-		console.log(`-----> ${position}`)
+		console.log(`@ ARCHETYPE -----> ${radius}`)
 
 		this._field = new OrbitalField( convertToHyperPoint(position), radius );
 

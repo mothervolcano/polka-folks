@@ -1,4 +1,4 @@
-import { PathLocationData, BooleanLike, VectorDirection, IPoint, IHyperPoint, PointLike, SizeLike } from '../types';
+import { OrientationType, PolarityType, PathLocationData, BooleanLike, VectorDirection, IPoint, IHyperPoint, PointLike, SizeLike } from '../types';
 
 import DisplayObject from './displayObject';
 import HyperPoint from './hyperPoint';
@@ -6,13 +6,13 @@ import { convertToHyperPoint } from '../utils/converters';
 
 abstract class AttractorObject extends DisplayObject {
 
-	protected _orientation: number;
-	protected _polarity: number;
+	protected _orientation: OrientationType;
+	protected _polarity: PolarityType;
 
 	protected _path: any;
 	protected _anchor: IHyperPoint;
 
-	protected _radius: SizeLike | number;
+	// protected _radius: SizeLike | number;
 
 	private _axisAngle: number;
 	
@@ -34,7 +34,7 @@ abstract class AttractorObject extends DisplayObject {
 
 		this._anchor = convertToHyperPoint(position);
 
-		this._radius = 0; // The radius value will depend on the type of attractor eg. Orbital, Spine and therefore it is defined by the subclass.
+		// this._radius = 0; // The radius value will depend on the type of attractor eg. Orbital, Spine and therefore it is defined by the subclass.
 
 		this._axisAngle = 0;
 		
@@ -49,7 +49,7 @@ abstract class AttractorObject extends DisplayObject {
 	protected abstract adjustToPolarity( anchor: any ): void;
 
 
-	set orientation( value: number ) {
+	set orientation( value: OrientationType ) {
 
 		this._orientation = value;
 	};
@@ -61,7 +61,7 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	set polarity( value: number ) {
+	set polarity( value: PolarityType ) {
 
 		this._polarity = value;
 
@@ -112,17 +112,17 @@ abstract class AttractorObject extends DisplayObject {
 		return convertToHyperPoint( this._path.bounds.center );
 	};
 
-	set radius( value: SizeLike | number ) {
+	// set radius( value: SizeLike | number ) {
 
-		this._radius = value;
-	}
+	// 	this._radius = value;
+	// }
 
-	// TODO: Perhaps a base property called Dimension to apply to both Orbitals and Spines as it would respectively mean radius and length?
+	// // TODO: Perhaps a base property called Dimension to apply to both Orbitals and Spines as it would respectively mean radius and length?
 
-	get radius() {
+	// get radius() {
 
-		return this._radius;
-	}
+	// 	return this._radius;
+	// }
 
 	get length() {
 
@@ -130,7 +130,7 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	public getPath(): any {
+	public getPath() {
 
 		return this._path.clone();
 	};
@@ -188,7 +188,7 @@ abstract class AttractorObject extends DisplayObject {
 	};
 
 
-	public extractPath( A: IHyperPoint | number, B: IHyperPoint | number ): any {
+	public extractPath( A: IHyperPoint | number, B: IHyperPoint | number ) {
 
 		let P1;
 		let P2;
@@ -325,7 +325,7 @@ abstract class AttractorObject extends DisplayObject {
 	public scale( hor: number, ver: number ) {
 
 		this._content.scale( hor, ver );
-		this._radius = this._content.bounds.width;
+		// this._radius = this._content.bounds.width;
 
 		return this;
 	};

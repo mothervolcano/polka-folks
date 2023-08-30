@@ -1,6 +1,8 @@
 import { Point, Segment } from 'paper';
 
 
+export type OrientationType = -1 | 1;
+export type PolarityType = -1 | 1;
 
 export type VectorDirection = 'TAN' | 'RAY' | 'VER' | 'HOR';
 
@@ -19,26 +21,29 @@ export type BooleanLike = (
 
 export type PointLike = (
 
-                         IHyperPoint
-                         | [ number, number ]
-                         | { x: number, y: number }
-                         | { width: number, height: number }
-                         | { angle: number, length: number }
-                         )
+ IHyperPoint | 
+ [ number, number ] | 
+ { x: number, y: number } | 
+ { width: number, height: number } | 
+ { angle: number, length: number }
+
+)
 
 export type SizeLike = (
 
-                        [ number, number ]
-                        | { x: number, y: number }
-                        | { width: number, height: number }
-                        )
+  [ number, number ] | 
+  { x: number, y: number } | 
+  { width: number, height: number }
+
+)
 
 export type RectangleLike = (
 
-                             [ number, number, number, number ]
-                             | { x: number, y: number, width: number, height: number }
-                             | { from: PointLike, to: PointLike }
-                             )
+ [ number, number, number, number ] | 
+ { x: number, y: number, width: number, height: number } | 
+ { from: PointLike, to: PointLike }
+ 
+)
 
 
 export interface PathLocationData {
@@ -63,29 +68,55 @@ export interface IDisplayObject {
 }
 
 
-export interface IAttractorObject {
-
-  orientation: number;
-  polarity: number;
-  center: IHyperPoint;
-  anchor: IHyperPoint;
-  anchorAt( anchor: IHyperPoint, along: VectorDirection ): void;
-  locate( position: number, orient: boolean ): IHyperPoint;
-
-}
-
-
 export interface IAttractor {
 
   readonly anchor: IHyperPoint;
   isDisabled: boolean,
   isAxisLocked: boolean,
   isSelfAnchored: boolean,
+  orientation: OrientationType;
+  polarity: PolarityType;
   anchorAt( anchor: IHyperPoint, along?: VectorDirection ): void;
   locate( at: number, orient?: boolean ): IHyperPoint | never;
+  adjustRotationToPosition( anchor: IHyperPoint, isPositive: Function, isNegative: Function ): void;
+  adjustToOrientation( anchor: IHyperPoint, isPositive: Function, isNegative: Function ): void;
+  adjustToPolarity( anchor: IHyperPoint ): void;
   reset(): void;
 
 }
+
+export interface IAttractorField {
+
+  readonly attractor: IAttractor;
+  readonly attractors: Array<IAttractor>;
+  readonly firstAttractor: IAttractor;
+  readonly lastAttractor: IAttractor;
+
+  addAttractor( attractor: IAttractor, at?:number ): void;
+  addAttractors( attractors: Array<IAttractor>);
+  getAttractor( i?: number ): IAttractor;
+  locateOn( attractor: IAttractor | number, at: number, orient: boolean ): IHyperpoint;
+
+}
+
+
+export interface IAttractorObject {
+
+  center: IHyperPoint;
+  length: number;
+  path: any;
+  getPath(): any;
+  extractPath( A: IHyperPoint | number, B: IHyperPoint | number ): any;
+  rotate( angle: number ): void;
+  remove(): void;
+}
+
+export interface IOrbital {
+
+  radius: number;
+
+}
+
 
 
 

@@ -58,7 +58,7 @@ class CascadingTail extends Model {
 		// ....................................................................
 		// build the field
 
-		const field = new SpinalField( [ A.flip().steer( -60, -180 ), B.flip().steer( -60, 180) ], null, 1, 1, 'DIRECTED' );
+		const field = new SpinalField( [ A.flip().steer( -60, -180 ), B.flip().steer( -60, 180) ], null, 'DIRECTED' );
 		const centerAtt = new Orbital( attSize );
 
 		const atts = [ centerAtt ];

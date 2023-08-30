@@ -59,7 +59,7 @@ class ArcWave extends Model {
 		// Construction
 
 
-		const field = new SpinalField( [ A.scaleHandles(0), B.scaleHandles(0) ], null, -1, 1, 'DIRECTED' );
+		const field = new SpinalField( [ A.scaleHandles(0), B.scaleHandles(0) ], null, 'DIRECTED' );
 
 		const r = field.attractor.length / ( num * 2 );
 		const cmpr = 1 / ( num * 2 );

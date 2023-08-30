@@ -51,7 +51,7 @@ class Necklace extends Model {
 		// ..........................................................
 		// build the fields
 
-		const field1 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
+		const field1 = new SpinalField( [ A, B ], null, 'DIRECTED' );
 
 		field1.addAttractor(  new Spine( distance) );
 		field1.addAttractor(  new Spine( distance) );
@@ -62,7 +62,7 @@ class Necklace extends Model {
 
 		// ..................................
 
-		const field2 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
+		const field2 = new SpinalField( [ A, B ], null, 'DIRECTED' );
 
 		field2.addAttractor(  new Spine( distance * 2 ) );
 		field2.addAttractor(  new Spine( distance * 2 ) );
@@ -72,7 +72,7 @@ class Necklace extends Model {
 	
 		// ..................................
 
-		const field3 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
+		const field3 = new SpinalField( [ A, B ], null, 'DIRECTED' );
 
 		field3.addAttractor(  new Spine( distance * 3 ) );
 		field3.addAttractor(  new Spine( distance * 3 ) );
@@ -81,7 +81,7 @@ class Necklace extends Model {
 
 		// ..................................
 
-		const field4 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
+		const field4 = new SpinalField( [ A, B ], null, 'DIRECTED' );
 
 		field4.addAttractor(  new Spine( distance * 4 ) );
 		field4.addAttractor(  new Spine( distance * 4 ) );

@@ -75,6 +75,8 @@ class Face extends Model {
 
 	public getAtt( ATT: string ) {
 
+		if ( !this.ATTS[ATT] ) { throw new Error( `Missing Attractor for ${ ATT }` ) }
+
 		return this.ATTS[ATT];
 	}
 
@@ -124,10 +126,9 @@ class Face extends Model {
 		
 		// .........................................................................
 		// Eyes Construction
+		
 
-		console.log(`Face.plot: ${ this.field }  /  ${ this.field.attractor.radius }`)
-
-		const eyesField = new EclipseField( this.field.attractor.center, [ this.field.attractor.radius, this.field.attractor.radius ] );
+		const eyesField = new EclipseField( this.field.attractor.center, [ this.radius, this.radius ] );
 
 		this._lEye = new Orbital( [ eyeSize, eyeSize * eyeRoundness ] )
 		this._rEye = new Orbital( [ eyeSize, eyeSize * eyeRoundness ] )
