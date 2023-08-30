@@ -42,7 +42,7 @@ export function generate(
 	// initLibrary( paper )
 
 	origin = view.center;
-
+	
 	let _test;
 
 	switch (polkaTest) {

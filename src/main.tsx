@@ -6,10 +6,10 @@ import { useState, useEffect } from 'react';
 import Stage from './components/stage'
 import Console from './components/console';
 
-import { reset, generate, regenerate, model } from './polkafolks';
+import { reset, generate, regenerate, model } from './polkaGenerator';
 
 
-const Page = () => {
+const Main = () => {
 
 
 	interface Param {
@@ -331,5 +331,5 @@ const Page = () => {
 };
 
 
-export default Page;
+export default Main;
 

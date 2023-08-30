@@ -79,7 +79,6 @@ export function testSpinalFieldWithOrbitals( pos: any, params: any ) {
 
   const { radius=500, count=5, p4=0, p5=0, p6=0, p7=0, p8=0  } = params;
 
-
   const position = new HyperPoint(pos);
   const size = radius*2;
   const orbitalRadius = radius/6;
@@ -137,7 +136,10 @@ export function testOrbitalFieldWithSpines( pos: any, params: any ) {
   const { radius=100, count=5, p4=0, p5=0, p6=0, p7=0, p8=0  } = params;
 
 
+  console.log(`@TEST: position: ${ pos }`);
+
   const position = new HyperPoint(pos);
+  console.log(`@TEST: position as hyperPoint: ${ position.point }`);
   const size = radius;
   const spineLength = radius/2;
 

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Stage from './components/stage'
 import TestConsole from './components/consoles/testConsole';
 
-import { reset, generate, regenerate, model } from './polkaLab';
+import { reset, generate, regenerate, model } from './testGenerator';
 
 
 const Lab = () => {
@@ -143,10 +143,12 @@ const Lab = () => {
 
 	};
 
+
 	function handleParamCtrlInputForTest(updatedParams: ParamSet) {
 
 		setParamsForTest(updatedParams);
-	}	
+	};
+		
 
 	return (
         
@@ -182,7 +184,6 @@ const Lab = () => {
 					)
 
 				}
-
 
 			</div>
 
