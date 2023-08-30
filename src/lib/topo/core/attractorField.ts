@@ -1,4 +1,4 @@
-import { UnitIntervalNumber, PointLike, SizeLike } from '../types';
+import { IAttractor, IHyperPoint, VectorDirection, PointLike, SizeLike } from '../types';
 
 import DisplayNode from './displayNode';
 import AttractorObject from './attractorObject';
@@ -17,6 +17,10 @@ abstract class AttractorField extends DisplayNode {
 	private _shift: number;
 	
 	private _axisAngle: number;
+
+	public isDisabled: boolean;
+	public isSelfAnchored: boolean;
+	public isAxisLocked: boolean;
 	
 
 	constructor(  position: PointLike, size: SizeLike, orientation: number = 1, polarity: number = 1 ) {
@@ -31,12 +35,22 @@ abstract class AttractorField extends DisplayNode {
 		this._span = [ 0, 1 ];
 		this._shift = 0;
 
+
+		this.isDisabled = false;
+		this.isAxisLocked = false;
+		this.isSelfAnchored = false;
+
 	}	
 
 	get attractor() {
 
 		return this._attractor;
 	}
+
+	get anchor() {
+
+		return this._attractor.anchor;
+	};
 
 	get attractors() {
 
@@ -87,7 +101,7 @@ abstract class AttractorField extends DisplayNode {
 	}
 
 	// MUST BE IMPLEMENTED BY THE SUBCLASSES
-	protected configureAttractor( att: any, anchor: any ) {}
+	protected configureAttractor( att: IAttractor, anchor: IHyperPoint ) {}
 
 
 	protected filterAttractors() {
@@ -99,7 +113,7 @@ abstract class AttractorField extends DisplayNode {
 	}
 
 
-	protected arrangeAttractors( attractors: any[], pTest: boolean = false ) {
+	protected arrangeAttractors( attractors: Array<IAttractor>, pTest: boolean = false ) {
 
 
 		const start = this._span[0]
@@ -128,6 +142,7 @@ abstract class AttractorField extends DisplayNode {
 		
 		} 
 	};
+	
 
 	public getAttractor( i?: number ): any {
 
@@ -142,41 +157,36 @@ abstract class AttractorField extends DisplayNode {
 	};
 
 
-	public locate( location: number, attractor: any = null, orient: boolean = false ): any {
+	public locate( at: number, orient: boolean = false ): any {
 
-		// -------------------------------------------------------
-		// locate on a specified attractor
+		const attractors = this.filterAttractors();
+		const anchors = attractors
+		  .filter( att => !att.isToSkip )
+		  .map( att => att.locate( at, orient ) );
+
+		// return _.flatten( anchors );
+		return anchors.flat();
+
+	}
+
+	// -------------------------------------------------------
+	// locate on a specified attractor
+
+	public locateOn( attractor: IAttractor | number | null, at: number, orient: boolean = false ) {
+
 		
 		if ( attractor instanceof AttractorObject ) {
 
-			return attractor.locate( location )
+			return attractor.locate( at )
 
 		} else if ( typeof attractor === 'number' ) {
 
-			return this.getChild( attractor ).locate( location, orient )
-
-		// --------------------------------------------------------
-		// if no attractor is specified then locate on all
-
-		} else if ( attractor === undefined || attractor === null ) {
-
-			const attractors = this.filterAttractors();
-			const anchors = attractors
-			  .filter( att => !att.isToSkip )
-			  .map( att => att.locate( location, orient ) );
-
-			// return _.flatten( anchors );
-			return anchors.flat();
+			return this.getChild( attractor ).locate( at, orient );
 		}
-	}
+	};
 
-	// public addAttractor( attractor: any ): void {
 
-	// 	this.add( attractor );
-
-	// }
-
-	public addAttractor( attractor: any, at?: number ): void {
+	public addAttractor( attractor: IAttractor, at?: number ): void {
 
 		// super.addAttractor( attractor )
 
@@ -207,7 +217,7 @@ abstract class AttractorField extends DisplayNode {
 		}
 	}
 
-	public addAttractors( attractors: any ) {
+	public addAttractors( attractors: Array<IAttractor> ) {
 
 		this.addMany( attractors );
 
@@ -216,7 +226,7 @@ abstract class AttractorField extends DisplayNode {
 
 
 
-	public anchorAt( anchor: HyperPoint, along: string = 'RAY' ) {
+	public anchorAt( anchor: HyperPoint, along: VectorDirection = 'RAY' ) {
 
 		// this._attractor._anchor = anchor;
 		// this._attractor._anchor.spin = this._orientation;

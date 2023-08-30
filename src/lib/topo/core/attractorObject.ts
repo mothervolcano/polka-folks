@@ -1,4 +1,4 @@
-import { PathLocationData, UnitIntervalNumber, BooleanLike, VectorDirection, IPoint, IHyperPoint, PointLike, SizeLike } from '../types';
+import { PathLocationData, BooleanLike, VectorDirection, IPoint, IHyperPoint, PointLike, SizeLike } from '../types';
 
 import DisplayObject from './displayObject';
 import HyperPoint from './hyperPoint';

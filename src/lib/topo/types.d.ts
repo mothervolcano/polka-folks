@@ -54,16 +54,12 @@ export interface PathLocationData {
 
 export interface IDisplayObject {
 
-  ID: string;
   position: any;
   size: any;
-  tag: string;
-  layer: any;
   remove(): void;
   placeAt(position: any, anchor: any): void;
   moveBy(vector: any, distance: number): void;
-  // Add more methods as needed
-  // ...
+
 }
 
 
@@ -77,6 +73,21 @@ export interface IAttractorObject {
   locate( position: number, orient: boolean ): IHyperPoint;
 
 }
+
+
+export interface IAttractor {
+
+  readonly anchor: IHyperPoint;
+  isDisabled: boolean,
+  isAxisLocked: boolean,
+  isSelfAnchored: boolean,
+  anchorAt( anchor: IHyperPoint, along?: VectorDirection ): void;
+  locate( at: number, orient?: boolean ): IHyperPoint | never;
+  reset(): void;
+
+}
+
+
 
 
 // export type DisplayObjectType<T extends DisplayObject> = new (...args: any[]) => T;

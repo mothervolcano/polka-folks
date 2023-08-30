@@ -135,7 +135,7 @@ class ArchiCurlCrown extends Model {
 		const A = field.firstAttractor.locate(0.95);
 		const B = field.lastAttractor.locate(0.95, true);
 
-		const KAKB = baseField.locate(0.80, null, true);
+		const KAKB = baseField.locate(0.80, true);
 
 		const KA = KAKB[0];
 		const KB = KAKB[1];

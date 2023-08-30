@@ -84,9 +84,9 @@ class HairSpike extends Model {
 
 		// .............................................
 
-		const P1 = field.locate( 0.50, 0 );
-		const P2 = field.locate( 0.75, 0 );
-		const P3 = field.locate( 0, 0 );
+		const P1 = field.locateOn( 0, 0.50);
+		const P2 = field.locateOn( 0, 0.75);
+		const P3 = field.locateOn( 0, 0);
 
 		B.steer( 90 - this.calculateEdgeAngle( A, P1), 180, 0.25 )
 		A.steer( -90 + this.calculateEdgeAngle( A, P1), 180, 0.25 )
