@@ -280,36 +280,11 @@ const Main = () => {
 	// ------------------------------------------------------------------------
 
 
+	function switchConsole( archetype: Model ) {
 
-	// function switchConsole( archetype: Model ) {
+		const ArchetypeConsole = archetype.console;
 
-
-	// 	const Console = archetype.console;
-
-	// 	return <Console params={paramsForArchetype} inputHandler={handleParamCtrlInputForArchetype};
-
-	// 	// switch( ARCHETYPE ) {
-
-	// 	// 	case 'BAROQUE': 
-	// 	// 		return ( <BaroqueConsole  params={paramsForArchetype} inputHandler={handleParamCtrlInputForArchetype} /> );
-	// 	// 		break;
-	// 	// 	case 'NERD':
-	// 	// 		return ( <NerdConsole params={paramsForArchetype} inputHandler={handleParamCtrlInputForArchetype} /> );
-	// 	// 		break;
-	// 	// 	case 'PUNK':
-	// 	// 		return ( <PunkConsole params={paramsForArchetype} inputHandler={handleParamCtrlInputForArchetype} /> );
-	// 	// 		break;
-	// 	// }
-	// };
-
-
-	const Console = ( props: any ) => {
-
-		const { console, params, inputHandler } = props;
-
-		const ArchetypeConsole = console;
-
-		return ( <ArchetypeConsole  params={params} inputHandler={inputHandler} /> )
+		return ( <ArchetypeConsole  params={paramsForArchetype} inputHandler={handleParamCtrlInputForArchetype} /> )
 	}
 
 
@@ -339,30 +314,9 @@ const Main = () => {
 
 
 		    	{
-		    		archetype && ( 
-
-		    		    <Console 
-
-		    		    	console={archetype.console} 
-		    		    	params={paramsForArchetype} 
-		    		    	inputHandler={handleParamCtrlInputForArchetype} 
-		    		    	
-		    		    />)
+		    		archetype && switchConsole( archetype )
 		    	}
 
-
-{/*		    	<Console
-
-		    		archetype={archetype}
-		    		paramsForArchetype={paramsForArchetype}
-		    		paramsForHead={paramsForHead}
-		    		paramsForEyes={paramsForEyes}
-		    		paramsForNose={paramsForNose}
-		    		archetypeInputHandler={handleParamCtrlInputForArchetype}
-		    		headInputHandler={handleParamCtrlInputForHead}
-		    		eyesInputHandler={handleParamCtrlInputForEyes}
-		    		noseInputHandler={handleParamCtrlInputForNose}
-		    	/>*/}
 
 	    		{ !isDesktopOrLaptop && (
 
