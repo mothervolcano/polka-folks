@@ -1,5 +1,7 @@
 import { Layer, Path } from 'paper';
 
+import { OrientationType, PolarityType, IHyperPoint, IDisplayObject, IAttractor, IAttractorField, IModel, PointLike, SizeLike } from '../../lib/topo/types';
+
 import Archetype from '../core/archetype';
 
 import { drawPompadourWig } from '../models/pompadourWig';
@@ -80,7 +82,7 @@ class Baroque extends Archetype {
 
 			create: (field:any, radius: number) => void; //TODO finish: f can be an AttractorField or AttractorObject
 			use: Function | null; //TODO the type is a model
-			owner: any;
+			owner: IModel | null;
 			size: number;
 			settings: any[];
 			params: any[];
@@ -304,15 +306,15 @@ class Baroque extends Archetype {
 
 		// -------------------------------------
 
-		antoinette.compats = [ crest, {...panache} ];
-		crest.compats = [ {...panache} ];
+		antoinette.compats = [ {...panache} ];
+		// crest.compats = [ {...panache} ];
 
 		// ------------------------------------------------------
 
-		// this._hairModelsCatalog = [  ];
+		// this._hairModelsCatalog = [ ];
 		this._hairModelsCatalog = [ antoinette, pompadour, curlDome ];
 		
-		// this._hairlinesCatalog = [  ];
+		// this._hairlinesCatalog = [ mozartLine ];
 		this._hairlinesCatalog = [ hairline, bangLine, mozartLine ];
 
 		this._hairTailsCatalog = [  ];
@@ -320,14 +322,14 @@ class Baroque extends Archetype {
 
 		this._earAccessoriesCatalog = [ earModelTest ];
 
-		// this._neckAccessoriesCatalog = [  ];
-		this._neckAccessoriesCatalog = [ necklace, jabot ];
+		this._neckAccessoriesCatalog = [  ];
+		// this._neckAccessoriesCatalog = [ necklace, jabot ];
 
-		// this._eyeFeaturesCatalog = [];
-		this._eyeFeaturesCatalog = [ lashesLeft, lashesRight ];
+		this._eyeFeaturesCatalog = [];
+		// this._eyeFeaturesCatalog = [ lashesLeft, lashesRight ];
 
-		// this._eyeFeaturesCatalog = [];
-		this._faceFeaturesCatalog = [ blushLeft, blushRight ];
+		this._faceFeaturesCatalog = [];
+		// this._faceFeaturesCatalog = [ blushLeft, blushRight ];
 
 		// this._headFeaturesCatalog = [];
 		this._headFeaturesCatalog = [ ];
@@ -337,6 +339,139 @@ class Baroque extends Archetype {
 		
 		return this;
 	}
+
+
+	// ------------------------------------------------------------------------------------
+	// PUBLIC METHODS
+
+
+	public generate( params: any ) {
+
+		const { baseParams, archetypeParams } = params;
+		const { } = archetypeParams;
+
+		console.log(`GENERATING BAROQUE`);
+
+		// ...............................................................................
+
+		this._colorScheme = { ...colors.baroquePolka } ;
+		this._colorScheme.skin = this._colorScheme.skin[ genRandom(0, this._colorScheme.skin.length-1) ];
+		this._colorScheme.hair = this._colorScheme.hair.filter( (c:any) => c !== this._colorScheme.skin );
+		this._colorScheme.hair = this._colorScheme.hair[ genRandom(0, this._colorScheme.hair.length-1) ];
+
+
+		// ...............................................................................
+		// NOTE: head and face need to be plotted at generation time to provide all the models based on them the plots they require
+
+		const eyeMinSize = this.PHI.XS * this.PHILESSER;
+		const eyeMaxSize = this.PHI.XS;
+
+		this.head.configure();
+		this.face.configure( genRandomDec( eyeMinSize, eyeMaxSize ), genRandomDec(0.070, 0.12), genRandomDec( 0.50, 0.60 ) );
+
+		this.face.plot( baseParams );
+
+		// ...............................................................................
+		//
+
+		this.generateHair( this._hairModelsCatalog );
+		this.generateHairline( this._hairlinesCatalog );
+		this.generateHairTail( this._hairTailsCatalog );
+		this.generateEarAccessories( this._earAccessoriesCatalog );
+		this.generateNeckAccessories( this._neckAccessoriesCatalog );
+		this.generateFaceFeatures( this._faceFeaturesCatalog );
+		this.generateEyeFeatures( this._eyeFeaturesCatalog );
+
+		// ...............................................................................
+
+	};
+
+
+	public model( params: any ) {
+
+		const { baseParams, archetypeParams } = params;
+		const { hairlineRidgeCtrl, hairlineLevelCtrl, heightCtrl, curlNumCtrl, spanCtrl, testCtrl } = archetypeParams;
+
+		console.log(`MODELLING BAROQUE`);
+
+		this.clear();
+
+		this.head.plot( baseParams );
+		this.face.plot( baseParams );
+
+
+		for ( const hair of this.hairModels ) {
+
+			if ( hair.owner ) { hair.use.owner = hair.owner };
+
+			this.plotter.chart( hair.use.plot( archetypeParams, ...hair.params ), 'wig' );
+		}
+
+		// .................................................
+		// HAIRLINES
+
+		for ( const hairline of this.hairlineModels ) {
+
+			if ( hairline.owner ) { hairline.use.owner = hairline.owner };
+
+			this.plotter.chart( hairline.use.plot( archetypeParams, ...hairline.params ), 'hairline' );
+		}
+
+		// .................................................
+		// HAIRTAILS
+
+		for ( const hairTail of this._hairTailModels ) {
+
+			if ( hairTail.owner ) { hairTail.use.owner = hairTail.owner };
+
+			this.plotter.chart( hairTail.use.plot( archetypeParams, this.head.getAtt('EAR_L').anchor, this.head.getAtt('EAR_R').anchor, ...hairTail.params ), 'hairtail' );
+		}
+
+		// .................................................
+		// NECK ACCESSORIES
+
+		for ( const neckAccessory of this._neckAccessoryModels ) {
+
+			if ( neckAccessory.owner ) { neckAccessory.use.owner = neckAccessory.owner };
+
+			this.plotter.chart( neckAccessory.use.plot( archetypeParams, ...neckAccessory.params ), 'neckwear' );
+		}
+
+		// .................................................
+		// EAR ACESSORIES
+
+		for ( const earAccessory of this.earAccessoryModels ) {
+
+			if ( earAccessory.owner ) { earAccessory.use.owner = earAccessory.owner };
+
+			this.plotter.chart( earAccessory.use.plot( archetypeParams, ...earAccessory.params ), 'earwear' );
+		}
+
+
+		// .................................................
+		// EYE FEATURES
+
+		for ( const eyeFeature of this.eyeFeatureModels ) {
+
+			if ( eyeFeature.owner ) { eyeFeature.use.owner = eyeFeature.owner };
+
+			this.plotter.chart( eyeFeature.use.plot( archetypeParams, ...eyeFeature.params ), 'eyefeature' );
+		}
+
+
+		// .................................................
+		// FACE FEATURES
+
+		for ( const faceFeature of this._faceFeatureModels ) {
+
+			if ( faceFeature.owner ) { faceFeature.use.owner = faceFeature.owner };
+
+			this.plotter.chart( faceFeature.use.plot( archetypeParams, ...faceFeature.params ), 'facefeature' );
+		}
+
+
+		this.draw();
+	};
 
 
 	private draw() {
@@ -535,11 +670,11 @@ class Baroque extends Archetype {
 		// -----------------------------------------------------------
 
 		
-		this.l1.addChild( renderFace( 	this.head.head.getPath(), this._colorScheme ) );
-		this.l1.addChild( renderEar( 	this.head.leftEar.getPath(), this._colorScheme ) );
-		this.l1.addChild( renderEar( 	this.head.rightEar.getPath(), this._colorScheme  ) );
-		this.l1.addChild( renderEye( 	this.face.leftEye.getPath(), this._colorScheme, false ) );
-		this.l1.addChild( renderEye( 	this.face.rightEye.getPath(), this._colorScheme, false ) );
+		this.l1.addChild( renderFace( 	this.head.getAtt('HEAD').getPath(), this._colorScheme ) );
+		this.l1.addChild( renderEar( 	this.head.getAtt('EAR_L').getPath(), this._colorScheme ) );
+		this.l1.addChild( renderEar( 	this.head.getAtt('EAR_R').getPath(), this._colorScheme  ) );
+		this.l1.addChild( renderEye( 	this.face.getAtt('EYE_L').getPath(), this._colorScheme, false ) );
+		this.l1.addChild( renderEye( 	this.face.getAtt('EYE_R').getPath(), this._colorScheme, false ) );
 
 		// this.l0.addChild( renderHair( wig ) );
 		// this.l2.addChild( renderHair( hairline ) );
@@ -548,138 +683,6 @@ class Baroque extends Archetype {
 	
 		this.plotter.clear();
 
-	};
-
-
-	// ------------------------------------------------------------------------------------
-	// PUBLIC METHODS
-
-
-	public generate( params: any ) {
-
-		const { baseParams, archetypeParams } = params;
-		const { } = archetypeParams;
-
-		console.log(`GENERATING BAROQUE`);
-
-		// ...............................................................................
-
-		this._colorScheme = { ...colors.baroquePolka } ;
-		this._colorScheme.skin = this._colorScheme.skin[ genRandom(0, this._colorScheme.skin.length-1) ];
-		this._colorScheme.hair = this._colorScheme.hair.filter( (c:any) => c !== this._colorScheme.skin );
-		this._colorScheme.hair = this._colorScheme.hair[ genRandom(0, this._colorScheme.hair.length-1) ];
-
-
-		// ...............................................................................
-		// NOTE: head and face need to be plotted at generation time to provide all the models based on them the plots they require
-
-		const eyeMinSize = this.PHI.XS * this.PHILESSER;
-		const eyeMaxSize = this.PHI.XS;
-
-		this.head.configure();
-		this.face.configure( genRandomDec( eyeMinSize, eyeMaxSize ), genRandomDec(0.070, 0.12), genRandomDec( 0.50, 0.60 ) );
-
-		this.face.plot( baseParams );
-
-		// ...............................................................................
-		//
-
-		this.generateHair( this._hairModelsCatalog );
-		this.generateHairline( this._hairlinesCatalog );
-		this.generateHairTail( this._hairTailsCatalog );
-		this.generateEarAccessories( this._earAccessoriesCatalog );
-		this.generateNeckAccessories( this._neckAccessoriesCatalog );
-		this.generateFaceFeatures( this._faceFeaturesCatalog );
-		this.generateEyeFeatures( this._eyeFeaturesCatalog );
-
-		// ...............................................................................
-
-	};
-
-
-	public model( params: any ) {
-
-		const { baseParams, archetypeParams } = params;
-		const { hairlineRidgeCtrl, hairlineLevelCtrl, heightCtrl, curlNumCtrl, spanCtrl, testCtrl } = archetypeParams;
-
-		console.log(`MODELLING BAROQUE`);
-
-		this.clear();
-
-		this.head.plot();
-		this.face.plot( baseParams );
-
-
-		for ( const hair of this.hairModels ) {
-
-			if ( hair.owner ) { hair.use.owner = hair.owner };
-
-			this.plotter.chart( hair.use.plot( archetypeParams, ...hair.params ), 'wig' );
-		}
-
-		// .................................................
-		// HAIRLINES
-
-		for ( const hairline of this.hairlineModels ) {
-
-			if ( hairline.owner ) { hairline.use.owner = hairline.owner };
-
-			this.plotter.chart( hairline.use.plot( archetypeParams, ...hairline.params ), 'hairline' );
-		}
-
-		// .................................................
-
-		for ( const hairTail of this._hairTailModels ) {
-
-			if ( hairTail.owner ) { hairTail.use.owner = hairTail.owner };
-
-			this.plotter.chart( hairTail.use.plot( archetypeParams, this.head.leftEar.anchor, this.head.rightEar.anchor, ...hairTail.params ), 'hairtail' );
-		}
-
-		// .................................................
-		// NECK ACCESSORIES
-
-		for ( const neckAccessory of this._neckAccessoryModels ) {
-
-			if ( neckAccessory.owner ) { neckAccessory.use.owner = neckAccessory.owner };
-
-			this.plotter.chart( neckAccessory.use.plot( archetypeParams, ...neckAccessory.params ), 'neckwear' );
-		}
-
-		// .................................................
-		// EAR ACESSORIES
-
-		for ( const earAccessory of this.earAccessoryModels ) {
-
-			if ( earAccessory.owner ) { earAccessory.use.owner = earAccessory.owner };
-
-			this.plotter.chart( earAccessory.use.plot( archetypeParams, ...earAccessory.params ), 'earwear' );
-		}
-
-
-		// .................................................
-		// EYE FEATURES
-
-		for ( const eyeFeature of this.eyeFeatureModels ) {
-
-			if ( eyeFeature.owner ) { eyeFeature.use.owner = eyeFeature.owner };
-
-			this.plotter.chart( eyeFeature.use.plot( archetypeParams, ...eyeFeature.params ), 'eyefeature' );
-		}
-
-
-		// .................................................
-		// FACE FEATURES
-
-		for ( const faceFeature of this._faceFeatureModels ) {
-
-			if ( faceFeature.owner ) { faceFeature.use.owner = faceFeature.owner };
-
-			this.plotter.chart( faceFeature.use.plot( archetypeParams, ...faceFeature.params ), 'facefeature' );
-		}
-
-
-		this.draw();
 	};
 
 };

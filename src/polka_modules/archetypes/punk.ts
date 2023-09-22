@@ -226,11 +226,11 @@ class Punk extends Archetype {
 
 		// -------------------------------------------------------------
 		
-		this.l1.addChild( renderFace( this.head.head.getPath(), this._colorScheme ) );
-		this.l1.addChild( renderEar( this.head.leftEar.getPath(), this._colorScheme ) );
-		this.l1.addChild( renderEar( this.head.rightEar.getPath(), this._colorScheme ) );
-		this.l1.addChild( renderEye( this.face.leftEye.getPath(), this._colorScheme, false ) );
-		this.l1.addChild( renderEye( this.face.rightEye.getPath(), this._colorScheme, false ) );
+		this.l1.addChild( renderFace( this.head.getAtt('HEAD').getPath(), this._colorScheme ) );
+		this.l1.addChild( renderEar( this.head.getAtt('EAR_L').getPath(), this._colorScheme  ) );
+		this.l1.addChild( renderEar( this.head.getAtt('EAR_R').getPath(), this._colorScheme ) );
+		this.l1.addChild( renderEye( this.face.getAtt('EYE_L').getPath(), this._colorScheme, false ) );
+		this.l1.addChild( renderEye( this.face.getAtt('EYE_R').getPath(), this._colorScheme, false  ) );
 		
 		this.plotter.clear();
 	};
@@ -375,7 +375,7 @@ class Punk extends Archetype {
 
 		this.clear();
 
-		this.head.plot( );
+		this.head.plot( baseParams );
 		this.face.plot( baseParams );
 
 
