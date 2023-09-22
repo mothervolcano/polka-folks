@@ -89,11 +89,12 @@ class HairCrest extends Model {
 
 		const path = new Path({ 
 
-			strokeColor: DEBUG_GREEN,
-			strokeWidth: 2
+			strokeColor: GUIDES,
+			strokeWidth: 4
 		});
 
 		this.pen.setPath( path );
+		// this.pen.add( [  O, A ] );
 		this.pen.add( [  O, A, B, C, D ] );
 		this.pen.mirrorRepeat('HOR');
 
