@@ -120,8 +120,8 @@ export function mid( hpt1: any, hpt2: any ) {
 	P.normal = P.tangent.rotate( -90, P.point );
 	P.normal.normalize();
 	
-	P.handleIn 	= 	new Point( ( A.x - _P.x )/3, ( A.y - _P.y )/3 );
-	P.handleOut = 	new Point( ( B.x - _P.x )/3, ( B.y - _P.y )/3 );
+	P.handleIn 		= 	new Point( ( B.x - _P.x )/3, ( B.y - _P.y )/3 );
+	P.handleOut 	= 	new Point( ( A.x - _P.x )/3, ( A.y - _P.y )/3 );
 
 	return P;
 }
