@@ -41,6 +41,7 @@ class Head extends Model {
 
 		this.ATTS = {
 
+			HEAD: null,
 			EAR_L: null,
 			EAR_R: null
 		}
@@ -98,6 +99,7 @@ class Head extends Model {
 		// this._field.scale( this._earsScale, this._earsScale );
 
 
+		this.ATTS.HEAD = field.attractor;
 		this.ATTS.EAR_L = this._lEar;
 		this.ATTS.EAR_R = this._rEar;
 
