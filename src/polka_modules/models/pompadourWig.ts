@@ -174,9 +174,6 @@ class PompadourWig extends Model {
 		// ..............................................
 
 
-		// const T = this._att.locate(c).offsetBy( height - ( this.PHI.L * span ) - ( this.PHI.S * normalize( num, 0, 1 ) ), 'VER').scaleHandles(1.5);
-
-
 		const T = mid( rField.attractor.locate(0.25), lField.attractor.locate(0.25) ).offsetBy( height, 'VER').scaleHandles(3);
 
 		breakOut( A, 60 );

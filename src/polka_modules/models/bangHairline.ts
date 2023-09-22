@@ -51,7 +51,7 @@ class BangHairline extends Model {
 
 		// const field = new OrbitalField( this.field.attractor.center, this.field.attractor.radius );
 
-		const A1 	= this.field.attractor.locate(A.position+0.05).offsetBy( -15, 'RAY' ).steer(150, 180).scaleHandles( 0, true, false ).scaleHandles( 2/3, false, true );
+		const A1 	= this.field.attractor.locate(A.position+0.075).offsetBy( -15, 'RAY' ).steer(130).scaleHandles( 0, true, false ).scaleHandles( 2/3, false, true );
 		const C 	= this.field.attractor.locate(c).offsetBy( dist * -1, 'RAY' ).scaleHandles( 2/3 );
 
 		// ..............................................

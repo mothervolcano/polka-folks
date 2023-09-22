@@ -50,9 +50,9 @@ class MozartHairline extends Model {
 		field.addAttractors( [ attL, attR ] );
 
 		field.compress( 0.25 - span, 0.25 + span );
-		field.expandBy( inletSize * 1.0 * -1, 'RAY' );
+		field.expandBy( inletSize * 1/8, 'RAY' );
 
-		A.steer( 80, 180 );
+		A.steer( 80, 180 ).scaleHandles(0, true, false );
 		C.offsetBy( cuspDist * -1, 'RAY' ).steer(0, 60).scaleHandles(1/5);
 
 		const P1 = attL.locate( 0 ).scaleHandles( 4/3 );
@@ -63,7 +63,7 @@ class MozartHairline extends Model {
 		this.path = new Path({ 
 
 			strokeColor: DEBUG_GREEN,
-			strokeWidth: 2
+			strokeWidth: 3
 
 		});
 
@@ -71,10 +71,7 @@ class MozartHairline extends Model {
 		this.pen.add( [ A, P1, C ] );
 		this.pen.mirrorRepeat('HOR');
 
-		const headWrap = field.attractor.extractPath( this.path.firstSegment, this.path.lastSegment );
-		headWrap.reverse();
-		this.pen.trim( headWrap );
-		this.path.join(headWrap);
+		this.wrap( this.path.firstSegment, this.path.lastSegment );
 
 		// ..............................................
 
