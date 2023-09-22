@@ -38,6 +38,9 @@ abstract class Archetype {
 	protected _head: IModel;
 	protected _face: IModel;
 
+	protected pool: ModelConfig[] = [];
+	protected collection: ModelConfig[] = [];
+
 	protected _hairModels: ModelConfig[];
 	protected _hairlineModels: ModelConfig[];
 	protected _hairTailModels: ModelConfig[];
@@ -176,32 +179,12 @@ abstract class Archetype {
 	};
 
 
-	private pickHair( catalog: ModelConfig[] ) {
+
+	private pickModel( catalog: ModelConfig[] ) {
 
 		return catalog[ genRandom(0, catalog.length-1) ];
 	};
 
-
-	private pickHairline( catalog: ModelConfig[] ) {
-
-		return catalog[ genRandom(0, catalog.length-1) ];
-	};
-
-
-	private pickHairTail( catalog: ModelConfig[] ) {
-
-		return catalog[ genRandom(0, catalog.length-1) ];
-	};
-
-	private pickEarAccessory( catalog: ModelConfig[] ) {
-
-		return catalog[ genRandom(0, catalog.length-1) ];
-	};
-
-	private pickNeckAccessory( catalog: ModelConfig[] ) {
-
-		return catalog[ genRandom(0, catalog.length-1) ];
-	};
 
 	// .................................................................................
 
@@ -220,21 +203,19 @@ abstract class Archetype {
 	};
 
 
-
-
 	// ---------------------------------------------------------------------------------
 
-	protected generateHair( catalog: ModelConfig[] ) {
 
-		this._hairModels = [];
+	protected mount( type: string ) {
+
 
 		// Picks the first random hair model from the archetype's catalog and adds it to the queue
-		const hairQueue =  [ this.pickHair( catalog ) ];
+		const modelQueue =  [ this.pickModel( this.pool.filter((m)=>m.type===type&&m.order==='first')) ];
 
-		while ( hairQueue.length > 0 && hairQueue[0] !== undefined  ) {
+		while ( modelQueue.length > 0 && modelQueue[0] !== undefined  ) {
 
 			// 
-			const modelConfig = hairQueue.shift();
+			const modelConfig = modelQueue.shift();
 
 			if ( !modelConfig ) { throw new Error(`ERROR @ Archetype: failed to retrieve Hair Model from queue`) }
 
@@ -242,24 +223,25 @@ abstract class Archetype {
 
 			modelConfig.use = modelConfig.create( this._head.field, modelConfig.size );
 			
-			if ( !modelConfig.base ) { modelConfig.base = this._head };
+			if ( modelConfig.base ) { modelConfig.use.baseOn(modelConfig.base) }
+
 
 			modelConfig.use.configure( ...modelConfig.settings.map( (values: any[]) => this.randomize(values) ) );
 
-			this._hairModels.push( modelConfig );
+			this.collection.push( modelConfig );
 
 			// Check if there are sub-models
 
 			if ( modelConfig.compats.length > 0 ) {
 
-				const nModelConfig = this.pickHair( modelConfig.compats );
+				const nModelConfig = this.pickModel( modelConfig.compats );
 
 				// nModelConfig.base = modelConfig.use;
 				nModelConfig.use = nModelConfig.create( modelConfig.use.field, nModelConfig.size );
 				nModelConfig.use.baseOn(modelConfig.use);
 				nModelConfig.use.configure( ...modelConfig.settings.map( (p: any[]) => this.randomize(p) ) );
 
-				hairQueue.push( nModelConfig );
+				modelQueue.push( nModelConfig );
 
 				// for ( const nModel of model.compats ) {
 
@@ -271,259 +253,8 @@ abstract class Archetype {
 				// }
 			}
 		};
+
 	}
-
-	protected generateHairline( catalog: ModelConfig[]  ) {
-
-		this._hairlineModels = [];
-
-		const hairlineQueue = [ this.pickHairline( catalog ) ];
-
-		while ( hairlineQueue.length > 0 && hairlineQueue[0] !== undefined ) {
-
-			const modelConfig = hairlineQueue.shift();
-
-			if ( !modelConfig ) { throw new Error(`ERROR @ Archetype: failed to retrieve Hair Model from queue`) }			
-
-			console.log(`... creating hairline`);
-
-			modelConfig.use = modelConfig.create( this._head.field, modelConfig.size );
-			if ( !modelConfig.base ) { modelConfig.use.baseOn(this._head); };
-			modelConfig.use.configure( ...modelConfig.settings.map( (values: []) => this.randomize(values) ) );
-
-			this._hairlineModels.push( modelConfig );
-
-			if ( modelConfig.compats.length > 0 ) {
-
-				const nModelConfig = this.pickHairline( modelConfig.compats );
-
-				nModelConfig.base = modelConfig.use;
-				nModelConfig.use = nModelConfig.create( modelConfig.use.field, nModelConfig.size );
-				nModelConfig.use.baseOn(modelConfig.use);
-				nModelConfig.use.configure( this.PHI.M );
-
-				hairlineQueue.push( nModelConfig );
-
-				// for ( const nModel of model.compats ) {
-
-				// 	nModel.owner = model.use;
-				// 	nModel.use = nModel.create( model.use.field, nModel.size );
-				// 	nModel.use.configure( this.PHI.M );
-
-				// 	hairlineQueue.push( nModel );
-				// }
-			}
-		};
-	};
-
-
-	protected generateHeadFeatures( catalog: ModelConfig[]  ) {
-
-		this._headFeatureModels = [];
-
-		const headFeaturesQueue = [ catalog[0] ];
-
-		while ( headFeaturesQueue.length > 0 && headFeaturesQueue[0] !== undefined ) {
-
-			const modelConfig = headFeaturesQueue.shift();
-
-			if ( !modelConfig ) { throw new Error(`ERROR @ Archetype: failed to retrieve Hair Model from queue`) }
-
-			console.log(`... creating head feature model`);
-
-			modelConfig.use = modelConfig.create( this._head.field, modelConfig.size );
-			modelConfig.use.baseOn(this._head);
-			modelConfig.use.configure();
-
-			this._headFeatureModels.push( modelConfig );
-
-			if ( modelConfig.compats.length > 0 ) {
-
-				for ( const nModel of modelConfig.compats ) {
-
-					nModel.base = modelConfig.use;
-					nModel.use = nModel.create( modelConfig.use.field, nModel.size );
-					nModel.use.configure();
-
-					headFeaturesQueue.push( nModel );
-				}
-			}
-		}
-	};
-
-
-	protected generateHairTail( catalog: ModelConfig[]  ) {
-
-		this._hairTailModels = [];
-
-		const hairTailsQueue = [ this.pickHairTail( catalog ) ];
-
-		while ( hairTailsQueue.length > 0  && hairTailsQueue[0] !== undefined ) {
-
-			const modelConfig = hairTailsQueue.shift();
-
-			if ( !modelConfig ) { throw new Error(`ERROR @ Archetype: failed to retrieve Hair Model from queue`) }
-
-			console.log(`... creating hair tail model`);
-
-			modelConfig.use = modelConfig.create( this._field, modelConfig.size );
-			modelConfig.use.configure( this.PHI.S, genRandom( 20, 50 ) );
-
-			this._hairTailModels.push( modelConfig );
-
-			if ( modelConfig.compats.length > 0 ) {
-
-				for ( const nModelConfig of modelConfig.compats ) {
-
-					nModelConfig.use = nModelConfig.create( modelConfig.use.field, nModelConfig.size );
-					nModelConfig.use.baseOn(modelConfig.use);
-					nModelConfig.use.configure( this.PHI.M );
-
-					hairTailsQueue.push( nModelConfig );
-				}
-			}
-		};
-	};
- 
-
-	protected generateEarAccessories( catalog: ModelConfig[]  ) {
-
-		this._earAccessoryModels = [];
-
-		const earAccessoriesQueue = [ catalog[0], catalog[1] ];
-
-		while ( earAccessoriesQueue.length > 0 && earAccessoriesQueue[0] !== undefined ) {
-
-			const modelConfig = earAccessoriesQueue.shift();
-
-			if ( !modelConfig ) { throw new Error(`ERROR @ Archetype: failed to retrieve Hair Model from queue`) }
-
-			console.log(`... creating ear accessory model`);
-
-			modelConfig.use = modelConfig.create( this._field, modelConfig.size );
-			modelConfig.use.baseOn(this._head);
-			modelConfig.use.configure( );
-
-			this._earAccessoryModels.push( modelConfig );
-
-			if ( modelConfig.compats.length > 0 ) {
-
-				for ( const nModelConfig of modelConfig.compats ) {
-
-					nModelConfig.use = nModelConfig.create( modelConfig.use.field, nModelConfig.size );
-					nModelConfig.use.baseOn(modelConfig.use);
-					nModelConfig.use.configure();
-
-					earAccessoriesQueue.push( nModelConfig );
-				}
-			}
-		}
-	};
-
-
-	protected generateNeckAccessories( catalog: ModelConfig[]  ) {
-
-		this._neckAccessoryModels = [];
-
-		const neckAccessoriesQueue = [ this.pickNeckAccessory( catalog ) ];
-
-		while ( neckAccessoriesQueue.length > 0 && neckAccessoriesQueue[0] !== undefined ) {
-
-			const modelConfig = neckAccessoriesQueue.shift();
-
-			if ( !modelConfig ) { throw new Error(`ERROR @ Archetype: failed to retrieve Hair Model from queue`) }
-
-			console.log(`... creating neck accessory model`);
-
-			modelConfig.use = modelConfig.create( this._field, modelConfig.size );
-			modelConfig.use.configure( );
-
-			this._neckAccessoryModels.push( modelConfig );
-
-			if ( modelConfig.compats.length > 0 ) {
-
-				for ( const nModelConfig of modelConfig.compats ) {
-
-					nModelConfig.use = nModelConfig.create( modelConfig.use.field, nModelConfig.size );
-					nModelConfig.use.baseOn(modelConfig.use);
-					nModelConfig.use.configure();
-
-					neckAccessoriesQueue.push( nModelConfig );
-				}
-			}
-		}
-	};
-
-
-	protected generateFaceFeatures( catalog: ModelConfig[]  ) {
-
-		this._faceFeatureModels = [];
-
-		const faceFeaturesQueue = [ catalog[0], catalog[1] ];
-
-		while ( faceFeaturesQueue.length > 0 && faceFeaturesQueue[0] !== undefined ) {
-
-			const modelConfig = faceFeaturesQueue.shift();
-
-			if ( !modelConfig ) { throw new Error(`ERROR @ Archetype: failed to retrieve Hair Model from queue`) }
-
-			console.log(`... creating face feature model`);
-
-			modelConfig.base = this._face;
-			modelConfig.use = modelConfig.create( this._face.field, modelConfig.size );
-			modelConfig.use.configure();
-
-			this._faceFeatureModels.push( modelConfig );
-
-			if ( modelConfig.compats.length > 0 ) {
-
-				for ( const nModelConfig of modelConfig.compats ) {
-
-					nModelConfig.use = nModelConfig.create( modelConfig.use.field, nModelConfig.size );
-					nModelConfig.use.baseOn(modelConfig.use);
-					nModelConfig.use.configure();
-
-					faceFeaturesQueue.push( nModelConfig );
-				}
-			}
-		}
-	};
-
-
-	protected generateEyeFeatures( catalog: ModelConfig[]  ) {
-
-		this._eyeFeatureModels = [];
-
-		const eyeFeaturesQueue = [ catalog[0], catalog[1] ];
-
-		while ( eyeFeaturesQueue.length > 0 && eyeFeaturesQueue[0] !== undefined ) {
-
-			const modelConfig = eyeFeaturesQueue.shift();
-
-			if ( !modelConfig ) { throw new Error(`ERROR @ Archetype: failed to retrieve Hair Model from queue`) }
-
-			console.log(`... creating eye feature model`);
-
-			modelConfig.base = this._face;
-			modelConfig.use = modelConfig.create( this._face.field, this._face.getAtt('EYE_L').radius ); // TODO: improve how we get the radius of the eye
-			modelConfig.use.configure( );
-
-			this._eyeFeatureModels.push( modelConfig );
-
-
-			if ( modelConfig.compats.length > 0 ) {
-
-				for ( const nModelConfig of modelConfig.compats ) {
-
-					nModelConfig.use = nModelConfig.create( modelConfig.use.field, nModelConfig.size );
-					nModelConfig.use.baseOn(modelConfig.use);
-					nModelConfig.use.configure();
-
-					eyeFeaturesQueue.push( nModelConfig );
-				}
-			}
-		}
-	};
 	
 
 	public clear() {

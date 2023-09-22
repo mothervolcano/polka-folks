@@ -21,6 +21,7 @@ export interface IModel {
 export interface ModelConfig {
 
 	type?: string;
+  order?: string;
 	create: (field:any, radius: number) => IModel; //TODO finish: f can be an AttractorField or AttractorObject
 	use: IModel | null; //TODO the type is a model
 	base: IModel | null;

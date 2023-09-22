@@ -21,14 +21,6 @@ const GUIDES = '#06E7EF';
 class Punk extends Archetype {
 
 	private _colorScheme: any;
-	private _hairModelsCatalog: ModelConfig[];
-	private _hairlinesCatalog: ModelConfig[];
-	private _hairTailsCatalog: ModelConfig[];
-	private _earAccessoriesCatalog: ModelConfig[];
-	private _neckAccessoriesCatalog: ModelConfig[];
-	private _eyeFeaturesCatalog: ModelConfig[];
-	private _faceFeaturesCatalog: ModelConfig[];
-	private _headFeaturesCatalog: ModelConfig[];
 
 	private l0: any;
 	private l1: any;
@@ -62,6 +54,7 @@ class Punk extends Archetype {
 			create: (f,r) => drawHairSpike(f,r),
 			use: null,
 			type: 'SPIKE',
+			order: 'first',
 			base: null,
 			size: this.PHI.XXS,
 			settings: [ [ this.PHI.XL ], [ this.PHI.XXS ], [ 0 ] ],
@@ -74,6 +67,7 @@ class Punk extends Archetype {
 			create: (f,r) => drawHairShave(f,r),
 			use: null,
 			type: '',
+			order: 'first',
 			base: null,
 			size: this.PHI.XXS,
 			settings: [ ],
@@ -87,28 +81,6 @@ class Punk extends Archetype {
 
 		// ---------------------------------------------
 
-		// this._hairModelsCatalog = [  ];
-		this._hairModelsCatalog = [ spike ];
-		
-		// this._hairlinesCatalog = [  ];
-		this._hairlinesCatalog = [ ];
-
-		this._hairTailsCatalog = [  ];
-		// this._hairTailsCatalog = [ ];
-
-		this._earAccessoriesCatalog = [ ];
-
-		this._neckAccessoriesCatalog = [ ];
-		// this._neckAccessoriesCatalog = [ ];
-
-		// this._eyeFeaturesCatalog = [];
-		this._eyeFeaturesCatalog = [ ];
-
-		// this._eyeFeaturesCatalog = [ ];
-		this._faceFeaturesCatalog = [ ];		
-
-		// this._headFeaturesCatalog = [ ];
-		this._headFeaturesCatalog = [ hairShave ];
 		
 
 		return this;
@@ -341,14 +313,7 @@ class Punk extends Archetype {
 
 		// ...............................................................................
 
-		this.generateHair( this._hairModelsCatalog );
-		this.generateHeadFeatures( this._headFeaturesCatalog );
-		this.generateHairline( this._hairlinesCatalog );
-		this.generateHairTail( this._hairTailsCatalog );
-		this.generateEarAccessories( this._earAccessoriesCatalog );
-		this.generateNeckAccessories( this._neckAccessoriesCatalog );
-		this.generateFaceFeatures( this._faceFeaturesCatalog );
-		this.generateEyeFeatures( this._eyeFeaturesCatalog );
+		this.collection = [];
 
 		// ...............................................................................
 
@@ -370,25 +335,14 @@ class Punk extends Archetype {
 
 		// ---------------------------------------------------------------
 
-		for ( const modelConfig of this.hairModels ) {
+		
+		for ( const modelConfig of this.collection ) {
 
-			if ( !modelConfig.use ) { throw new Error(`ERROR @ Punk: hair model config is missing an instance of the model`) }
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Baroque: model config is missing an instance of the model`) }
 
-			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
-
-			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'wig' );
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), modelConfig.type );
 		}
 
-		// ---------------------------------------------------------------
-
-		for ( const modelConfig of this.headFeatureModels ) {
-
-			if ( !modelConfig.use ) { throw new Error(`ERROR @ Punk: head feature model config is missing an instance of the model`) }
-
-			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
-
-			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'wig' );
-		}
 
 		this.draw();
 	}

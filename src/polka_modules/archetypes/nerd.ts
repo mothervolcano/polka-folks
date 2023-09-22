@@ -33,14 +33,6 @@ const GUIDES = '#06E7EF';
 class Nerd extends Archetype {
 
 	private _colorScheme: any;
-	private _hairModelsCatalog: ModelConfig[];
-	private _hairlinesCatalog: ModelConfig[];
-	private _hairTailsCatalog: ModelConfig[];
-	private _earAccessoriesCatalog: ModelConfig[];
-	private _neckAccessoriesCatalog: ModelConfig[];
-	private _eyeFeaturesCatalog: ModelConfig[];
-	private _faceFeaturesCatalog: ModelConfig[];
-	private _headFeaturesCatalog: ModelConfig[];
 
 	private l0: any;
 	private l1: any;
@@ -70,9 +62,10 @@ class Nerd extends Archetype {
 
 		const hairDome: ModelConfig = {
 
+			type: 'hair',
+			order: 'first',
 			create: (f,r) => drawHairDome(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
@@ -82,9 +75,10 @@ class Nerd extends Archetype {
 
 		const ionicHair: ModelConfig = {
 
+			type: 'hair',
+			order: 'first',
 			create: (f,r) => drawIonicHair(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
@@ -94,9 +88,10 @@ class Nerd extends Archetype {
 
 		const dennisHair: ModelConfig = {
 
+			type: 'hair',
+			order: 'first',
 			create: (f,r) => drawDennisHair(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
@@ -106,9 +101,10 @@ class Nerd extends Archetype {
 
 		const hairCurtainHide: ModelConfig = {
 
+			type: 'hair',
+			order: 'first',
 			create: (f,r) => drawHairCurtainHide(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.L,
 			settings: [ ],
@@ -118,9 +114,10 @@ class Nerd extends Archetype {
 
 		const hairCape: ModelConfig = {
 
+			type: 'hair',
+			order: 'first',
 			create: (f,r) => drawHairCapeTail(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
@@ -130,9 +127,10 @@ class Nerd extends Archetype {
 
 		const hairCap: ModelConfig = {
 
+			type: 'hair',
+			order: 'first',
 			create: (f,r) => drawHairCap(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.L,
 			settings: [ ],
@@ -143,9 +141,10 @@ class Nerd extends Archetype {
 
 		const hairCurtain: ModelConfig = {
 
+			type: 'hairline',
+			order: 'first',
 			create: (f,r) => drawHairCurtain(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
@@ -155,9 +154,10 @@ class Nerd extends Archetype {
 
 		const bangs: ModelConfig = {
 
+			type: 'hairline',
+			order: 'first',
 			create: (f,r) => drawBangHairline(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.L,
 			settings: [ ],
@@ -167,9 +167,10 @@ class Nerd extends Archetype {
 
 		const billyFlaps: ModelConfig = {
 
+			type: 'hair',
+			order: 'first',
 			create: (f,r) => drawBillyHairFlaps(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.L,
 			settings: [ ],
@@ -179,9 +180,10 @@ class Nerd extends Archetype {
 
 		const arcPattern: ModelConfig = {
 
+			type: 'hair',
+			order: 'second',
 			create: (f,r) => drawArcWave(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.XL,
 			settings: [ 3 ],
@@ -191,9 +193,10 @@ class Nerd extends Archetype {
 
 		const zigzag: ModelConfig = {
 
+			type: 'hair',
+			order: 'second',
 			create: (f,r) => drawArcWave(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.XL,
 			settings: [ 10 ],
@@ -203,9 +206,10 @@ class Nerd extends Archetype {
 
 		const roundGlasses: ModelConfig = {
 
+			type: 'eyewear',
+			order: 'first',
 			create: (f,r) => drawRoundGlasses(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
@@ -215,9 +219,10 @@ class Nerd extends Archetype {
 
 		const billyMonkHair: ModelConfig = {
 
+			type: 'hair',
+			order: 'first',
 			create: (f,r) => drawBillyMonkHair(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
@@ -227,9 +232,10 @@ class Nerd extends Archetype {
 
 		const hairModelTest: ModelConfig = {
 
+			type: 'hair',
+			order: 'first',
 			create: (f,r) => drawHairModelTest(f,r),
 			use: null,
-			type: '',
 			base: null,
 			size: this.PHI.L,
 			settings: [ ],
@@ -249,32 +255,73 @@ class Nerd extends Archetype {
 		// ..................................................
 
 
-		this._hairModelsCatalog = [ hairModelTest ];
-		// this._hairModelsCatalog = [ ionicHair, hairDome, hairCap, dennisHair, billyMonkHair ];
-		
-		this._hairlinesCatalog = [  ];
-		// this._hairlinesCatalog = [ hairCurtain, bangs ];
-
-		this._hairTailsCatalog = [  ];
-		// this._hairTailsCatalog = [ ];
-
-		this._earAccessoriesCatalog = [ ];
-
-		this._neckAccessoriesCatalog = [ ];
-		// this._neckAccessoriesCatalog = [ ];
-
-		// this._eyeFeaturesCatalog = [];
-		this._eyeFeaturesCatalog = [ ];
-
-		// this._faceFeaturesCatalog = [ ];
-		this._faceFeaturesCatalog = [ roundGlasses ];		
-
-		// this._headFeaturesCatalog = [ ];
-		this._headFeaturesCatalog = [ ];
+		this.pool = [];
 
 
 		return this;
 	}
+
+
+	// ------------------------------------------------------------------------------------
+	// PUBLIC METHODS
+
+
+	public generate( params: any ) {
+
+		const { baseParams, archetypeParams } = params;
+		const { } = archetypeParams;
+
+		console.log(`GENERATING NERD`);
+
+		// ...............................................................................
+
+		this._colorScheme = { ...colors.punkPolka } ;
+		this._colorScheme.skin = this._colorScheme.skin[ genRandom(0, this._colorScheme.skin.length-1) ];
+		this._colorScheme.hair = this._colorScheme.hair.filter( (c: any) => c !== this._colorScheme.skin );
+		this._colorScheme.hair = this._colorScheme.hair[ genRandom(0, this._colorScheme.hair.length-1) ];
+
+
+		// ...............................................................................
+		// NOTE: head and face need to be plotted at generation time to provide all the models based on them the plots they require
+
+		const eyeMinSize = this.PHI.XS * this.PHILESSER;
+		const eyeMaxSize = this.PHI.XS;
+
+		this.head.configure();
+		this.face.configure( genRandomDec( eyeMinSize, eyeMaxSize ), genRandomDec(0.070, 0.12), genRandomDec( 0.50, 0.60 ) );
+
+		this.face.plot( baseParams );
+
+		// ...............................................................................
+
+		this.collection = [];
+
+		
+
+		// ...............................................................................
+
+	};
+
+
+	public model( params: any ) {
+
+		const { baseParams, archetypeParams } = params;
+		const { splitLat, splitAperture } = archetypeParams;
+
+		console.log(`MODELLING NERD`)
+
+		this.head.plot( baseParams );
+		this.face.plot( baseParams );
+
+		for ( const modelConfig of this.collection ) {
+
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Baroque: model config is missing an instance of the model`) }
+
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), modelConfig.type );
+		}
+
+		this.draw();
+	};
 
 
 	private draw() {
@@ -392,103 +439,7 @@ class Nerd extends Archetype {
 	};
 
 
-	// ------------------------------------------------------------------------------------
-	// PUBLIC METHODS
 
-
-	public generate( params: any ) {
-
-		const { baseParams, archetypeParams } = params;
-		const { } = archetypeParams;
-
-		console.log(`GENERATING NERD`);
-
-		// ...............................................................................
-
-		this._colorScheme = { ...colors.punkPolka } ;
-		this._colorScheme.skin = this._colorScheme.skin[ genRandom(0, this._colorScheme.skin.length-1) ];
-		this._colorScheme.hair = this._colorScheme.hair.filter( (c: any) => c !== this._colorScheme.skin );
-		this._colorScheme.hair = this._colorScheme.hair[ genRandom(0, this._colorScheme.hair.length-1) ];
-
-
-		// ...............................................................................
-		// NOTE: head and face need to be plotted at generation time to provide all the models based on them the plots they require
-
-		const eyeMinSize = this.PHI.XS * this.PHILESSER;
-		const eyeMaxSize = this.PHI.XS;
-
-		this.head.configure();
-		this.face.configure( genRandomDec( eyeMinSize, eyeMaxSize ), genRandomDec(0.070, 0.12), genRandomDec( 0.50, 0.60 ) );
-
-		this.face.plot( baseParams );
-
-		// ...............................................................................
-
-		this.generateHair( this._hairModelsCatalog );
-		this.generateHeadFeatures( this._headFeaturesCatalog );
-		this.generateHairline( this._hairlinesCatalog );
-		this.generateHairTail( this._hairTailsCatalog );
-		this.generateEarAccessories( this._earAccessoriesCatalog );
-		this.generateNeckAccessories( this._neckAccessoriesCatalog );
-		this.generateFaceFeatures( this._faceFeaturesCatalog );
-		this.generateEyeFeatures( this._eyeFeaturesCatalog );
-
-		// ...............................................................................
-
-	};
-
-
-	public model( params: any ) {
-
-		const { baseParams, archetypeParams } = params;
-		const { splitLat, splitAperture } = archetypeParams;
-
-		console.log(`MODELLING NERD`)
-
-		this.head.plot( baseParams );
-		this.face.plot( baseParams );
-
-		// ---------------------------------------------------------------
-		// HAIRCUTS
-
-		for ( const modelConfig of this.hairModels ) {
-
-			if ( !modelConfig.use ) { throw new Error(`ERROR @ Nerd: hair model config is missing an instance of the model`) }
-
-			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
-
-			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'wig' );
-		}
-
-
-		// .................................................
-		// HAIRLINES
-
-		for ( const modelConfig of this.hairlineModels ) {
-
-			if ( !modelConfig.use ) { throw new Error(`ERROR @ Nerd: hairline model config is missing an instance of the model`) }
-
-			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
-
-			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'hairline' );
-		}
-
-
-		// .................................................
-		// FACE FEATURES
-
-		for ( const modelConfig of this._faceFeatureModels ) {
-
-			if ( !modelConfig.use ) { throw new Error(`ERROR @ Nerd: Face Feature model config is missing an instance of the model`) }
-
-			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
-
-			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'facefeature' );
-		}
-
-
-		this.draw();
-	};
 
 }
 
