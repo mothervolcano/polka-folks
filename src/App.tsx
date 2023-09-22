@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Main from './main';
+import UI from './ui';
 import Lab from './lab';
 
 import './App.css';
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <Main/>
+      <UI/>
       {/*<Lab/>*/}
       </header>
     </div>
