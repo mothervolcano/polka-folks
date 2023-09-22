@@ -40,7 +40,7 @@ class SlantedFringe extends Model {
 		const position = genRandomDec( 0.15, 0.22 );
 		const angle = genRandomDec( -15, 15 ); // TODO: implement later
 
-		const length = this.owner.radius * this.PHILESSER;
+		const length = this.base.radius * this.PHILESSER;
 
 		// .............................................
 		// Key points
@@ -78,9 +78,9 @@ class SlantedFringe extends Model {
 		this.pen.setPath( this.path );
 		this.pen.add( [ P0, P1 ] );
 
-		this.wrap( P0, this.owner.B );
+		this.wrap( P0, this.base.B );
 
-		this.path.splitAt( this.path.getNearestLocation(this.owner.B.point) );
+		this.path.splitAt( this.path.getNearestLocation(this.base.B.point) );
 		this.path.lastSegment.remove()
 
 
@@ -95,7 +95,7 @@ class SlantedFringe extends Model {
 		// Chart
 
 		this.A = P1;
-		this.B = this.owner.B;
+		this.B = this.base.B;
 
 		return [ instructions, this.path ];
 

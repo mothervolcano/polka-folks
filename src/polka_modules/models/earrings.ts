@@ -47,7 +47,7 @@ export class Earrings extends Model {
 		// ......................................................
 		// define the key points
 
-		const O = this.owner.getAtt(ATT).locate(c);
+		const O = this.base.getAtt(ATT).locate(c);
 		
 
 		const attA1 = new Orbital( plumbSize, O );

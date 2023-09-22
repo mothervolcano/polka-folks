@@ -58,7 +58,7 @@ class EarModelTest extends Model {
 		// .............................................
 		// Key points
 
-		let O = this.owner.getAtt(ATT).locate(0.75);
+		let O = this.base.getAtt(ATT).locate(0.75);
 
 		// .............................................
 		// Construction

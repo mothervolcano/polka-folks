@@ -46,7 +46,7 @@ class DennisHair extends Model {
 		// .............................................
 		// Key points
 
-		const A = this.owner.A;
+		const A = this.base.A;
 		const C = this.field.attractor.locate( 0.20 );
 		const P = this.field.attractor.locate( latitude );
 

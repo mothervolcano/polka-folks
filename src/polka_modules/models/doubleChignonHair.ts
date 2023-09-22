@@ -38,8 +38,8 @@ class DoubleChignonHair extends Model {
 		// .............................................
 		// Compute parameters
 
-		const area = this.owner.radius + this.PHI.S;
-		const size = this.owner.radius - this.PHI.M;
+		const area = this.base.radius + this.PHI.S;
+		const size = this.base.radius - this.PHI.M;
 
 		const wRatio = 1//this.SIN54;
 		const hRatio = this.SIN54;
@@ -47,7 +47,7 @@ class DoubleChignonHair extends Model {
 		const wfRatio = this.SIN72;
 		const hfRatio = 1//this.SIN54;
 
-		const drop = this.owner.radius * this.SIN18;
+		const drop = this.base.radius * this.SIN18;
 
 		const compression = 0.13;
 

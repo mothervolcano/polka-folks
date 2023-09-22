@@ -40,9 +40,9 @@ class HairHorn extends Model {
 
 		const position = genRandomDec( 0.15, 0.45 );
 		// const span = position < 0.25 ? -0.075 : 0.075;
-		const r = this.owner.radius * this.SIN9;
+		const r = this.base.radius * this.SIN9;
 
-		const length = this.owner.radius + genRandomDec( -this.PHI.S, this.PHI.L );
+		const length = this.base.radius + genRandomDec( -this.PHI.S, this.PHI.L );
 
 		// .............................................
 		// Key points

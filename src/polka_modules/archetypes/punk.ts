@@ -1,3 +1,5 @@
+import { ModelConfig } from '../types';
+
 import { Layer, Path } from 'paper';
 
 import Archetype from '../core/archetype';
@@ -19,14 +21,14 @@ const GUIDES = '#06E7EF';
 class Punk extends Archetype {
 
 	private _colorScheme: any;
-	private _hairModelsCatalog: Array<any>;
-	private _hairlinesCatalog: Array<any>;
-	private _hairTailsCatalog: Array<any>;
-	private _earAccessoriesCatalog: Array<any>;
-	private _neckAccessoriesCatalog: Array<any>;
-	private _eyeFeaturesCatalog: Array<any>;
-	private _faceFeaturesCatalog: Array<any>;
-	private _headFeaturesCatalog: Array<any>;
+	private _hairModelsCatalog: ModelConfig[];
+	private _hairlinesCatalog: ModelConfig[];
+	private _hairTailsCatalog: ModelConfig[];
+	private _earAccessoriesCatalog: ModelConfig[];
+	private _neckAccessoriesCatalog: ModelConfig[];
+	private _eyeFeaturesCatalog: ModelConfig[];
+	private _faceFeaturesCatalog: ModelConfig[];
+	private _headFeaturesCatalog: ModelConfig[];
 
 	private l0: any;
 	private l1: any;
@@ -55,25 +57,12 @@ class Punk extends Archetype {
 		// ---------------------------------------------
 
 
-		interface ModelConfig {
-
-			create: (field:any, radius: number) => void; //TODO finish: f can be an AttractorField or AttractorObject
-			use: Function | null; //TODO the type is a model
-			owner: any;
-			type: string;
-			size: number;
-			settings: any[];
-			params: any[];
-			compats: any[];
-		}
-
-
 		const spike: ModelConfig = {
 
 			create: (f,r) => drawHairSpike(f,r),
 			use: null,
 			type: 'SPIKE',
-			owner: null,
+			base: null,
 			size: this.PHI.XXS,
 			settings: [ [ this.PHI.XL ], [ this.PHI.XXS ], [ 0 ] ],
 			params: [ 0.25 ],
@@ -85,7 +74,7 @@ class Punk extends Archetype {
 			create: (f,r) => drawHairShave(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.XXS,
 			settings: [ ],
 			params: [ 'L_EAR_XT', 0.25 ],
@@ -381,29 +370,25 @@ class Punk extends Archetype {
 
 		// ---------------------------------------------------------------
 
-		for ( const hair of this.hairModels ) {
+		for ( const modelConfig of this.hairModels ) {
 
-			if ( hair.owner ) { hair.use.owner = hair.owner };
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Punk: hair model config is missing an instance of the model`) }
 
-			if ( hair?.type === 'SPIKE' ) {
+			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
 
-				this.plotSpikes( hair.use, archetypeParams );
-
-			} else {
-
-				this.plotter.chart( hair.use.plot( archetypeParams, ...hair.params ), 'hair' );
-			}
-		};
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'wig' );
+		}
 
 		// ---------------------------------------------------------------
 
-		for ( const feature of this.headFeatureModels ) {
+		for ( const modelConfig of this.headFeatureModels ) {
 
-			if ( feature.owner ) { feature.use.owner = feature.owner };
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Punk: head feature model config is missing an instance of the model`) }
 
-			this.plotter.chart( feature.use.plot( archetypeParams, ...feature.params ), 'facefeatures' );
+			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
 
-		};
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'wig' );
+		}
 
 		this.draw();
 	}

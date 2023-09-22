@@ -43,11 +43,11 @@ class HairCrest extends Model {
 		let O;
 		let A;
 
-		if ( this._owner ) {
+		if ( this._base ) {
 
-			P = this._owner.T.clone();
-			O = this._owner.T;
-			A = this._owner.A.offsetBy(  measure( this._owner.A, this._owner.T, 1/3 ), 'TAN' ).flip();
+			P = this._base.T.clone();
+			O = this._base.T;
+			A = this._base.A.offsetBy(  measure( this._base.A, this._base.T, 1/3 ), 'TAN' ).flip();
 
 		} else {
 

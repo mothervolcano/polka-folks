@@ -47,7 +47,7 @@ class HairModelTest extends Model {
 		// Key points
 
 		const O = this.field.attractor.locate(spanPos);
-		const A = this.owner.A;
+		const A = this.base.A;
 
 
 		// .............................................

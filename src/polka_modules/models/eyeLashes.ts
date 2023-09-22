@@ -31,7 +31,7 @@ export class EyeLashes extends Model {
 	public plot( params: any, ATT: string ) {
 		
 
-		const att = new Orbital( this.PHI.L, this.owner.getAtt(ATT).locate(0.25).offsetBy(this.PHI.M, 'RAY') );
+		const att = new Orbital( this.PHI.L, this.base.getAtt(ATT).locate(0.25).offsetBy(this.PHI.M, 'RAY') );
 
 		// ............................................................
 

@@ -42,16 +42,16 @@ class HelgaHair extends Model {
 
 		const ponyAngle = genRandomDec(0.10, 0.20);
 
-		const ponySize = this.owner.radius * this.SIN18;
-		const ponyVolume = this.owner.radius * this.SIN18;
-		const ponyLength = this.owner.radius * 2 + this.PHI.XL;
-		const elevation = this.owner.radius * this.SIN54;
+		const ponySize = this.base.radius * this.SIN18;
+		const ponyVolume = this.base.radius * this.SIN18;
+		const ponyLength = this.base.radius * 2 + this.PHI.XL;
+		const elevation = this.base.radius * this.SIN54;
 
 		const elasticSizeRatio = 0.20;
 		const hRatio = 1//this.SIN36;
 		const wRatio = this.SIN36;
 
-		const volume = this.owner.radius * this.SIN18;
+		const volume = this.base.radius * this.SIN18;
 
 		// .............................................
 		// Key points
@@ -59,8 +59,8 @@ class HelgaHair extends Model {
 		const O = this.field.attractor.locate(ponyAngle).offsetBy( elevation, 'RAY' );
 		const K = this.field.attractor.locate(0.25).offsetBy( -elevation, 'RAY' );
 
-		const A = this.owner.A;
-		const B = this.owner.B;
+		const A = this.base.A;
+		const B = this.base.B;
 
 		// .............................................
 		// Construction 1/2

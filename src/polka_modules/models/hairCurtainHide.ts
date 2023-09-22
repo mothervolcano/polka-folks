@@ -46,8 +46,8 @@ class HairCurtainHide extends Model {
 		// const A = this.owner.getPin(PIN_A);
 		// const B = this.owner.getPin(PIN_B);
 
-		const A = this.owner.A;
-		const B = this.owner.B;
+		const A = this.base.A;
+		const B = this.base.B;
 
 
 		// .............................................
@@ -91,7 +91,7 @@ class HairCurtainHide extends Model {
 
 		this.path.reverse();
 
-		const headWrap = this.owner.field.attractor.extractPath( this.path.firstSegment, this.path.lastSegment );
+		const headWrap = this.base.field.attractor.extractPath( this.path.firstSegment, this.path.lastSegment );
 		headWrap.reverse();
 		this.pen.trim( headWrap );
 		this.path.join( headWrap );
@@ -107,8 +107,8 @@ class HairCurtainHide extends Model {
 		// .............................................
 		// Chart
 
-		this.A = this.owner.A.clone();
-		this.B = this.owner.B.clone();
+		this.A = this.base.A.clone();
+		this.B = this.base.B.clone();
 
 		return [ instructions, this.path ];
 

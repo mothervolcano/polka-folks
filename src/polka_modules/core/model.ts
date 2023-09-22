@@ -1,10 +1,11 @@
 import { Path } from 'paper';
 
-import { OrientationType, PolarityType, IHyperPoint, IDisplayObject, IAttractor, IAttractorField, IModel, PointLike, SizeLike } from '../../lib/topo/types';
+import { OrientationType, PolarityType, IHyperPoint, IDisplayObject, IAttractor, IAttractorField, PointLike, SizeLike } from '../../lib/topo/types';
 
 import Pen from '../../lib/topo/tools/pen';
 
 import { metricsFor, SIN9, SIN18, SIN36, SIN54, SIN72, PHIGREATER, PHILESSER } from '../styles/metrics';
+import { IModel } from '../types';
 
 
 
@@ -13,7 +14,7 @@ abstract class Model {
 	protected _pen: any;
 	protected _path: any;
 
-	protected _owner: any;
+	protected _base: IModel | null;
 	
 	protected _field: IAttractorField;
 
@@ -38,7 +39,7 @@ abstract class Model {
 
 		this._pen = Pen.getInstance();
 
-		this._owner = null;
+		this._base = null;
 
 		this._field = field;
 		this._radius = radius;
@@ -62,9 +63,16 @@ abstract class Model {
 		}
 	};
 
-	get owner() {
+	baseOn( model: IModel  ) {
 
-		return this._owner;
+		this._base = model;
+	}
+
+	get base() {
+
+		if ( !this._base ) { throw new Error(`ERROR @ Model: No base has been set for this model`) };
+
+		return this._base;
 	}
 
 	get pen() {
@@ -179,12 +187,6 @@ abstract class Model {
 
 		return this._T;
 	};
-
-
-	set owner( model: IModel ) {
-
-		this._owner = model;
-	}
 
 	set path( p: any ) {
 

@@ -37,7 +37,7 @@ export class Blush extends Model {
 
 		const size = this._size;
 
-		const att = new Orbital( this.PHI.L, this.owner.getPin(PIN) );
+		const att = new Orbital( this.PHI.L, this.base.getPin(PIN) );
 
 		// ............................................................
 

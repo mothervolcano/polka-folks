@@ -46,7 +46,7 @@ class HairShave extends Model {
 		let compression;
 
 
-		const A = this.owner.getPin(PIN);
+		const A = this.base.getPin(PIN);
 		const B = this.field.attractor.locate(b);
 
 		let plots = [];

@@ -38,7 +38,7 @@ class ArthurHair extends Model {
 		// Compute parameters
 
 		const span = 0.15;
-		const splitLatitude = this.owner.radius * this.SIN9;
+		const splitLatitude = this.base.radius * this.SIN9;
 
 		// .............................................
 		// Key points

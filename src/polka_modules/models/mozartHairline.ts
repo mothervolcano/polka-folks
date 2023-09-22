@@ -38,8 +38,8 @@ class MozartHairline extends Model {
 		// .............................................
 		// Key points
 
-		const A = this.owner.getPin( PIN_A );
-		const B = this.owner.getPin( PIN_B );
+		const A = this.base.getPin( PIN_A );
+		const B = this.base.getPin( PIN_B );
 
 		const C = this.field.attractor.locate(c);
 

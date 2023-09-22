@@ -117,24 +117,6 @@ export interface IOrbital {
 
 }
 
-export interface IModel {
-
-  readonly field: IAttractorField;
-
-  A: IHyperPoint;
-  B: IHyperPoint;
-  C: IHyperPoint;
-  T: IHyperPoint;
-  level: any; // It's a Paper.Layer at the moment. Change when there is a replacement;
-  path: any;
-  radius: number;
-  getAtt( LABEL: string );
-  getPin( LABEL: string );
-  configure( ...args: any[] ): void;
-  plot( params: any, ...args: any[] ): void;
-
-}
-
 
 
 // export type DisplayObjectType<T extends DisplayObject> = new (...args: any[]) => T;

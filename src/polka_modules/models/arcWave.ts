@@ -41,7 +41,7 @@ class ArcWave extends Model {
 		// .............................................
 		// Compute parameters
 
-		const distance = measure( this.owner.A, this.owner.B );
+		const distance = measure( this.base.A, this.base.B );
 
 		const num = this._num//genRandom( 2, 10 );
 		const roundness = genRandomDec( 0.5, 2 );
@@ -50,8 +50,8 @@ class ArcWave extends Model {
 		// .............................................
 		// Key points
 
-		const A = this.owner.A;
-		const B = this.owner.B;
+		const A = this.base.A;
+		const B = this.base.B;
 
 		// .............................................
 		// Construction
@@ -126,7 +126,7 @@ class ArcWave extends Model {
 
 		const instructions = {
 
-			level: this.owner.level,
+			level: this.base.level,
 			complete: true,
 			gradient: false
 		}
@@ -139,7 +139,7 @@ class ArcWave extends Model {
 
 		this.path.reverse();
 
-		this.path.join( this.owner.path );
+		this.path.join( this.base.path );
 
 		return [ instructions, this.path ];
 

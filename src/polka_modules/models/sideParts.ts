@@ -48,8 +48,8 @@ class HairModelTest extends Model {
 
 		const A0 = this.field.attractor.locate(0+spanPos);
 		const B0 = this.field.attractor.locate(0.50-spanPos);
-		const A = this.owner.A;
-		const B = this.owner.B;
+		const A = this.base.A;
+		const B = this.base.B;
 
 
 		// .............................................

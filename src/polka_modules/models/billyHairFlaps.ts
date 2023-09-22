@@ -38,7 +38,7 @@ class BillyHairFlaps extends Model {
 		// .............................................
 		// Compute parameters
 
-		const d = measure( this.owner.A, this.owner.B );
+		const d = measure( this.base.A, this.base.B );
 
 		const size = d / genRandomDec( this.PHI.M, this.PHI.XS );
 		const gap = size * this.PHILESSER;
@@ -47,8 +47,8 @@ class BillyHairFlaps extends Model {
 		// .............................................
 		// Key points
 
-		const A = this.owner.A;
-		const B = this.owner.B;
+		const A = this.base.A;
+		const B = this.base.B;
 
 		// .............................................
 		// Construction 1/2
@@ -106,7 +106,7 @@ class BillyHairFlaps extends Model {
 		// this.pen.add( [ A1, A2, C, B2, B1 ] );
 
 		this.path.reverse();
-		this.path.join( this.pen.trim(this.owner.path) );
+		this.path.join( this.pen.trim(this.base.path) );
 
 		this.path.closed = true;
 

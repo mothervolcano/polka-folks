@@ -42,8 +42,8 @@ class BangHairline extends Model {
 		// .............................................
 		// Key points
 
-		const A = this.owner.A;
-		const B = this.owner.B;
+		const A = this.base.A;
+		const B = this.base.B;
 
 		// .............................................
 		// Construction

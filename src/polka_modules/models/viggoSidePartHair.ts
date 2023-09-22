@@ -43,10 +43,10 @@ class ViggoSidePartHair extends Model {
 		const splitPos = 0.35;
 		const cutoffPos = 0.05;
 
-		const height = this.owner.radius * this.SIN18;
+		const height = this.base.radius * this.SIN18;
 
-		const inWidth = this.owner.radius * this.SIN54;
-		const outWidth = this.owner.radius * this.PHILESSER;
+		const inWidth = this.base.radius * this.SIN54;
+		const outWidth = this.base.radius * this.PHILESSER;
 
 		// .............................................
 		// Key points

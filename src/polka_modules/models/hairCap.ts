@@ -37,13 +37,13 @@ class HairCap extends Model {
 		// .............................................
 		// Compute parameters
 
-		const d = measure( this.owner.A, this.owner.B );
+		const d = measure( this.base.A, this.base.B );
 
 		// .............................................
 		// Key points
 
-		const A = this.owner.A.clone().steer(-15, 180);
-		const B = this.owner.B.clone().steer(15, 180);
+		const A = this.base.A.clone().steer(-15, 180);
+		const B = this.base.B.clone().steer(15, 180);
 
 		const C = mid( A, B ).offsetBy( d * this.PHILESSER * -1, 'VER' );
 
@@ -88,8 +88,8 @@ class HairCap extends Model {
 		// .............................................
 		// Chart
 
-		this.A = this.owner.A;
-		this.B = this.owner.B;
+		this.A = this.base.A;
+		this.B = this.base.B;
 
 		return [ instructions, this.path ];
 

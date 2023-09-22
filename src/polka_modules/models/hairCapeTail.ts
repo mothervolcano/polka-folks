@@ -45,8 +45,8 @@ class HairCapeTail extends Model {
 		// .............................................
 		// Key points
 
-		const A = this.owner.A;
-		const B = this.owner.B;
+		const A = this.base.A;
+		const B = this.base.B;
 
 		const A1 = A.clone().offsetBy( length, 'VER' );
 		const B1 = B.clone().offsetBy( length, 'VER' );

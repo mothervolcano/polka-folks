@@ -16,7 +16,7 @@ class SpinalField extends AttractorField {
 	private _mode: string;
 	
 	
-	constructor( positionData: IHyperPoint | [ IHyperPoint, IHyperPoint ], length: number | null, mode: string = 'DIRECTED' ) {
+	constructor( positionData: IHyperPoint | [ IHyperPoint, IHyperPoint ], length: number | null, mode: string = 'SYMMETRICAL' ) {
 
 		const _path = Spine.project( positionData, length )
 

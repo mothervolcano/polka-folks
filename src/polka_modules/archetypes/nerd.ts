@@ -1,3 +1,5 @@
+import { ModelConfig } from '../types';
+
 import { Layer, Path } from 'paper';
 
 import Archetype from '../core/archetype';
@@ -31,14 +33,14 @@ const GUIDES = '#06E7EF';
 class Nerd extends Archetype {
 
 	private _colorScheme: any;
-	private _hairModelsCatalog: Array<any>;
-	private _hairlinesCatalog: Array<any>;
-	private _hairTailsCatalog: Array<any>;
-	private _earAccessoriesCatalog: Array<any>;
-	private _neckAccessoriesCatalog: Array<any>;
-	private _eyeFeaturesCatalog: Array<any>;
-	private _faceFeaturesCatalog: Array<any>;
-	private _headFeaturesCatalog: Array<any>;
+	private _hairModelsCatalog: ModelConfig[];
+	private _hairlinesCatalog: ModelConfig[];
+	private _hairTailsCatalog: ModelConfig[];
+	private _earAccessoriesCatalog: ModelConfig[];
+	private _neckAccessoriesCatalog: ModelConfig[];
+	private _eyeFeaturesCatalog: ModelConfig[];
+	private _faceFeaturesCatalog: ModelConfig[];
+	private _headFeaturesCatalog: ModelConfig[];
 
 	private l0: any;
 	private l1: any;
@@ -66,25 +68,12 @@ class Nerd extends Archetype {
 		// ---------------------------------------------
 
 
-		interface ModelConfig {
-
-			create: (field:any, radius: number) => void; //TODO finish: f can be an AttractorField or AttractorObject
-			use: Function | null; //TODO the type is a model
-			owner: any;
-			type: string;
-			size: number;
-			settings: any[];
-			params: any[];
-			compats: any[];
-		}
-
-
 		const hairDome: ModelConfig = {
 
 			create: (f,r) => drawHairDome(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
 			params: [ ],
@@ -96,7 +85,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawIonicHair(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
 			params: [ 0, 0.50 ],
@@ -108,7 +97,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawDennisHair(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
 			params: [ 0.20 ],
@@ -120,7 +109,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawHairCurtainHide(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.L,
 			settings: [ ],
 			params: [ 'L_EAR_XT', 'R_EAR_XT'],
@@ -132,7 +121,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawHairCapeTail(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
 			params: [],
@@ -144,7 +133,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawHairCap(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.L,
 			settings: [ ],
 			params: [],
@@ -157,7 +146,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawHairCurtain(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
 			params: [ 'L_EAR_XT', 'R_EAR_XT', 0.25 ],
@@ -169,7 +158,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawBangHairline(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.L,
 			settings: [ ],
 			params: [ 'L_EAR_XT', 'R_EAR_XT', 0.25 ],
@@ -181,7 +170,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawBillyHairFlaps(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.L,
 			settings: [ ],
 			params: [ 0.25 ],
@@ -193,7 +182,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawArcWave(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.XL,
 			settings: [ 3 ],
 			params: [ ],
@@ -205,7 +194,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawArcWave(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.XL,
 			settings: [ 10 ],
 			params: [ ],
@@ -217,7 +206,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawRoundGlasses(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
 			params: [ 'EYE_L', 'EYE_R' ],
@@ -229,7 +218,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawBillyMonkHair(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.XL,
 			settings: [ ],
 			params: [ ],
@@ -241,7 +230,7 @@ class Nerd extends Archetype {
 			create: (f,r) => drawHairModelTest(f,r),
 			use: null,
 			type: '',
-			owner: null,
+			base: null,
 			size: this.PHI.L,
 			settings: [ ],
 			params: [ ],
@@ -462,33 +451,39 @@ class Nerd extends Archetype {
 		// ---------------------------------------------------------------
 		// HAIRCUTS
 
-		for ( const hair of this.hairModels ) {
+		for ( const modelConfig of this.hairModels ) {
 
-			if ( hair.owner ) { hair.use.owner = hair.owner };
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Nerd: hair model config is missing an instance of the model`) }
 
-			this.plotter.chart( hair.use.plot( archetypeParams, ...hair.params ), 'hair' );
-		};
+			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
 
-
-		// .................................................
-		// HAIRLINES
-
-		for ( const hairline of this.hairlineModels ) {
-
-			if ( hairline.owner ) { hairline.use.owner = hairline.owner };
-
-			this.plotter.chart( hairline.use.plot( archetypeParams, ...hairline.params ), 'hairline' );
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'wig' );
 		}
 
 
 		// .................................................
 		// HAIRLINES
 
-		for ( const model of this.faceFeatureModels ) {
+		for ( const modelConfig of this.hairlineModels ) {
 
-			if ( model.owner ) { model.use.owner = model.owner };
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Nerd: hairline model config is missing an instance of the model`) }
 
-			this.plotter.chart( model.use.plot( archetypeParams, ...model.params ), 'glasses' );
+			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
+
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'hairline' );
+		}
+
+
+		// .................................................
+		// FACE FEATURES
+
+		for ( const modelConfig of this._faceFeatureModels ) {
+
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Nerd: Face Feature model config is missing an instance of the model`) }
+
+			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
+
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'facefeature' );
 		}
 
 

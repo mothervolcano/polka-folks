@@ -42,8 +42,8 @@ class JulieHairline extends Model {
 
 		const cutPos = 0.35;
 
-		const sizeMajor = this.owner.radius;
-		const sizeMinor = this.owner.radius * this.PHILESSER;
+		const sizeMajor = this.base.radius;
+		const sizeMinor = this.base.radius * this.PHILESSER;
 
 		const ratioMajor = this.SIN54;
 		const ratioMinor = this.SIN54;
@@ -52,7 +52,7 @@ class JulieHairline extends Model {
 		// Key points
 
 		const O = this.field.attractor.locate(0.25);
-		const A = this.owner.A;
+		const A = this.base.A;
 		const B = this.field.attractor.locate(0.40)
 
 		// .............................................

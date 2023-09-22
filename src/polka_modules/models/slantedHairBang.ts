@@ -40,8 +40,8 @@ class SlantedHairBang extends Model {
 		const position = genRandomDec( 0.28, 0.40 );
 		const angle = genRandomDec( -15, 15 ); // TODO: implement later
 
-		const length = this.owner.radius + this.PHI.L + this.SIN.XS;
-		const advance = this.owner.radius + this.PHI.L;
+		const length = this.base.radius + this.PHI.L + this.SIN.XS;
+		const advance = this.base.radius + this.PHI.L;
 
 		// .............................................
 		// Key points

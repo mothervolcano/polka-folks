@@ -39,15 +39,15 @@ class SydHair extends Model {
 
 		const position = genRandomDec( 0.15, 0.45 );
 		const span = 0.05;
-		const r = this.owner.radius * this.SIN9;
-		const volume = this.owner.radius + this.PHI.XS;
+		const r = this.base.radius * this.SIN9;
+		const volume = this.base.radius + this.PHI.XS;
 
-		const length = this.owner.radius + genRandomDec( -this.PHI.S, this.PHI.L );
+		const length = this.base.radius + genRandomDec( -this.PHI.S, this.PHI.L );
 
 		// .............................................
 		// Key points
 
-		const O = this.field.attractor.center.offsetBy( -this.owner.radius * 0.25, 'VER' );
+		const O = this.field.attractor.center.offsetBy( -this.base.radius * 0.25, 'VER' );
 
 
 		// .............................................
@@ -87,8 +87,8 @@ class SydHair extends Model {
 		this.pen.add( [ P1, P2, P3 ] );
 
 		const _path = field.attractor.getPath();
-		_path.divideAt( _path.getNearestLocation( this.owner.getAtt('EAR_R').center.point ) )
-		_path.splitAt( _path.getNearestLocation( this.owner.getAtt('EAR_L').center.point ) );
+		_path.divideAt( _path.getNearestLocation( this.base.getAtt('EAR_R').center.point ) )
+		_path.splitAt( _path.getNearestLocation( this.base.getAtt('EAR_L').center.point ) );
 		_path.lastSegment.remove();
 		_path.lastSegment.remove();
 		

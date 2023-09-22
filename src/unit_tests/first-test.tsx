@@ -24,7 +24,7 @@ export function testSpinalFieldWithSpines( pos: any, params: any ) {
 
 
   const position = new HyperPoint(pos);
-  const size = radius;
+  const size = radius * 2;
   const spineLength = radius/4;
 
   const spinalField = new SpinalField(position, size);
@@ -55,7 +55,7 @@ export function testSpinalFieldWithSpines( pos: any, params: any ) {
   const path = new Path({
 
     strokeColor: DEBUG_GREEN,
-    closed: true
+    closed: false
 
   })
 

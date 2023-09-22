@@ -50,8 +50,8 @@ class HairCurtain extends Model {
 		// ...........................................
 		// determine keypoints
 		
-		const A = this.owner.A;
-		const B = this.owner.B;
+		const A = this.base.A;
+		const B = this.base.B;
 		const C = this.field.attractor.locate(c);
 
 		C.offsetBy( splitStart, 'VER' ).steer(0, aperture);

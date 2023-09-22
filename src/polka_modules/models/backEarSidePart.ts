@@ -48,7 +48,7 @@ class BackEarSidePart extends Model {
 
 		const O = this.field.attractor.locate(splitPos);
 
-		const H = this.owner.getAtt('EAR_R').center;
+		const H = this.base.getAtt('EAR_R').center;
 
 		// .............................................
 		// Construction 1/2
@@ -67,7 +67,7 @@ class BackEarSidePart extends Model {
 
 		const P0 = O.clone().steer(-45);
 		const P1 = H.clone();
-		const P2 = H.clone().offsetBy( -this.owner.radius, 'HOR' );
+		const P2 = H.clone().offsetBy( -this.base.radius, 'HOR' );
 
 		curve(P0,P1)
 		iron(P2,P0)

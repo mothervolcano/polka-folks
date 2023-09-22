@@ -43,8 +43,8 @@ class RoundGlasses extends Model {
 		// Key points
 
 
-		const A = this.owner.getAtt( ATT_L ).center;
-		const B = this.owner.getAtt( ATT_R ).center;
+		const A = this.base.getAtt( ATT_L ).center;
+		const B = this.base.getAtt( ATT_R ).center;
 
 		const d = measure( A, B );
 

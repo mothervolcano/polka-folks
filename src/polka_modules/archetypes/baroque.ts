@@ -1,6 +1,6 @@
 import { Layer, Path } from 'paper';
 
-import { OrientationType, PolarityType, IHyperPoint, IDisplayObject, IAttractor, IAttractorField, IModel, PointLike, SizeLike } from '../../lib/topo/types';
+import { OrientationType, PolarityType, IHyperPoint, IDisplayObject, IAttractor, IAttractorField, PointLike, SizeLike } from '../../lib/topo/types';
 
 import Archetype from '../core/archetype';
 
@@ -30,6 +30,7 @@ import { applyShade } from '../../lib/topo/tools/shaders';
 import { renderFace, renderNose, renderEar, renderEye, renderHair, renderFaceFeature } from '../renderers/baroque';
 
 import { traceSegment, isEven, genRandom, genRandomDec } from '../../lib/topo/utils/helpers'
+import { ModelConfig } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -40,14 +41,14 @@ class Baroque extends Archetype {
 
 	private _colorScheme: any;
 
-	private _hairModelsCatalog: Array<any>;
-	private _hairlinesCatalog: Array<any>;
-	private _hairTailsCatalog: Array<any>;
-	private _earAccessoriesCatalog: Array<any>;
-	private _neckAccessoriesCatalog: Array<any>;
-	private _eyeFeaturesCatalog: Array<any>;
-	private _faceFeaturesCatalog: Array<any>;
-	private _headFeaturesCatalog: Array<any>;
+	private _hairModelsCatalog: ModelConfig[];
+	private _hairlinesCatalog: ModelConfig[];
+	private _hairTailsCatalog: ModelConfig[];
+	private _earAccessoriesCatalog: ModelConfig[];
+	private _neckAccessoriesCatalog: ModelConfig[];
+	private _eyeFeaturesCatalog: ModelConfig[];
+	private _faceFeaturesCatalog: ModelConfig[];
+	private _headFeaturesCatalog: ModelConfig[];
 
 	private l0: any;
 	private l1: any;
@@ -78,23 +79,11 @@ class Baroque extends Archetype {
 		// ---------------------------------------
 
 
-		interface ModelConfig {
-
-			create: (field:any, radius: number) => void; //TODO finish: f can be an AttractorField or AttractorObject
-			use: Function | null; //TODO the type is a model
-			owner: IModel | null;
-			size: number;
-			settings: any[];
-			params: any[];
-			compats: any[];
-		}
-
-
 		const antoinette: ModelConfig = {
 
 			create: (f,r) => drawAntoinetteWig(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.PHI.XL,
 			settings: [ [ this.PHI.L, this.PHI.XL ], [ this.SIN.L, this.SIN.S ], [ 0.20 ] ],
 			params: [ 0.25 ],
@@ -105,7 +94,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawPompadourWig(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.SIN.XL,
 			settings: [ [ this.PHI.L, this.PHI.XL ], [ this.SIN.L, this.SIN.S ], [ 0.20 ] ],
 			params: [ 0.25 ],
@@ -116,7 +105,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawArchiCurlCrown(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.PHI.XL,
 			settings: [ [ this.PHI.M ], [this.PHI.L], [3], [0.10] ],
 			params: [ 0.25 ],
@@ -127,7 +116,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawHairCrest(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.PHI.L,
 			settings: [],
 			params: [ 0.25, 0.10 ],
@@ -138,7 +127,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => new HairPanache(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.PHI.M,
 			settings: [],
 			params: [ 0.25 ],
@@ -149,7 +138,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawHairline(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.PHI.M,
 			settings: [],
 			params: [ 'L_EAR_XT', 'R_EAR_XT', 0.25  ],
@@ -160,7 +149,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawBangHairline(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.PHI.M,
 			settings: [],
 			params: [ 'L_EAR_XT', 'R_EAR_XT', 0.25 ],
@@ -171,7 +160,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawMozartHairline(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.PHI.M,
 			settings: [],
 			params: [ 'L_EAR_XT', 'R_EAR_XT', 0.25 ],
@@ -182,7 +171,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawCascadingTail(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.PHI.L,
 			settings: [],
 			params: [ 0.25 ],
@@ -193,7 +182,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawElliWavyTail(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.SIN.XL,
 			settings: [ [ this.PHI.XL ], [ this.SIN.L ] ],
 			params: [ 0.25 ],
@@ -204,7 +193,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawEarrings(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.SIN.XS,
 			settings: [ ],
 			params: [ 'EAR_L', 0.75 ],
@@ -215,7 +204,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawEarrings(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.SIN.XS,
 			settings: [ ],
 			params: [ 'EAR_R', 0.75 ],
@@ -226,7 +215,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawEyeLashes(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.SIN.XS,
 			settings: [ ],
 			params: [ 'EYE_L', 0.75 ],
@@ -238,7 +227,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawEyeLashes(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.SIN.XS,
 			settings: [ ],
 			params: [ 'EYE_R', 0.75 ],
@@ -250,7 +239,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawBlush(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.PHI.S,
 			settings: [],
 			params: [ 'CHEEK_L' ],
@@ -262,7 +251,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawBlush(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.PHI.S,
 			settings: [],
 			params: [ 'CHEEK_R' ],
@@ -274,7 +263,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawJabot(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.SIN.XL,
 			settings: [ ],
 			params: [ 0.75 ],
@@ -285,7 +274,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawNecklace(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.SIN.XS,
 			settings: [ ],
 			params: [ 0.75-0.10, 0.75+0.10 ],
@@ -296,7 +285,7 @@ class Baroque extends Archetype {
 
 			create: (f,r) => drawEarModelTest(f,r),
 			use: null,
-			owner: null,
+			base: null,
 			size: this.SIN.XS,
 			settings: [ ],
 			params: [ 'EAR_L', 0.75 ],
@@ -306,8 +295,10 @@ class Baroque extends Archetype {
 
 		// -------------------------------------
 
-		antoinette.compats = [ {...panache} ];
-		// crest.compats = [ {...panache} ];
+		antoinette.compats = [ crest, {...panache} ];
+		crest.compats = [ {...panache} ];
+
+		// pompadour.compats = [ {...panache} ];
 
 		// ------------------------------------------------------
 
@@ -399,74 +390,96 @@ class Baroque extends Archetype {
 		this.head.plot( baseParams );
 		this.face.plot( baseParams );
 
+		
+		// .................................................
+		// HAIRCUTS
+		
 
-		for ( const hair of this.hairModels ) {
+		for ( const modelConfig of this.hairModels ) {
 
-			if ( hair.owner ) { hair.use.owner = hair.owner };
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Baroque: hair model config is missing an instance of the model`) }
 
-			this.plotter.chart( hair.use.plot( archetypeParams, ...hair.params ), 'wig' );
+			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
+
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'wig' );
 		}
 
 		// .................................................
 		// HAIRLINES
 
-		for ( const hairline of this.hairlineModels ) {
 
-			if ( hairline.owner ) { hairline.use.owner = hairline.owner };
+		for ( const modelConfig of this.hairlineModels ) {
 
-			this.plotter.chart( hairline.use.plot( archetypeParams, ...hairline.params ), 'hairline' );
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Baroque: hairline model config is missing an instance of the model`) }
+
+			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
+
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'hairline' );
 		}
 
 		// .................................................
 		// HAIRTAILS
 
-		for ( const hairTail of this._hairTailModels ) {
 
-			if ( hairTail.owner ) { hairTail.use.owner = hairTail.owner };
+		for ( const modelConfig of this._hairTailModels ) {
 
-			this.plotter.chart( hairTail.use.plot( archetypeParams, this.head.getAtt('EAR_L').anchor, this.head.getAtt('EAR_R').anchor, ...hairTail.params ), 'hairtail' );
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Baroque: hairtail model config is missing an instance of the model`) }
+
+			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
+
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, this.head.getAtt('EAR_L').anchor, this.head.getAtt('EAR_R').anchor, ...modelConfig.params ), 'hairtail' );
 		}
 
 		// .................................................
 		// NECK ACCESSORIES
 
-		for ( const neckAccessory of this._neckAccessoryModels ) {
 
-			if ( neckAccessory.owner ) { neckAccessory.use.owner = neckAccessory.owner };
+		for ( const modelConfig of this._neckAccessoryModels ) {
 
-			this.plotter.chart( neckAccessory.use.plot( archetypeParams, ...neckAccessory.params ), 'neckwear' );
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Baroque: Neck Accessory model config is missing an instance of the model`) }
+
+			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
+
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'neckwear' );
 		}
 
 		// .................................................
 		// EAR ACESSORIES
 
-		for ( const earAccessory of this.earAccessoryModels ) {
 
-			if ( earAccessory.owner ) { earAccessory.use.owner = earAccessory.owner };
+		for ( const modelConfig of this.earAccessoryModels ) {
 
-			this.plotter.chart( earAccessory.use.plot( archetypeParams, ...earAccessory.params ), 'earwear' );
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Baroque: Ear Accessory model config is missing an instance of the model`) }
+
+			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
+
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'earwear' );
 		}
 
 
 		// .................................................
 		// EYE FEATURES
 
-		for ( const eyeFeature of this.eyeFeatureModels ) {
+		for ( const modelConfig of this.eyeFeatureModels ) {
 
-			if ( eyeFeature.owner ) { eyeFeature.use.owner = eyeFeature.owner };
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Baroque: Eye Feature model config is missing an instance of the model`) }
 
-			this.plotter.chart( eyeFeature.use.plot( archetypeParams, ...eyeFeature.params ), 'eyefeature' );
+			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
+
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'eyefeature' );
 		}
 
 
 		// .................................................
 		// FACE FEATURES
 
-		for ( const faceFeature of this._faceFeatureModels ) {
+		for ( const modelConfig of this._faceFeatureModels ) {
 
-			if ( faceFeature.owner ) { faceFeature.use.owner = faceFeature.owner };
+			if ( !modelConfig.use ) { throw new Error(`ERROR @ Baroque: Face Feature model config is missing an instance of the model`) }
 
-			this.plotter.chart( faceFeature.use.plot( archetypeParams, ...faceFeature.params ), 'facefeature' );
+			// if ( modelConfig.base ) { modelConfig.use.base = modelConfig.base };
+
+			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), 'facefeature' );
 		}
 
 
