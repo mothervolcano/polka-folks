@@ -197,24 +197,24 @@ abstract class Model {
 	}
 
 
-	set A( P: any ) {
+	set A( P: IHyperPoint ) {
 
 		this._A = P;
 	};
 
 
-	set B( P: any ) {
+	set B( P: IHyperPoint ) {
 
 		this._B = P;
 	};
 
 
-	set C( P:any ) {
+	set C( P: IHyperPoint ) {
 
 		this._C = P;
 	};
 
-	set T( P:any ) {
+	set T( P: IHyperPoint ) {
 
 		this._T = P;
 	};
@@ -248,17 +248,9 @@ abstract class Model {
 		return this.ATTS[ LABEL ];
 	};
 
+	abstract configure( ...args: any[] ): void;
 
-	// public configure() {
-
-
-	// };
-
-
-	// public plot() {
-
-
-	// };
+	abstract plot( params: any, ...args: any[] ): any;
 
 }
 

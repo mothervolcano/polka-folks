@@ -2,7 +2,7 @@
 import { Layer } from 'paper';
 import { paperScope } from '../../components/paperStage';
 
-import { OrientationType, PolarityType, IHyperPoint, IAttractor, PointLike, SizeLike } from '../../lib/topo/types';
+import { OrientationType, PolarityType, IHyperPoint, IAttractor, IModel, PointLike, SizeLike } from '../../lib/topo/types';
 
 import OrbitalField from '../attractors/orbitalField';
 
@@ -34,8 +34,8 @@ abstract class Archetype {
 	protected _PHI: any;
 	protected _SIN: any;
 
-	protected _head: any;
-	protected _face: any;
+	protected _head: IModel;
+	protected _face: IModel;
 
 	protected _hairModels: any;
 	protected _hairlineModels: any;
@@ -482,7 +482,7 @@ abstract class Archetype {
 			console.log(`... creating eye feature model`);
 
 			model.owner = this._face;
-			model.use = model.create( this._face.field, this._face.leftEye.radius ); // TODO: improve how we get the radius of the eye
+			model.use = model.create( this._face.field, this._face.getAtt('EYE_L').radius ); // TODO: improve how we get the radius of the eye
 			model.use.configure( );
 
 			this._eyeFeatureModels.push( model );
