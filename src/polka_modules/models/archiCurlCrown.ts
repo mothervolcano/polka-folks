@@ -147,7 +147,7 @@ class ArchiCurlCrown extends Model {
 
 		// ................
 
-		let curlHollows = field.attractors.map( ( att ) => new Orbital( att.radius*this.PHILESSER*this.PHILESSER*this.PHILESSER, att.center ).getPath() );
+		let curlHollows = field.attractors.map( ( att ) => new Orbital( att.radius*this.PHILESSER, att.center ).getPath() );
 
 		curlHollows = curlHollows.filter( (path, i) => i !== num/2 + 1 );
 
