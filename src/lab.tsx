@@ -6,7 +6,7 @@ import TestConsole from './components/consoles/testConsole';
 
 import ArchetypeGenerationModal from './components/modals/archetypeGenerationModal';
 
-import { reset, generate, regenerate, model } from './testGenerator';
+import { reset, generate, regenerate, model, save } from './testGenerator';
 
 
 const Lab = () => {
@@ -169,6 +169,11 @@ const Lab = () => {
 		setInTestGenerationScreen( true );
 	}
 
+	function handleSaveAction() {
+
+		save();
+	}
+
 
 	// ------------------------------------------------------------------------
 
@@ -230,10 +235,19 @@ const Lab = () => {
 
 		    		!inTestGenerationScreen && (
 
-			    		<Button		
-							labelText="new"
-							onClickEventHandler={ handleNewTestAction }
-						/>
+			    		<div>
+
+				    		<Button		
+								labelText="new"
+								onClickEventHandler={ handleNewTestAction }
+							/>
+
+							<Button		
+								labelText="export"
+								onClickEventHandler={ handleSaveAction }
+							/>
+
+			    		</div>
 					)
 		    	}
 

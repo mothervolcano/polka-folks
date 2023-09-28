@@ -11,7 +11,7 @@ import PunkConsole from './components/consoles/punkConsole';
 
 import ArchetypeGenerationModal from './components/modals/archetypeGenerationModal';
 
-import { reset, generate, regenerate, model } from './main';
+import { reset, generate, regenerate, model, save } from './main';
 
 
 const UI = () => {
@@ -242,6 +242,11 @@ const UI = () => {
 		setInArchetypeGenerationScreen( true );
 	}
 
+	function handleSaveAction() {
+
+		save();
+	}
+
 
 	// ------------------------------------------------------------------------
 
@@ -308,10 +313,19 @@ const UI = () => {
 
 		    		!inArchetypeGenerationScreen && (
 
-			    		<Button		
-							labelText="new"
-							onClickEventHandler={ handleNewArchetypeAction }
-						/>
+			    		<div>
+
+				    		<Button		
+								labelText="new"
+								onClickEventHandler={ handleNewArchetypeAction }
+							/>
+
+							<Button		
+								labelText="export"
+								onClickEventHandler={ handleSaveAction }
+							/>
+
+			    		</div>
 					)
 		    	}
 

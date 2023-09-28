@@ -107,3 +107,23 @@ export function regenerate(
 
 }
 
+// ------------------------------------------------
+
+export function save() {
+
+  const svg = paperScope.project.exportSVG({ bounds:'content', asString:true }) as string;
+
+
+  const svgFile = new Blob([svg], { type: 'image/svg+xml' });
+
+  const url = URL.createObjectURL(svgFile);
+
+  const dwnLink = document.createElement('a');
+  dwnLink.href = url;
+  dwnLink.download = 'artwork.svg'; 
+  dwnLink.click();
+  URL.revokeObjectURL(url);
+
+}
+
+
