@@ -18,7 +18,7 @@ You get the idea and for our purpose this is all the abstraction that is needed.
 
 Imagine a canvas not as a passive background but as an active space defined by geometric entities like circles, squares, or curves.
 
-These are not shapes in the usual sense, but rather 'magnetic coils' that define the properties of the points within them. Our framework uses these geometric entities to derive and relate points. You can view them as topological abstractions as me or, if you prefer a more pragmatic view, as geometry piggybacking on top of geometry. Couldn’t argue against that.
+These are not shapes in the usual sense, but rather 'magnetic coils' that define the properties of the points near them. Our framework uses these geometric entities to derive and relate points. You can view them as topological abstractions as me or, if you prefer a more pragmatic view, as geometry piggybacking on top of geometry. Couldn’t argue against that.
 
 Now picture a traditional Cartesian space next to this topological-like space. Points in this 'activated' space have more going on than just x and y coordinates. They also carry vector information for tangents and normals, and how far they are along the perimeter from the origin point. Very handy for drawing Bezier curves. That’s also what I thought.
 
@@ -30,7 +30,7 @@ I’ve called these ‘magnetic coils’, Attractors.
 
 #### Attractors
 
-Attractors are the 'magnetic coils' used as sources of points in space. They provide methods for locating points along their implicit paths and generate points that retain the original geometric properties of their original locations, such as tangent and normal vectors, for use by other components.
+Attractors are the 'magnetic coils' used as sources of points in space. They provide methods for locating points along their implicit paths and generate points that retain the original geometric properties at their original locations, such as tangent and normal vectors, for use by other components.
 
 Currently, two types of Attractors are implemented:
 
