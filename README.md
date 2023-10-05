@@ -30,7 +30,7 @@ I’ve called these ‘magnetic coils’, Attractors.
 
 #### Attractors
 
-Attractors are the underlying geometric entities used as sources of points in space. They provide methods for locating points along their implicit paths and generate points that retain the original geometric properties of their original locations, such as tangent and normal vectors, for use by other components.
+Attractors are the 'magnetic coils' used as sources of points in space. They provide methods for locating points along their implicit paths and generate points that retain the original geometric properties of their original locations, such as tangent and normal vectors, for use by other components.
 
 Currently, two types of Attractors are implemented:
 
