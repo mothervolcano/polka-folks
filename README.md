@@ -18,27 +18,50 @@ You get the idea and for our purpose this is all the abstraction that is needed.
 
 Imagine a canvas not as a passive background but as an active space defined by geometric entities like circles, squares, or curves.
 
-These are not shapes in the usual sense, but rather 'zones of influence' that define the properties of the points within them. Our framework uses these geometric entities to derive and relate points. You can view them as topological abstractions as me or, if you prefer a more pragmatic view, as geometry piggybacking on top of geometry. Couldn’t argue against that.
+These are not shapes in the usual sense, but rather 'magnetic coils' that define the properties of the points within them. Our framework uses these geometric entities to derive and relate points. You can view them as topological abstractions as me or, if you prefer a more pragmatic view, as geometry piggybacking on top of geometry. Couldn’t argue against that.
 
 Now picture a traditional Cartesian space next to this topological-like space. Points in this 'activated' space have more going on than just x and y coordinates. They also carry vector information for tangents and normals, and how far they are along the perimeter from the origin point. Very handy for drawing Bezier curves. That’s also what I thought.
 
 ![Framework Concept Diagram](/docs/assets/concept-diagram.png)
 
-I’ve called these ‘zone of influence’, Attractors.
+I’ve called these ‘magnetic coils’, Attractors.
 
-### Key Concepts
+### Key Components
 
 #### Attractors
 
-Attractors are fundamental geometric paths, such as circles or lines, that act as sources of points for drawing. Think of them as puppeteer's strings, guiding the creation and transformation of shapes. Each point extracted from an Attractor contains information about its coordinates, tangent, and normal vector, allowing the artist to "pull the strings" and manipulate the shapes in intricate ways. Just as a puppeteer can control a puppet's movements by adjusting the strings, Attractors can be transformed, rotated, resized, and skewed, giving creative control over the resulting shapes.
+Attractors are the underlying geometric entities used as sources of points in space. They provide methods for locating points along their implicit paths and generate points that retain the original geometric properties of their original locations, such as tangent and normal vectors, for use by other components.
+
+Currently, two types of Attractors are implemented:
+
+* Orbital: Defined by a circumference.
+* Spine: Defined by a straight line or curve.
+
+The definition of an Attractor is intentionally left abstract and theoretical, allowing room for potential new Attractor types to be thought in the future.
 
 ![Attractor Concept Diagram](/docs/assets/attractor-diagram.png)
 
 #### AttractorFields
 
-An AttractorField is a specialized Attractor that contains child attractors positioned along its path. It shares the same interface as an AttractorObject, enabling the location of points at specified locations across all child attractors. AttractorFields offer methods to control the arrangement of attractors in creative ways, providing a powerful mechanism for generating complex and unique geometric shapes and patterns.
+An Attractor Field consists of a series of attractors organized around a common underlying attractor.
+
+By default, these attractors are evenly distributed along the path that defines the geometry of the base attractor.
+
+By design, they are intended to be configured, offering a variety of methods to control how attractors are arranged and transformed in relation to the base attractor.
+
+Currently, two types of Attractor Fields are implemented:
+
+* Orbital Field: The base attractor is an Orbital.
+* Spinal Field: The base attractor is a Spine.
+
+Both types allow for any combination of Orbitals and Spines to be added.
+
+Additionally, it is possible to add Attractor Fields to other Attractor Fields, although this possibility hasn't been fully explored and tested.
 
 ![Attractor Field Concept Diagram](/docs/assets/field-diagram.png)
 
 #### HyperPoints
 
+A Hyperpoint is a point extracted from an Attractor, holding information about its position, tangent, normal, and other properties determined by the Attractor at the point of extraction.
+
+The HyperPoint class also offers methods for manipulating and transforming the point along its tangent or normal vector.
