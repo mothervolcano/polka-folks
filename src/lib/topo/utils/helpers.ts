@@ -1,4 +1,5 @@
-import { Path } from 'paper';
+// import { Path } from 'paper';
+import { Path, Circle } from "../drawing/paperjs";
 
 const DEBUG_GREEN = '#10FF0C';
 const RED_MARK = '#CE2D4F';
@@ -71,13 +72,13 @@ export function genRandom( min: number, max: number )
 
 export function markPoint( point: any ) {
 
-    new Path.Circle({ 
+    new Circle({ 
             
-            center: point, 
-            radius: 4,
-            strokeColor: RED_MARK
+        center: point, 
+        radius: 4,
+        strokeColor: RED_MARK
 
-        });
+    });
 }
 
 export function normalize( val: number, min: number, max: number ) 
@@ -92,7 +93,7 @@ export function traceSegment( sgm: any ) {
     new Path({segments: [ sgm.point, sgm.point.add(sgm.handleOut) ], strokeColor: '#02B7FD'})
     new Path({segments: [ sgm.point, sgm.point.add(sgm.handleIn) ], strokeColor: '#02B7FD'})
 
-    new Path.Circle({ 
+    new Circle({ 
             
             center: sgm.point, 
             radius: 2,
@@ -100,7 +101,7 @@ export function traceSegment( sgm: any ) {
 
         });
 
-    new Path.Circle({ 
+    new Circle({ 
             
             center: sgm.point.add( sgm.handleOut ), 
             radius: 2,
@@ -108,7 +109,7 @@ export function traceSegment( sgm: any ) {
 
         });
 
-    new Path.Circle({ 
+    new Circle({ 
             
             center: sgm.point.add( sgm.handleIn ), 
             radius: 2,

@@ -334,7 +334,7 @@ abstract class AttractorObject extends DisplayObject {
 		return this;
 	};
 
-	public skew( vector: IPoint ): any {
+	public skew( vector: PointLike ): any {
 
 		// this._path.scale( hor, ver )
 		this._content.shear( vector, this._path.position );

@@ -5,9 +5,6 @@ import Model from '../core/model';
 import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
-// import { Ruler, useRuler } from '../../../../lib/topo/tools/ruler';
-
-import DebugDot from '../../lib/topo/utils/debugDot';
 import { markPoint } from '../../lib/topo/utils/helpers';
 
 const DEBUG_GREEN = '#10FF0C';

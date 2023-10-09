@@ -1,6 +1,8 @@
-import { Point } from 'paper';
+// import { Point } from 'paper';
 
-import { DisplayObjectType, IDisplayObject, IPoint, PointLike, SizeLike } from '../types'
+import { Point } from '../drawing/paperjs';
+
+import { DisplayObjectType, IDisplayObject, PointLike, SizeLike } from '../types'
 
 import { validatePointInput, validateSizeInput } from '../utils/converters'
 
@@ -245,7 +247,7 @@ abstract class DisplayObject {
    * @protected
    */
 
-	protected getPin(LABEL: string, offset: any): IPoint {
+	protected getPin(LABEL: string, offset: any): PointLike {
 
 		if (offset && validatePointInput(offset)) {
 

@@ -1,6 +1,6 @@
 
 import { Layer } from 'paper';
-import { paperScope } from '../../components/paperStage';
+import { paper } from '../../components/paperStage';
 
 import { OrientationType, PolarityType, IHyperPoint, IAttractor, PointLike, SizeLike } from '../../lib/topo/types';
 import { IModel, ModelConfig } from '../types';
@@ -261,7 +261,7 @@ abstract class Archetype {
 
 		this._frame.children.forEach( (child: any) => child.removeChildren() );
 
-		const allOtherLayers = paperScope.project.layers.filter( (l) => l.id !== this._frame.id );
+		const allOtherLayers = paper.project.layers.filter( (l) => l.id !== this._frame.id );
 		allOtherLayers.forEach( (layer) => layer.removeChildren() );
 	}
 }

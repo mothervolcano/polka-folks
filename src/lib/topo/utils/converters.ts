@@ -1,4 +1,5 @@
-import { Point, Segment } from 'paper';
+
+import { Point, Segment } from '../drawing/paperjs';
 
 import { BooleanLike, IHyperPoint, IPoint, PointLike, SizeLike } from '../types';
 
@@ -27,7 +28,7 @@ export function convertToSegment( pt: any, withInHandle: BooleanLike = true, wit
     hOut = pt.handleOut;
   }
 
-  return new Segment ( pt.point, hIn, hOut );
+  return new Segment( pt.point, hIn, hOut ).clone();
 
 }
 

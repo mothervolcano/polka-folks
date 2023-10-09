@@ -1,5 +1,3 @@
-import { Point, Segment } from 'paper';
-
 
 export type OrientationType = -1 | 1;
 export type PolarityType = -1 | 1;
@@ -9,15 +7,12 @@ export type VectorDirection = 'TAN' | 'RAY' | 'VER' | 'HOR';
 
 export type UnitIntervalNumber = number & { 0: number, 1: number };
 
-// export type UnitIntervalNumber<T extends number = number> = T & { 0: number, 1: number };
-
-
 
 export type BooleanLike = (
 
-                           Boolean | 0 | 1
+ Boolean | 0 | 1
 
-                           )
+)
 
 export type PointLike = (
 
@@ -44,7 +39,6 @@ export type RectangleLike = (
  { from: PointLike, to: PointLike }
 
 )
-
 
 export interface PathLocationData {
 
@@ -118,10 +112,8 @@ export interface IOrbital {
 }
 
 
-
-// export type DisplayObjectType<T extends DisplayObject> = new (...args: any[]) => T;
-
 export interface DisplayObjectType { content: any, position: any, size: any };
+
 
 
 export interface IPoint {
@@ -155,46 +147,48 @@ export interface IPoint {
   angleInRadians: number
 
   /** 
-         * Returns a copy of the point.
-         * 
-         * @return the cloned point
-         */
-        clone(): IPoint
+   * Returns a copy of the point.
+   * 
+   * @return the cloned point
+   */
+  clone(): IPoint
 
   /** 
-         * Returns the distance between the point and another point.
-         * 
-         * @param squared - Controls whether the distance should
-         * remain squared, or its square root should be calculated
-         */
+   * Returns the distance between the point and another point.
+   * 
+   * @param squared - Controls whether the distance should
+   * remain squared, or its square root should be calculated
+   */
 
   getDistance(point: PointLike, squared?: boolean): number
 
-        /** 
-         * Normalize modifies the {@link #length} of the vector to `1` without
-         * changing its angle and returns it as a new point. The optional `length`
-         * parameter defines the length to normalize to. The object itself is not
-         * modified!
-         * 
-         * @param length - The length of the normalized vector
-         * 
-         * @return the normalized vector of the vector that is represented
-         *     by this point's coordinates
-         */
+  /** 
+   * Normalize modifies the {@link #length} of the vector to `1` without
+   * changing its angle and returns it as a new point. The optional `length`
+   * parameter defines the length to normalize to. The object itself is not
+   * modified!
+   * 
+   * @param length - The length of the normalized vector
+   * 
+   * @return the normalized vector of the vector that is represented
+   *     by this point's coordinates
+   */
+
   normalize(length?: number): IPoint
 
-        /** 
-         * Rotates the point by the given angle around an optional center point.
-         * The object itself is not modified.
-         * 
-         * Read more about angle units and orientation in the description of the
-         * {@link #angle} property.
-         * 
-         * @param angle - the rotation angle
-         * @param center - the center point of the rotation
-         * 
-         * @return the rotated point
-         */
+  /** 
+   * Rotates the point by the given angle around an optional center point.
+   * The object itself is not modified.
+   * 
+   * Read more about angle units and orientation in the description of the
+   * {@link #angle} property.
+   * 
+   * @param angle - the rotation angle
+   * @param center - the center point of the rotation
+   * 
+   * @return the rotated point
+   */
+
   rotate(angle: number, center: PointLike): IPoint
 
         /** 
@@ -311,19 +305,6 @@ export interface IPoint {
          */
 }
 
-
-/**
- * Represents a hyperpoint in a drawing.
- * 
- * A hyperpoint is a point extracted from a curve that serves as a guide for drawing. 
- * It encapsulates the position, tangent, normal, and handles of the point. 
- * The hyperpoint is primarily defined at the moment of extraction from the curve.
- * 
- * The HyperPoint class provides methods to manipulate and transform the point along its tangent or normal vector. 
- * It also allows setting the spin or orientation of the curve, as well as retrieving a segment object for creating or adding to a Path object.
- * 
- * By retaining the tangent, normal, and other properties of the hyperpoint, it remains closely related to the underlying curve, enabling consistent modifications and adjustments to the drawing.
- */
 
 
 export interface IHyperPoint {

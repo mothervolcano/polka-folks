@@ -1,4 +1,6 @@
-import { Point, Segment } from 'paper';
+// import { Point, Segment } from 'paper';
+
+import { Point, Segment } from '../drawing/paperjs';
 
 import HyperPoint from '../core/hyperPoint';
 

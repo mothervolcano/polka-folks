@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from 'react';
 import { PaperScope } from 'paper';
 
 
-export const paperScope = new PaperScope();
+export const paper = new PaperScope();
 
 
 const PaperStage = ({ 
@@ -23,8 +23,8 @@ const PaperStage = ({
 
 		} else {
 
-			paperScope.install(window);
-			paperScope.setup(canvasRef.current);
+			paper.install(window);
+			paper.setup(canvasRef.current);
 			onPaperLoad(true);
 
 		}

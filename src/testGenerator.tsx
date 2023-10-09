@@ -1,5 +1,5 @@
 import { Layer } from 'paper';
-import { paperScope } from './components/paperStage';
+import { paper } from './components/paperStage';
 
 import {  
 					testOrbitalFieldWithSpines, 
@@ -26,8 +26,8 @@ let test: any
 
 export function reset() {
 
-	paperScope.project.clear();
-	view = paperScope.project.view
+	paper.project.clear();
+	view = paper.project.view
 	layer = new Layer()
 };
 
@@ -117,7 +117,7 @@ export function regenerate(
 
 export function save() {
 
-  const svg = paperScope.project.exportSVG({ bounds:'content', asString:true }) as string;
+  const svg = paper.project.exportSVG({ bounds:'content', asString:true }) as string;
 
 
   const svgFile = new Blob([svg], { type: 'image/svg+xml' });

@@ -1,4 +1,6 @@
-import { Point } from 'paper';
+// import { Point } from 'paper';
+
+import { Point } from '../drawing/paperjs';
 
 import HyperPoint from '../core/hyperPoint';
 
@@ -221,8 +223,8 @@ export function curve( A: any, B: any, lA: number = 2/3, lB: number = 2/3 ) {
         let vhA = new Point( {angle: pN.subtract(_A.point).angle, length: _A.point.getDistance(pN)*lA} )
         let vhB = new Point( {angle: pN.subtract(_B.point).angle, length: _B.point.getDistance(pN)*lB} )
 
-        _A.handleOut = vhA
-        _B.handleIn = vhB
+        _A.handleOut = vhA.clone();
+        _B.handleIn = vhB.clone();
 	}
 
 	// 
