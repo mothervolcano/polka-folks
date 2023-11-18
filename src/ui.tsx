@@ -1,11 +1,4 @@
-import { useMediaQuery } from "react-responsive";
-
 import { useState, useEffect } from "react";
-
-import Stage from "./components/stage";
-import Button from "./components/ui/button";
-
-import ArchetypeGenerationModal from "./components/modals/archetypeGenerationModal";
 
 import { ParamSet, Param, Model } from "./types";
 
@@ -81,6 +74,9 @@ const UI = () => {
 			setInitialized(true);
 		}
 	}, [isPaperLoaded]);
+	
+
+	//-----------------------------------------------------------------------
 
 	useEffect(() => {
 		if (!isPaperLoaded) {
@@ -104,6 +100,9 @@ const UI = () => {
 		);
 		model(updatedBaseParams, updatedArchetypeParams);
 	}, [currentArchetype]);
+	
+
+	//-----------------------------------------------------------------------
 
 	useEffect(() => {
 		if (!isPaperLoaded) {

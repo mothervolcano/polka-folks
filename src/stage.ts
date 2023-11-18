@@ -1,15 +1,10 @@
 import { Layer } from 'paper';
 import { paper } from './components/paperStage';
 
-import Nerd from './polka_modules/archetypes/nerd';
-import Punk from './polka_modules/archetypes/punk';
-import Baroque from './polka_modules/archetypes/baroque';
-
 import { markPoint } from './lib/topo/utils/helpers';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
-
 
 
 let view: any

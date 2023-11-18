@@ -1,12 +1,10 @@
 import UI from './ui';
-import Lab from './lab';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <header>
       <UI/>
-      {/*<Lab/>*/}
       </header>
     </div>
   );
