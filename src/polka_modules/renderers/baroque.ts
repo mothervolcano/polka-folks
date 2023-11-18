@@ -10,7 +10,7 @@ export const colorScheme = colors.baroquePolka;
 
 export const renderFaceFeature = ( path: any, colorScheme: any, gradient: any ) => {
 
-	console.log(`... RENDERING FACIAL FEATURE` );
+	// console.log(`... RENDERING FACIAL FEATURE` );
 
 	path.strokeColor = null;
 	

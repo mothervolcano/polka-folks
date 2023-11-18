@@ -33,7 +33,7 @@ export function generate(
 
   origin = view.center;
 
-  console.log(`..... Generating Polka: `, archetype);
+  // console.log(`..... Generating Polka: `, archetype);
 
   if ( archetype ) {
 
@@ -60,7 +60,7 @@ export function model(
 
   origin = view.center;
 
-  polka.model( { baseParams, archetypeParams } );
+  polka.draw( { baseParams, archetypeParams } );
 
 }
 

@@ -69,7 +69,7 @@ const UI = () => {
 			return () => {};
 		}
 
-		console.log("1 --> PAPERJS LOADED! CurrentModel: ", currentArchetype);
+		// console.log("1 --> PAPERJS LOADED! CurrentModel: ", currentArchetype);
 
 		const updatedBaseParams = parseParams(currentModel.params);
 		const updatedArchetypeParams = parseParams(currentArchetype.params);
@@ -97,10 +97,10 @@ const UI = () => {
 			return () => {};
 		}
 
-		console.log(
-			"1 --> SWITCH ARCHETYPE! currentArchetype: ",
-			currentArchetype,
-		);
+		// console.log(
+		// 	"1 --> SWITCH ARCHETYPE! currentArchetype: ",
+		// 	currentArchetype,
+		// );
 
 		const updatedBaseParams = parseParams(currentModel.params);
 		const updatedArchetypeParams = parseParams(currentArchetype.params);
@@ -122,10 +122,10 @@ const UI = () => {
 			return () => {};
 		}
 
-		console.log(
-			"1 --> MODEL ARCHETYPE! currentArchetype: ",
-			currentArchetype,
-		);
+		// console.log(
+		// 	"1 --> MODEL ARCHETYPE! currentArchetype: ",
+		// 	currentArchetype,
+		// );
 
 		const updatedBaseParams = parseParams(currentModel.params);
 		const updatedArchetypeParams = parseParams(currentArchetype.params);

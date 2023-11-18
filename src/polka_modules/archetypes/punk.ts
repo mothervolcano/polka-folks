@@ -88,7 +88,7 @@ class Punk extends Archetype {
 	};
 
 
-	private draw() {
+	private render() {
 		
 		let plots;
 		let sgms;
@@ -320,7 +320,7 @@ class Punk extends Archetype {
 	};
 
 
-	public model( params: any ) {
+	public draw( params: any ) {
 
 		const { baseParams, archetypeParams } = params;
 		const { spikeNumCtrl, spikeLengthCtrl, spikeSharpnessCtrl, spikeSpreadCtrl, shrinkRateCtrl, shaveDotsDensity } = archetypeParams;
@@ -344,7 +344,7 @@ class Punk extends Archetype {
 		}
 
 
-		this.draw();
+		this.render();
 	}
 }
 

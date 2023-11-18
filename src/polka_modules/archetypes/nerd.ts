@@ -303,7 +303,7 @@ class Nerd extends Archetype {
 	};
 
 
-	public model( params: any ) {
+	public draw( params: any ) {
 
 		const { baseParams, archetypeParams } = params;
 		const { splitLat, splitAperture } = archetypeParams;
@@ -320,11 +320,11 @@ class Nerd extends Archetype {
 			this.plotter.chart( modelConfig.use.plot( archetypeParams, ...modelConfig.params ), modelConfig.type );
 		}
 
-		this.draw();
+		this.render();
 	};
 
 
-	private draw() {
+	private render() {
 
 
 		let plots;
