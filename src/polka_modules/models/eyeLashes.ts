@@ -30,8 +30,10 @@ export class EyeLashes extends Model {
 
 	public plot( params: any, ATT: string ) {
 		
+		const eyeAtt = this.base.getAtt(ATT);
+		const r = eyeAtt.radius * this.SIN36;
 
-		const att = new Orbital( this.PHI.L, this.base.getAtt(ATT).locate(0.25).offsetBy(this.PHI.M, 'RAY') );
+		const att = new Orbital( r, eyeAtt.locate(0.25).offsetBy(r, 'RAY') );
 
 		// ............................................................
 
