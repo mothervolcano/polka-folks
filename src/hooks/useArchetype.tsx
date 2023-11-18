@@ -211,7 +211,7 @@ const modelReducer = (state: any, action: any) => {
 
   return {
     ...selectedModel,
-    model: selectedModel,
+    model: selectedModel.model,
   };
 };
 

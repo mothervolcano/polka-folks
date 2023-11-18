@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import archetypeSelectorStyles from "./styles/archetypeSelector.module.css"
+
 import { ParamSet, Param, Model } from "./types";
 
 import useModel from "./hooks/useModel";
@@ -16,6 +18,8 @@ import {
 	Stack,
 	Title,
 	Text,
+	SegmentedControl,
+    SegmentedControlItem,
 } from "@mantine/core";
 import PaperStage from "./components/paperStage";
 
@@ -46,7 +50,18 @@ const UI = () => {
 
 	const [scaleCtrl, setScaleCtrl] = useState(3);
 
-	//-----------------------------------------------------------------------
+	// ----------------------------------------------------------------------------
+
+	const archetypeOptions: SegmentedControlItem[] = archetypes.map((archetype) => {
+		return {
+			label: archetype.option,
+			value: archetype.option,
+		};
+	});
+
+	//----------------------------------------------------------------------------
+	// HOOKS
+
 
 	useEffect(() => {
 		if (!isPaperLoaded) {
@@ -69,12 +84,10 @@ const UI = () => {
 		);
 		model(updatedBaseParams, updatedArchetypeParams);
 
-
 		if (!initialized) {
 			setInitialized(true);
 		}
 	}, [isPaperLoaded]);
-	
 
 	//-----------------------------------------------------------------------
 
@@ -100,7 +113,6 @@ const UI = () => {
 		);
 		model(updatedBaseParams, updatedArchetypeParams);
 	}, [currentArchetype]);
-	
 
 	//-----------------------------------------------------------------------
 
@@ -145,6 +157,11 @@ const UI = () => {
 
 	// ------------------------------------------------------------------------
 	// UI HANDLERS
+
+	const handleArchetypeSelection = (value: string) => {
+		setCurrentArchetype({ type: value });
+		console.log(`selected: ${value}`, currentArchetype);
+	};
 
 	function handleSaveAction() {
 		save();
@@ -222,6 +239,16 @@ const UI = () => {
 								}}
 							>
 								<Stack gap={9}>
+									<SegmentedControl
+										value={currentModel.option}
+										onChange={handleArchetypeSelection}
+										data={archetypeOptions}
+										color={dark}
+										size="xs"
+										m={0}
+										p={0}
+										classNames={archetypeSelectorStyles}
+									/>
 									<Text
 										size="sm"
 										fw={500}
