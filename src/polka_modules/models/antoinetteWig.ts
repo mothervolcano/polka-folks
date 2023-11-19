@@ -124,7 +124,6 @@ class AntoinetteWig extends Model {
 		this.T = mid( P5, P6 );
 		this.C = this._att.locate(0.25).offsetBy(25 * heightCtrl * -1, 'VER' );
 
-
 		// ..............................................
 
 		const path = new Path({ 

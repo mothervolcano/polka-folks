@@ -37,7 +37,7 @@ class HairCrest extends Model {
 
 		const { testCtrl } = params;
 
-		const crestSize = 50;
+		const crestSize = 50; // TODO: make the size relative to the base model
 
 		let P;
 		let O;
@@ -48,15 +48,18 @@ class HairCrest extends Model {
 			P = this._base.T.clone();
 			O = this._base.T;
 			A = this._base.A.offsetBy(  measure( this._base.A, this._base.T, 1/3 ), 'TAN' ).flip();
+			
+			P.offsetBy( crestSize*-2, 'VER' );
 
 		} else {
 
 			P = this._field.getAttractor().locate(c);
 			O = this._field.getAttractor().locate(c).flip();
 			A = this._field.getAttractor().locate(c-widthFactor).flip();
+
+			P.offsetBy( crestSize*2, 'RAY' );
 		}
 
-		P.offsetBy( crestSize*2, 'RAY' );
 
 		const field = new OrbitalField( P, [ crestSize, crestSize/1.5 ] );
 
@@ -85,6 +88,7 @@ class HairCrest extends Model {
 
 		this.C = P;
 
+
 		// ..............................................
 
 		const path = new Path({ 
@@ -97,6 +101,8 @@ class HairCrest extends Model {
 		// this.pen.add( [  O, A ] );
 		this.pen.add( [  O, A, B, C, D ] );
 		this.pen.mirrorRepeat('HOR');
+
+		path.fullySelected = true;
 
 		// ..............................................
 

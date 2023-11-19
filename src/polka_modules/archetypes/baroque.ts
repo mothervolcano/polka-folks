@@ -44,12 +44,7 @@ import {
 	renderFaceFeature,
 } from "../renderers/baroque";
 
-import {
-	traceSegment,
-	isEven,
-	genRandom,
-	genRandomDec,
-} from "../../lib/topo/utils/helpers";
+import { traceSegment, isEven, genRandom, genRandomDec } from "../../lib/topo/utils/helpers";
 import { ModelConfig } from "../types";
 
 const DEBUG_GREEN = "#10FF0C";
@@ -75,13 +70,7 @@ class Baroque extends Archetype {
 		this.l3 = new Layer();
 		this.guides = new Layer();
 
-		this.frame.addChildren([
-			this.l0,
-			this.l1,
-			this.l2,
-			this.l3,
-			this.guides,
-		]);
+		this.frame.addChildren([this.l0, this.l1, this.l2, this.l3, this.guides]);
 
 		// ---------------------------------------
 
@@ -96,11 +85,7 @@ class Baroque extends Archetype {
 			use: null,
 			base: null,
 			size: this.PHI.XL,
-			settings: [
-				[this.PHI.L, this.PHI.XL],
-				[this.SIN.L, this.SIN.S],
-				[0.2],
-			],
+			settings: [[this.PHI.L, this.PHI.XL], [this.SIN.L, this.SIN.S], [0.2]],
 			params: [0.25],
 			compats: [],
 		};
@@ -112,11 +97,7 @@ class Baroque extends Archetype {
 			use: null,
 			base: null,
 			size: this.SIN.XL,
-			settings: [
-				[this.PHI.L, this.PHI.XL],
-				[this.SIN.L, this.SIN.S],
-				[0.2],
-			],
+			settings: [[this.PHI.L, this.PHI.XL], [this.SIN.L, this.SIN.S], [0.2]],
 			params: [0.25],
 			compats: [],
 		};
@@ -325,6 +306,18 @@ class Baroque extends Archetype {
 			compats: [],
 		};
 
+		const debugCrest: ModelConfig = {
+			type: "hair",
+			order: "first",
+			create: (f, r) => drawHairCrest(f, r),
+			use: null,
+			base: null,
+			size: this.PHI.L,
+			settings: [],
+			params: [0.25, 0.1],
+			compats: [],
+		};
+
 		// -------------------------------------
 
 		antoinette.compats = [crest, { ...panache }];
@@ -352,6 +345,15 @@ class Baroque extends Archetype {
 			earModelTest,
 		];
 
+		/* DEBUG */
+
+		// antoinette.compats = [crest];
+
+		// this.pool = [
+		//     antoinette,
+		// 	debugCrest
+		// ]
+
 		// -----------------------------------------------------
 
 		return this;
@@ -368,16 +370,12 @@ class Baroque extends Archetype {
 
 		this._colorScheme = { ...colors.baroquePolka };
 		this._colorScheme.skin =
-			this._colorScheme.skin[
-				genRandom(0, this._colorScheme.skin.length - 1)
-			];
+			this._colorScheme.skin[genRandom(0, this._colorScheme.skin.length - 1)];
 		this._colorScheme.hair = this._colorScheme.hair.filter(
 			(c: any) => c !== this._colorScheme.skin,
 		);
 		this._colorScheme.hair =
-			this._colorScheme.hair[
-				genRandom(0, this._colorScheme.hair.length - 1)
-			];
+			this._colorScheme.hair[genRandom(0, this._colorScheme.hair.length - 1)];
 
 		// ...............................................................................
 		// NOTE: head and face need to be plotted at generation time to provide all the models based on them the plots they require
@@ -458,14 +456,8 @@ class Baroque extends Archetype {
 					const nInstructions: any = nPlot.shift();
 
 					nPlot.forEach((path) => {
-						this[
-							`l${nInstructions.level}` as keyof Baroque
-						].addChild(
-							renderHair(
-								path,
-								this._colorScheme,
-								nInstructions.gradient,
-							),
+						this[`l${nInstructions.level}` as keyof Baroque].addChild(
+							renderHair(path, this._colorScheme, nInstructions.gradient),
 						);
 
 						// path.fullySelected = true;
@@ -474,12 +466,10 @@ class Baroque extends Archetype {
 					const path = nPlot;
 
 					this[`l${instructions.level}` as keyof Baroque].addChild(
-						renderHair(
-							path,
-							this._colorScheme,
-							instructions.gradient,
-						),
+						renderHair(path, this._colorScheme, instructions.gradient),
 					);
+
+					console.log(`hair model instructions: `, instructions);
 				}
 			});
 		}
@@ -604,40 +594,18 @@ class Baroque extends Archetype {
 				const path = plot[0];
 				// earwear.fullySelected = true;
 				this[`l${instructions.level}` as keyof Baroque].addChild(
-					renderFaceFeature(
-						path,
-						this._colorScheme,
-						instructions.gradient,
-					),
+					renderFaceFeature(path, this._colorScheme, instructions.gradient),
 				);
 			}
 		}
 
 		// -----------------------------------------------------------
 
-		this.l1.addChild(
-			renderFace(this.head.getAtt("HEAD").getPath(), this._colorScheme),
-		);
-		this.l1.addChild(
-			renderEar(this.head.getAtt("EAR_L").getPath(), this._colorScheme),
-		);
-		this.l1.addChild(
-			renderEar(this.head.getAtt("EAR_R").getPath(), this._colorScheme),
-		);
-		this.l1.addChild(
-			renderEye(
-				this.face.getAtt("EYE_L").getPath(),
-				this._colorScheme,
-				false,
-			),
-		);
-		this.l1.addChild(
-			renderEye(
-				this.face.getAtt("EYE_R").getPath(),
-				this._colorScheme,
-				false,
-			),
-		);
+		this.l1.addChild(renderFace(this.head.getAtt("HEAD").getPath(), this._colorScheme));
+		this.l1.addChild(renderEar(this.head.getAtt("EAR_L").getPath(), this._colorScheme));
+		this.l1.addChild(renderEar(this.head.getAtt("EAR_R").getPath(), this._colorScheme));
+		this.l1.addChild(renderEye(this.face.getAtt("EYE_L").getPath(), this._colorScheme, false));
+		this.l1.addChild(renderEye(this.face.getAtt("EYE_R").getPath(), this._colorScheme, false));
 
 		// -----------------------------------------------------------
 
