@@ -1,6 +1,8 @@
 import { Layer } from 'paper';
 import { paper } from './components/paperStage';
 
+import Polka from './polka/core/polka';
+
 import { markPoint } from './lib/topo/utils/helpers';
 
 const DEBUG_GREEN = '#10FF0C';
@@ -33,20 +35,18 @@ export function generate(
 
   origin = view.center;
 
-  // console.log(`..... Generating Polka: `, archetype);
+  console.log(`..... Generating Polka: `, archetype);
 
   if ( archetype ) {
 
-    polka = new archetype( origin, 100 );
+    polka = new archetype.polka( origin, 100 );
 
   } else {
 
     //TODO: handle instance management
   }
 
-
-  polka.generate( { baseParams, archetypeParams } );
-
+  polka.generate( archetype.models, [], { baseParams, archetypeParams } );
 }
 
 // ------------------------------------------------

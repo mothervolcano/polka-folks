@@ -15,7 +15,7 @@ import archetypeSelectorStyles from "./styles/archetypeSelector.module.css"
 
 import { useState, useEffect } from "react";
 
-import { ParamSet, Param, Model } from "./types";
+import { ParamSet, Param, Model, Archetype } from "./types";
 
 import { archetypes } from "./models/archetypes";
 import { folks } from "./models/folks";
@@ -83,7 +83,7 @@ const UI = () => {
 
 		reset();
 		generate(
-			currentArchetype.model,
+			currentArchetype,
 			updatedBaseParams,
 			updatedArchetypeParams,
 		);
@@ -112,7 +112,7 @@ const UI = () => {
 
 		reset();
 		generate(
-			currentArchetype.model,
+			currentArchetype,
 			updatedBaseParams,
 			updatedArchetypeParams,
 		);
@@ -175,7 +175,7 @@ const UI = () => {
 	// ------------------------------------------------------------------------
 	// BLOCKS
 
-	function switchConsole(archetype: Model) {
+	function switchConsole(archetype: Archetype) {
 		const ArchetypeConsole = archetype.console;
 
 		return (

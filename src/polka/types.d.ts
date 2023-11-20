@@ -24,8 +24,8 @@ export interface ModelConfig {
   order?: string;
 	create: (field:any, radius: number) => IModel; //TODO finish: f can be an AttractorField or AttractorObject
 	use: IModel | null; //TODO the type is a model
-	base: IModel | null;
-	size: number;
+	base: string | IModel | null;
+	size: string | number;
 	settings: any[];
 	params: any[];
 	compats: ModelConfig[];

@@ -19,3 +19,15 @@ export interface Model {
   default: boolean;
   checked: boolean;
 }
+
+export interface Archetype {
+  option: string;
+  label: string;
+  icon: any;
+  models: any;
+  polka: any;
+  console: any;
+  params: ParamSet;
+  default: boolean;
+  checked: boolean;
+}

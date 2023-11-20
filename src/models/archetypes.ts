@@ -1,12 +1,14 @@
-import { Model, ParamSet } from "../types";
+import { Model, Archetype, ParamSet } from "../types";
 
-import Nerd from "../polka/archetypes/nerd";
-import Punk from "../polka/archetypes/punk";
-import Baroque from "../polka/archetypes/baroque";
+import { pool as baroqueModels } from "../polka/archetypes/baroque/models";
+import { pool as nerdModels } from "../polka/archetypes/nerd/models";
+import { pool as punkModels } from "../polka/archetypes/punk/models";
+import PolkaBaroque from "../polka/archetypes/baroque/polka";
+import PolkaNerd from "../polka/archetypes/nerd/polka";
+import PolkaPunk from "../polka/archetypes/punk/polka";
 import BaroqueConsole from "../components/consoles/baroqueConsole";
 import NerdConsole from "../components/consoles/nerdConsole";
 import PunkConsole from "../components/consoles/punkConsole";
-
 
 const nerdParamsSchema: ParamSet = [
   {
@@ -157,13 +159,13 @@ const baroqueParamsSchema: ParamSet = [
   },
 ];
 
-
-export const archetypes: Model[] = [
+export const archetypes: Archetype[] = [
   {
     option: "PUNK",
     label: "Punk",
     icon: null,
-    model: Punk,
+    models: punkModels,
+    polka: PolkaPunk,
     console: PunkConsole,
     params: punkParamsSchema,
     default: false,
@@ -173,7 +175,8 @@ export const archetypes: Model[] = [
     option: "BAROQUE",
     label: "Baroque",
     icon: null,
-    model: Baroque,
+    models: baroqueModels,
+    polka: PolkaBaroque,
     console: BaroqueConsole,
     params: baroqueParamsSchema,
     default: true,
@@ -183,11 +186,11 @@ export const archetypes: Model[] = [
     option: "NERD",
     label: "Nerd",
     icon: null,
-    model: Nerd,
+    models: nerdModels,
+    polka: PolkaNerd,
     console: NerdConsole,
     params: nerdParamsSchema,
     default: false,
     checked: false,
   },
 ];
-
