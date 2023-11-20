@@ -46,6 +46,7 @@ class HairCap extends Model {
 		const B = this.base.B.clone().steer(15, 180);
 
 		const C = mid( A, B ).offsetBy( d * this.PHILESSER * -1, 'VER' );
+		C.flip();
 
 		// .............................................
 		// Construction

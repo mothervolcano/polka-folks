@@ -75,7 +75,7 @@ export function markPoint( point: any ) {
     new Circle({ 
             
         center: point, 
-        radius: 4,
+        radius: 3,
         strokeColor: RED_MARK
 
     });

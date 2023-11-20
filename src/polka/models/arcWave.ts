@@ -45,7 +45,8 @@ class ArcWave extends Model {
 
 		const num = this._num//genRandom( 2, 10 );
 		const roundness = genRandomDec( 0.5, 2 );
-		const indent = distance/(num+4) * genRandomDec( 0.5, 1.5 );
+		// const indent = distance/(num+4) * genRandomDec( 0.5, 1.5 );
+		const indent = 0;
 
 		// .............................................
 		// Key points
@@ -85,19 +86,21 @@ class ArcWave extends Model {
 
 		const ptsA = field.locate(0.75);
 		const ptsB = field.locate(0.25);
-		const ptsC = field.locate(0);
+		const ptsC = field.locate(0.50);
 
 		for ( let i=0; i<ptsC.length; i++ ) {
 	
 			if ( i === 0 ) { // FIRST POINT
 				
 				// ptsA[i].offsetBy( indent * -1,'VER').scaleHandles( 1.5 );
+				ptsA[i].flip();
 				pts.push( ptsA[i] ); 
 
 			}
 
 			// .......................................
 			
+			ptsC[i].flip();
 			ptsC[i].scaleHandles( roundness );
 			pts.push(ptsC[i]);
 
@@ -106,15 +109,16 @@ class ArcWave extends Model {
 			if ( i === ptsC.length-1 ) {  // LAST POINT
 
 				// ptsB[i].offsetBy( indent * -1,'VER').scaleHandles( 1.5 );
+				ptsB[i].flip();
 				pts.push( ptsB[i] ); 
 
 			} else {
 
 				if ( i < ptsC.length-1 ) {
 
-					const pt = merge( ptsB[i], ptsA[i+1] );
+					const pt = merge( ptsB[i].flip(), ptsA[i+1].flip() );
 
-					pt.offsetBy( indent * -1, 'VER').steer(-90, 0);
+					// pt.offsetBy( indent * -1, 'VER').steer(-90, 0);
 					pts.push( pt );
 
 				}

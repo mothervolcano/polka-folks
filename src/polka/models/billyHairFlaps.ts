@@ -69,24 +69,26 @@ class BillyHairFlaps extends Model {
 		field.compress( 0 + aperture, 1 - aperture );
 		field.expandBy( size * -1, 'VER' );
 
-		attC.moveBy( gap * this.PHIGREATER, 'VER' );
+		attC.moveBy( gap * this.PHIGREATER * -1, 'VER' );
 
 		// .............................................
 		// Construction 2/2
 
 		// const C = field.attractor.locate(0.5).offsetBy( size * 3 * -1, 'VER' );
-		const C = attC.locate(0);
+		const C = attC.locate(0).flip();
 
 		// .............................................
 		// Plotting
 
 		const A1 = field.attractor.locate(0).scaleHandles(0);
-		const A2 = attL.locate(0).flip();
-		const A3 = attL.locate(0.75).flip();
+		const A2 = attL.locate(0.50).flip();
+		const A3 = attL.locate(0.25).flip();
 
-		const B3 = attR.locate(0.25).flip();
-		const B2 = attR.locate(0).flip();
+		const B3 = attR.locate(0.75).flip();
+		const B2 = attR.locate(0.50).flip();
 		const B1 = field.attractor.locate(1).scaleHandles(0);
+
+		A1.flip()
 
 		curve( A3, C, 1, 1 );
 		curve( C, B3, 1, 1 );
@@ -102,8 +104,7 @@ class BillyHairFlaps extends Model {
 		});
 
 		this.pen.setPath( this.path );
-		this.pen.add( [ A1, A2, A3, C, B3, B2, B1 ] );
-		// this.pen.add( [ A1, A2, C, B2, B1 ] );
+		this.pen.add( [ A1, A2, A3, C, B3, B2, B1] );
 
 		this.path.reverse();
 		this.path.join( this.pen.trim(this.base.path) );
@@ -113,7 +114,7 @@ class BillyHairFlaps extends Model {
 		const instructions = {
 
 			level: this.level,
-			complete: true,
+			complete: false,
 			gradient: null
 
 		}
