@@ -18,6 +18,7 @@ import { useState, useEffect } from "react";
 import { ParamSet, Param, Model } from "./types";
 
 import { archetypes } from "./models/archetypes";
+import { folks } from "./models/folks";
 
 import useModel from "./hooks/useModel";
 import useArchetype from "./hooks/useArchetype";
@@ -45,7 +46,7 @@ function parseParams(updatedParams: ParamSet) {
 const UI = () => {
 	const [isPaperLoaded, setIsPaperLoaded] = useState<boolean>(false);
 	const [initialized, setInitialized] = useState<boolean>(false);
-	const [models, currentModel, setCurrentModel] = useModel();
+	const [currentModel, setCurrentModel] = useModel(folks);
 	const [currentArchetype, setCurrentArchetype] = useArchetype(archetypes);
 
 	const [baseParams, setBaseParams] = useState<ParamSet | null>(null);

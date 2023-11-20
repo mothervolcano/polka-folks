@@ -2,7 +2,7 @@ import { Dispatch, useReducer } from "react";
 import { Model, ParamSet } from "../types";
 
 
-const createReducerFor = (models: Model[]) => {
+const reducerFor = (models: Model[]) => {
   const modelReducer = (state: any, action: any) => {
     let selectedModel;
 
@@ -42,7 +42,7 @@ function useArchetype(models: Model[]): [Model, Dispatch<any>] {
     model: defaultModel.model,
   };
 
-  const [currentModel, setCurrentModel] = useReducer(createReducerFor(models), model);
+  const [currentModel, setCurrentModel] = useReducer(reducerFor(models), model);
 
   return [currentModel, setCurrentModel];
 }
