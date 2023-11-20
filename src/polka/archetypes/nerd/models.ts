@@ -22,7 +22,7 @@ const hairDome: ModelConfig = {
 	order: "first",
 	create: (f, r) => drawHairDome(f, r),
 	use: null,
-	base: null,
+	base: "HEAD",
 	size: PHI.XL,
 	settings: [],
 	params: [],
@@ -34,7 +34,7 @@ const ionicHair: ModelConfig = {
 	order: "first",
 	create: (f, r) => drawIonicHair(f, r),
 	use: null,
-	base: null,
+	base: "HEAD",
 	size: PHI.XL,
 	settings: [],
 	params: [0, 0.5],
@@ -46,7 +46,7 @@ const dennisHair: ModelConfig = {
 	order: "first",
 	create: (f, r) => drawDennisHair(f, r),
 	use: null,
-	base: null,
+	base: "HEAD",
 	size: PHI.XL,
 	settings: [],
 	params: [0.2],
@@ -58,7 +58,7 @@ const hairCurtainHide: ModelConfig = {
 	order: "first",
 	create: (f, r) => drawHairCurtainHide(f, r),
 	use: null,
-	base: null,
+	base: "HEAD",
 	size: PHI.L,
 	settings: [],
 	params: ["L_EAR_XT", "R_EAR_XT"],
@@ -70,7 +70,7 @@ const hairCape: ModelConfig = {
 	order: "first",
 	create: (f, r) => drawHairCapeTail(f, r),
 	use: null,
-	base: null,
+	base: "HEAD",
 	size: PHI.XL,
 	settings: [],
 	params: [],
@@ -82,7 +82,7 @@ const hairCap: ModelConfig = {
 	order: "first",
 	create: (f, r) => drawHairCap(f, r),
 	use: null,
-	base: null,
+	base: "HEAD",
 	size: PHI.L,
 	settings: [],
 	params: [],
@@ -154,7 +154,7 @@ const roundGlasses: ModelConfig = {
 	order: "first",
 	create: (f, r) => drawRoundGlasses(f, r),
 	use: null,
-	base: null,
+	base: "FACE",
 	size: PHI.XL,
 	settings: [],
 	params: ["EYE_L", "EYE_R"],
@@ -166,7 +166,7 @@ const billyMonkHair: ModelConfig = {
 	order: "first",
 	create: (f, r) => drawBillyMonkHair(f, r),
 	use: null,
-	base: null,
+	base: "HEAD",
 	size: PHI.XL,
 	settings: [],
 	params: [],
@@ -178,7 +178,7 @@ const hairModelTest: ModelConfig = {
 	order: "first",
 	create: (f, r) => drawHairModelTest(f, r),
 	use: null,
-	base: null,
+	base: "HAIR",
 	size: PHI.L,
 	settings: [],
 	params: [],
@@ -195,4 +195,8 @@ hairDome.compats = [{ ...arcPattern }, { ...zigzag }, { ...billyFlaps }];
 
 // ..................................................
 
-export const pool = [];
+export const pool = [hairCape, hairCurtainHide, hairCap, hairDome, roundGlasses];
+// export const pool = [hairCurtainHide];
+
+
+

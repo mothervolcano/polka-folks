@@ -227,6 +227,7 @@ abstract class Polka {
 		this.mount(pool, "neckwear");
 		this.mount(pool, "facefeature");
 		this.mount(pool, "eyefeature");
+		this.mount(pool, "eyewear");
 	}
 
 	public draw(params: any) {
@@ -403,6 +404,43 @@ abstract class Polka {
 				);
 			}
 		}
+
+		// ............................................................
+
+		plots = this.#plotter.getPlot( 'glasses' );
+
+		for ( const plot of plots ) {
+
+			instructions = plot?.shift();
+
+			if ( Array.isArray( plot[0] ) ) {
+
+				const nPlot = plot[0];
+				instructions = nPlot?.shift();
+
+				nPlot.forEach( (path) => {
+
+					path.strokeColor = colors.CHART.get(this.#colorScheme.skin).contrast.hex;
+					path.strokeWidth = instructions.thickness;
+
+					this.getLayer(instructions.level).addChild( path );
+				})
+
+			} else {
+
+				const path = plot[0];
+
+				if ( instructions.complete ) {
+
+					// this[`l${instructions.level}`].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+
+				} else {
+
+					path.fullySelected = true;
+
+				}
+			}
+		};
 
 		// -----------------------------------------------------------
 
