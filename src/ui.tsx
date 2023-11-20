@@ -1,13 +1,3 @@
-import { useState, useEffect } from "react";
-
-import archetypeSelectorStyles from "./styles/archetypeSelector.module.css"
-
-import { ParamSet, Param, Model } from "./types";
-
-import useModel from "./hooks/useModel";
-import useArchetype from "./hooks/useArchetype";
-
-import { reset, generate, regenerate, model, save } from "./stage";
 import {
 	AspectRatio,
 	Container,
@@ -21,7 +11,21 @@ import {
 	SegmentedControl,
     SegmentedControlItem,
 } from "@mantine/core";
+import archetypeSelectorStyles from "./styles/archetypeSelector.module.css"
+
+import { useState, useEffect } from "react";
+
+import { ParamSet, Param, Model } from "./types";
+
+import { archetypes } from "./models/archetypes";
+
+import useModel from "./hooks/useModel";
+import useArchetype from "./hooks/useArchetype";
 import PaperStage from "./components/paperStage";
+
+import { reset, generate, regenerate, model, save } from "./stage";
+
+
 
 // --------------------------------------------------------------
 // HELPERS
@@ -42,7 +46,7 @@ const UI = () => {
 	const [isPaperLoaded, setIsPaperLoaded] = useState<boolean>(false);
 	const [initialized, setInitialized] = useState<boolean>(false);
 	const [models, currentModel, setCurrentModel] = useModel();
-	const [archetypes, currentArchetype, setCurrentArchetype] = useArchetype();
+	const [currentArchetype, setCurrentArchetype] = useArchetype(archetypes);
 
 	const [baseParams, setBaseParams] = useState<ParamSet | null>(null);
 	const [paramsForArchetype, setParamsForArchetype] =
