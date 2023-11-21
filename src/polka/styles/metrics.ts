@@ -1,4 +1,5 @@
-import { MetricScale, MetricScaleType, MetricUnit } from "../types";
+import { Menu } from "@mantine/core";
+import { MetricScale, MetricScaleType, MetricUnitType } from "../types";
 
 function radToDeg(rad: number) {
 	return rad * (180.0 / Math.PI);
@@ -37,27 +38,6 @@ export const SIN36 = Math.sin(degToRad(36));
 export const SIN54 = Math.sin(degToRad(54));
 export const SIN72 = Math.sin(degToRad(72));
 
-// export function metricsFor(baseUnit: number) {
-// 	return {
-// 		PHI: {
-// 			XXS: baseUnit * PHILESSER * PHILESSER * PHILESSER * PHILESSER * PHILESSER,
-// 			XS: baseUnit * PHILESSER * PHILESSER * PHILESSER * PHILESSER,
-// 			S: baseUnit * PHILESSER * PHILESSER * PHILESSER,
-// 			M: baseUnit * PHILESSER * PHILESSER,
-// 			L: baseUnit * PHILESSER,
-// 			XL: baseUnit * PHIGREATER,
-// 		},
-
-// 		SIN: {
-// 			XXS: baseUnit * SIN9,
-// 			XS: baseUnit * SIN18,
-// 			S: baseUnit * SIN36,
-// 			M: baseUnit * SIN54,
-// 			L: baseUnit * SIN72,
-// 			XL: baseUnit * 1 + SIN18,
-// 		},
-// 	};
-// }
 
 export function generateScaleFor(scale: MetricScaleType, baseUnit: number): MetricScale {
 	switch (scale) {
@@ -83,4 +63,11 @@ export function generateScaleFor(scale: MetricScaleType, baseUnit: number): Metr
 	}
 }
 
-export function metricHolderFor(scale: MetricScaleType, unit: MetricUnit) {}
+export function metricUnit(scale: MetricScaleType, unit: MetricUnitType) {
+
+	return {scale, unit}
+}
+
+export function getValueFor() {
+	
+}

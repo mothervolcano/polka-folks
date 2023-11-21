@@ -5,14 +5,20 @@ import Plotter from "../../lib/topo/tools/plotter";
 import OrbitalField from "../attractors/orbitalField";
 import { convertToHyperPoint } from "../../lib/topo/utils/converters";
 
-import { IModel, MetricScale, ModelConfig } from "../types";
+import { IModel, MetricScale, MetricScaleType, MetricUnit, ModelConfig } from "../types";
 import { drawHead } from "../models/head";
 import { drawFace } from "../models/face";
 
 import * as colors from "../styles/colorSchemes";
 
 import { traceSegment, isEven, genRandom, genRandomDec } from "../../lib/topo/utils/helpers";
-import { renderEar, renderEye, renderFace, renderFaceFeature, renderHair } from "../renderers/baroque";
+import {
+	renderEar,
+	renderEye,
+	renderFace,
+	renderFaceFeature,
+	renderHair,
+} from "../renderers/baroque";
 import { PHIGREATER, PHILESSER, SIN54, PHI, SIN, generateScaleFor } from "../styles/metrics";
 
 // ------------------------
@@ -98,14 +104,39 @@ abstract class Polka {
 		}
 	}
 
+	private getScale(scale: MetricScaleType) {
+		switch (scale) {
+			case "PHI":
+				return this.#PHI;
+			case "SIN":
+				return this.#SIN;
+			default:
+				throw new Error(`ERROR @Polka.getScale: ${scale} is an invalid scale`);
+		}
+	}
+
+	private isMetricUnit(input: any): input is MetricUnit {
+		if (typeof input === "number" || typeof input === "string") {
+			return false;
+		}
+
+		return (
+			input &&
+			"scale" in input &&
+			typeof input.scale === "string" &&
+			"unit" in input &&
+			typeof input.unit === "string"
+		);
+	}
+
 	private parseModel(name: string | IModel) {
 		if (typeof name === "string") {
 			switch (name) {
 				case "HEAD":
-					console.log('baseModel in config: ', this.#head)
+					console.log("baseModel in config: ", this.#head);
 					return this.#head;
 				case "FACE":
-					console.log('baseModel in config: ', this.#face)
+					console.log("baseModel in config: ", this.#face);
 					return this.#face;
 				default:
 					throw new Error(`ERROR @Polka.mount: ${name} is not a valid model`);
@@ -115,50 +146,43 @@ abstract class Polka {
 		}
 	}
 
-	private parseMetric(value: string | number): number {
-		if (typeof value === "string") {
-			const parsedValues = value.split(".");
-
-			switch (parsedValues[0]) {
-				case "PHI":
-					return this.#PHI[parsedValues[1] as keyof MetricScale];
-				case "SIN":
-					return this.#SIN[parsedValues[1] as keyof MetricScale];
-				default: throw new Error(`ERROR @Polka.mount: invalid metric in model config (${value})`)
-			}
+	private parseMetric(value: MetricUnit | number): number {
+		if (this.isMetricUnit(value)) {
+			return this.getScale(value.scale)[value.unit];
 		} else {
 			return value;
 		}
 	}
 
-	private parseParameter(value: string | number ) {
 
-		if (typeof value === "string" && ( value.split(".")[0] === "PHI" || value.split(".")[0] === "SIN")) {
-			return this.parseMetric(value);
+	private parseParameter(value: string | number | MetricUnit) {
+		if (this.isMetricUnit(value)) {
+			return this.getScale(value.scale)[value.unit];
 		} else {
 			return value;
 		}
 	}
+
 
 	private randomize(input: any) {
-	if (Array.isArray(input) && input.length === 1) {
-		return this.parseParameter(input[0]);
-	} else if (!Array.isArray(input)) {
-		return this.parseParameter(input);
+		if (Array.isArray(input) && input.length === 1) {
+			return this.parseParameter(input[0]);
+		} else if (!Array.isArray(input)) {
+			return this.parseParameter(input);
+		}
+
+		const min = this.parseParameter(input[0]);
+		const max = this.parseParameter(input[1]);
+
+		console.log(`randomize: ${typeof min} min: ${min} - ${typeof max} max: ${max}`);
+
+		if (typeof min !== "number" || typeof max !== "number") {
+			throw new Error(`ERROR @Polka.mount: can't generate random value. Invalid input`);
+			// console.log(`WARNING! passing non-numeric parameters to randomize function. min: ${min} - max: ${max}`);
+		}
+
+		return genRandomDec(min, max);
 	}
-
-	const min = this.parseParameter(input[0]);
-	const max = this.parseParameter(input[1]);
-	
-	console.log(`randomize: ${typeof min} min: ${min} - ${typeof max} max: ${max}`);
-
-	if ( typeof min !== 'number' || typeof max !== 'number') {
-		throw new Error(`ERROR @Polka.mount: can't generate random value. Invalid input`);
-		// console.log(`WARNING! passing non-numeric parameters to randomize function. min: ${min} - max: ${max}`);
-	}
-
-	return genRandomDec(min, max);
-}
 
 	private mount(pool: ModelConfig[], type: string) {
 		// Picks the first random hair model from the archetype's catalog and adds it to the queue
@@ -172,7 +196,10 @@ abstract class Polka {
 				throw new Error(`ERROR @ Archetype: failed to retrieve ${type} Model from queue`);
 			}
 
-			modelConfig.use = modelConfig.create(this.#head.field, this.parseMetric(modelConfig.size));
+			modelConfig.use = modelConfig.create(
+				this.#head.field,
+				this.parseMetric(modelConfig.size),
+			);
 
 			if (modelConfig.base) {
 				modelConfig.use.baseOn(this.parseModel(modelConfig.base));
@@ -188,9 +215,14 @@ abstract class Polka {
 				const nModelConfig = pickModel(modelConfig.compats);
 
 				// nModelConfig.base = modelConfig.use;
-				nModelConfig.use = nModelConfig.create(modelConfig.use.field, this.parseMetric(nModelConfig.size));
+				nModelConfig.use = nModelConfig.create(
+					modelConfig.use.field,
+					this.parseMetric(nModelConfig.size),
+				);
 				nModelConfig.use.baseOn(modelConfig.use);
-				nModelConfig.use.configure(...modelConfig.settings.map((p: any[]) => this.randomize(p)));
+				nModelConfig.use.configure(
+					...modelConfig.settings.map((p: any[]) => this.randomize(p)),
+				);
 
 				modelQueue.push(nModelConfig);
 			}
@@ -201,9 +233,13 @@ abstract class Polka {
 		const { baseParams, archetypeParams } = params;
 
 		this.#colorScheme = { ...colors.baroquePolka };
-		this.#colorScheme.skin = this.#colorScheme.skin[genRandom(0, this.#colorScheme.skin.length - 1)];
-		this.#colorScheme.hair = this.#colorScheme.hair.filter((c: any) => c !== this.#colorScheme.skin);
-		this.#colorScheme.hair = this.#colorScheme.hair[genRandom(0, this.#colorScheme.hair.length - 1)];
+		this.#colorScheme.skin =
+			this.#colorScheme.skin[genRandom(0, this.#colorScheme.skin.length - 1)];
+		this.#colorScheme.hair = this.#colorScheme.hair.filter(
+			(c: any) => c !== this.#colorScheme.skin,
+		);
+		this.#colorScheme.hair =
+			this.#colorScheme.hair[genRandom(0, this.#colorScheme.hair.length - 1)];
 
 		// ...............................................................................
 		// NOTE: head and face need to be plotted at generation time to provide all the models based on them the plots they require
@@ -212,7 +248,11 @@ abstract class Polka {
 		const eyeMaxSize = this.#PHI.XS;
 
 		this.#head.configure();
-		this.#face.configure(genRandomDec(eyeMinSize, eyeMaxSize), genRandomDec(0.07, 0.12), genRandomDec(0.5, 0.6));
+		this.#face.configure(
+			genRandomDec(eyeMinSize, eyeMaxSize),
+			genRandomDec(0.07, 0.12),
+			genRandomDec(0.5, 0.6),
+		);
 
 		this.#face.plot(baseParams);
 
@@ -240,10 +280,15 @@ abstract class Polka {
 
 		for (const modelConfig of this.#collection) {
 			if (!modelConfig.use) {
-				throw new Error(`ERROR @ Baroque: model config is missing an instance of the model`);
+				throw new Error(
+					`ERROR @ Baroque: model config is missing an instance of the model`,
+				);
 			}
 
-			this.#plotter.chart(modelConfig.use.plot(archetypeParams, ...modelConfig.params), modelConfig.type);
+			this.#plotter.chart(
+				modelConfig.use.plot(archetypeParams, ...modelConfig.params),
+				modelConfig.type,
+			);
 		}
 
 		this.render();
@@ -306,7 +351,9 @@ abstract class Polka {
 			const path = plot[0];
 
 			if (instructions.complete) {
-				this.getLayer(instructions.level).addChild(renderHair(path, this.#colorScheme, instructions.gradient));
+				this.getLayer(instructions.level).addChild(
+					renderHair(path, this.#colorScheme, instructions.gradient),
+				);
 			} else {
 				path.fullySelected = true;
 			}
@@ -376,7 +423,9 @@ abstract class Polka {
 			} else {
 				const path = plot[0];
 				// earwear.fullySelected = true;
-				this.getLayer(instructions.level).addChild(renderEye(path, this.#colorScheme, instructions.gradient));
+				this.getLayer(instructions.level).addChild(
+					renderEye(path, this.#colorScheme, instructions.gradient),
+				);
 			}
 		}
 
@@ -407,48 +456,43 @@ abstract class Polka {
 
 		// ............................................................
 
-		plots = this.#plotter.getPlot( 'glasses' );
+		plots = this.#plotter.getPlot("glasses");
 
-		for ( const plot of plots ) {
-
+		for (const plot of plots) {
 			instructions = plot?.shift();
 
-			if ( Array.isArray( plot[0] ) ) {
-
+			if (Array.isArray(plot[0])) {
 				const nPlot = plot[0];
 				instructions = nPlot?.shift();
 
-				nPlot.forEach( (path) => {
-
+				nPlot.forEach((path) => {
 					path.strokeColor = colors.CHART.get(this.#colorScheme.skin).contrast.hex;
 					path.strokeWidth = instructions.thickness;
 
-					this.getLayer(instructions.level).addChild( path );
-				})
-
+					this.getLayer(instructions.level).addChild(path);
+				});
 			} else {
-
 				const path = plot[0];
 
-				if ( instructions.complete ) {
-
+				if (instructions.complete) {
 					// this[`l${instructions.level}`].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
-
 				} else {
-
 					path.fullySelected = true;
-
 				}
 			}
-		};
+		}
 
 		// -----------------------------------------------------------
 
 		this.#l1.addChild(renderFace(this.#head.getAtt("HEAD").getPath(), this.#colorScheme));
 		this.#l1.addChild(renderEar(this.#head.getAtt("EAR_L").getPath(), this.#colorScheme));
 		this.#l1.addChild(renderEar(this.#head.getAtt("EAR_R").getPath(), this.#colorScheme));
-		this.#l1.addChild(renderEye(this.#face.getAtt("EYE_L").getPath(), this.#colorScheme, false));
-		this.#l1.addChild(renderEye(this.#face.getAtt("EYE_R").getPath(), this.#colorScheme, false));
+		this.#l1.addChild(
+			renderEye(this.#face.getAtt("EYE_L").getPath(), this.#colorScheme, false),
+		);
+		this.#l1.addChild(
+			renderEye(this.#face.getAtt("EYE_R").getPath(), this.#colorScheme, false),
+		);
 
 		// -----------------------------------------------------------
 

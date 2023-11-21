@@ -1,5 +1,10 @@
 export type MetricScaleType = "PHI" | "SIN";
-export type MetricUnit = "XXS" | "XS" | "S" | "M" | "L" | "XL";
+export type MetricUnitType = "XXS" | "XS" | "S" | "M" | "L" | "XL";
+
+export interface MetricUnit {
+  scale: MetricScaleType;
+  unit: MetricUnitType;
+}
 
 export interface MetricScale {
   XXS: number;
@@ -37,7 +42,7 @@ export interface ModelConfig {
 	create: (field:any, radius: number) => IModel; //TODO finish: f can be an AttractorField or AttractorObject
 	use: IModel | null; //TODO the type is a model
 	base: string | IModel | null;
-	size: string | number;
+	size: MetricUnit | number;
 	settings: any[];
 	params: any[];
 	compats: ModelConfig[];
