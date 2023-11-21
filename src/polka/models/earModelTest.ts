@@ -1,59 +1,46 @@
-import { Path, CompoundPath } from 'paper';
+import { Path, CompoundPath } from "paper";
 
-import Model from '../core/model';
-import Orbital from '../attractors/orbital';
-import OrbitalField from '../attractors/orbitalField';
+import Model from "../core/model";
+import Orbital from "../attractors/orbital";
+import OrbitalField from "../attractors/orbitalField";
 
-import { drawLozenge } from './lozenge';
-import { drawDrop } from './drop';
-import { drawCone } from './cone';
+import Lozenge from "../shapes/lozenge";
+import Drop from "../shapes/drop";
+import Cone from "../shapes/cone";
 
-import { merge, measure, mid, curve } from '../../lib/topo/tools/stitcher';
+import { merge, measure, mid, curve } from "../../lib/topo/tools/stitcher";
 
-import { markPoint, genRandom, genRandomDec } from '../../lib/topo/utils/helpers';
+import { markPoint, genRandom, genRandomDec } from "../../lib/topo/utils/helpers";
 
-const DEBUG_GREEN = '#10FF0C';
-const GUIDES = '#06E7EF';
-
+const DEBUG_GREEN = "#10FF0C";
+const GUIDES = "#06E7EF";
 
 class EarModelTest extends Model {
+	#shapes: any;
 
-
-	private _shapes: any;
-
-
-	constructor( field: any, radius: number ) {
-
-		super( field, radius );
+	constructor(field: any, radius: number) {
+		super(field, radius);
 
 		// this._shapes = [ useLozenge, useDrop ];
-		this._shapes = [ drawCone ];
+		this.#shapes = [Lozenge, Drop, Cone];
 
 		return this;
-
 	}
 
 	private pickShape() {
-
-		return this._shapes[ genRandom(0, this._shapes.length - 1) ];
+		return this.#shapes[genRandom(0, this.#shapes.length - 1)];
 	}
 
-
 	public configure() {
-
 		this.level = 2;
+	}
 
-	};
-
-
-	public plot( params: any, ATT: string, c: number ) {
-
-
+	public plot(params: any, ATT: string, c: number) {
 		// .............................................
 		// Compute parameters
 
-		const size = this.radius * this.SIN36 * 5;
-		const num = 1;
+		const baseSize = this.radius * this.SIN36;
+		const num = 3;
 
 		// .............................................
 		// Key points
@@ -65,81 +52,65 @@ class EarModelTest extends Model {
 
 		const plots = [];
 
-		for ( let i=0; i<num; i++ ) {
+		for (let i = 0; i < num; i++) {
+			const size = baseSize * genRandomDec(0.25, 0.75);
+			const h = size*2;
+			const att = new Orbital(size, O);
+			att.anchorAt(O);
+			att.moveBy(h, "VER");
 
-			const _att = new Orbital( size, O );
-			_att.anchorAt(O);
-			_att.moveBy( size + 400, 'HOR' );
+			O = att.locate(0.5);
 
-			O = _att.locate(0.50);
+			att.rotate(-90);
 
-			_att.rotate(-90)
+			const Shape = this.pickShape();
 
-			const _shape = this.pickShape();
-			_shape(size);
-
-			plots.push( _shape().plot(_att, 200) );
+			plots.push(Shape.draw(att, { height: h }));
 
 			// adjust positioning of the attractor based on the resulting plot
-
-
-
 		}
-
 
 		// .............................................
 		// Configure
 
-
-
 		// .............................................
 		// Plotting
 
-
 		// ............................................................
 
-		const paths = plots.map( ( plot ) => {
-
+		const paths = plots.map((plot) => {
 			const _path = new Path({
-
 				fillColor: DEBUG_GREEN,
 				strokeWidth: 1,
-				closed: true
+				closed: true,
+			});
 
-			})
-
-			this.pen.setPath( _path )
-			this.pen.add( plot )
-
+			this.pen.setPath(_path);
+			this.pen.add(plot);
 		});
 
 		this.path = new CompoundPath([]);
-		this.path.addChildren( paths );
+		this.path.addChildren(paths);
 
 		const instructions = {
-
 			level: this.level,
 			complete: true,
-			gradient: null
-		}
+			gradient: null,
+		};
 
 		// .............................................
 		// Chart
 
-		return [ instructions, this.path ];
-
-	};
+		return [instructions, this.path];
+	}
 }
-
 
 let instance: EarModelTest | null = null;
 
-export function drawEarModelTest( field: any, radius: number ): EarModelTest {
-  
-  if (!instance) {
+export function drawEarModelTest(field: any, radius: number): EarModelTest {
+	if (!instance) {
+		instance = new EarModelTest(field, radius);
+	}
 
-    instance = new EarModelTest( field, radius );
-  }
-
-  return instance;
+	return instance;
 }

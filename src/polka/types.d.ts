@@ -1,3 +1,5 @@
+import { IAttractor, IAttractorObject } from "../lib/topo/types";
+
 export type MetricScaleType = "PHI" | "SIN";
 export type MetricUnitType = "XXS" | "XS" | "S" | "M" | "L" | "XL";
 
@@ -33,6 +35,17 @@ export interface IModel {
   configure( ...args: any[] ): void;
   plot( params: any, ...args: any[] ): void;
 
+}
+
+export interface ShapeProps {
+  width?: number;
+  height?: number;
+  radius?: number;
+}
+
+export interface IShape {
+
+  draw(field: IAttractor & IAttractorObject, props: ShapeProps);
 }
 
 export interface ModelConfig {

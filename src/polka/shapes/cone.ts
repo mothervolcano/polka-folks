@@ -1,31 +1,20 @@
-import { Point, Path } from 'paper';
+import { Point } from "paper";
+import { curve, iron } from "../../lib/topo/tools/stitcher";
 
-import Shape from '../core/shape';
-import Orbital from '../attractors/orbital';
-import OrbitalField from '../attractors/orbitalField';
-
-import { merge, measure, mid, curve, iron } from '../../lib/topo/tools/stitcher';
-
-import { markPoint, genRandom, genRandomDec, degToRad, radToDeg, normalize } from '../../lib/topo/utils/helpers';
-
-const DEBUG_GREEN = '#10FF0C';
-const GUIDES = '#06E7EF';
-
+import { IAttractor, IAttractorObject } from "../../lib/topo/types";
+import { normalize, radToDeg } from "../../lib/topo/utils/helpers";
+import Shape from "../core/shape";
+import { ShapeProps } from "../types";
 
 class Cone extends Shape {
-
 	
-	constructor( radius: number ) {
+	static draw(att: IAttractor & IAttractorObject, props: ShapeProps) {
 
-		super( radius );
+		const { height } = props;
 
-		return this;
-
-	}
-
-
-	public plot( attractor: any, height: number = 0 ) {
-
+		if ( height === undefined || height === null ) {
+			throw new Error(`Error @Cone: height value required`)
+		}
 
 		// .............................................
 		// Compute parameters
@@ -40,25 +29,25 @@ class Cone extends Shape {
 		// .............................................
 		// Construction
 
- 		const att = attractor;
+ 		const radius = (att.length/Math.PI)/2;
 
  		const c = att.center.point;
  		const p = att.center.clone().offsetBy( -h, 'VER' ).point;
 
  		const d = c.getDistance(p);
 
- 		const _a = radToDeg( Math.asin( this.radius / d ) );
+ 		const _a = radToDeg( Math.asin( radius / d ) ); 
  		const a = 180 - 90 - _a;
 
  		const v = new Point({ angle: a, length: 1 });
 
- 		const t = c.add( v.multiply(this.radius) );
+ 		const t = c.add( v.multiply(radius) );
 
  		const Ta = att.locate( normalize( 90-a, 0, 360 ) );
  		const Tb = att.locate( normalize( 90+a, 0, 360 ) );
 
- 		markPoint( Ta );
- 		markPoint( Tb );
+ 		// markPoint( Ta );
+ 		// markPoint( Tb );
 
 		// .............................................
 		// Configure
@@ -83,23 +72,15 @@ class Cone extends Shape {
 		// .............................................
 		// Chart
 
-		this.C = V;
+		// this.C = V;
 
 
 		return [ P0, P1, Ta, V, Tb, P2 ];
+	}
 
-	};
+	draw(att: IAttractor & IAttractorObject, props: ShapeProps): any {
+		return Cone.draw(att, props);
+	}
 }
 
-
-let instance: Cone | null = null;
-
-export function drawCone( radius: number ): Cone {
-  
-  if (!instance) {
-
-    instance = new Cone( radius );
-  }
-
-  return instance;
-}
+export default Cone;
