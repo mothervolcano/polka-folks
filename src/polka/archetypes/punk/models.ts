@@ -3,7 +3,7 @@ import { ModelConfig } from "../../types";
 import { drawHairSpike } from "../../models/hairSpike";
 import { drawHairShave } from "../../models/hairShave";
 
-import { metricsFor, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles/metrics";
+import { PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles/metrics";
 
 const spike: ModelConfig = {
 	create: (f, r) => drawHairSpike(f, r),

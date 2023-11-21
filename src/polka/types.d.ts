@@ -1,3 +1,15 @@
+export type MetricScaleType = "PHI" | "SIN";
+export type MetricUnit = "XXS" | "XS" | "S" | "M" | "L" | "XL";
+
+export interface MetricScale {
+  XXS: number;
+  XS: number;
+  S: number;
+  M: number;
+  L: number;
+  XL: number;
+}
+
 export interface IModel {
 
   readonly field: IAttractorField;

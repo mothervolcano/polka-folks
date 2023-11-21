@@ -15,7 +15,7 @@ import { drawHairModelTest } from "../../models/hairModelTest";
 
 import { drawRoundGlasses } from "../../models/roundGlasses";
 
-import { metricsFor, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles/metrics";
+import { PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles/metrics";
 
 const hairDome: ModelConfig = {
 	type: "hair",

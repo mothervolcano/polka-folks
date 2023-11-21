@@ -1,5 +1,6 @@
 
-import { metricsFor, SIN9, SIN18, SIN36, SIN54, SIN72, PHIGREATER, PHILESSER } from '../styles/metrics';
+import { SIN9, SIN18, SIN36, SIN54, SIN72, PHIGREATER, PHILESSER, generateScaleFor } from '../styles/metrics';
+import { MetricScale } from '../types';
 
 
 
@@ -10,8 +11,8 @@ abstract class Shape {
 	protected _position: any;
 	protected _radius: number;
 
-	protected _PHI: any;
-	protected _SIN: any;
+	protected _PHI: MetricScale;
+	protected _SIN: MetricScale;
 
 	protected _C: any;
 
@@ -20,8 +21,8 @@ abstract class Shape {
 
 		this._radius = radius;
 
-		this._PHI = metricsFor( radius ).PHI;
-		this._SIN = metricsFor( radius ).SIN;
+		this._PHI = generateScaleFor("PHI", radius);
+		this._SIN = generateScaleFor("SIN", radius);
 
 		this._C = null;
 	};

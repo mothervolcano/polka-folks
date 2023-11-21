@@ -20,7 +20,7 @@ import { Blush, drawBlush } from "../../models/blush";
 
 import { drawEarModelTest } from "../../models/earModelTest";
 
-import { metricsFor, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles/metrics";
+import { PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles/metrics";
 
 
 const antoinette: ModelConfig = {

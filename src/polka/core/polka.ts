@@ -5,7 +5,7 @@ import Plotter from "../../lib/topo/tools/plotter";
 import OrbitalField from "../attractors/orbitalField";
 import { convertToHyperPoint } from "../../lib/topo/utils/converters";
 
-import { IModel, ModelConfig } from "../types";
+import { IModel, MetricScale, ModelConfig } from "../types";
 import { drawHead } from "../models/head";
 import { drawFace } from "../models/face";
 
@@ -13,7 +13,7 @@ import * as colors from "../styles/colorSchemes";
 
 import { traceSegment, isEven, genRandom, genRandomDec } from "../../lib/topo/utils/helpers";
 import { renderEar, renderEye, renderFace, renderFaceFeature, renderHair } from "../renderers/baroque";
-import { metricsFor, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../styles/metrics";
+import { PHIGREATER, PHILESSER, SIN54, PHI, SIN, generateScaleFor } from "../styles/metrics";
 
 // ------------------------
 // DEBUG
@@ -60,15 +60,15 @@ abstract class Polka {
 
 	#colorScheme: any;
 
-	#PHI: any;
-	#SIN: any;
+	#PHI: MetricScale;
+	#SIN: MetricScale;
 
 	constructor(position: any, radius: number) {
 		this.#field = new OrbitalField(convertToHyperPoint(position), radius);
 		this.#plotter = Plotter.getInstance();
 
-		this.#PHI = metricsFor(radius).PHI;
-		this.#SIN = metricsFor(radius).SIN;
+		this.#PHI = generateScaleFor("PHI", radius);
+		this.#SIN = generateScaleFor("SIN", radius);
 
 		this.#l0 = new Layer();
 		this.#l1 = new Layer();
@@ -115,15 +115,15 @@ abstract class Polka {
 		}
 	}
 
-	private parseMetric(value: string | number) {
+	private parseMetric(value: string | number): number {
 		if (typeof value === "string") {
 			const parsedValues = value.split(".");
 
 			switch (parsedValues[0]) {
 				case "PHI":
-					return this.#PHI[parsedValues[1]];
+					return this.#PHI[parsedValues[1] as keyof MetricScale];
 				case "SIN":
-					return this.#SIN[parsedValues[1]];
+					return this.#SIN[parsedValues[1] as keyof MetricScale];
 				default: throw new Error(`ERROR @Polka.mount: invalid metric in model config (${value})`)
 			}
 		} else {

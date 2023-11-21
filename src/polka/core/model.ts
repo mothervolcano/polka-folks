@@ -14,7 +14,6 @@ import {
 import Pen from "../../lib/topo/tools/pen";
 
 import {
-	metricsFor,
 	SIN9,
 	SIN18,
 	SIN36,
@@ -22,8 +21,9 @@ import {
 	SIN72,
 	PHIGREATER,
 	PHILESSER,
+    generateScaleFor,
 } from "../styles/metrics";
-import { IModel } from "../types";
+import { IModel, MetricScale } from "../types";
 
 abstract class Model {
 	protected _pen: any;
@@ -43,8 +43,8 @@ abstract class Model {
 	protected _C: IHyperPoint | null;
 	protected _T: IHyperPoint | null;
 
-	#PHI: any;
-	protected _SIN: any;
+	#PHI: MetricScale;
+	#SIN: MetricScale;
 
 	protected ATTS: any;
 	protected PINS: any;
@@ -59,8 +59,8 @@ abstract class Model {
 
 		this._position = field.attractor.center;
 
-		this.#PHI = metricsFor(radius).PHI;
-		this._SIN = metricsFor(radius).SIN;
+		this.#PHI = generateScaleFor("PHI", radius);
+		this.#SIN = generateScaleFor("SIN", radius);
 
 		this._A = null;
 		this._B = null;
@@ -123,7 +123,7 @@ abstract class Model {
 	}
 
 	get SIN() {
-		return this._SIN;
+		return this.#SIN;
 	}
 
 	get SIN9() {
