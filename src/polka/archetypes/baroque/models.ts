@@ -251,17 +251,6 @@ const earModelTest: ModelConfig = {
 	compats: [],
 };
 
-const debugCrest: ModelConfig = {
-	type: "hair",
-	order: "first",
-	create: (f, r) => drawHairCrest(f, r),
-	use: null,
-	base: null,
-	size: metricUnit("PHI", "L"),
-	settings: [],
-	params: [0.25, 0.1],
-	compats: [],
-};
 
 antoinette.compats = [crest, { ...panache }];
 crest.compats = [{ ...panache }];
@@ -277,8 +266,6 @@ export const pool = [
 	mozartLine,
 	cascadeTail,
 	wavyTail,
-	earringLeft,
-	earringRight,
 	lashesLeft,
 	lashesRight,
 	blushLeft,

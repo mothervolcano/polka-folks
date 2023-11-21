@@ -25,7 +25,7 @@ class AntoinetteWig extends Model {
 
 		super( field, size );
 
-		this._att = this._field.getAttractor();
+		this._att = this.field.getAttractor();
 
 		return this;
 

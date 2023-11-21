@@ -43,19 +43,19 @@ class HairCrest extends Model {
 		let O;
 		let A;
 
-		if ( this._base ) {
+		if ( this.base ) {
 
-			P = this._base.T.clone();
-			O = this._base.T;
-			A = this._base.A.offsetBy(  measure( this._base.A, this._base.T, 1/3 ), 'TAN' ).flip();
+			P = this.base.T.clone();
+			O = this.base.T;
+			A = this.base.A.offsetBy(  measure( this.base.A, this.base.T, 1/3 ), 'TAN' ).flip();
 			
 			P.offsetBy( crestSize*-2, 'VER' );
 
 		} else {
 
-			P = this._field.getAttractor().locate(c);
-			O = this._field.getAttractor().locate(c).flip();
-			A = this._field.getAttractor().locate(c-widthFactor).flip();
+			P = this.field.getAttractor().locate(c);
+			O = this.field.getAttractor().locate(c).flip();
+			A = this.field.getAttractor().locate(c-widthFactor).flip();
 
 			P.offsetBy( crestSize*2, 'RAY' );
 		}

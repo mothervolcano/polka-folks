@@ -1,14 +1,6 @@
-import { Path } from "paper";
-
 import {
-	OrientationType,
-	PolarityType,
 	IHyperPoint,
-	IDisplayObject,
-	IAttractor,
 	IAttractorField,
-	PointLike,
-	SizeLike,
 } from "../../lib/topo/types";
 
 import Pen from "../../lib/topo/tools/pen";
@@ -27,63 +19,64 @@ import { IModel, MetricScale } from "../types";
 
 abstract class Model {
 	protected _pen: any;
-	protected _path: any;
+	#path: any;
+	#base: IModel | null;
+	#field: IAttractorField;
 
-	protected _base: IModel | null;
+	#level: any;
 
-	protected _field: IAttractorField;
+	#position: any;
+	#radius: number;
 
-	protected _level: any;
-
-	protected _position: any;
-	protected _radius: number;
-
-	protected _A: IHyperPoint | null;
-	protected _B: IHyperPoint | null;
-	protected _C: IHyperPoint | null;
-	protected _T: IHyperPoint | null;
+	#A: IHyperPoint | null;
+	#B: IHyperPoint | null;
+	#C: IHyperPoint | null;
+	#T: IHyperPoint | null;
 
 	#PHI: MetricScale;
 	#SIN: MetricScale;
 
-	protected ATTS: any;
-	protected PINS: any;
+	#ATTS: any;
+	#PINS: any;
 
 	constructor(field: IAttractorField, radius: number) {
 		this._pen = Pen.getInstance();
 
-		this._base = null;
+		this.#base = null;
 
-		this._field = field;
-		this._radius = radius;
+		this.#field = field;
+		this.#radius = radius;
 
-		this._position = field.attractor.center;
+		this.#position = field.attractor.center;
 
 		this.#PHI = generateScaleFor("PHI", radius);
 		this.#SIN = generateScaleFor("SIN", radius);
 
-		this._A = null;
-		this._B = null;
-		this._C = null;
-		this._T = null;
+		this.#A = null;
+		this.#B = null;
+		this.#C = null;
+		this.#T = null;
 
-		this.ATTS = {};
-
-		this.PINS = {};
+		this.#ATTS = {};
+		this.#PINS = {};
 	}
 
 	baseOn(model: IModel) {
-		this._base = model;
+		this.#base = model;
+	}
+
+	hasBase(): boolean {
+		return Boolean(this.#base);
 	}
 
 	get base() {
-		if (!this._base) {
+		if (!this.#base) {
 			throw new Error(
 				`ERROR @ Model: No base has been set for this model`,
 			);
 		}
 
-		return this._base;
+		return this.#base;
 	}
 
 	get pen() {
@@ -91,23 +84,23 @@ abstract class Model {
 	}
 
 	get path() {
-		return this._path;
+		return this.#path;
 	}
 
 	get level() {
-		return this._level;
+		return this.#level;
 	}
 
 	get position() {
-		return this._position;
+		return this.#position;
 	}
 
 	get radius() {
-		return this._radius;
+		return this.#radius;
 	}
 
 	get field() {
-		return this._field;
+		return this.#field;
 	}
 
 	get PHI() {
@@ -147,59 +140,67 @@ abstract class Model {
 	}
 
 	get A() {
-		if (!this._A) {
+		if (!this.#A) {
 			throw new Error(`A hasn't been defined on Model`);
 		}
 
-		return this._A.clone();
+		return this.#A.clone();
 	}
 
 	get B() {
-		if (!this._B) {
+		if (!this.#B) {
 			throw new Error(`B hasn't been defined on Model`);
 		}
 
-		return this._B.clone();
+		return this.#B.clone();
 	}
 
 	get C() {
-		if (!this._C) {
+		if (!this.#C) {
 			throw new Error(`C hasn't been defined on Model`);
 		}
 
-		return this._C.clone();
+		return this.#C.clone();
 	}
 
 	get T() {
-		if (!this._T) {
+		if (!this.#T) {
 			throw new Error(`T hasn't been defined on Model`);
 		}
 
-		return this._T;
+		return this.#T;
 	}
 
 	set path(p: any) {
-		this._path = p;
+		this.#path = p;
 	}
 
 	set level(value: number) {
-		this._level = value;
+		this.#level = value;
 	}
 
 	set A(P: IHyperPoint) {
-		this._A = P;
+		this.#A = P;
 	}
 
 	set B(P: IHyperPoint) {
-		this._B = P;
+		this.#B = P;
 	}
 
 	set C(P: IHyperPoint) {
-		this._C = P;
+		this.#C = P;
 	}
 
 	set T(P: IHyperPoint) {
-		this._T = P;
+		this.#T = P;
+	}
+
+	get PINS() {
+		return this.#PINS;
+	}
+
+	get ATTS() {
+		return this.#ATTS;
 	}
 
 	protected wrap(sgmA: any, sgmB: any) {
@@ -212,20 +213,38 @@ abstract class Model {
 		this.pen.getPath().join(headWrap);
 	}
 
+	public setPins(pins: any) {
+
+		if (Object.keys(this.#PINS).length === 0) {
+            this.#PINS = pins;
+        } else {
+        	throw new Error(`ERROR @Model.setPins(${pins}) -> Pins can only be assigned once.`)
+        }
+	}
+
+	public setAtts(atts: any) {
+
+		if (Object.keys(this.#ATTS).length === 0) {
+            this.#ATTS = atts;
+        } else {
+        	throw new Error(`ERROR @Model.setAtts(${atts}) -> Atts can only be assigned once.`)
+        }
+	}
+
 	public getPin(LABEL: string) {
-		if (!this.PINS[LABEL]) {
+		if (!this.#PINS[LABEL]) {
 			throw new Error(`Missing Pin for ${LABEL}`);
 		}
 
-		return this.PINS[LABEL].clone();
+		return this.#PINS[LABEL].clone();
 	}
 
 	public getAtt(LABEL: string) {
-		if (!this.ATTS[LABEL]) {
+		if (!this.#ATTS[LABEL]) {
 			throw new Error(`Missing Attractor for ${LABEL}`);
 		}
 
-		return this.ATTS[LABEL];
+		return this.#ATTS[LABEL];
 	}
 
 	abstract configure(...args: any[]): void;

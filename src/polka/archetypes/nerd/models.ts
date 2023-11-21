@@ -178,7 +178,7 @@ const hairModelTest: ModelConfig = {
 	order: "first",
 	create: (f, r) => drawHairModelTest(f, r),
 	use: null,
-	base: "HAIR",
+	base: "HEAD",
 	size: metricUnit("PHI", "L"),
 	settings: [],
 	params: [],

@@ -34,9 +34,9 @@ export class HairPanache extends Model {
 
 		let O;
 
-		if ( this._base ) {
+		if ( this.hasBase() ) {
 
-			O = this._base.C.clone();
+			O = this.base.C.clone();
 
 		} else {
 

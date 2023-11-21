@@ -45,14 +45,14 @@ class HairCurl extends Model {
 
 		const att = new Orbital( [ curlSize*4/3, curlSize*4/3 ] );
 
-		this._field.addAttractor( att, c );
+		this.field.addAttractor( att, c );
 
 		att.moveBy( -curlSize * 2, 'HOR').moveBy( curlSize, 'RAY' );
 		att.rotate( rotationAdjustment );
 
 		console.log(`CURL: ${rotationAdjustment}`);
 
-		const O = this._field.getAttractor().locate(c);
+		const O = this.field.getAttractor().locate(c);
 		const A = att.locate(0.75);
 		const B = att.locate(0)//.offsetBy( curlSize*1/3, 'TAN' );
 		const C = att.locate(0.25)//.offsetBy( curlSize*2/3, 'RAY' );
