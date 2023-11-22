@@ -33,7 +33,7 @@ export interface IModel {
   getAtt( LABEL: string );
   getPin( LABEL: string );
   configure( ...args: any[] ): void;
-  plot( params: any, ...args: any[] ): void;
+  plot( params: any, ...args: any[] ): any;
 
 }
 

@@ -285,8 +285,14 @@ abstract class Polka {
 				);
 			}
 
+			const plot = modelConfig.use.plot(archetypeParams, ...modelConfig.params);
+
+			if (plot.type === "earwear") {
+				console.log('----->', plot)
+			}
+
 			this.#plotter.chart(
-				modelConfig.use.plot(archetypeParams, ...modelConfig.params),
+				plot,
 				modelConfig.type,
 			);
 		}
@@ -384,25 +390,25 @@ abstract class Polka {
 
 		// ............................................................
 
-		plots = this.#plotter.getPlot("earwear");
+		// plots = this.#plotter.getPlot("earwear");
 
-		for (const plot of plots) {
-			instructions = plot?.shift();
+		// for (const plot of plots) {
+		// 	instructions = plot?.shift();
 
-			if (Array.isArray(plot[0])) {
-				const nPlot = plot[0];
-				instructions = nPlot?.shift();
+		// 	if (Array.isArray(plot[0])) {
+		// 		const nPlot = plot[0];
+		// 		instructions = nPlot?.shift();
 
-				nPlot.forEach((path) => {
-					path.strokeColor = DEBUG_GREEN;
-					path.strokeWidth = 1;
-					// path.fullySelected = true;
-				});
-			} else {
-				const earwear = plot[0];
-				// earwear.fullySelected = true;
-			}
-		}
+		// 		nPlot.forEach((path) => {
+		// 			path.strokeColor = DEBUG_GREEN;
+		// 			path.strokeWidth = 1;
+		// 			// path.fullySelected = true;
+		// 		});
+		// 	} else {
+		// 		const earwear = plot[0];
+		// 		// earwear.fullySelected = true;
+		// 	}
+		// }
 
 		// ............................................................
 

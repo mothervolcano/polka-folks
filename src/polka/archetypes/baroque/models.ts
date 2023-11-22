@@ -38,7 +38,7 @@ const antoinette: ModelConfig = {
 const pompadour: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawPompadourWig(f, r),
+	create: (f, r) => drawPompadourWig(f, r, 'hair'),
 	use: null,
 	base: null,
 	size: metricUnit("SIN", "XL"),
@@ -242,7 +242,7 @@ const necklace: ModelConfig = {
 const earModelTest: ModelConfig = {
 	type: "earwear",
 	order: "first",
-	create: (f, r) => drawEarModelTest(f, r),
+	create: (f, r) => drawEarModelTest(f, r, 'earwear'),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("SIN", "XS"),

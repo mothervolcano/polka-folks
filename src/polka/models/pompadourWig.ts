@@ -25,9 +25,9 @@ class PompadourWig extends Model {
 	private _angle: any;
 
 
-	constructor( field: any, radius: number ) {
+	constructor( field: any, radius: number, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 		return this;
 	};
@@ -229,6 +229,8 @@ class PompadourWig extends Model {
 			gradient: true
 		}
 
+		// this.composer.addForm(path);
+
 
 		return [ instructions, path, [ instructions2, ...lCurlHollows ], [ instructions2, ...rCurlHollows ] ];
 
@@ -239,11 +241,11 @@ class PompadourWig extends Model {
 
 let instance: PompadourWig | null = null;
 
-export function drawPompadourWig( field: any, radius: number ): PompadourWig {
+export function drawPompadourWig( field: any, radius: number, type?: string ): PompadourWig {
   
   if (!instance) {
 
-    instance = new PompadourWig( field, radius );
+    instance = new PompadourWig( field, radius, type );
   }
 
   return instance;

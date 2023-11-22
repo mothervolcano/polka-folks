@@ -18,8 +18,8 @@ const GUIDES = "#06E7EF";
 class EarModelTest extends Model {
 	#shapes: any;
 
-	constructor(field: any, radius: number) {
-		super(field, radius);
+	constructor(field: any, radius: number, type?: string) {
+		super(field, radius, type);
 
 		// this._shapes = [ useLozenge, useDrop ];
 		this.#shapes = [Lozenge, Drop, Cone];
@@ -87,29 +87,35 @@ class EarModelTest extends Model {
 
 			this.pen.setPath(_path);
 			this.pen.add(plot);
+
+			this.composer.addForm(_path);
+
 		});
 
-		this.path = new CompoundPath([]);
-		this.path.addChildren(paths);
+		// this.path = new CompoundPath([]);
+		// this.path.addChildren(paths);
 
-		const instructions = {
-			level: this.level,
-			complete: true,
-			gradient: null,
-		};
+		// const instructions = {
+		// 	level: this.level,
+		// 	complete: true,
+		// 	gradient: null,
+		// };
 
 		// .............................................
 		// Chart
 
-		return [instructions, this.path];
+
+		return this.composer.composition;
+
+		// return [instructions, this.path];
 	}
 }
 
 let instance: EarModelTest | null = null;
 
-export function drawEarModelTest(field: any, radius: number): EarModelTest {
+export function drawEarModelTest(field: any, radius: number, type?: string): EarModelTest {
 	if (!instance) {
-		instance = new EarModelTest(field, radius);
+		instance = new EarModelTest(field, radius, type);
 	}
 
 	return instance;

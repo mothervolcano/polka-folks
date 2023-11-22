@@ -4,6 +4,7 @@ import {
 } from "../../lib/topo/types";
 
 import Pen from "../../lib/topo/tools/pen";
+import Composer from "./composer";
 
 import {
 	SIN9,
@@ -19,6 +20,7 @@ import { IModel, MetricScale } from "../types";
 
 abstract class Model {
 	protected _pen: any;
+	#composer: any;
 	#path: any;
 	#base: IModel | null;
 	#field: IAttractorField;
@@ -39,8 +41,10 @@ abstract class Model {
 	#ATTS: any;
 	#PINS: any;
 
-	constructor(field: IAttractorField, radius: number) {
+	constructor(field: IAttractorField, radius: number, type?: string) {
 		this._pen = Pen.getInstance();
+
+		this.#composer = new Composer(type);
 
 		this.#base = null;
 
@@ -77,6 +81,10 @@ abstract class Model {
 		}
 
 		return this.#base;
+	}
+
+	get composer() {
+		return this.#composer;
 	}
 
 	get pen() {
