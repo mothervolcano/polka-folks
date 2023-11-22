@@ -36,7 +36,7 @@ class HairCurtain extends Model {
 	};
 
 
-	public plot( params: any, PIN_A: string, PIN_B: string, c: number ) {
+	public plot( params: any, lvl: number, PIN_A: string, PIN_B: string, c: number ) {
 
 		const { splitLat, splitAperture } = params;
 
@@ -77,7 +77,7 @@ class HairCurtain extends Model {
 		// return [ instructions, this.path ];
 
 		this.composer.init();
-		this.composer.addPath(this.path);
+		this.composer.addPath(this.path, lvl);
 
 		return this.composer.wrap();
 

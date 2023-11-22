@@ -34,7 +34,7 @@ class ArcWave extends Model {
 	};
 
 
-	public plot( params: any, numCtrl: number, roundnessCtrl: number, indentCtrl: number ) {
+	public plot( params: any, lvl: number, numCtrl: number, roundnessCtrl: number, indentCtrl: number ) {
 
 		const { } = params;
 
@@ -147,7 +147,7 @@ class ArcWave extends Model {
 		
 
 		this.composer.init();
-		this.composer.addPath(this.path);
+		this.composer.addPath(this.path, lvl);
 
 		return this.composer.wrap();
 

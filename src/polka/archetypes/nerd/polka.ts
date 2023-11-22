@@ -6,8 +6,7 @@ import { renderEar, renderEye, renderFace, renderFaceFeature, renderHair } from 
 import * as colors from "../../styles/colorSchemes";
 
 class PolkaNerd extends Polka {
-	
-	#styles: any;
+	#styles: Map<any, any>;
 
 	constructor(position: any, radius: number) {
 		super(position, radius);
@@ -22,35 +21,31 @@ class PolkaNerd extends Polka {
 			path.strokeColor = "black";
 			path.copyTo(this.getLayer(3));
 			path.remove();
-		}
-
-		this.#styles = {
-			hair: renderHair,
-			hairline: renderHair,
-			hairtail: renderHair,
-			earwear: renderHair,
-			neckwear: renderHair,
-			eyefeature: renderFaceFeature,
-			facefeature: renderFaceFeature,
-			eyewear: renderGlasses,
 		};
-	}
 
+		this.#styles = new Map([
+			["hair", {renderer: renderHair}],
+			["hairline", {renderer: renderHair}],
+			["hairtail", {renderer: renderHair}],
+			["earwear", {renderer: renderHair}],
+			["neckwear", {renderer: renderHair}],
+			["eyefeature", {renderer: renderFaceFeature}],
+			["facefeature", {renderer: renderFaceFeature}],
+			["eyewear", {renderer: renderGlasses}],
+		]);
+	}
 
 	render() {
 		this.compositions.forEach((comp) => {
 			if (comp.form !== null) {
-
-				console.log('RENDERING... ', comp.type)
-
 				if (comp.form.type === "path") {
-					this.#styles[comp.type](comp.form.path, this.colorScheme, false);
+					this.#styles.get(comp.type).renderer(comp.form.path, this.colorScheme, false);
 				}
 
 				if (comp.form.type === "group") {
-					this.#styles[comp.type](comp.form.path, this.colorScheme, false);
+					this.#styles.get(comp.type).renderer(comp.form.path, this.colorScheme, false);
 				}
-				comp.form.path.copyTo(this.getLayer(1));
+				comp.form.path.copyTo(this.getLayer(comp.form.level));
 				comp.form.path.remove();
 			}
 		});

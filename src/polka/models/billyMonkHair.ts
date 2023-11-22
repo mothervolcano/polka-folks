@@ -32,7 +32,7 @@ class BillMonkHair extends Model {
 	};
 
 
-	public plot( params: any ) {
+	public plot( params: any, lvl: number ) {
 
 
 		// .............................................
@@ -87,7 +87,7 @@ class BillMonkHair extends Model {
 		// return [ instructions, this.path ];
 
 		this.composer.init();
-		this.composer.addPath(this.path);
+		this.composer.addPath(this.path, lvl);
 
 		return this.composer.wrap();
 

@@ -35,7 +35,7 @@ class CascadingTail extends Model {
 	};
 
 
-	public plot( params: any, B: any, A: any ) {
+	public plot( params: any, lvl: number, B: any, A: any ) {
 
 		const { curlNumCtrl } = params;
 
@@ -149,7 +149,7 @@ class CascadingTail extends Model {
 		// ..............................................
 
 		this.composer.init();
-		this.composer.addPath(path);
+		this.composer.addPath(path, lvl);
 		return this.composer.wrap();
 
 	};

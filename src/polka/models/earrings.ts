@@ -33,7 +33,7 @@ export class Earrings extends Model {
 	};
 
 
-	plot( params: any, ATT: string, c: number ) {
+	plot( params: any, lvl: number, ATT: string, c: number ) {
 
 		const { volCtrl, heightCtrl } = params;
 
@@ -82,7 +82,7 @@ export class Earrings extends Model {
 		// ................
 
 		this.composer.init();
-		this.composer.addPath(path);
+		this.composer.addPath(path, lvl);
 
 		return this.composer.wrap();
 

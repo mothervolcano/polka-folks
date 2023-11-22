@@ -15,7 +15,7 @@ class Composer {
 		};
 	}
 
-	public addPath(path: any) {
+	public addPath(path: any, level: number) {
 		// check if there a path already been added. If there is then create a group
 
 		if (this.#composition.form !== null) {
@@ -37,11 +37,12 @@ class Composer {
 				inside: false,
 			};
 		}
+		this.#composition.form.level = level;
 	}
 
-	public addPaths(paths: any) {
+	public addPaths(paths: any, level: number) {
 		if (Array.isArray(paths)) {
-			this.addPath(new Group(paths));
+			this.addPath(new Group(paths), level);
 		}
 	}
 

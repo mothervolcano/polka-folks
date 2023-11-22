@@ -31,7 +31,7 @@ export class Blush extends Model {
 	};
 
 
-	public plot( params: any, PIN: string ) {
+	public plot( params: any, lvl: number, PIN: string ) {
 
 		const { } = params;
 
@@ -53,7 +53,7 @@ export class Blush extends Model {
 		// this.pen.mirrorRepeat('HOR');
 
 		this.composer.init();
-		this.composer.addPath(att.getPath());
+		this.composer.addPath(att.getPath(), lvl);
 		return this.composer.wrap();
 
 		// const instructions = {

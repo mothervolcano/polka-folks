@@ -7,7 +7,7 @@ import * as colors from "../../styles/colorSchemes";
 
 class PolkaBaroque extends Polka {
 	
-	#styles: any;
+	#styles: Map<any, any>;
 
 	constructor(position: any, radius: number) {
 		super(position, radius);
@@ -19,15 +19,15 @@ class PolkaBaroque extends Polka {
 		this.colorScheme.hair = this.colorScheme.hair.filter((c: any) => c !== this.colorScheme.skin);
 		this.colorScheme.hair = this.colorScheme.hair[genRandom(0, this.colorScheme.hair.length - 1)];
 
-		this.#styles = {
-			hair: renderHair,
-			hairline: renderHair,
-			hairtail: renderHair,
-			earwear: renderHair,
-			neckwear: renderHair,
-			eyefeature: renderFaceFeature,
-			facefeature: renderFaceFeature,
-		};
+		this.#styles = new Map([
+			["hair", {renderer: renderHair}],
+			["hairline", {renderer: renderHair}],
+			["hairtail", {renderer: renderHair}],
+			["earwear", {renderer: renderHair}],
+			["neckwear", {renderer: renderHair}],
+			["eyefeature", {renderer: renderFaceFeature}],
+			["facefeature", {renderer: renderFaceFeature}],
+		]);
 	}
 
 
@@ -36,15 +36,18 @@ class PolkaBaroque extends Polka {
 		// -----------------------------------------------------------
 
 		this.compositions.forEach((comp) => {
+
+			console.log('.... RENDERING: ', comp.type)
+
 			if (comp.form !== null) {
 				if (comp.form.type === "path") {
-					this.#styles[comp.type](comp.form.path, this.colorScheme, false);
+					this.#styles.get(comp.type).renderer(comp.form.path, this.colorScheme, false);
 				}
 
 				if (comp.form.type === "group") {
-					this.#styles[comp.type](comp.form.path, this.colorScheme, false);
+					this.#styles.get(comp.type).renderer(comp.form.path, this.colorScheme, false);
 				}
-				comp.form.path.copyTo(this.getLayer(1));
+				comp.form.path.copyTo(this.getLayer(comp.form.level));
 				comp.form.path.remove();
 			}
 		});

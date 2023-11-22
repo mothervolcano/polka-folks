@@ -286,7 +286,7 @@ abstract class Polka {
 				);
 			}
 
-			const comp = modelConfig.use.plot(archetypeParams, ...modelConfig.params);
+			const comp = modelConfig.use.plot(archetypeParams, modelConfig.level, ...modelConfig.params);
 			this.#compositions.push(comp);
 		}
 

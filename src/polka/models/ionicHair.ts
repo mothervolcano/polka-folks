@@ -38,7 +38,7 @@ class IonicHair extends Model {
 	};
 
 
-	public plot( params: any, a: any, b: any, volumeCtrl: number = 0.5, apertureCtrl: number = 1, heightCtrl: number = 0 ) {
+	public plot( params: any, lvl: number, a: any, b: any, volumeCtrl: number = 0.5, apertureCtrl: number = 1, heightCtrl: number = 0 ) {
 
 		
 		const { } = params;
@@ -105,7 +105,7 @@ class IonicHair extends Model {
 		// return [ instructions, path ]; 
 
 		this.composer.init();
-		this.composer.addPath(this.path);
+		this.composer.addPath(this.path, lvl);
 
 		return this.composer.wrap();
 

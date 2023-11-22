@@ -30,7 +30,7 @@ class HairCurtainHide extends Model {
 	};
 
 
-	public plot( params: any, PIN_A: string, PIN_B: string ) {
+	public plot( params: any, lvl: number, PIN_A: string, PIN_B: string ) {
 
 		const { } = params;
 
@@ -113,7 +113,7 @@ class HairCurtainHide extends Model {
 		// return [ instructions, this.path ];
 
 		this.composer.init();
-		this.composer.addPath(this.path);
+		this.composer.addPath(this.path, lvl);
 
 		return this.composer.wrap();
 

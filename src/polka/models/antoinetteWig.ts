@@ -43,7 +43,7 @@ class AntoinetteWig extends Model {
 	}
 
 
-	public plot( params: any, c: number ) {
+	public plot( params: any, lvl: number, c: number ) {
 
 		// /* DEBUG */ this.frame.activate();
 		// this.frame.removeChildren();
@@ -146,7 +146,7 @@ class AntoinetteWig extends Model {
 		// ..............................................
 
 		this.composer.init();
-		this.composer.addPath(path);
+		this.composer.addPath(path, lvl);
 		return this.composer.wrap();
 
 

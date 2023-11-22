@@ -33,7 +33,7 @@ class HairShave extends Model {
 	}
 
 
-	public plot( params: any, PIN: string, b: number, direction: number = 0 ) {
+	public plot( params: any, lvl: number, PIN: string, b: number, direction: number = 0 ) {
 
 		const { shaveDotsDensity } = params;
 

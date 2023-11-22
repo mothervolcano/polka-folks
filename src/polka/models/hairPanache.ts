@@ -29,7 +29,7 @@ export class HairPanache extends Model {
 	}
 
 
-	public plot( params: any, c: number ) {
+	public plot( params: any, lvl: number, c: number ) {
 
 
 		let O;
@@ -84,7 +84,7 @@ export class HairPanache extends Model {
 
 
 		this.composer.init();
-		this.composer.addPath(path);
+		this.composer.addPath(path, lvl);
 		return this.composer.wrap();
 
 	}

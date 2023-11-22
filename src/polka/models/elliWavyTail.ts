@@ -37,7 +37,7 @@ class ElliWavyTail extends Model {
 	}
 
 
-	public plot( params: any ) {
+	public plot( params: any, lvl: number ) {
 
 		// ...................................................
 
@@ -139,7 +139,7 @@ class ElliWavyTail extends Model {
 		// ..............................................
 
 		this.composer.init();
-		this.composer.addPath(path);
+		this.composer.addPath(path, lvl);
 		return this.composer.wrap();
 
 		// return [ 'X(0)', path ];

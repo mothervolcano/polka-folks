@@ -32,7 +32,7 @@ class HairCrest extends Model {
 	};
 
 
-	public plot( params: any, c: number, widthFactor: number ) {
+	public plot( params: any, lvl: number, c: number, widthFactor: number ) {
 
 
 		const { testCtrl } = params;
@@ -107,7 +107,7 @@ class HairCrest extends Model {
 		// ..............................................
 
 		this.composer.init();
-		this.composer.addPath(path);
+		this.composer.addPath(path, lvl);
 		return this.composer.wrap();
 		
 	}

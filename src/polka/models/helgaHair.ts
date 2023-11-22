@@ -34,7 +34,7 @@ class HelgaHair extends Model {
 	};
 
 
-	public plot( params: any, c: number ) {
+	public plot( params: any, lvl: number, c: number ) {
 
 
 		// .............................................

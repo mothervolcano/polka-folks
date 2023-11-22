@@ -18,7 +18,7 @@ class Necklace extends Model {
 
 	public configure() {}
 
-	public plot(params: any, a: number, b: number) {
+	public plot(params: any, lvl: number, a: number, b: number) {
 		const {} = params;
 
 		// ..........................................................
@@ -103,10 +103,10 @@ class Necklace extends Model {
 
 		this.composer.init();
 
-		this.composer.addPaths(paths1)
-		this.composer.addPaths(paths2)
-		this.composer.addPaths(paths3)
-		this.composer.addPaths(paths4)
+		this.composer.addPaths(paths1, lvl)
+		this.composer.addPaths(paths2, lvl)
+		this.composer.addPaths(paths3, lvl)
+		this.composer.addPaths(paths4, lvl)
 
 		return this.composer.wrap();
 		

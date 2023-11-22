@@ -35,7 +35,7 @@ class EarModelTest extends Model {
 		this.level = 2;
 	}
 
-	public plot(params: any, ATT: string, c: number) {
+	public plot(params: any, lvl: number, ATT: string, c: number) {
 		// .............................................
 		// Compute parameters
 
@@ -90,7 +90,7 @@ class EarModelTest extends Model {
 			this.pen.setPath(_path);
 			this.pen.add(plot);
 
-			this.composer.addPath(_path);
+			this.composer.addPath(_path, lvl);
 
 		});
 

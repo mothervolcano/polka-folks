@@ -39,7 +39,7 @@ class HairDome extends Model {
 	}
 
 
-	public plot( params: any, latCtrl: number = 1, cutoffCtrl: number = 1, volumeCtrl: number = 1 ) {
+	public plot( params: any, lvl: number, latCtrl: number = 1, cutoffCtrl: number = 1, volumeCtrl: number = 1 ) {
 
 		const { } = params;
 
@@ -104,7 +104,7 @@ class HairDome extends Model {
 		// return [ instructions, this.path ]; // NOTE: if this model isn't to be immediately rendered do I need to return the path? The polka could simply check for the existence of a path instead of relying on the instructions object.
 		
 		this.composer.init();
-		this.composer.addPath(this.path);
+		this.composer.addPath(this.path, lvl);
 
 		return this.composer.wrap();
 		

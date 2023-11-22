@@ -56,6 +56,7 @@ export interface ModelConfig {
 	use: IModel | null; //TODO the type is a model
 	base: string | IModel | null;
 	size: MetricUnit | number;
+  level: number;
 	settings: any[];
 	params: any[];
 	compats: ModelConfig[];

@@ -47,7 +47,7 @@ class PompadourWig extends Model {
 	};
 
 
-	plot( params: any, c: number ) {
+	plot( params: any, lvl: number, c: number ) {
 
 		
 		const { curlNumCtrl, spanCtrl, heightCtrl, volCtrl } = params;
@@ -220,7 +220,7 @@ class PompadourWig extends Model {
 		// ..............................................
 
 		this.composer.init();
-		this.composer.addPath(path);
+		this.composer.addPath(path, lvl);
 		return this.composer.wrap();
 
 	};

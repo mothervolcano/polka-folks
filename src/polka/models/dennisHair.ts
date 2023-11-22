@@ -32,7 +32,7 @@ class DennisHair extends Model {
 	};
 
 
-	public plot( params: any ) {
+	public plot( params: any, lvl: number ) {
 
 
 		// .............................................

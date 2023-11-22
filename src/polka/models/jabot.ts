@@ -33,7 +33,7 @@ class Jabot extends Model {
 	};
 
 
-	public plot( params: any, c: number ) {
+	public plot( params: any, lvl: number, c: number ) {
 
 		const {} = params;
 
@@ -94,9 +94,9 @@ class Jabot extends Model {
 		this.pen.add( [ C1, C2, C3, C4 ] );
 
 		this.composer.init();
-		this.composer.addPath(path1);
-		this.composer.addPath(path2);
-		this.composer.addPath(path3);
+		this.composer.addPath(path1, lvl);
+		this.composer.addPath(path2, lvl);
+		this.composer.addPath(path3, lvl);
 
 		return this.composer.wrap();
 

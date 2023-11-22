@@ -33,7 +33,7 @@ class Hairline extends Model {
 	};
 
 	
-	plot( params: any, PIN_A: string, PIN_B: string, c: number ) {
+	plot( params: any, lvl: number, PIN_A: string, PIN_B: string, c: number ) {
 
 		const { hairlineLevelCtrl, hairlineRidgeCtrl } = params;
 
@@ -70,7 +70,7 @@ class Hairline extends Model {
 		// ..............................................
 
 		this.composer.init();
-		this.composer.addPath(this.path);
+		this.composer.addPath(this.path, lvl);
 		return this.composer.wrap();
 
 		// const instructions = {

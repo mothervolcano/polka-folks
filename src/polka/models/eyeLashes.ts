@@ -28,7 +28,7 @@ export class EyeLashes extends Model {
 	}
 
 
-	public plot( params: any, ATT: string ) {
+	public plot( params: any, lvl: number, ATT: string ) {
 		
 		const eyeAtt = this.base.getAtt(ATT);
 		const r = eyeAtt.radius * this.SIN36;
@@ -51,7 +51,7 @@ export class EyeLashes extends Model {
 
 		this.composer.init();
 
-		this.composer.addPath(att.getPath());
+		this.composer.addPath(att.getPath(), lvl);
 
 		return this.composer.wrap();
 

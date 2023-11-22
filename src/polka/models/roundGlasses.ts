@@ -31,7 +31,7 @@ class RoundGlasses extends Model {
 
 	};
 
-	plot( params: any, ATT_L: string, ATT_R: string ) {
+	plot( params: any, lvl: number, ATT_L: string, ATT_R: string ) {
 
 
 		// .............................................
@@ -83,9 +83,9 @@ class RoundGlasses extends Model {
 
 
 		this.composer.init();
-		this.composer.addPath(attL.getPath())
-		this.composer.addPath(attR.getPath())
-		this.composer.addPath(this.path)
+		this.composer.addPath(attL.getPath(), lvl)
+		this.composer.addPath(attR.getPath(), lvl)
+		this.composer.addPath(this.path, lvl)
 
 		return this.composer.wrap();
 

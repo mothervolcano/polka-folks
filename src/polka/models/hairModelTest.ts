@@ -35,7 +35,7 @@ class HairModelTest extends Model {
 	};
 
 
-	public plot( params: any, c: number ) {
+	public plot( params: any, lvl: number, c: number ) {
 
 
 		// .............................................
@@ -126,7 +126,7 @@ class HairModelTest extends Model {
 		// return [ instructions, this.path ];
 
 		this.composer.init();
-		this.composer.addPath(this.path);
+		this.composer.addPath(this.path, lvl);
 
 		return this.composer.wrap();
 

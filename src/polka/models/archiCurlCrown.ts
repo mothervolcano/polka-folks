@@ -42,7 +42,7 @@ class ArchiCurlCrown extends Model {
 	}
 
 
-	public plot( params: any ) {
+	public plot( params: any, lvl: number ) {
 
 
 		const { curlNumCtrl, heightCtrl, volCtrl } = params;
@@ -185,7 +185,7 @@ class ArchiCurlCrown extends Model {
 		// ..............................................
 
 		this.composer.init();
-		this.composer.addPath(path);
+		this.composer.addPath(path, lvl);
 		return this.composer.wrap();
 
 	}

@@ -34,7 +34,7 @@ class HairCapeTail extends Model {
 	};
 
 
-	public plot( params: any ) {
+	public plot( params: any, lvl: number, ) {
 
 
 		// .............................................
@@ -81,12 +81,12 @@ class HairCapeTail extends Model {
 		this.pen.add( [ A1, A, B, B1 ] );
 
 
-		const instructions = {
+		// const instructions = {
 
-			level: this.level,
-			complete: false,
-			gradient: null
-		}
+		// 	level: this.level,
+		// 	complete: false,
+		// 	gradient: null
+		// }
 
 
 		// .............................................
@@ -98,7 +98,7 @@ class HairCapeTail extends Model {
 		// return [ instructions, this.path ];
 
 		this.composer.init();
-		this.composer.addPath(this.path);
+		this.composer.addPath(this.path, lvl);
 
 		return this.composer.wrap();
 
