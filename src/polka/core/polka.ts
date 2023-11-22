@@ -8,16 +8,8 @@ import { IModel, MetricScale, MetricScaleType, MetricUnit, ModelConfig } from ".
 import { drawHead } from "../models/head";
 import { drawFace } from "../models/face";
 
-import * as colors from "../styles/colorSchemes";
-
 import { traceSegment, isEven, genRandom, genRandomDec } from "../../lib/topo/utils/helpers";
-import {
-	renderEar,
-	renderEye,
-	renderFace,
-	renderFaceFeature,
-	renderHair,
-} from "../renderers/baroque";
+
 import { PHIGREATER, PHILESSER, SIN54, PHI, SIN, generateScaleFor } from "../styles/metrics";
 
 // ------------------------
@@ -85,11 +77,29 @@ abstract class Polka {
 
 		this.#head = drawHead(this.#field, radius);
 		this.#face = drawFace(this.#field, radius);
-
-		this.#colorScheme = colors.defaultPolka;
 	}
 
-	private getLayer(level: number) {
+	get head() {
+		return this.#head;
+	}
+
+	get face() {
+		return this.#face;
+	}
+
+	set colorScheme(scheme: any) {
+		this.#colorScheme = scheme;
+	}
+
+	get colorScheme() {
+		return this.#colorScheme;
+	}
+
+	get compositions() {
+		return this.#compositions;
+	}
+
+	protected getLayer(level: number) {
 		switch (level) {
 			case 0:
 				return this.#l0;
@@ -102,7 +112,7 @@ abstract class Polka {
 		}
 	}
 
-	private getScale(scale: MetricScaleType) {
+	protected getScale(scale: MetricScaleType) {
 		switch (scale) {
 			case "PHI":
 				return this.#PHI;
@@ -230,15 +240,6 @@ abstract class Polka {
 
 		this.clear();
 
-		this.#colorScheme = { ...colors.baroquePolka };
-		this.#colorScheme.skin =
-			this.#colorScheme.skin[genRandom(0, this.#colorScheme.skin.length - 1)];
-		this.#colorScheme.hair = this.#colorScheme.hair.filter(
-			(c: any) => c !== this.#colorScheme.skin,
-		);
-		this.#colorScheme.hair =
-			this.#colorScheme.hair[genRandom(0, this.#colorScheme.hair.length - 1)];
-
 		// ...............................................................................
 		// NOTE: head and face need to be plotted at generation time to provide all the models based on them the plots they require
 
@@ -305,181 +306,7 @@ abstract class Polka {
 		this.render();
 	}
 
-	protected render() {
-		let plots;
-		let sgms;
-		let instructions: any;
-
-		// ............................................................
-
-		// plots = this.#plotter.getPlot("hair");
-
-		// for (const plot of plots) {
-		// 	instructions = plot?.shift();
-
-		// 	plot.forEach((nPlot: any) => {
-		// 		if (Array.isArray(nPlot)) {
-		// 			const nInstructions: any = nPlot.shift();
-
-		// 			nPlot.forEach((path) => {
-		// 				this.getLayer(instructions.level).addChild(
-		// 					renderHair(path, this.#colorScheme, nInstructions.gradient),
-		// 				);
-
-		// 				// path.fullySelected = true;
-		// 			});
-		// 		} else {
-		// 			const path = nPlot;
-
-		// 			this.getLayer(instructions.level).addChild(
-		// 				renderHair(path, this.#colorScheme, instructions.gradient),
-		// 			);
-
-		// 			console.log(`hair model instructions: `, instructions);
-		// 		}
-		// 	});
-		// }
-
-
-		// -----------------------------------------------------------
-
-		this.#compositions.forEach((comp) => {
-			if (comp.type === "hair") {
-				if (comp.form !== null) {
-					if (comp.form.type === "path") {
-						comp.form.path.fillColor = "black";
-						comp.form.path.copyTo(this.getLayer(0));
-					}
-					comp.form.path.remove();
-				}
-			}
-
-			if (comp.type === "hairtail") {
-				if (comp.form !== null) {
-					if (comp.form.type === "path") {
-						comp.form.path.fillColor = "black";
-						comp.form.path.copyTo(this.getLayer(0));
-					}
-					comp.form.path.remove();
-				}
-			}
-
-			if (comp.type === "hairline") {
-				if (comp.form !== null) {
-					if (comp.form.type === "path") {
-						comp.form.path.fillColor = "black";
-						comp.form.path.copyTo(this.getLayer(2));
-					}
-					comp.form.path.remove();
-				}
-			}
-
-			if (comp.type === "earwear") {
-				if (comp.form !== null) {
-					if (comp.form.type === "path") {
-						comp.form.path.fillColor = "black";
-					}
-
-					if (comp.form.type === "group") {
-						comp.form.path.children[1].fillColor = "black";
-						// comp.form.path.fillColor = "black";
-						comp.form.path.copyTo(this.getLayer(1));
-					}
-					comp.form.path.remove();
-				}
-			}
-
-			if (comp.type === "neckwear") {
-				if (comp.form !== null) {
-					if (comp.form.type === "group") {
-						console.log("2 ---->", comp.form.path);
-						comp.form.path.children[genRandom(0, 2)].fillColor = "black";
-						comp.form.path.copyTo(this.getLayer(1));
-					}
-					comp.form.path.remove();
-				}
-			}
-
-			if (comp.type === "eyefeature") {
-				if (comp.form !== null) {
-					if (comp.form.type === "path") {
-						comp.form.path.fillColor = "blue";
-						comp.form.path.copyTo(this.getLayer(3));
-					}
-					comp.form.path.remove();
-				}
-			}
-
-			if (comp.type === "facefeature") {
-				if (comp.form !== null) {
-					if (comp.form.type === "path") {
-						comp.form.path.fillColor = "blue";
-						comp.form.path.copyTo(this.getLayer(3));
-					}
-					comp.form.path.remove();
-				}
-			}
-
-			if (comp.type === "glasses") {
-				if (comp.form !== null) {
-					if (comp.form.type === "path") {
-						comp.form.path.strokeColor = "blue";
-						comp.form.path.copyTo(this.getLayer(3));
-					}
-					if (comp.form.type === "group") {
-						comp.form.path.strokeColor = "blue";
-						comp.form.path.copyTo(this.getLayer(3));
-					}
-					comp.form.path.remove();
-				}
-			}
-		});
-
-
-		// ............................................................
-
-		// plots = this.#plotter.getPlot("glasses");
-
-		// for (const plot of plots) {
-		// 	instructions = plot?.shift();
-
-		// 	if (Array.isArray(plot[0])) {
-		// 		const nPlot = plot[0];
-		// 		instructions = nPlot?.shift();
-
-		// 		nPlot.forEach((path) => {
-		// 			path.strokeColor = colors.CHART.get(this.#colorScheme.skin).contrast.hex;
-		// 			path.strokeWidth = instructions.thickness;
-
-		// 			this.getLayer(instructions.level).addChild(path);
-		// 		});
-		// 	} else {
-		// 		const path = plot[0];
-
-		// 		if (instructions.complete) {
-		// 			// this[`l${instructions.level}`].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
-		// 		} else {
-		// 			path.fullySelected = true;
-		// 		}
-		// 	}
-		// }
-
-		// -----------------------------------------------------------
-
-		this.#l1.addChild(renderFace(this.#head.getAtt("HEAD").getPath(), this.#colorScheme));
-		this.#l1.addChild(renderEar(this.#head.getAtt("EAR_L").getPath(), this.#colorScheme));
-		this.#l1.addChild(renderEar(this.#head.getAtt("EAR_R").getPath(), this.#colorScheme));
-		this.#l1.addChild(
-			renderEye(this.#face.getAtt("EYE_L").getPath(), this.#colorScheme, false),
-		);
-		this.#l1.addChild(
-			renderEye(this.#face.getAtt("EYE_R").getPath(), this.#colorScheme, false),
-		);
-
-		// -----------------------------------------------------------
-
-		// this.#plotter.clear();
-	}
+	abstract render(): void;
 
 	public clear() {
 		this.#frame.children.forEach((child: any) => child.removeChildren());
