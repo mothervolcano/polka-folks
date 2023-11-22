@@ -16,9 +16,9 @@ const GUIDES = '#06E7EF';
 class BillyHairFlaps extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, radius: number, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 		return this;
 
@@ -111,18 +111,23 @@ class BillyHairFlaps extends Model {
 
 		this.path.closed = true;
 
-		const instructions = {
+		// const instructions = {
 
-			level: this.level,
-			complete: false,
-			gradient: null
+		// 	level: this.level,
+		// 	complete: false,
+		// 	gradient: null
 
-		}
+		// }
 
 		// .............................................
 		// Chart
 
-		return [ instructions, this.path ];
+		// return [ instructions, this.path ];
+
+		this.composer.init();
+		this.composer.addPath(this.path);
+
+		return this.composer.wrap();
 
 	};
 }
@@ -130,11 +135,11 @@ class BillyHairFlaps extends Model {
 
 let instance: BillyHairFlaps | null = null;
 
-export function drawBillyHairFlaps( field: any, radius: number ): BillyHairFlaps {
+export function drawBillyHairFlaps( field: any, radius: number, type?: string ): BillyHairFlaps {
   
   if (!instance) {
 
-    instance = new BillyHairFlaps( field, radius );
+    instance = new BillyHairFlaps( field, radius, type );
   }
 
   return instance;

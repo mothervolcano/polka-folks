@@ -19,9 +19,9 @@ class HairDome extends Model {
 	private _cutoff: number = 0;
 
 
-	constructor( position: any, radius: number ) {
+	constructor( position: any, radius: number, type?: string ) {
 
-		super( position, radius );
+		super( position, radius, type );
 
 		return this;
 
@@ -94,14 +94,19 @@ class HairDome extends Model {
 		this.pen.setPath( this.path );
 		this.pen.add( [ P1, P2, P3, P4 ] )
 
-		const instructions = {
+		// const instructions = {
 
-			level: this.level,
-			complete: false,
-			gradient: false
-		}
+		// 	level: this.level,
+		// 	complete: false,
+		// 	gradient: false
+		// }
 
-		return [ instructions, this.path ]; // NOTE: if this model isn't to be immediately rendered do I need to return the path? The polka could simply check for the existence of a path instead of relying on the instructions object.
+		// return [ instructions, this.path ]; // NOTE: if this model isn't to be immediately rendered do I need to return the path? The polka could simply check for the existence of a path instead of relying on the instructions object.
+		
+		this.composer.init();
+		this.composer.addPath(this.path);
+
+		return this.composer.wrap();
 		
 	}
 }
@@ -109,11 +114,11 @@ class HairDome extends Model {
 
 let instance: HairDome | null = null;
 
-export function drawHairDome( position: any, radius: number ): HairDome {
+export function drawHairDome( position: any, radius: number, type?: string ): HairDome {
   
   if (!instance) {
 
-    instance = new HairDome(position, radius);
+    instance = new HairDome(position, radius, type);
   }
 
   return instance;

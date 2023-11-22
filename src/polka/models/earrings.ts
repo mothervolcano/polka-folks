@@ -19,9 +19,9 @@ export class Earrings extends Model {
 	private _length: any;
 
 
-	constructor( field: any, radius: any ) {
+	constructor( field: any, radius: any, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 	};
 
@@ -81,18 +81,23 @@ export class Earrings extends Model {
 
 		// ................
 
-		return [ 'L(0)', [ 'L(0)', path ], [ 'L(0)', A4, A5, A6, A7 ] ];
+		this.composer.init();
+		this.composer.addPath(path);
+
+		return this.composer.wrap();
+
+		// return [ 'L(0)', [ 'L(0)', path ], [ 'L(0)', A4, A5, A6, A7 ] ];
 	}	
 }
 
 
 let instance: Earrings | null = null;
 
-export function drawEarrings( field: any, radius: any ): Earrings {
+export function drawEarrings( field: any, radius: any, type?: string ): Earrings {
   
   if (!instance) {
 
-    instance = new Earrings( field, radius );
+    instance = new Earrings( field, radius, type );
   }
 
   return instance;

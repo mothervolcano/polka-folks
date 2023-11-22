@@ -21,9 +21,9 @@ class CascadingTail extends Model {
 	private _curlNum: number = 0;
 
 
-	constructor( field: any, size: number ) {
+	constructor( field: any, size: number, type?: string ) {
 
-		super( field, size );
+		super( field, size, type );
 
 	};
 
@@ -148,7 +148,9 @@ class CascadingTail extends Model {
 
 		// ..............................................
 
-		return [ 'X(0)', path ];
+		this.composer.init();
+		this.composer.addPath(path);
+		return this.composer.wrap();
 
 	};
 
@@ -157,11 +159,11 @@ class CascadingTail extends Model {
 
 let instance: CascadingTail | null = null;
 
-export function drawCascadingTail( field: any, size: number ): CascadingTail {
+export function drawCascadingTail( field: any, size: number, type?: string ): CascadingTail {
   
   if (!instance) {
 
-    instance = new CascadingTail( field, size );
+    instance = new CascadingTail( field, size, type );
   }
 
   return instance;

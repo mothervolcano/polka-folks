@@ -13,9 +13,9 @@ const GUIDES = '#06E7EF';
 export class EyeLashes extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, radius: number, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 		return this;
 
@@ -48,13 +48,20 @@ export class EyeLashes extends Model {
 		this.pen.add( [ ] );
 		// this.pen.mirrorRepeat('HOR');
 
-		const instructions = {
 
-			level: 2,
-			gradient: null
-		}
+		this.composer.init();
 
-		return [ instructions, att.getPath() ];
+		this.composer.addPath(att.getPath());
+
+		return this.composer.wrap();
+
+		// const instructions = {
+
+		// 	level: 2,
+		// 	gradient: null
+		// }
+
+		// return [ instructions, att.getPath() ];
 
 	}
 }
@@ -62,11 +69,11 @@ export class EyeLashes extends Model {
 
 let instance: EyeLashes | null = null;
 
-export function drawEyeLashes( field: any, radius: number ): EyeLashes {
+export function drawEyeLashes( field: any, radius: number, type?: string ): EyeLashes {
   
   if (!instance) {
 
-    instance = new EyeLashes( field, radius );
+    instance = new EyeLashes( field, radius, type );
   }
 
   return instance;

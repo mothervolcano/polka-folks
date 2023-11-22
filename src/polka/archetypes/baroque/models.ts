@@ -26,7 +26,7 @@ import { metricUnit, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles
 const antoinette: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawAntoinetteWig(f, r),
+	create: (f, r) => drawAntoinetteWig(f, r, "hair"),
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "XL"),
@@ -50,7 +50,7 @@ const pompadour: ModelConfig = {
 const curlDome: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawArchiCurlCrown(f, r),
+	create: (f, r) => drawArchiCurlCrown(f, r, "hair"),
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "XL"),
@@ -62,7 +62,7 @@ const curlDome: ModelConfig = {
 const crest: ModelConfig = {
 	type: "hair",
 	order: "second",
-	create: (f, r) => drawHairCrest(f, r),
+	create: (f, r) => drawHairCrest(f, r, "hair"),
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "L"),
@@ -74,7 +74,7 @@ const crest: ModelConfig = {
 const panache: ModelConfig = {
 	type: "hair",
 	order: "second",
-	create: (f, r) => new HairPanache(f, r),
+	create: (f, r) => new HairPanache(f, r, "hair"),
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "M"),
@@ -86,7 +86,7 @@ const panache: ModelConfig = {
 const hairline: ModelConfig = {
 	type: "hairline",
 	order: "first",
-	create: (f, r) => drawHairline(f, r),
+	create: (f, r) => drawHairline(f, r, "hairline"),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "M"),
@@ -98,7 +98,7 @@ const hairline: ModelConfig = {
 const bangLine: ModelConfig = {
 	type: "hairline",
 	order: "first",
-	create: (f, r) => drawBangHairline(f, r),
+	create: (f, r) => drawBangHairline(f, r, "hairline"),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "M"),
@@ -110,7 +110,7 @@ const bangLine: ModelConfig = {
 const mozartLine: ModelConfig = {
 	type: "hairline",
 	order: "first",
-	create: (f, r) => drawMozartHairline(f, r),
+	create: (f, r) => drawMozartHairline(f, r, "hairline"),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "M"),
@@ -122,7 +122,7 @@ const mozartLine: ModelConfig = {
 const cascadeTail: ModelConfig = {
 	type: "hairtail",
 	order: "first",
-	create: (f, r) => drawCascadingTail(f, r),
+	create: (f, r) => drawCascadingTail(f, r, "hairtail"),
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "L"),
@@ -134,7 +134,7 @@ const cascadeTail: ModelConfig = {
 const wavyTail: ModelConfig = {
 	type: "hairtail",
 	order: "first",
-	create: (f, r) => drawElliWavyTail(f, r),
+	create: (f, r) => drawElliWavyTail(f, r, "hairtail"),
 	use: null,
 	base: null,
 	size: metricUnit("SIN", 'XL'),
@@ -146,7 +146,7 @@ const wavyTail: ModelConfig = {
 const earringLeft: ModelConfig = {
 	type: "earwear",
 	order: "first",
-	create: (f, r) => drawEarrings(f, r),
+	create: (f, r) => drawEarrings(f, r, "earwear"),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("SIN", "XS"),
@@ -158,7 +158,7 @@ const earringLeft: ModelConfig = {
 const earringRight: ModelConfig = {
 	type: "earwear",
 	order: "first",
-	create: (f, r) => drawEarrings(f, r),
+	create: (f, r) => drawEarrings(f, r, "earwear"),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("SIN", "XS"),
@@ -170,7 +170,7 @@ const earringRight: ModelConfig = {
 const lashesLeft: ModelConfig = {
 	type: "eyefeature",
 	order: "first",
-	create: (f, r) => drawEyeLashes(f, r),
+	create: (f, r) => drawEyeLashes(f, r, "eyefeature"),
 	use: null,
 	base: "FACE",
 	size: metricUnit("SIN", "XS"),
@@ -182,7 +182,7 @@ const lashesLeft: ModelConfig = {
 const lashesRight: ModelConfig = {
 	type: "eyefeature",
 	order: "first",
-	create: (f, r) => drawEyeLashes(f, r),
+	create: (f, r) => drawEyeLashes(f, r, "eyefeature"),
 	use: null,
 	base: "FACE",
 	size: metricUnit("SIN", "XS"),
@@ -194,7 +194,7 @@ const lashesRight: ModelConfig = {
 const blushLeft: ModelConfig = {
 	type: "facefeature",
 	order: "first",
-	create: (f, r) => drawBlush(f, r),
+	create: (f, r) => drawBlush(f, r, "facefeature"),
 	use: null,
 	base: "FACE",
 	size: metricUnit("PHI", "S"),
@@ -206,7 +206,7 @@ const blushLeft: ModelConfig = {
 const blushRight: ModelConfig = {
 	type: "facefeature",
 	order: "first",
-	create: (f, r) => drawBlush(f, r),
+	create: (f, r) => drawBlush(f, r, "facefeature"),
 	use: null,
 	base: "FACE",
 	size: metricUnit("PHI", "S"),
@@ -218,7 +218,7 @@ const blushRight: ModelConfig = {
 const jabot: ModelConfig = {
 	type: "neckwear",
 	order: "first",
-	create: (f, r) => drawJabot(f, r),
+	create: (f, r) => drawJabot(f, r, "neckwear"),
 	use: null,
 	base: null,
 	size: metricUnit("SIN", "XL"),
@@ -230,7 +230,7 @@ const jabot: ModelConfig = {
 const necklace: ModelConfig = {
 	type: "neckwear",
 	order: "first",
-	create: (f, r) => drawNecklace(f, r),
+	create: (f, r) => drawNecklace(f, r, "neckwear"),
 	use: null,
 	base: null,
 	size: metricUnit("SIN", "XS"),
@@ -273,6 +273,8 @@ export const pool = [
 	jabot,
 	necklace,
 	earModelTest,
+	earringLeft,
+	earringRight
 ];
 
 

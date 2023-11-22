@@ -15,9 +15,9 @@ const GUIDES = '#06E7EF';
 class HairCap extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, radius: number, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 		return this;
 
@@ -92,7 +92,12 @@ class HairCap extends Model {
 		this.A = this.base.A;
 		this.B = this.base.B;
 
-		return [ instructions, this.path ];
+		// return [ instructions, this.path ];
+
+		this.composer.init();
+		this.composer.addPath(this.path);
+
+		return this.composer.wrap();
 
 	};
 }
@@ -100,11 +105,11 @@ class HairCap extends Model {
 
 let instance: HairCap | null = null;
 
-export function drawHairCap( field: any, radius: number ): HairCap {
+export function drawHairCap( field: any, radius: number, type?: string ): HairCap {
   
   if (!instance) {
 
-    instance = new HairCap( field, radius );
+    instance = new HairCap( field, radius, type );
   }
 
   return instance;

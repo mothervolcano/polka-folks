@@ -17,9 +17,9 @@ class HairCrest extends Model {
 	private _crestSize: any;
 
 	
-	constructor( field: any, size: number ) {
+	constructor( field: any, size: number, type?: string ) {
 
-		super( field, size );
+		super( field, size, type );
 
 		return this;
 	};
@@ -106,13 +106,10 @@ class HairCrest extends Model {
 
 		// ..............................................
 
-		const instructions = {
-
-			level: 0
-		}
-
-		return [ instructions, path ];
-
+		this.composer.init();
+		this.composer.addPath(path);
+		return this.composer.wrap();
+		
 	}
 
 };
@@ -120,11 +117,11 @@ class HairCrest extends Model {
 
 let instance: HairCrest | null = null;
 
-export function drawHairCrest( field: any, size: number ): HairCrest {
+export function drawHairCrest( field: any, size: number, type?: string ): HairCrest {
   
   if (!instance) {
 
-    instance = new HairCrest( field, size );
+    instance = new HairCrest( field, size, type );
   }
 
   return instance;

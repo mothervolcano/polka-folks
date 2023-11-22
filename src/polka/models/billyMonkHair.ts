@@ -16,9 +16,9 @@ const GUIDES = '#06E7EF';
 class BillMonkHair extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, radius: number, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 		return this;
 
@@ -74,17 +74,22 @@ class BillMonkHair extends Model {
 		// this.pen.mirrorRepeat('HOR');
 
 
-		const instructions = {
+		// const instructions = {
 
-			level: this.level,
-			complete: true,
-			gradient: null
-		}
+		// 	level: this.level,
+		// 	complete: true,
+		// 	gradient: null
+		// }
 
 		// .............................................
 		// Chart
 
-		return [ instructions, this.path ];
+		// return [ instructions, this.path ];
+
+		this.composer.init();
+		this.composer.addPath(this.path);
+
+		return this.composer.wrap();
 
 	};
 }
@@ -92,11 +97,11 @@ class BillMonkHair extends Model {
 
 let instance: BillMonkHair | null = null;
 
-export function drawBillyMonkHair( field: any, radius: number ): BillMonkHair {
+export function drawBillyMonkHair( field: any, radius: number, type?: string ): BillMonkHair {
   
   if (!instance) {
 
-    instance = new BillMonkHair( field, radius );
+    instance = new BillMonkHair( field, radius, type );
   }
 
   return instance;

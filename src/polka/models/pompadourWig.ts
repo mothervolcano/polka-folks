@@ -199,6 +199,10 @@ class PompadourWig extends Model {
 		
 		// ..............................................
 
+		field.remove();
+		lField.remove();
+		rField.remove();
+
 		const path = new Path({ 
 
 			strokeColor: DEBUG_GREEN,
@@ -215,24 +219,9 @@ class PompadourWig extends Model {
 
 		// ..............................................
 
-
-		const instructions = {
-
-			level: 0,
-			gradient: false
-
-		}
-
-		const instructions2 = {
-
-			level: 1,
-			gradient: true
-		}
-
-		// this.composer.addForm(path);
-
-
-		return [ instructions, path, [ instructions2, ...lCurlHollows ], [ instructions2, ...rCurlHollows ] ];
+		this.composer.init();
+		this.composer.addPath(path);
+		return this.composer.wrap();
 
 	};
 

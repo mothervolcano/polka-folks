@@ -18,9 +18,9 @@ class Jabot extends Model {
 	private _tieLength2: number = 0;
 	
 
-	constructor( position: any, radius: any ) {
+	constructor( position: any, radius: any, type?: string ) {
 
-		super( position, radius );
+		super( position, radius, type );
 
 	};
 
@@ -93,18 +93,25 @@ class Jabot extends Model {
 		this.pen.setPath( path3 );
 		this.pen.add( [ C1, C2, C3, C4 ] );
 
-		return [ instructions, [ instructions, path1 ], [ instructions, path2 ], [ instructions, path3 ] ];
+		this.composer.init();
+		this.composer.addPath(path1);
+		this.composer.addPath(path2);
+		this.composer.addPath(path3);
+
+		return this.composer.wrap();
+
+		// return [ instructions, [ instructions, path1 ], [ instructions, path2 ], [ instructions, path3 ] ];
 	};
 }
 
 
 let instance: Jabot | null = null;
 
-export function drawJabot( position: any, radius: any ): Jabot {
+export function drawJabot( position: any, radius: any, type?: string ): Jabot {
   
   if (!instance) {
 
-    instance = new Jabot(position, radius );
+    instance = new Jabot(position, radius, type );
   }
 
   return instance;

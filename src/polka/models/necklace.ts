@@ -12,8 +12,8 @@ const DEBUG_GREEN = "#10FF0C";
 const GUIDES = "#06E7EF";
 
 class Necklace extends Model {
-	constructor(field: any, radius: any) {
-		super(field, radius);
+	constructor(field: any, radius: any, type?: any) {
+		super(field, radius, type);
 	}
 
 	public configure() {}
@@ -84,52 +84,40 @@ class Necklace extends Model {
 		// ..........................................................
 		// plot the points for drawing
 
-		const paths1 = [
-			"L(0)",
-			...field1.locate(1).map((P: any) => new Orbital(10, P).path),
-		];
+		const paths1 = field1.locate(1).map((P: any) => new Orbital(10, P).getPath())
 
-		const paths2 = [
-			"L(0)",
-			...field2.locate(1).map((P: any) => new Orbital(6, P).path),
-		];
+		const paths2 = field2.locate(1).map((P: any) => new Orbital(6, P).getPath())
 
-		const paths3 = [
-			"L(0)",
-			...field3.locate(1).map((P: any) => new Orbital(5, P).path),
-		];
+		const paths3 = field3.locate(1).map((P: any) => new Orbital(5, P).getPath())
 
-		const paths4 = [
-			"L(0)",
-			...field4.locate(1).map((P: any) => new Orbital(4, P).path),
-		];
+		const paths4 = field4.locate(1).map((P: any) => new Orbital(4, P).getPath())
 
 		// ..............................................
 
-		// const path = new Path({
+		field1.remove();
+		field2.remove();
+		field3.remove();
+		field4.remove();
+		
+		// ..............................................
 
-		// 	strokeColor: DEBUG_GREEN,
-		// 	strokeWidth: 2
-		// });
+		this.composer.init();
 
-		// this.pen.setPath( path );
-		// this.pen.add( [  P, ...pts ] );
-		// // this.pen.mirrorRepeat('HOR');
+		this.composer.addPaths(paths1)
+		this.composer.addPaths(paths2)
+		this.composer.addPaths(paths3)
+		this.composer.addPaths(paths4)
 
-		const instructions = {
-			level: 0,
-			gradient: null,
-		};
-
-		return [instructions, paths1, paths2, paths3, paths4];
+		return this.composer.wrap();
+		
 	}
 }
 
 let instance: Necklace | null = null;
 
-export function drawNecklace(field: any, radius: any): Necklace {
+export function drawNecklace(field: any, radius: any, type?: any): Necklace {
 	if (!instance) {
-		instance = new Necklace(field, radius);
+		instance = new Necklace(field, radius, type);
 	}
 
 	return instance;

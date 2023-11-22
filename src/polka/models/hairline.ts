@@ -17,9 +17,9 @@ class Hairline extends Model {
 	private _ridge: number = 0;
 
 
-	constructor( field: any, radius: any ) {
+	constructor( field: any, radius: any, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 	};
 
@@ -69,14 +69,18 @@ class Hairline extends Model {
 
 		// ..............................................
 
-		const instructions = {
+		this.composer.init();
+		this.composer.addPath(this.path);
+		return this.composer.wrap();
 
-			level: this.level,
-			complete: true,
-			gradient: null
-		}
+		// const instructions = {
 
-		return [ instructions, this.path ];
+		// 	level: this.level,
+		// 	complete: true,
+		// 	gradient: null
+		// }
+
+		// return [ instructions, this.path ];
 		
 	};
 
@@ -85,10 +89,10 @@ class Hairline extends Model {
 
 let instance: Hairline | null = null;
 
-export function drawHairline( field: any, radius: any ): Hairline {
+export function drawHairline( field: any, radius: any, type?: string ): Hairline {
   
   if (!instance) {
-    instance = new Hairline( field, radius ); 
+    instance = new Hairline( field, radius, type ); 
   }
 
   return instance;

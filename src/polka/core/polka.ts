@@ -50,6 +50,7 @@ abstract class Polka {
 	#plotter: any;
 
 	#collection: ModelConfig[] = [];
+	#compositions: any[] = [];
 
 	#field: any;
 
@@ -154,7 +155,6 @@ abstract class Polka {
 		}
 	}
 
-
 	private parseParameter(value: string | number | MetricUnit) {
 		if (this.isMetricUnit(value)) {
 			return this.getScale(value.scale)[value.unit];
@@ -162,7 +162,6 @@ abstract class Polka {
 			return value;
 		}
 	}
-
 
 	private randomize(input: any) {
 		if (Array.isArray(input) && input.length === 1) {
@@ -232,6 +231,8 @@ abstract class Polka {
 	public generate(pool: ModelConfig[], layers: string[], params: any) {
 		const { baseParams, archetypeParams } = params;
 
+		this.clear();
+
 		this.#colorScheme = { ...colors.baroquePolka };
 		this.#colorScheme.skin =
 			this.#colorScheme.skin[genRandom(0, this.#colorScheme.skin.length - 1)];
@@ -278,6 +279,8 @@ abstract class Polka {
 		this.#head.plot(baseParams);
 		this.#face.plot(baseParams);
 
+		this.#compositions = [];
+
 		for (const modelConfig of this.#collection) {
 			if (!modelConfig.use) {
 				throw new Error(
@@ -287,14 +290,21 @@ abstract class Polka {
 
 			const plot = modelConfig.use.plot(archetypeParams, ...modelConfig.params);
 
-			if (plot.type === "earwear") {
-				console.log('----->', plot)
+			if (
+				plot.type === "earwear" ||
+				plot.type === "neckwear" ||
+				plot.type === "eyefeature" ||
+				plot.type === "facefeature" ||
+				plot.type === "hair" ||
+				plot.type === "hairline" ||
+				plot.type === "hairtail" ||
+				plot.type === "glasses"
+			) {
+				console.log("----->", plot);
+				this.#compositions.push(plot);
 			}
 
-			this.#plotter.chart(
-				plot,
-				modelConfig.type,
-			);
+			this.#plotter.chart(plot, modelConfig.type);
 		}
 
 		this.render();
@@ -307,90 +317,133 @@ abstract class Polka {
 
 		// ............................................................
 
-		plots = this.#plotter.getPlot("hair");
+		// plots = this.#plotter.getPlot("hair");
 
-		for (const plot of plots) {
-			instructions = plot?.shift();
+		// for (const plot of plots) {
+		// 	instructions = plot?.shift();
 
-			plot.forEach((nPlot: any) => {
-				if (Array.isArray(nPlot)) {
-					const nInstructions: any = nPlot.shift();
+		// 	plot.forEach((nPlot: any) => {
+		// 		if (Array.isArray(nPlot)) {
+		// 			const nInstructions: any = nPlot.shift();
 
-					nPlot.forEach((path) => {
-						this.getLayer(instructions.level).addChild(
-							renderHair(path, this.#colorScheme, nInstructions.gradient),
-						);
+		// 			nPlot.forEach((path) => {
+		// 				this.getLayer(instructions.level).addChild(
+		// 					renderHair(path, this.#colorScheme, nInstructions.gradient),
+		// 				);
 
-						// path.fullySelected = true;
-					});
-				} else {
-					const path = nPlot;
+		// 				// path.fullySelected = true;
+		// 			});
+		// 		} else {
+		// 			const path = nPlot;
 
-					this.getLayer(instructions.level).addChild(
-						renderHair(path, this.#colorScheme, instructions.gradient),
-					);
+		// 			this.getLayer(instructions.level).addChild(
+		// 				renderHair(path, this.#colorScheme, instructions.gradient),
+		// 			);
 
-					console.log(`hair model instructions: `, instructions);
-				}
-			});
-		}
+		// 			console.log(`hair model instructions: `, instructions);
+		// 		}
+		// 	});
+		// }
 
-		// ............................................................
-
-		plots = this.#plotter.getPlot("hairtail");
-
-		for (const path of plots) {
-			instructions = path?.shift();
-
-			const hairTail = path[0];
-
-			hairTail.fullySelected = true;
-		}
-
-		// ............................................................
-
-		plots = this.#plotter.getPlot("hairline");
-
-		for (const plot of plots) {
-			instructions = plot?.shift();
-
-			const path = plot[0];
-
-			if (instructions.complete) {
-				this.getLayer(instructions.level).addChild(
-					renderHair(path, this.#colorScheme, instructions.gradient),
-				);
-			} else {
-				path.fullySelected = true;
-			}
-		}
 
 		// -----------------------------------------------------------
 
-		plots = this.#plotter.getPlot("neckwear");
-
-		for (const plot of plots) {
-			instructions = plot?.shift();
-
-			plot.forEach((nPlot: any) => {
-				if (Array.isArray(nPlot)) {
-					instructions = nPlot?.shift();
-
-					nPlot.forEach((path) => {
-						path.fillColor = DEBUG_GREEN;
-						path.strokeWidth = 1;
-						// path.fullySelected = true;
-					});
-				} else {
-					const path = nPlot;
-					// neckwear.fullySelected = true;
+		this.#compositions.forEach((comp) => {
+			if (comp.type === "hair") {
+				if (comp.form !== null) {
+					if (comp.form.type === "path") {
+						comp.form.path.fillColor = "black";
+						comp.form.path.copyTo(this.getLayer(0));
+					}
+					comp.form.path.remove();
 				}
-			});
-		}
+			}
+
+			if (comp.type === "hairtail") {
+				if (comp.form !== null) {
+					if (comp.form.type === "path") {
+						comp.form.path.fillColor = "black";
+						comp.form.path.copyTo(this.getLayer(0));
+					}
+					comp.form.path.remove();
+				}
+			}
+
+			if (comp.type === "hairline") {
+				if (comp.form !== null) {
+					if (comp.form.type === "path") {
+						comp.form.path.fillColor = "black";
+						comp.form.path.copyTo(this.getLayer(2));
+					}
+					comp.form.path.remove();
+				}
+			}
+
+			if (comp.type === "earwear") {
+				if (comp.form !== null) {
+					if (comp.form.type === "path") {
+						comp.form.path.fillColor = "black";
+					}
+
+					if (comp.form.type === "group") {
+						comp.form.path.children[1].fillColor = "black";
+						// comp.form.path.fillColor = "black";
+						comp.form.path.copyTo(this.getLayer(1));
+					}
+					comp.form.path.remove();
+				}
+			}
+
+			if (comp.type === "neckwear") {
+				if (comp.form !== null) {
+					if (comp.form.type === "group") {
+						console.log("2 ---->", comp.form.path);
+						comp.form.path.children[genRandom(0, 2)].fillColor = "black";
+						comp.form.path.copyTo(this.getLayer(1));
+					}
+					comp.form.path.remove();
+				}
+			}
+
+			if (comp.type === "eyefeature") {
+				if (comp.form !== null) {
+					if (comp.form.type === "path") {
+						comp.form.path.fillColor = "blue";
+						comp.form.path.copyTo(this.getLayer(3));
+					}
+					comp.form.path.remove();
+				}
+			}
+
+			if (comp.type === "facefeature") {
+				if (comp.form !== null) {
+					if (comp.form.type === "path") {
+						comp.form.path.fillColor = "blue";
+						comp.form.path.copyTo(this.getLayer(3));
+					}
+					comp.form.path.remove();
+				}
+			}
+
+			if (comp.type === "glasses") {
+				if (comp.form !== null) {
+					if (comp.form.type === "path") {
+						comp.form.path.strokeColor = "blue";
+						comp.form.path.copyTo(this.getLayer(3));
+					}
+					if (comp.form.type === "group") {
+						comp.form.path.strokeColor = "blue";
+						comp.form.path.copyTo(this.getLayer(3));
+					}
+					comp.form.path.remove();
+				}
+			}
+		});
+
 
 		// ............................................................
 
-		// plots = this.#plotter.getPlot("earwear");
+		// plots = this.#plotter.getPlot("glasses");
 
 		// for (const plot of plots) {
 		// 	instructions = plot?.shift();
@@ -400,93 +453,21 @@ abstract class Polka {
 		// 		instructions = nPlot?.shift();
 
 		// 		nPlot.forEach((path) => {
-		// 			path.strokeColor = DEBUG_GREEN;
-		// 			path.strokeWidth = 1;
-		// 			// path.fullySelected = true;
+		// 			path.strokeColor = colors.CHART.get(this.#colorScheme.skin).contrast.hex;
+		// 			path.strokeWidth = instructions.thickness;
+
+		// 			this.getLayer(instructions.level).addChild(path);
 		// 		});
 		// 	} else {
-		// 		const earwear = plot[0];
-		// 		// earwear.fullySelected = true;
+		// 		const path = plot[0];
+
+		// 		if (instructions.complete) {
+		// 			// this[`l${instructions.level}`].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
+		// 		} else {
+		// 			path.fullySelected = true;
+		// 		}
 		// 	}
 		// }
-
-		// ............................................................
-
-		plots = this.#plotter.getPlot("eyefeature");
-
-		for (const plot of plots) {
-			instructions = plot?.shift();
-
-			if (Array.isArray(plot[0])) {
-				const nPlot = plot[0];
-				instructions = nPlot?.shift();
-
-				nPlot.forEach((path) => {
-					path.strokeColor = DEBUG_GREEN;
-					path.strokeWidth = 1;
-					// path.fullySelected = true;
-				});
-			} else {
-				const path = plot[0];
-				// earwear.fullySelected = true;
-				this.getLayer(instructions.level).addChild(
-					renderEye(path, this.#colorScheme, instructions.gradient),
-				);
-			}
-		}
-
-		// ............................................................
-
-		plots = this.#plotter.getPlot("facefeature");
-
-		for (const plot of plots) {
-			instructions = plot?.shift();
-
-			if (Array.isArray(plot[0])) {
-				const nPlot = plot[0];
-				instructions = nPlot?.shift();
-
-				nPlot.forEach((path) => {
-					path.strokeColor = DEBUG_GREEN;
-					path.strokeWidth = 1;
-					// path.fullySelected = true;
-				});
-			} else {
-				const path = plot[0];
-				// earwear.fullySelected = true;
-				this.getLayer(instructions.level).addChild(
-					renderFaceFeature(path, this.#colorScheme, instructions.gradient),
-				);
-			}
-		}
-
-		// ............................................................
-
-		plots = this.#plotter.getPlot("glasses");
-
-		for (const plot of plots) {
-			instructions = plot?.shift();
-
-			if (Array.isArray(plot[0])) {
-				const nPlot = plot[0];
-				instructions = nPlot?.shift();
-
-				nPlot.forEach((path) => {
-					path.strokeColor = colors.CHART.get(this.#colorScheme.skin).contrast.hex;
-					path.strokeWidth = instructions.thickness;
-
-					this.getLayer(instructions.level).addChild(path);
-				});
-			} else {
-				const path = plot[0];
-
-				if (instructions.complete) {
-					// this[`l${instructions.level}`].addChild( renderHair( path, this._colorScheme, instructions.gradient ) );
-				} else {
-					path.fullySelected = true;
-				}
-			}
-		}
 
 		// -----------------------------------------------------------
 

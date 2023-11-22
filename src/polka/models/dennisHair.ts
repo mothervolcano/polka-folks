@@ -16,9 +16,9 @@ const GUIDES = '#06E7EF';
 class DennisHair extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, radius: number, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 		return this;
 
@@ -131,7 +131,12 @@ class DennisHair extends Model {
 		// .............................................
 		// Chart
 
-		return [ instructions, this.path ];
+		// return [ instructions, this.path ];
+
+		this.composer.init();
+		this.composer.addPath(this.path);
+
+		return this.composer.wrap();
 
 	};
 }
@@ -139,11 +144,11 @@ class DennisHair extends Model {
 
 let instance: DennisHair | null = null;
 
-export function drawDennisHair( field: any, radius: number ): DennisHair {
+export function drawDennisHair( field: any, radius: number, type?: string ): DennisHair {
   
   if (!instance) {
 
-    instance = new DennisHair( field, radius );
+    instance = new DennisHair( field, radius, type );
   }
 
   return instance;

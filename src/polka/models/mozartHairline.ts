@@ -14,9 +14,9 @@ class MozartHairline extends Model {
 
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, radius: number, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 	}
 
@@ -75,26 +75,29 @@ class MozartHairline extends Model {
 
 		// ..............................................
 
+		this.composer.init();
+		this.composer.addPath(this.path);
+		return this.composer.wrap();
 
-		const instructions = {
+		// const instructions = {
 
-			level: this.level,
-			complete: true,
-			gradient: null
-		}
+		// 	level: this.level,
+		// 	complete: true,
+		// 	gradient: null
+		// }
 
-		return [ instructions, this.path ];
+		// return [ instructions, this.path ];
 	}
 }
 
 
 let instance: MozartHairline | null = null;
 
-export function drawMozartHairline( field: any, radius: number ): MozartHairline {
+export function drawMozartHairline( field: any, radius: number, type?: string ): MozartHairline {
   
   if (!instance) {
 
-    instance = new MozartHairline( field, radius );
+    instance = new MozartHairline( field, radius, type );
   }
 
   return instance;

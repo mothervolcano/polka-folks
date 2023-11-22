@@ -17,9 +17,9 @@ class RoundGlasses extends Model {
 
 	private _glassSize = 0;
 
-	constructor( field: any, radius: any ) {
+	constructor( field: any, radius: any, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 	};
 
@@ -82,19 +82,26 @@ class RoundGlasses extends Model {
 		// this.pen.mirrorRepeat('HOR');
 
 
-		const instructions = {
+		this.composer.init();
+		this.composer.addPath(attL.getPath())
+		this.composer.addPath(attR.getPath())
+		this.composer.addPath(this.path)
 
-			level: this.level,
-			complete: false,
-			stroke: true,
-			thickness: this.PHI.XXS * this.PHILESSER,
-			gradient: null
-		}
+		return this.composer.wrap();
+
+		// const instructions = {
+
+		// 	level: this.level,
+		// 	complete: false,
+		// 	stroke: true,
+		// 	thickness: this.PHI.XXS * this.PHILESSER,
+		// 	gradient: null
+		// }
 
 		// .............................................
 		// Chart
 
-		return [ instructions, [ instructions, attL.getPath(), attR.getPath(), this.path ] ];
+		// return [ instructions, [ instructions, attL.getPath(), attR.getPath(), this.path ] ];
 
 	}
 
@@ -103,11 +110,11 @@ class RoundGlasses extends Model {
 
 let instance: RoundGlasses | null = null;
 
-export function drawRoundGlasses( field: any, radius: any ): RoundGlasses {
+export function drawRoundGlasses( field: any, radius: any, type?: string ): RoundGlasses {
   
   if (!instance) {
 
-    instance = new RoundGlasses( field, radius );
+    instance = new RoundGlasses( field, radius, type );
   }
 
   return instance;

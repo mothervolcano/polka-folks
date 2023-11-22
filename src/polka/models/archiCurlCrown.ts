@@ -23,9 +23,9 @@ class ArchiCurlCrown extends Model {
 	private _span: number = 0;
 
 	
-	constructor( field: any, size: number ) {
+	constructor( field: any, size: number, type?: string ) {
 
-		super( field, size );
+		super( field, size, type );
 
 		return this;
 
@@ -166,6 +166,10 @@ class ArchiCurlCrown extends Model {
 
 		// ..............................................
 
+		baseField.remove();
+		field.remove();
+		topAtt.remove();
+
 		const path = new Path({ 
 
 			strokeColor: DEBUG_GREEN,
@@ -180,19 +184,9 @@ class ArchiCurlCrown extends Model {
 
 		// ..............................................
 
-		const instructions = {
-
-			level: 0,
-			gradient: null
-		}
-
-		const instructions2 = {
-
-			level: 1,
-			gradient: true
-		}
-
-		return [ instructions, path, [ instructions2, ...curlHollows ] ];
+		this.composer.init();
+		this.composer.addPath(path);
+		return this.composer.wrap();
 
 	}
 }
@@ -200,11 +194,11 @@ class ArchiCurlCrown extends Model {
 
 let instance: ArchiCurlCrown | null = null;
 
-export function drawArchiCurlCrown( field: any, size: number ): ArchiCurlCrown {
+export function drawArchiCurlCrown( field: any, size: number, type? : string ): ArchiCurlCrown {
   
   if (!instance) {
 
-    instance = new ArchiCurlCrown( field, size );
+    instance = new ArchiCurlCrown( field, size, type );
   }
 
   return instance;

@@ -1,37 +1,49 @@
 import { Group } from "paper";
 
+import _ from "lodash";
+
 class Composer {
-	
 	#type: string;
-	#composition: any = {
-		type: null,
-		shape: null,
-		shades: null,
-		highlight: null,
-		contrast: null,
-	};
+	#composition: any;
 
 	constructor(type?: string) {
-		this.#type = type || 'unknown';
-		this.#composition.type = type;
+		this.#type = type || "unknown";
+		this.#composition = {
+			type: this.#type,
+			form: null,
+			shades: null,
+			highlight: null,
+			contrast: null,
+		};
 	}
 
-	public addForm(path: any) {
+	public addPath(path: any) {
 		// check if there a path already been added. If there is then create a group
 
-		if (this.#composition.shape !== null) {
-			if (this.#composition.shape.path instanceof Group) {
-				this.#composition.shape.path.addChild(path);
+		if (this.#composition.form !== null) {
+			if (this.#composition.form.path instanceof Group) {
+				if (path instanceof Group) {
+					this.#composition.form.path.addChildren(path.children);
+				} else {
+					this.#composition.form.path.addChild(path);
+				}
 			} else {
-				const firstPath = this.#composition.shape.path;
-				this.#composition.shape.path = new Group([firstPath, path]);
+				const firstPath = this.#composition.form.path;
+				this.#composition.form.type = "group";
+				this.#composition.form.path = new Group([firstPath, path]);
 			}
 		} else {
-			this.#composition.shape = {
-				type: "shape",
+			this.#composition.form = {
+				type: path instanceof Group ? "group" : "path",
 				path: path,
 				inside: false,
 			};
+		}
+	}
+
+	public addPaths(paths: any) {
+		if (Array.isArray(paths)) {
+			this.addPath(new Group(paths));
 		}
 	}
 
@@ -41,18 +53,33 @@ class Composer {
 
 	public addContrast(path: any) {}
 
-	get composition() {
-		const comp = JSON.parse(JSON.stringify(this.#composition));
+	public wrap() {
+		// const comp = _.cloneDeep(this.#composition);
 
+		// this.#composition = {
+		// 	type: this.#type,
+		// 	form: null,
+		// 	shades: null,
+		// 	highlight: null,
+		// 	contrast: null,
+		// };
+
+		// return comp;
+		return this.#composition;
+	}
+
+	public init() {
 		this.#composition = {
 			type: this.#type,
-			shape: null,
+			form: null,
 			shades: null,
 			highlight: null,
 			contrast: null,
 		};
+	}
 
-		return comp;
+	get composition() {
+		return this.#composition;
 	}
 }
 

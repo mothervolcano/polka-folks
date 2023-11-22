@@ -14,9 +14,9 @@ const GUIDES = '#06E7EF';
 export class HairPanache extends Model {
 
 	
-	constructor( field: any, radius: any) {
+	constructor( field: any, radius: any, type?: string) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 		return this;
 
@@ -82,12 +82,10 @@ export class HairPanache extends Model {
 
 		// ..............................................
 
-		const instructions = {
 
-			level: 0
-		}
-
-		return [ instructions, path ];
+		this.composer.init();
+		this.composer.addPath(path);
+		return this.composer.wrap();
 
 	}
 }
@@ -95,11 +93,11 @@ export class HairPanache extends Model {
 
 let instance: HairPanache | null = null;
 
-export function drawHairPanache( field: any, radius: any ): HairPanache {
+export function drawHairPanache( field: any, radius: any, type?: string ): HairPanache {
   
   if (!instance) {
 
-    instance = new HairPanache( field, radius );
+    instance = new HairPanache( field, radius, type );
   }
 
   return instance;

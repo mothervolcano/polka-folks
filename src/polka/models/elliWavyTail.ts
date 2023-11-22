@@ -20,9 +20,9 @@ class ElliWavyTail extends Model {
 	private _length: number = 0;
 
 
-	constructor( field: any, size: any ) {
+	constructor( field: any, size: any, type?: string ) {
 
-		super( field, size );
+		super( field, size, type );
 
 	}
 
@@ -138,7 +138,11 @@ class ElliWavyTail extends Model {
 
 		// ..............................................
 
-		return [ 'X(0)', path ];
+		this.composer.init();
+		this.composer.addPath(path);
+		return this.composer.wrap();
+
+		// return [ 'X(0)', path ];
 
 	}
 }
@@ -146,11 +150,11 @@ class ElliWavyTail extends Model {
 
 let instance: ElliWavyTail | null = null;
 
-export function drawElliWavyTail( field: any, size: any ): ElliWavyTail {
+export function drawElliWavyTail( field: any, size: any, type?: string ): ElliWavyTail {
   
   if (!instance) {
 
-    instance = new ElliWavyTail( field, size );
+    instance = new ElliWavyTail( field, size, type );
   }
 
   return instance;

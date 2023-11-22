@@ -18,9 +18,9 @@ class IonicHair extends Model {
 	private _height: any;
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, radius: number, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 		return this;
 
@@ -102,7 +102,12 @@ class IonicHair extends Model {
 			gradient: false
 		}
 
-		return [ instructions, path ]; 
+		// return [ instructions, path ]; 
+
+		this.composer.init();
+		this.composer.addPath(this.path);
+
+		return this.composer.wrap();
 
 	};
 
@@ -112,11 +117,11 @@ class IonicHair extends Model {
 let instance: IonicHair | null = null;
 
 
-export function drawIonicHair( field: any, radius: number ): IonicHair {
+export function drawIonicHair( field: any, radius: number, type?: string ): IonicHair {
   
   if (!instance) {
 
-    instance = new IonicHair( field, radius );
+    instance = new IonicHair( field, radius, type );
  
   }
 

@@ -19,9 +19,9 @@ const GUIDES = '#06E7EF';
 class HairModelTest extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, radius: number, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 		return this;
 
@@ -112,18 +112,23 @@ class HairModelTest extends Model {
 		this.path.fillColor = DEBUG_GREEN
 
 
-		const instructions = {
+		// const instructions = {
 
-			level: this.level,
-			complete: false,
-			gradient: null
-		}
+		// 	level: this.level,
+		// 	complete: false,
+		// 	gradient: null
+		// }
 
 		// .............................................
 		// Chart
 
 
-		return [ instructions, this.path ];
+		// return [ instructions, this.path ];
+
+		this.composer.init();
+		this.composer.addPath(this.path);
+
+		return this.composer.wrap();
 
 	};
 }
@@ -131,11 +136,11 @@ class HairModelTest extends Model {
 
 let instance: HairModelTest | null = null;
 
-export function drawHairModelTest( field: any, radius: number ): HairModelTest {
+export function drawHairModelTest( field: any, radius: number, type?: string ): HairModelTest {
   
   if (!instance) {
 
-    instance = new HairModelTest( field, radius );
+    instance = new HairModelTest( field, radius, type );
   }
 
   return instance;

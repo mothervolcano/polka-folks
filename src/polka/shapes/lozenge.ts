@@ -47,7 +47,6 @@ class Lozenge extends Shape {
 		iron( P3, P4 )
 		iron( P4, P1 )
 
-
 		return [ P1, P2, P3, P4 ];
 	}
 

@@ -78,9 +78,11 @@ class EarModelTest extends Model {
 
 		// ............................................................
 
+		this.composer.init();
+
 		const paths = plots.map((plot) => {
 			const _path = new Path({
-				fillColor: DEBUG_GREEN,
+				strokeColor: DEBUG_GREEN,
 				strokeWidth: 1,
 				closed: true,
 			});
@@ -88,26 +90,16 @@ class EarModelTest extends Model {
 			this.pen.setPath(_path);
 			this.pen.add(plot);
 
-			this.composer.addForm(_path);
+			this.composer.addPath(_path);
 
 		});
 
-		// this.path = new CompoundPath([]);
-		// this.path.addChildren(paths);
-
-		// const instructions = {
-		// 	level: this.level,
-		// 	complete: true,
-		// 	gradient: null,
-		// };
 
 		// .............................................
 		// Chart
 
+		return this.composer.wrap();
 
-		return this.composer.composition;
-
-		// return [instructions, this.path];
 	}
 }
 

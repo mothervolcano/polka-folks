@@ -14,9 +14,9 @@ const GUIDES = '#06E7EF';
 class BangHairline extends Model {
 
 
-	constructor( field: any, radius: number ) {
+	constructor( field: any, radius: number, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 		return this;
 
@@ -72,15 +72,19 @@ class BangHairline extends Model {
 
 		// ..............................................
 
-		const instructions = {
+		this.composer.init();
+		this.composer.addPath(this.path);
+		return this.composer.wrap();
 
-			level: this.level,
-			complete: true,
-			gradient: null
+		// const instructions = {
 
-		}
+		// 	level: this.level,
+		// 	complete: true,
+		// 	gradient: null
 
-		return [ instructions, this.path ];
+		// }
+
+		// return [ instructions, this.path ];
 
 	}
 }
@@ -88,11 +92,11 @@ class BangHairline extends Model {
 
 let instance: BangHairline | null = null;
 
-export function drawBangHairline( field: any, radius: number ): BangHairline {
+export function drawBangHairline( field: any, radius: number, type?: string ): BangHairline {
   
   if (!instance) {
 
-    instance = new BangHairline( field, radius );
+    instance = new BangHairline( field, radius, type );
   }
 
   return instance;

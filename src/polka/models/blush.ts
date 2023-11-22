@@ -15,9 +15,9 @@ export class Blush extends Model {
 
 	private _size: number = 0;
 
-	constructor( field: any, radius: number ) {
+	constructor( field: any, radius: number, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 		return this;
 
@@ -52,15 +52,18 @@ export class Blush extends Model {
 		this.pen.add( [ ] );
 		// this.pen.mirrorRepeat('HOR');
 
+		this.composer.init();
+		this.composer.addPath(att.getPath());
+		return this.composer.wrap();
 
-		const instructions = {
+		// const instructions = {
 
-			level: 2,
-			gradient: 'RADIAL'
-		}
+		// 	level: 2,
+		// 	gradient: 'RADIAL'
+		// }
 
 
-		return [ instructions, att.getPath() ];
+		// return [ instructions, att.getPath() ];
 
 	};
 }
@@ -68,11 +71,11 @@ export class Blush extends Model {
 
 let instance: Blush | null = null;
 
-export function drawBlush( field: any, radius: number ): Blush {
+export function drawBlush( field: any, radius: number, type?: string ): Blush {
   
   if (!instance) {
 
-    instance = new Blush( field, radius );
+    instance = new Blush( field, radius, type );
   }
 
   return instance;

@@ -19,9 +19,9 @@ class ArcWave extends Model {
 	private _indent: number = 0;
 
 
-	constructor( position: any, radius: any ) {
+	constructor( position: any, radius: any, type?: string ) {
 
-		super( position, radius );
+		super( position, radius, type );
 
 	};
 
@@ -128,12 +128,12 @@ class ArcWave extends Model {
 		
 		// ...................................................
 
-		const instructions = {
+		// const instructions = {
 
-			level: this.base.level,
-			complete: true,
-			gradient: false
-		}
+		// 	level: this.base.level,
+		// 	complete: true,
+		// 	gradient: false
+		// }
 
 		
 		this.path = new Path( { strokeColor: DEBUG_GREEN, strokeWidth: 2, closed: true } );
@@ -144,8 +144,14 @@ class ArcWave extends Model {
 		this.path.reverse();
 
 		this.path.join( this.base.path );
+		
 
-		return [ instructions, this.path ];
+		this.composer.init();
+		this.composer.addPath(this.path);
+
+		return this.composer.wrap();
+
+		// return [ instructions, this.path ];
 
 	};
 };
@@ -154,11 +160,11 @@ class ArcWave extends Model {
 
 let instance: ArcWave | null = null;
 
-export function drawArcWave( position: any, radius : any ): ArcWave {
+export function drawArcWave( position: any, radius : any, type?: string ): ArcWave {
   
   if (!instance) {
 
-    instance = new ArcWave( position, radius );
+    instance = new ArcWave( position, radius, type );
   }
 
   return instance;

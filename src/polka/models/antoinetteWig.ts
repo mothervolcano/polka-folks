@@ -21,9 +21,9 @@ class AntoinetteWig extends Model {
 	private _span: any;
 
 
-	constructor( field: any, size: number ) {
+	constructor( field: any, size: number, type?: string ) {
 
-		super( field, size );
+		super( field, size, type );
 
 		this._att = this.field.getAttractor();
 
@@ -126,6 +126,13 @@ class AntoinetteWig extends Model {
 
 		// ..............................................
 
+		baseField.remove();
+		topField.remove();
+		baseAtt_l.remove();
+		baseAtt_r.remove();
+		topAtt_l.remove();
+		topAtt_r.remove();
+
 		const path = new Path({ 
 
 			strokeColor: DEBUG_GREEN,
@@ -138,13 +145,10 @@ class AntoinetteWig extends Model {
 
 		// ..............................................
 
-		const instructions = {
+		this.composer.init();
+		this.composer.addPath(path);
+		return this.composer.wrap();
 
-			level: 0
-
-		}
-
-		return [ instructions, path ];
 
 	}
 }
@@ -152,11 +156,11 @@ class AntoinetteWig extends Model {
 
 let instance: AntoinetteWig | null = null;
 
-export function drawAntoinetteWig( field: any, size: any ): AntoinetteWig {
+export function drawAntoinetteWig( field: any, size: any, type?: string ): AntoinetteWig {
   
   if (!instance) {
 
-    instance = new AntoinetteWig( field, size );
+    instance = new AntoinetteWig( field, size, type );
   }
 
   return instance;

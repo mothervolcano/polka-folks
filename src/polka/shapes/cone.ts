@@ -74,7 +74,6 @@ class Cone extends Shape {
 
 		// this.C = V;
 
-
 		return [ P0, P1, Ta, V, Tb, P2 ];
 	}
 

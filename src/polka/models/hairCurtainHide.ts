@@ -15,9 +15,9 @@ class HairCurtainHide extends Model {
 
 
 	
-	constructor( field: any, radius: any ) {
+	constructor( field: any, radius: any, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 		return this;
 
@@ -97,12 +97,12 @@ class HairCurtainHide extends Model {
 		this.path.join( headWrap );
 
 
-		const instructions = {
+		// const instructions = {
 
-			level: this.level,
-			complete: false,
-			gradient: false
-		}
+		// 	level: this.level,
+		// 	complete: false,
+		// 	gradient: false
+		// }
 
 		// .............................................
 		// Chart
@@ -110,7 +110,12 @@ class HairCurtainHide extends Model {
 		this.A = this.base.A.clone();
 		this.B = this.base.B.clone();
 
-		return [ instructions, this.path ];
+		// return [ instructions, this.path ];
+
+		this.composer.init();
+		this.composer.addPath(this.path);
+
+		return this.composer.wrap();
 
 	};
 
@@ -119,11 +124,11 @@ class HairCurtainHide extends Model {
 
 let instance: HairCurtainHide | null = null;
 
-export function drawHairCurtainHide( field: any, radius: any ): HairCurtainHide {
+export function drawHairCurtainHide( field: any, radius: any, type?: string ): HairCurtainHide {
   
   if (!instance) {
 
-    instance = new HairCurtainHide( field, radius );
+    instance = new HairCurtainHide( field, radius, type );
   }
 
   return instance;

@@ -19,9 +19,9 @@ class HairCurtain extends Model {
 	private _splitAperture: number = 0;
 
 
-	constructor( field: any, radius: any ) {
+	constructor( field: any, radius: any, type?: string ) {
 		
-		super( field, radius );
+		super( field, radius, type );
 
 	};
 
@@ -74,7 +74,12 @@ class HairCurtain extends Model {
 		this.wrap( this.path.firstSegment, this.path.lastSegment );
 
 
-		return [ instructions, this.path ];
+		// return [ instructions, this.path ];
+
+		this.composer.init();
+		this.composer.addPath(this.path);
+
+		return this.composer.wrap();
 
 	};
 
@@ -83,9 +88,9 @@ class HairCurtain extends Model {
 
 let instance: HairCurtain | null = null;
 
-export function drawHairCurtain( field: any, radius: any ): HairCurtain {
+export function drawHairCurtain( field: any, radius: any, type?: string ): HairCurtain {
   if (!instance) {
-    instance = new HairCurtain( field, radius );
+    instance = new HairCurtain( field, radius, type );
   }
   return instance;
 }

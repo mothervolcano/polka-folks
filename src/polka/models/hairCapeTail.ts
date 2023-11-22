@@ -16,9 +16,9 @@ class HairCapeTail extends Model {
 	private _elevation: number = 0;
 	private _length: number = 0;
 
-	constructor( field: any, radius: number ) {
+	constructor( field: any, radius: number, type?: string ) {
 
-		super( field, radius );
+		super( field, radius, type );
 
 	};
 
@@ -95,7 +95,12 @@ class HairCapeTail extends Model {
 		this.A = A1.clone();
 		this.B = B1.clone();
 
-		return [ instructions, this.path ];
+		// return [ instructions, this.path ];
+
+		this.composer.init();
+		this.composer.addPath(this.path);
+
+		return this.composer.wrap();
 
 	};
 
@@ -104,11 +109,11 @@ class HairCapeTail extends Model {
 
 let instance: HairCapeTail | null = null;
 
-export function drawHairCapeTail( field: any, radius: number ): HairCapeTail {
+export function drawHairCapeTail( field: any, radius: number, type?: string ): HairCapeTail {
   
   if (!instance) {
 
-    instance = new HairCapeTail( field, radius );
+    instance = new HairCapeTail( field, radius, type );
   }
 
   return instance;
