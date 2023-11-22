@@ -199,9 +199,6 @@ class PompadourWig extends Model {
 		
 		// ..............................................
 
-		field.remove();
-		lField.remove();
-		rField.remove();
 
 		const path = new Path({ 
 
@@ -217,10 +214,24 @@ class PompadourWig extends Model {
 
 		path.fullySelected = true;
 
+		const shadeProps = {
+			effect: "HOLLOW",
+			scope: "SINGLE"
+		}
+
 		// ..............................................
 
 		this.composer.init();
 		this.composer.addPath(path, lvl);
+		this.composer.addShades(lCurlHollows, lvl, shadeProps)
+		this.composer.addShades(rCurlHollows, lvl, shadeProps)
+
+		// ..............................................
+
+		field.remove();
+		lField.remove();
+		rField.remove();
+
 		return this.composer.wrap();
 
 	};

@@ -184,8 +184,21 @@ class ArchiCurlCrown extends Model {
 
 		// ..............................................
 
+		const shadeProps = {
+			effect: "HOLLOW",
+			scope: "SINGLE"
+		} 
+
 		this.composer.init();
 		this.composer.addPath(path, lvl);
+		this.composer.addShades(curlHollows, lvl, shadeProps)
+
+		// ..............................................
+
+		baseField.remove();
+		field.remove();
+		topAtt.remove();
+
 		return this.composer.wrap();
 
 	}

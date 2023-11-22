@@ -9,7 +9,7 @@ class Composer {
 		this.#composition = {
 			type: this.#type,
 			form: null,
-			shades: null,
+			shade: null,
 			highlight: null,
 			contrast: null,
 		};
@@ -40,13 +40,46 @@ class Composer {
 		this.#composition.form.level = level;
 	}
 
+	public addShade(path: any, level: number, props: any) {
+		// ...
+
+		const {effect, scope} = props;
+
+		if (this.#composition.shade !== null) {
+			if (this.#composition.shade.path instanceof Group) {
+				if (path instanceof Group) {
+					this.#composition.shade.path.addChildren(path.children);
+				} else {
+					this.#composition.shade.path.addChild(path);
+				}
+			} else {
+				const firstPath = this.#composition.shade.path;
+				this.#composition.shade.type = "group";
+				this.#composition.shade.path = new Group([firstPath, path]);
+			}
+		} else {
+			this.#composition.shade = {
+				type: path instanceof Group ? "group" : "path",
+				path: path,
+				inside: false,
+				effect: effect || 'OVERLAY',
+				scope: scope || 'SINGLE'
+			};
+		}
+		this.#composition.shade.level = level;
+	}
+
 	public addPaths(paths: any, level: number) {
 		if (Array.isArray(paths)) {
 			this.addPath(new Group(paths), level);
 		}
 	}
 
-	public addShade(path: any) {}
+	public addShades(paths: any, level: number, props: any) {
+		if (Array.isArray(paths)) {
+			this.addShade(new Group(paths), level, props);
+		}
+	}
 
 	public addHighlight(path: any) {}
 
@@ -71,7 +104,7 @@ class Composer {
 		this.#composition = {
 			type: this.#type,
 			form: null,
-			shades: null,
+			shade: null,
 			highlight: null,
 			contrast: null,
 		};

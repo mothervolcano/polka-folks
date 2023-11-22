@@ -141,10 +141,10 @@ abstract class Polka {
 		if (typeof name === "string") {
 			switch (name) {
 				case "HEAD":
-					console.log("baseModel in config: ", this.#head);
+					// console.log("baseModel in config: ", this.#head);
 					return this.#head;
 				case "FACE":
-					console.log("baseModel in config: ", this.#face);
+					// console.log("baseModel in config: ", this.#face);
 					return this.#face;
 				default:
 					throw new Error(`ERROR @Polka.mount: ${name} is not a valid model`);
