@@ -286,21 +286,8 @@ abstract class Polka {
 				);
 			}
 
-			const plot = modelConfig.use.plot(archetypeParams, ...modelConfig.params);
-
-			if (
-				plot.type === "earwear" ||
-				plot.type === "neckwear" ||
-				plot.type === "eyefeature" ||
-				plot.type === "facefeature" ||
-				plot.type === "hair" ||
-				plot.type === "hairline" ||
-				plot.type === "hairtail" ||
-				plot.type === "glasses"
-			) {
-				console.log("----->", plot);
-				this.#compositions.push(plot);
-			}
+			const comp = modelConfig.use.plot(archetypeParams, ...modelConfig.params);
+			this.#compositions.push(comp);
 		}
 
 		this.render();

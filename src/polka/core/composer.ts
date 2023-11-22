@@ -1,7 +1,5 @@
 import { Group } from "paper";
 
-import _ from "lodash";
-
 class Composer {
 	#type: string;
 	#composition: any;
