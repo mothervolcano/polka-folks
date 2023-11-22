@@ -1,7 +1,6 @@
 import { Layer, Path } from "paper";
 import { paper } from "../../components/paperStage";
 
-import Plotter from "../../lib/topo/tools/plotter";
 import OrbitalField from "../attractors/orbitalField";
 import { convertToHyperPoint } from "../../lib/topo/utils/converters";
 
@@ -47,7 +46,6 @@ function pickModel(catalog: ModelConfig[]) {
 // ---------------------------------------------------------------------
 
 abstract class Polka {
-	#plotter: any;
 
 	#collection: ModelConfig[] = [];
 	#compositions: any[] = [];
@@ -72,7 +70,6 @@ abstract class Polka {
 
 	constructor(position: any, radius: number) {
 		this.#field = new OrbitalField(convertToHyperPoint(position), radius);
-		this.#plotter = Plotter.getInstance();
 
 		this.#PHI = generateScaleFor("PHI", radius);
 		this.#SIN = generateScaleFor("SIN", radius);
@@ -303,8 +300,6 @@ abstract class Polka {
 				console.log("----->", plot);
 				this.#compositions.push(plot);
 			}
-
-			this.#plotter.chart(plot, modelConfig.type);
 		}
 
 		this.render();
@@ -483,7 +478,7 @@ abstract class Polka {
 
 		// -----------------------------------------------------------
 
-		this.#plotter.clear();
+		// this.#plotter.clear();
 	}
 
 	public clear() {
