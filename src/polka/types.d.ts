@@ -18,6 +18,11 @@ export interface MetricScale {
   XL: number;
 }
 
+export interface IOrbitalField extends IAttractor {
+
+  
+}
+
 export interface IModel {
 
   // readonly field: IAttractorField;

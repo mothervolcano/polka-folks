@@ -8,7 +8,8 @@ import { merge, bounce, curve, mid, breakOut, breakIn } from '../../lib/topo/too
 import { plotAllAttractorIntersections, mergeAllAttractorIntersections } from '../../lib/topo/tools/plotters';
 
 import { markPoint, normalize, genRandomDec } from '../../lib/topo/utils/helpers';
-import { IModel } from '../types';
+import { IModel, IOrbitalField } from '../types';
+import { IAttractor, IAttractorObject } from '../../lib/topo/types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -105,11 +106,11 @@ class PompadourWig extends Model {
 		// Main Field construction
 
 		const field = new OrbitalField( C, [ coreVolume * coreWidthRatio, coreVolume * coreHeightRatio ] );
-		const lField = new OrbitalField( null, [ sideVolume * sideWidthRatio, sideVolume ] );
-		const rField = new OrbitalField( null, [ sideVolume * sideWidthRatio, sideVolume ] );
+		const lField = new OrbitalField( null, [ sideVolume * sideWidthRatio, sideVolume ] ) as any;
+		const rField = new OrbitalField( null, [ sideVolume * sideWidthRatio, sideVolume ] ) as any;
 
 		// TODO: look into the issue below
-		// field.addAttractors(  [ lField, rField ] );
+		field.addAttractors(  [ lField, rField ] );
 
 		// ................................................
 		// Main Field transformation
@@ -186,7 +187,7 @@ class PompadourWig extends Model {
 
 		// TODO: find out what is going on with att.radius 
 
-		const lCurlHollows = lField.attractors.map( (att) => {
+		const lCurlHollows = lField.attractors.map( (att: any) => {
 
 			return att.getPath().scale(this.PHILESSER);
 
@@ -194,7 +195,7 @@ class PompadourWig extends Model {
 
 		});
 
-		const rCurlHollows = rField.attractors.map( (att) => {
+		const rCurlHollows = rField.attractors.map( (att: any) => {
 
 			return att.getPath().scale(this.PHILESSER);
 			
