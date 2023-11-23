@@ -126,13 +126,6 @@ class AntoinetteWig extends Model {
 
 		// ..............................................
 
-		baseField.remove();
-		topField.remove();
-		baseAtt_l.remove();
-		baseAtt_r.remove();
-		topAtt_l.remove();
-		topAtt_r.remove();
-
 		const path = new Path({ 
 
 			strokeColor: DEBUG_GREEN,
@@ -145,8 +138,24 @@ class AntoinetteWig extends Model {
 
 		// ..............................................
 
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
+
 		this.composer.init();
-		this.composer.addPath(path, lvl);
+		this.composer.addPath(path, formaProps);
+
+		// ..............................................
+
+		baseField.remove();
+		topField.remove();
+		baseAtt_l.remove();
+		baseAtt_r.remove();
+		topAtt_l.remove();
+		topAtt_r.remove();
+
 		return this.composer.wrap();
 
 

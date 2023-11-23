@@ -213,18 +213,25 @@ class PompadourWig extends Model {
 		this.pen.mirrorRepeat( 'HOR' );
 
 		path.fullySelected = true;
+		
+		// ..............................................
 
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
+		
 		const shadeProps = {
+			level: lvl,
 			effect: "HOLLOW",
 			scope: "SINGLE"
 		}
 
-		// ..............................................
-
 		this.composer.init();
-		this.composer.addPath(path, lvl);
-		this.composer.addShades(lCurlHollows, lvl, shadeProps)
-		this.composer.addShades(rCurlHollows, lvl, shadeProps)
+		this.composer.addPath(path, formaProps);
+		this.composer.addShades(lCurlHollows, shadeProps)
+		this.composer.addShades(rCurlHollows, shadeProps)
 
 		// ..............................................
 

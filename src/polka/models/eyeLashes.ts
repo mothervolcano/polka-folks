@@ -49,9 +49,16 @@ export class EyeLashes extends Model {
 		// this.pen.mirrorRepeat('HOR');
 
 
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
+
+
 		this.composer.init();
 
-		this.composer.addPath(att.getPath(), lvl);
+		this.composer.addPath(att.getPath(), formaProps);
 
 		return this.composer.wrap();
 

@@ -81,27 +81,22 @@ class RoundGlasses extends Model {
 		this.pen.add( [ A1, A2 ] );
 		// this.pen.mirrorRepeat('HOR');
 
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
 
 		this.composer.init();
-		this.composer.addPath(attL.getPath(), lvl)
-		this.composer.addPath(attR.getPath(), lvl)
-		this.composer.addPath(this.path, lvl)
+		this.composer.addPath(attL.getPath(), formaProps)
+		this.composer.addPath(attR.getPath(), formaProps)
+		this.composer.addPath(this.path, formaProps)
 
 		return this.composer.wrap();
-
-		// const instructions = {
-
-		// 	level: this.level,
-		// 	complete: false,
-		// 	stroke: true,
-		// 	thickness: this.PHI.XXS * this.PHILESSER,
-		// 	gradient: null
-		// }
 
 		// .............................................
 		// Chart
 
-		// return [ instructions, [ instructions, attL.getPath(), attR.getPath(), this.path ] ];
 
 	}
 

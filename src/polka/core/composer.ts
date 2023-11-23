@@ -8,42 +8,45 @@ class Composer {
 		this.#type = type || "unknown";
 		this.#composition = {
 			type: this.#type,
-			form: null,
+			forma: null,
 			shade: null,
 			highlight: null,
 			contrast: null,
 		};
 	}
 
-	public addPath(path: any, level: number) {
-		// check if there a path already been added. If there is then create a group
+	public addPath(path: any, props: any) {
+		// ...
 
-		if (this.#composition.form !== null) {
-			if (this.#composition.form.path instanceof Group) {
+		const {level, effect, scope} = props;
+
+		if (this.#composition.forma !== null) {
+			if (this.#composition.forma.path instanceof Group) {
 				if (path instanceof Group) {
-					this.#composition.form.path.addChildren(path.children);
+					this.#composition.forma.path.addChildren(path.children);
 				} else {
-					this.#composition.form.path.addChild(path);
+					this.#composition.forma.path.addChild(path);
 				}
 			} else {
-				const firstPath = this.#composition.form.path;
-				this.#composition.form.type = "group";
-				this.#composition.form.path = new Group([firstPath, path]);
+				const firstPath = this.#composition.forma.path;
+				this.#composition.forma.type = "group";
+				this.#composition.forma.path = new Group([firstPath, path]);
 			}
 		} else {
-			this.#composition.form = {
+			this.#composition.forma = {
 				type: path instanceof Group ? "group" : "path",
 				path: path,
+				scope: scope || 'ALL',
 				inside: false,
 			};
 		}
-		this.#composition.form.level = level;
+		this.#composition.forma.level = level;
 	}
 
-	public addShade(path: any, level: number, props: any) {
+	public addShade(path: any, props: any) {
 		// ...
 
-		const {effect, scope} = props;
+		const {level, effect, scope} = props;
 
 		if (this.#composition.shade !== null) {
 			if (this.#composition.shade.path instanceof Group) {
@@ -61,23 +64,23 @@ class Composer {
 			this.#composition.shade = {
 				type: path instanceof Group ? "group" : "path",
 				path: path,
-				inside: false,
+				scope: scope || 'EACH',
 				effect: effect || 'OVERLAY',
-				scope: scope || 'SINGLE'
+				inside: false,
 			};
 		}
 		this.#composition.shade.level = level;
 	}
 
-	public addPaths(paths: any, level: number) {
+	public addPaths(paths: any, props: any) {
 		if (Array.isArray(paths)) {
-			this.addPath(new Group(paths), level);
+			this.addPath(new Group(paths), props);
 		}
 	}
 
-	public addShades(paths: any, level: number, props: any) {
+	public addShades(paths: any, props: any) {
 		if (Array.isArray(paths)) {
-			this.addShade(new Group(paths), level, props);
+			this.addShade(new Group(paths), props);
 		}
 	}
 
@@ -90,7 +93,7 @@ class Composer {
 
 		// this.#composition = {
 		// 	type: this.#type,
-		// 	form: null,
+		// 	forma: null,
 		// 	shades: null,
 		// 	highlight: null,
 		// 	contrast: null,
@@ -103,7 +106,7 @@ class Composer {
 	public init() {
 		this.#composition = {
 			type: this.#type,
-			form: null,
+			forma: null,
 			shade: null,
 			highlight: null,
 			contrast: null,

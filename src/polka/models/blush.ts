@@ -52,18 +52,16 @@ export class Blush extends Model {
 		this.pen.add( [ ] );
 		// this.pen.mirrorRepeat('HOR');
 
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
+
 		this.composer.init();
-		this.composer.addPath(att.getPath(), lvl);
+		this.composer.addPath(att.getPath(), formaProps);
+		
 		return this.composer.wrap();
-
-		// const instructions = {
-
-		// 	level: 2,
-		// 	gradient: 'RADIAL'
-		// }
-
-
-		// return [ instructions, att.getPath() ];
 
 	};
 }

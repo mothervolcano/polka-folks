@@ -94,19 +94,26 @@ class Necklace extends Model {
 
 		// ..............................................
 
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
+
+		this.composer.init();
+
+		this.composer.addPaths(paths1, formaProps)
+		this.composer.addPaths(paths2, formaProps)
+		this.composer.addPaths(paths3, formaProps)
+		this.composer.addPaths(paths4, formaProps)
+		
+		// ..............................................
+
 		field1.remove();
 		field2.remove();
 		field3.remove();
 		field4.remove();
-		
-		// ..............................................
 
-		this.composer.init();
-
-		this.composer.addPaths(paths1, lvl)
-		this.composer.addPaths(paths2, lvl)
-		this.composer.addPaths(paths3, lvl)
-		this.composer.addPaths(paths4, lvl)
 
 		return this.composer.wrap();
 		

@@ -93,10 +93,16 @@ class Jabot extends Model {
 		this.pen.setPath( path3 );
 		this.pen.add( [ C1, C2, C3, C4 ] );
 
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
+
 		this.composer.init();
-		this.composer.addPath(path1, lvl);
-		this.composer.addPath(path2, lvl);
-		this.composer.addPath(path3, lvl);
+		this.composer.addPath(path1, formaProps);
+		this.composer.addPath(path2, formaProps);
+		this.composer.addPath(path3, formaProps);
 
 		return this.composer.wrap();
 

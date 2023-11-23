@@ -4,7 +4,7 @@ import Polka from "../../core/polka";
 
 import { applyShade, applyBlush } from "../../../lib/topo/tools/shaders";
 
-import { renderEar, renderEye, renderFace, renderFaceFeature, renderHair } from "../../renderers/baroque";
+import { renderEar, renderEye, renderFace, renderFaceFeature } from "../../renderers/baroque";
 
 import * as colors from "../../styles/colorSchemes";
 
@@ -23,7 +23,7 @@ class PolkaBaroque extends Polka {
 			// ...
 			console.log("-----> preRender args: ", args);
 
-			if (args[0] instanceof Group && args[1] === "SINGLE") {
+			if (args[0] instanceof Group && args[1] === "EACH") {
 				for (const path of args[0].children) {
 					renderer(path, args.slice(1));
 				}
@@ -31,6 +31,11 @@ class PolkaBaroque extends Polka {
 				renderer(...args)
 			}
 		};
+
+		const renderHair = (path: any, ...args: any[]) => {
+
+			path.fillColor = this.colorScheme.hair;
+		}
 
 		const renderHairHollow = (path: any, ...args: any[]) => {
 			console.log("-----> render args: ", args);
@@ -106,21 +111,15 @@ class PolkaBaroque extends Polka {
 	}
 
 	render() {
-		// -----------------------------------------------------------
+		// ...
 
 		this.compositions.forEach((comp) => {
 			console.log(".... RENDERING: ", comp.type);
 
-			if (comp.form !== null) {
-				if (comp.form.type === "path") {
-					this.#styles.get(comp.type).formaRenderer(comp.form.path, this.colorScheme, false);
-				}
-
-				if (comp.form.type === "group") {
-					this.#styles.get(comp.type).formaRenderer(comp.form.path, this.colorScheme, false);
-				}
-				comp.form.path.copyTo(this.getLayer(comp.form.level));
-				comp.form.path.remove();
+			if (comp.forma !== null) {
+				this.#styles.get(comp.type).formaRenderer(comp.forma.path, comp.forma.scope, comp.forma.effect);
+				comp.forma.path.copyTo(this.getLayer(comp.forma.level));
+				comp.forma.path.remove();
 			}
 
 			if (comp.shade !== null) {

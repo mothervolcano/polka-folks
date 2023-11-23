@@ -78,6 +78,12 @@ class EarModelTest extends Model {
 
 		// ............................................................
 
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
+
 		this.composer.init();
 
 		const paths = plots.map((plot) => {
@@ -90,7 +96,7 @@ class EarModelTest extends Model {
 			this.pen.setPath(_path);
 			this.pen.add(plot);
 
-			this.composer.addPath(_path, lvl);
+			this.composer.addPath(_path, formaProps);
 
 		});
 
@@ -98,6 +104,8 @@ class EarModelTest extends Model {
 		// .............................................
 		// Chart
 
+		// .............................................
+		
 		return this.composer.wrap();
 
 	}

@@ -75,18 +75,19 @@ class MozartHairline extends Model {
 
 		// ..............................................
 
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
+
 		this.composer.init();
-		this.composer.addPath(this.path, lvl);
+		this.composer.addPath(this.path, formaProps);
+		
+		// ..............................................
+		
 		return this.composer.wrap();
 
-		// const instructions = {
-
-		// 	level: this.level,
-		// 	complete: true,
-		// 	gradient: null
-		// }
-
-		// return [ instructions, this.path ];
 	}
 }
 

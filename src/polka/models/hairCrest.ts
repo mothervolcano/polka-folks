@@ -106,8 +106,14 @@ class HairCrest extends Model {
 
 		// ..............................................
 
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
+
 		this.composer.init();
-		this.composer.addPath(path, lvl);
+		this.composer.addPath(path, formaProps);
 		return this.composer.wrap();
 		
 	}
