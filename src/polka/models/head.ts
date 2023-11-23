@@ -20,8 +20,10 @@ class Head extends Model {
 
 	private frame: any;
 
-	constructor(field: any, radius: number) {
-		super(field, radius);
+	constructor(att: any) {
+		super(att);
+
+		this.name = "head";
 
 		this.setPins({
 			L_EAR_XT: null,
@@ -61,14 +63,14 @@ class Head extends Model {
 		this._earsLat = earsLatBaseValue;
 		this._earsScale = earsScaleBaseValue ?? this.SIN72;
 
-		this._head = new Orbital(this.radius, this.position);
+		this._head = new Orbital(this.PHI.BASE, this.attractor.center);
 
 		this._lEar = new Orbital(this.SIN.XS);
 		this._rEar = new Orbital(this.SIN.XS);
 	}
 
 	public plot(p2: number, p3: number, p4: number) {
-		const field = new OrbitalField(this.position, this.radius);
+		const field = new OrbitalField(this.attractor.center, this.PHI.BASE);
 
 		field.addAttractors([this._lEar, this._rEar]);
 
@@ -93,15 +95,17 @@ class Head extends Model {
 		this.A = this.PINS.L_EAR_XT;
 		this.B = this.PINS.R_EAR_XT;
 
+		this.C = this.attractor.center;
+
 		// markPoint( this.PINS.EAR_BL )
 	}
 }
 
 let instance: Head | null = null;
 
-export function drawHead(field: any, radius: number): Head {
+export function drawHead(field: any): Head {
 	if (!instance) {
-		instance = new Head(field, radius);
+		instance = new Head(field);
 	}
 
 	return instance;

@@ -19,9 +19,9 @@ const GUIDES = '#06E7EF';
 class BackEarSidePart extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( base: any, type?: string  ) {
 
-		super( field, radius );
+		super( base, type );
 
 		return this;
 
@@ -46,7 +46,7 @@ class BackEarSidePart extends Model {
 		// .............................................
 		// Key points
 
-		const O = this.field.attractor.locate(splitPos);
+		const O = this.base.attractor.locate(splitPos);
 
 		const H = this.base.getAtt('EAR_R').center;
 
@@ -67,7 +67,7 @@ class BackEarSidePart extends Model {
 
 		const P0 = O.clone().steer(-45);
 		const P1 = H.clone();
-		const P2 = H.clone().offsetBy( -this.base.radius, 'HOR' );
+		const P2 = H.clone().offsetBy( -this.base.PHI.BASE, 'HOR' );
 
 		curve(P0,P1)
 		iron(P2,P0)
@@ -103,11 +103,11 @@ class BackEarSidePart extends Model {
 
 let instance: BackEarSidePart | null = null;
 
-export function drawBackEarSidePart( field: any, radius: number ): BackEarSidePart {
+export function drawBackEarSidePart( base: any, type?: string  ): BackEarSidePart {
   
   if (!instance) {
 
-    instance = new BackEarSidePart( field, radius );
+    instance = new BackEarSidePart( base, type );
   }
 
   return instance;

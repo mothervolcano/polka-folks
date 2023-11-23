@@ -7,6 +7,7 @@ import SpinalField from '../attractors/spinalField';
 import { merge, measure } from '../../lib/topo/tools/stitcher';
 
 import { markPoint, genRandom, genRandomDec } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -19,9 +20,9 @@ class ArcWave extends Model {
 	private _indent: number = 0;
 
 
-	constructor( position: any, radius: any, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( position, radius, type );
+		super( base, type );
 
 	};
 
@@ -163,13 +164,13 @@ class ArcWave extends Model {
 
 
 
-let instance: ArcWave | null = null;
+let instance: IModel | null = null;
 
-export function drawArcWave( position: any, radius : any, type?: string ): ArcWave {
+export function drawArcWave( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new ArcWave( position, radius, type );
+    instance = new ArcWave( base, type ) as IModel;
   }
 
   return instance;

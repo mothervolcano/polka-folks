@@ -7,13 +7,17 @@ import OrbitalField from "../attractors/orbitalField";
 import SpinalField from "../attractors/spinalField";
 
 import { markPoint } from "../../lib/topo/utils/helpers";
+import { IModel } from "../types";
 
 const DEBUG_GREEN = "#10FF0C";
 const GUIDES = "#06E7EF";
 
 class Necklace extends Model {
-	constructor(field: any, radius: any, type?: any) {
-		super(field, radius, type);
+	// ...
+	constructor(base: IModel, type?: any) {
+		super(base, type);
+
+		this.name = "necklace";
 	}
 
 	public configure() {}
@@ -31,8 +35,8 @@ class Necklace extends Model {
 		// ..........................................................
 		// determine the key points
 
-		const A = this.field.getAttractor().locate(a);
-		const B = this.field.getAttractor().locate(b);
+		const A = this.base.attractor.locate(a);
+		const B = this.base.attractor.locate(b);
 
 		// ..........................................................
 		// build the fields
@@ -120,11 +124,11 @@ class Necklace extends Model {
 	}
 }
 
-let instance: Necklace | null = null;
+let instance: IModel | null = null;
 
-export function drawNecklace(field: any, radius: any, type?: any): Necklace {
+export function drawNecklace(base: IModel, type?: any): IModel {
 	if (!instance) {
-		instance = new Necklace(field, radius, type);
+		instance = new Necklace(base, type) as IModel;
 	}
 
 	return instance;

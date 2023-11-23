@@ -1,4 +1,4 @@
-import { OrientationType, PolarityType, IAttractor, IAttractorObject, IHyperPoint, VectorDirection, PointLike, SizeLike } from '../types';
+import { OrientationType, PolarityType, IAttractor, IAttractorObject, IHyperPoint, VectorDirection, PointLike, SizeLike, IAttractorField } from '../types';
 
 import DisplayNode from './displayNode';
 import AttractorObject from './attractorObject';
@@ -8,7 +8,7 @@ import HyperPoint from './hyperPoint';
 abstract class AttractorField extends DisplayNode {
 
 
-	protected _attractor: IAttractor & IAttractorObject | undefined;
+	protected _attractor: IAttractor | undefined;
 
 	private _span: Array<number>;
 	private _shift: number;

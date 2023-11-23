@@ -8,6 +8,7 @@ import SpinalField from '../attractors/spinalField';
 import { merge, measure, curve } from '../../lib/topo/tools/stitcher';
 
 import { markPoint, normalize, genRandomDec } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -16,9 +17,9 @@ const GUIDES = '#06E7EF';
 class BillyHairFlaps extends Model {
 
 	
-	constructor( field: any, radius: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius, type );
+		super( base, type );
 
 		return this;
 
@@ -61,7 +62,8 @@ class BillyHairFlaps extends Model {
 
 		field.addAttractors( [ attL, attR ] );
 
-		this.field.addAttractor( attC, 0.25 );
+		// this.base.addAttractor( attC, 0.25 );
+		field.addAttractor( attC, 0.25 );
 
 		// .............................................
 		// Configure
@@ -137,13 +139,13 @@ class BillyHairFlaps extends Model {
 }
 
 
-let instance: BillyHairFlaps | null = null;
+let instance: IModel | null = null;
 
-export function drawBillyHairFlaps( field: any, radius: number, type?: string ): BillyHairFlaps {
+export function drawBillyHairFlaps( base: IModel,  type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new BillyHairFlaps( field, radius, type );
+    instance = new BillyHairFlaps( base, type ) as IModel     ;
   }
 
   return instance;

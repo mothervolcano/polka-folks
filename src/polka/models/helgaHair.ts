@@ -18,9 +18,9 @@ const GUIDES = '#06E7EF';
 class HelgaHair extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( base: any, type?: string  ) {
 
-		super( field, radius );
+		super( base, type );
 
 		return this;
 
@@ -42,22 +42,22 @@ class HelgaHair extends Model {
 
 		const ponyAngle = genRandomDec(0.10, 0.20);
 
-		const ponySize = this.base.radius * this.SIN18;
-		const ponyVolume = this.base.radius * this.SIN18;
-		const ponyLength = this.base.radius * 2 + this.PHI.XL;
-		const elevation = this.base.radius * this.SIN54;
+		const ponySize = this.base.PHI.BASE * this.SIN18;
+		const ponyVolume = this.base.PHI.BASE * this.SIN18;
+		const ponyLength = this.base.PHI.BASE * 2 + this.PHI.XL;
+		const elevation = this.base.PHI.BASE * this.SIN54;
 
 		const elasticSizeRatio = 0.20;
 		const hRatio = 1//this.SIN36;
 		const wRatio = this.SIN36;
 
-		const volume = this.base.radius * this.SIN18;
+		const volume = this.base.PHI.BASE * this.SIN18;
 
 		// .............................................
 		// Key points
 
-		const O = this.field.attractor.locate(ponyAngle).offsetBy( elevation, 'RAY' );
-		const K = this.field.attractor.locate(0.25).offsetBy( -elevation, 'RAY' );
+		const O = this.base.attractor.locate(ponyAngle).offsetBy( elevation, 'RAY' );
+		const K = this.base.attractor.locate(0.25).offsetBy( -elevation, 'RAY' );
 
 		const A = this.base.A;
 		const B = this.base.B;
@@ -78,7 +78,7 @@ class HelgaHair extends Model {
 		// Plotting 1/3
 
 		const L1 = A.clone()
-		const P = this.field.attractor.locate(0.35).offsetBy( volume, 'RAY' );
+		const P = this.base.attractor.locate(0.35).offsetBy( volume, 'RAY' );
 		const R1 = B.clone().steer( 15, 180 )
 
 		curve(L1, P, 2/3, 1)
@@ -175,11 +175,11 @@ class HelgaHair extends Model {
 
 let instance: HelgaHair | null = null;
 
-export function drawHelgaHair( field: any, radius: number ): HelgaHair {
+export function drawHelgaHair( field: any, type?: string  ): HelgaHair {
   
   if (!instance) {
 
-    instance = new HelgaHair( field, radius );
+    instance = new HelgaHair( field, type );
   }
 
   return instance;

@@ -11,6 +11,7 @@ import { merge, measure, mid, curve, iron, clap, budge, breakIn, breakOut, mirro
 import { plotAttractorFirstIntersection, plotAttractorLastIntersection } from '../../lib/topo/tools/plotters';
 
 import { traceSegment, markPoint, genRandom, genRandomDec, normalize } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -19,9 +20,9 @@ const GUIDES = '#06E7EF';
 class HairModelTest extends Model {
 
 	
-	constructor( field: any, radius: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius, type );
+		super( base, type );
 
 		return this;
 
@@ -47,8 +48,8 @@ class HairModelTest extends Model {
 		// .............................................
 		// Key points
 
-		const A0 = this.field.attractor.locate(0+spanPos);
-		const B0 = this.field.attractor.locate(0.50-spanPos);
+		const A0 = this.base.attractor.locate(0+spanPos);
+		const B0 = this.base.attractor.locate(0.50-spanPos);
 		const A = this.base.A;
 		const B = this.base.B;
 
@@ -138,13 +139,13 @@ class HairModelTest extends Model {
 }
 
 
-let instance: HairModelTest | null = null;
+let instance: IModel | null = null;
 
-export function drawHairModelTest( field: any, radius: number, type?: string ): HairModelTest {
+export function drawHairModelTest( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new HairModelTest( field, radius, type );
+    instance = new HairModelTest( base, type ) as IModel;
   }
 
   return instance;

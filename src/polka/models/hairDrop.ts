@@ -16,9 +16,9 @@ const GUIDES = '#06E7EF';
 class HairDrop extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, type?: string ) {
 
-		super( field, radius );
+		super( field, type );
 
 		return this;
 
@@ -48,7 +48,7 @@ class HairDrop extends Model {
 		// .............................................
 		// Key points
 
-		const O = this.field.attractor.locate(0.35).offsetBy( this.SIN.L, 'RAY' );
+		const O = this.base.attractor.locate(0.35).offsetBy( this.SIN.L, 'RAY' );
 
 
 		// .............................................
@@ -114,11 +114,11 @@ class HairDrop extends Model {
 
 let instance: HairDrop | null = null;
 
-export function drawHairDrop( field: any, radius: number ): HairDrop {
+export function drawHairDrop( field: any, type?: string  ): HairDrop {
   
   if (!instance) {
 
-    instance = new HairDrop( field, radius );
+    instance = new HairDrop( field, type );
   }
 
   return instance;

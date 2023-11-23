@@ -6,6 +6,7 @@ import OrbitalField from '../attractors/orbitalField';
 
 import { markPoint, normalize } from '../../lib/topo/utils/helpers';
 import { mid, curve } from '../../lib/topo/tools/stitcher';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -21,11 +22,15 @@ class AntoinetteWig extends Model {
 	private _span: any;
 
 
-	constructor( field: any, size: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, size, type );
+		super( base, type );
 
-		this._att = this.field.getAttractor();
+		this.name = "antoinette";
+
+		console.log('---> AntoinetteWig.base: ', base)
+
+		this._att = this.base.attractor;
 
 		return this;
 
@@ -163,13 +168,13 @@ class AntoinetteWig extends Model {
 }
 
 
-let instance: AntoinetteWig | null = null;
+let instance: IModel | null = null;
 
-export function drawAntoinetteWig( field: any, size: any, type?: string ): AntoinetteWig {
+export function drawAntoinetteWig( field: any,  type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new AntoinetteWig( field, size, type );
+    instance = new AntoinetteWig( field, type ) as IModel;
   }
 
   return instance;

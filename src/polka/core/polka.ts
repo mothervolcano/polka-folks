@@ -11,6 +11,8 @@ import { drawFace } from "../models/face";
 import { traceSegment, isEven, genRandom, genRandomDec } from "../../lib/topo/utils/helpers";
 
 import { PHIGREATER, PHILESSER, SIN54, PHI, SIN, generateScaleFor } from "../styles/metrics";
+import { IAttractorField } from "../../lib/topo/types";
+import { model } from "../../stage";
 
 // ------------------------
 // DEBUG
@@ -42,7 +44,7 @@ abstract class Polka {
 	#collection: ModelConfig[] = [];
 	#compositions: any[] = [];
 
-	#field: any;
+	#field: IAttractorField;
 
 	#head: IModel;
 	#face: IModel;
@@ -75,8 +77,8 @@ abstract class Polka {
 		this.#frame = new Layer();
 		this.#frame.addChildren([this.#l0, this.#l1, this.#l2, this.#l3, this.#guides]);
 
-		this.#head = drawHead(this.#field, radius);
-		this.#face = drawFace(this.#field, radius);
+		this.#head = drawHead(this.#field.attractor) as IModel;
+		this.#face = drawFace(this.#field.attractor) as IModel;
 	}
 
 	get head() {
@@ -137,7 +139,7 @@ abstract class Polka {
 		);
 	}
 
-	private parseModel(name: string | IModel) {
+	private parseModel(name: string | IModel): IModel {
 		if (typeof name === "string") {
 			switch (name) {
 				case "HEAD":
@@ -180,7 +182,7 @@ abstract class Polka {
 		const min = this.parseParameter(input[0]);
 		const max = this.parseParameter(input[1]);
 
-		console.log(`randomize: ${typeof min} min: ${min} - ${typeof max} max: ${max}`);
+		// console.log(`randomize: ${typeof min} min: ${min} - ${typeof max} max: ${max}`);
 
 		if (typeof min !== "number" || typeof max !== "number") {
 			throw new Error(`ERROR @Polka.mount: can't generate random value. Invalid input`);
@@ -191,8 +193,15 @@ abstract class Polka {
 	}
 
 	private mount(pool: ModelConfig[], type: string) {
-		// Picks the first random hair model from the archetype's catalog and adds it to the queue
-		const modelQueue = [pickModel(pool.filter((m) => m.type === type && m.order === "first"))];
+		// Configures the model and its sub-models to fit the Polka context and completes/updates the 
+		// configuration for next stage, drawing.
+
+		// Picks the first random model from the archetype's catalog and adds it to the queue
+		const modelQueue = [pickModel(pool.filter((model) => model.type === type && model.order === "first"))];
+
+		const getBase = (config: ModelConfig) => {
+			return config.base === null ? this.#head : this.parseModel(config.base);
+		}
 
 		while (modelQueue.length > 0 && modelQueue[0] !== undefined) {
 			//
@@ -201,31 +210,44 @@ abstract class Polka {
 			if (!modelConfig) {
 				throw new Error(`ERROR @ Archetype: failed to retrieve ${type} Model from queue`);
 			}
+			// ---------------------------------------------------------------------
+			// 1: Instantiate the model and set the size to the current Polka
 
 			modelConfig.use = modelConfig.create(
-				this.#head.field,
-				this.parseMetric(modelConfig.size),
+				getBase(modelConfig),
+				modelConfig.type
 			);
 
-			if (modelConfig.base) {
-				modelConfig.use.baseOn(this.parseModel(modelConfig.base));
-			}
-
+			console.log(`.... MOUNTING: `, modelConfig.use.name)
+			
+			// // ---------------------------------------------------------------------
+			// // 2: Set the base model
+			// if (modelConfig.base) {
+			// 	modelConfig.use.baseOn(this.parseModel(modelConfig.base));
+			// }
+			
+			// ---------------------------------------------------------------------
+			// 2: Set the structural properties
+			modelConfig.use.setScale(this.parseMetric(modelConfig.size))
 			modelConfig.use.configure(...modelConfig.settings.map((p: any[]) => this.randomize(p)));
 
+			// ---------------------------------------------------------------------
+			// 3: Add the updated configuration to be used by drawing
 			this.#collection.push(modelConfig);
 
-			// Check if there are sub-models
+			// ----------------------------------------------------------------------
+			// 4: Check if there are sub-models
 
 			if (modelConfig.compats.length > 0) {
 				const nModelConfig = pickModel(modelConfig.compats);
 
 				// nModelConfig.base = modelConfig.use;
 				nModelConfig.use = nModelConfig.create(
-					modelConfig.use.field,
-					this.parseMetric(nModelConfig.size),
+					modelConfig.use,
+					modelConfig.type
 				);
-				nModelConfig.use.baseOn(modelConfig.use);
+				// nModelConfig.use.baseOn(modelConfig.use);
+				nModelConfig.use.setScale(this.parseMetric(modelConfig.size))
 				nModelConfig.use.configure(
 					...modelConfig.settings.map((p: any[]) => this.randomize(p)),
 				);

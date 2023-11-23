@@ -15,9 +15,9 @@ const GUIDES = '#06E7EF';
 class Freckles extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, type?: string ) {
 
-		super( field, radius );
+		super( field, type );
 
 		return this;
 
@@ -46,7 +46,7 @@ class Freckles extends Model {
 		// .............................................
 		// Key points
 
-		const O = this.field.attractor.locate(0.35).offsetBy( -this.SIN.L, 'VER' );
+		const O = this.base.attractor.locate(0.35).offsetBy( -this.SIN.L, 'VER' );
 
 
 		// .............................................
@@ -107,11 +107,11 @@ class Freckles extends Model {
 
 let instance: Freckles | null = null;
 
-export function drawFreckles( field: any, radius: number ): Freckles {
+export function drawFreckles( field: any, type?: string  ): Freckles {
   
   if (!instance) {
 
-    instance = new Freckles( field, radius );
+    instance = new Freckles( field, type );
   }
 
   return instance;

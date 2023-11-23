@@ -18,9 +18,9 @@ const GUIDES = '#06E7EF';
 class JulieHairline extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( base: any, type?: string  ) {
 
-		super( field, radius );
+		super( base, type );
 
 		return this;
 
@@ -42,8 +42,8 @@ class JulieHairline extends Model {
 
 		const cutPos = 0.35;
 
-		const sizeMajor = this.base.radius;
-		const sizeMinor = this.base.radius * this.PHILESSER;
+		const sizeMajor = this.base.PHI.BASE;
+		const sizeMinor = this.base.PHI.BASE * this.PHILESSER;
 
 		const ratioMajor = this.SIN54;
 		const ratioMinor = this.SIN54;
@@ -51,9 +51,9 @@ class JulieHairline extends Model {
 		// .............................................
 		// Key points
 
-		const O = this.field.attractor.locate(0.25);
+		const O = this.base.attractor.locate(0.25);
 		const A = this.base.A;
-		const B = this.field.attractor.locate(0.40)
+		const B = this.base.attractor.locate(0.40)
 
 		// .............................................
 		// Construction 1/2
@@ -116,11 +116,11 @@ class JulieHairline extends Model {
 
 let instance: JulieHairline | null = null;
 
-export function drawJulieHairline( field: any, radius: number ): JulieHairline {
+export function drawJulieHairline( field: any, type?: string  ): JulieHairline {
   
   if (!instance) {
 
-    instance = new JulieHairline( field, radius );
+    instance = new JulieHairline( field, type );
   }
 
   return instance;

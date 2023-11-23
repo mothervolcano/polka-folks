@@ -9,6 +9,7 @@ export interface MetricUnit {
 }
 
 export interface MetricScale {
+  BASE: number,
   XXS: number;
   XS: number;
   S: number;
@@ -19,19 +20,25 @@ export interface MetricScale {
 
 export interface IModel {
 
-  readonly field: IAttractorField;
+  // readonly field: IAttractorField;
   readonly base: IModel;
+  readonly attractor: IAttractor;
 
   A: IHyperPoint;
   B: IHyperPoint;
   C: IHyperPoint;
   T: IHyperPoint;
-  baseOn( base: IModel ): void;
+  name: string;
+  PHI: any;
+  SIN: any;
+  // baseOn( base: IModel ): void; // DEPRECATE
+  // attractor: IAttractor;
   level: any; // It's a Paper.Layer at the moment. Change when there is a replacement;
   path: any;
-  radius: number;
+  // radius: number;
   getAtt( LABEL: string );
   getPin( LABEL: string );
+  setScale( baseValue: number ): void;
   configure( ...args: any[] ): void;
   plot( params: any, ...args: any[] ): any;
 
@@ -50,9 +57,9 @@ export interface IShape {
 
 export interface ModelConfig {
 
-	type?: string;
+	type: string;
   order?: string;
-	create: (field:any, radius: number) => IModel; //TODO finish: f can be an AttractorField or AttractorObject
+	create: (field:any, type: string) => IModel; //TODO finish: f can be an AttractorField or AttractorObject
 	use: IModel | null; //TODO the type is a model
 	base: string | IModel | null;
 	size: MetricUnit | number;

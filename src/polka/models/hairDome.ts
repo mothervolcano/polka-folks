@@ -6,6 +6,7 @@ import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
 import { markPoint, genRandomDec, genRandom } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -19,9 +20,9 @@ class HairDome extends Model {
 	private _cutoff: number = 0;
 
 
-	constructor( position: any, radius: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( position, radius, type );
+		super( base, type );
 
 		return this;
 
@@ -55,13 +56,13 @@ class HairDome extends Model {
 		// .............................................
 		// Key points
 
-		const O = this.field.attractor.center;
+		const O = this.base.attractor.center;
 
 		// .............................................
 		// Construction
 
 
-		const field = new OrbitalField( O, this.radius );
+		const field = new OrbitalField( O, this.PHI.BASE );
 		field.addAttractor( new Orbital( size ) );
 		field.addAttractor( new Orbital( size ) );
 
@@ -94,17 +95,14 @@ class HairDome extends Model {
 		this.pen.setPath( this.path );
 		this.pen.add( [ P1, P2, P3, P4 ] )
 
-		// const instructions = {
-
-		// 	level: this.level,
-		// 	complete: false,
-		// 	gradient: false
-		// }
-
-		// return [ instructions, this.path ]; // NOTE: if this model isn't to be immediately rendered do I need to return the path? The polka could simply check for the existence of a path instead of relying on the instructions object.
-		
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
+			
 		this.composer.init();
-		this.composer.addPath(this.path, lvl);
+		this.composer.addPath(this.path, formaProps);
 
 		return this.composer.wrap();
 		
@@ -112,13 +110,13 @@ class HairDome extends Model {
 }
 
 
-let instance: HairDome | null = null;
+let instance: IModel | null = null;
 
-export function drawHairDome( position: any, radius: number, type?: string ): HairDome {
+export function drawHairDome( position: any, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new HairDome(position, radius, type);
+    instance = new HairDome(position, type) as IModel;
   }
 
   return instance;

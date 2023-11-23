@@ -7,6 +7,7 @@ import OrbitalField from '../attractors/orbitalField';
 import { merge, measure, mid, curve } from '../../lib/topo/tools/stitcher';
 
 import { markPoint, traceSegment } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -15,9 +16,9 @@ const GUIDES = '#06E7EF';
 class HairCap extends Model {
 
 	
-	constructor( field: any, radius: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius, type );
+		super( base, type );
 
 		return this;
 
@@ -79,12 +80,6 @@ class HairCap extends Model {
 		this.pen.add( [ A, C, B ] );
 		// this.pen.mirrorRepeat('HOR');
 
-		const instructions = {
-
-			level: this.level,
-			complete: false,
-			gradient: null
-		}
 
 		// .............................................
 		// Chart
@@ -92,10 +87,14 @@ class HairCap extends Model {
 		this.A = this.base.A;
 		this.B = this.base.B;
 
-		// return [ instructions, this.path ];
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
 
 		this.composer.init();
-		this.composer.addPath(this.path, lvl);
+		this.composer.addPath(this.path, formaProps);
 
 		return this.composer.wrap();
 
@@ -103,13 +102,13 @@ class HairCap extends Model {
 }
 
 
-let instance: HairCap | null = null;
+let instance: IModel | null = null;
 
-export function drawHairCap( field: any, radius: number, type?: string ): HairCap {
+export function drawHairCap( base: any, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new HairCap( field, radius, type );
+    instance = new HairCap( base, type ) as IModel;
   }
 
   return instance;

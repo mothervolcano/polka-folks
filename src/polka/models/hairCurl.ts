@@ -17,9 +17,9 @@ class HairCurl extends Model {
 	
 	private _curlSize: number = 0;
 
-	constructor( field: any, size: number ) {
+	constructor( field: any, type?: string  ) {
 
-		super( field, size );
+		super( field, type );
 
 	}
 
@@ -45,14 +45,15 @@ class HairCurl extends Model {
 
 		const att = new Orbital( [ curlSize*4/3, curlSize*4/3 ] );
 
-		this.field.addAttractor( att, c );
+		// TODO: create field
+		// this.base.addAttractor( att, c );
 
 		att.moveBy( -curlSize * 2, 'HOR').moveBy( curlSize, 'RAY' );
 		att.rotate( rotationAdjustment );
 
 		console.log(`CURL: ${rotationAdjustment}`);
 
-		const O = this.field.getAttractor().locate(c);
+		const O = this.base.attractor.locate(c);
 		const A = att.locate(0.75);
 		const B = att.locate(0)//.offsetBy( curlSize*1/3, 'TAN' );
 		const C = att.locate(0.25)//.offsetBy( curlSize*2/3, 'RAY' );
@@ -72,11 +73,11 @@ class HairCurl extends Model {
 
 let instance: HairCurl | null = null;
 
-export function drawHairCurl( field: any, size: any ): HairCurl {
+export function drawHairCurl( base: any, type?: string  ): HairCurl {
   
   if (!instance) {
 
-    instance = new HairCurl( field, size );
+    instance = new HairCurl( base, type );
   }
 
   return instance;

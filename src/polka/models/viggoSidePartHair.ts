@@ -18,9 +18,9 @@ const GUIDES = '#06E7EF';
 class ViggoSidePartHair extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, type?: string  ) {
 
-		super( field, radius );
+		super( field, type );
 
 		return this;
 
@@ -43,18 +43,18 @@ class ViggoSidePartHair extends Model {
 		const splitPos = 0.35;
 		const cutoffPos = 0.05;
 
-		const height = this.base.radius * this.SIN18;
+		const height = this.base.PHI.BASE * this.SIN18;
 
-		const inWidth = this.base.radius * this.SIN54;
-		const outWidth = this.base.radius * this.PHILESSER;
+		const inWidth = this.base.PHI.BASE * this.SIN54;
+		const outWidth = this.base.PHI.BASE * this.PHILESSER;
 
 		// .............................................
 		// Key points
 
-		const O = this.field.attractor.locate(splitPos);
+		const O = this.base.attractor.locate(splitPos);
 
-		const H = this.field.attractor.locate(cutoffPos);
-		const T = this.field.attractor.locate(0.25).offsetBy(-height, 'VER')
+		const H = this.base.attractor.locate(cutoffPos);
+		const T = this.base.attractor.locate(0.25).offsetBy(-height, 'VER')
 
 
 		// .............................................
@@ -142,11 +142,11 @@ class ViggoSidePartHair extends Model {
 
 let instance: ViggoSidePartHair | null = null;
 
-export function drawViggoSidePartHair( field: any, radius: number ): ViggoSidePartHair {
+export function drawViggoSidePartHair( field: any, type?: string ): ViggoSidePartHair {
   
   if (!instance) {
 
-    instance = new ViggoSidePartHair( field, radius );
+    instance = new ViggoSidePartHair( field, type );
   }
 
   return instance;

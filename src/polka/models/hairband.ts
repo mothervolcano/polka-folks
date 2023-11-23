@@ -26,7 +26,7 @@ class Hairband extends Model {
 
 	public configure() {
 
-		this._att = this.field.getAttractor();
+		this._att = this.base.attractor;
 
 		this._width = this.PHI.S;
 

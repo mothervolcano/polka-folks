@@ -8,6 +8,7 @@ import { merge, bounce, curve, mid, breakOut, breakIn } from '../../lib/topo/too
 import { plotAllAttractorIntersections, mergeAllAttractorIntersections } from '../../lib/topo/tools/plotters';
 
 import { markPoint, normalize, genRandomDec } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -25,9 +26,11 @@ class PompadourWig extends Model {
 	private _angle: any;
 
 
-	constructor( field: any, radius: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius, type );
+		super( base, type );
+
+		this.name = "pompadour"
 
 		return this;
 	};
@@ -36,7 +39,8 @@ class PompadourWig extends Model {
 
 	configure( heightBaseValue: number, volumeBaseValue: number, spanBaseValue: number ) {
 
-		this._att = this.field.getAttractor();
+		// this._att = this.field.getAttractor();
+		this._att = this.base.attractor;
 		
 		this._height = heightBaseValue;
 		this._vol = volumeBaseValue;
@@ -63,7 +67,7 @@ class PompadourWig extends Model {
 		const sideWidthRatio = this.SIN36;
 		const sideHeightRatio = this.SIN54;
 		
-		const coreVolume = this.radius;
+		const coreVolume = this.PHI.BASE;
 		const sideVolume = this.PHI.L + this.PHI.M * normalize( num, 2, 4 )//this._vol;
 		const curlVolume = sideVolume//this._vol * this.PHIGREATER * this.PHIGREATER * this.PHIGREATER;
 
@@ -93,8 +97,8 @@ class PompadourWig extends Model {
 		// Key points around which everything is anchored
 
 		const C = this._att.anchor.clone().offsetBy( this.SIN.XS * -1, 'VER');
-		const Ka = this.field.attractor.locate(1-0.075);
-		const Kb = this.field.attractor.locate(0.50+0.075);
+		const Ka = this.base.attractor.locate(1-0.075);
+		const Kb = this.base.attractor.locate(0.50+0.075);
 
 
 		// ................................................
@@ -104,7 +108,8 @@ class PompadourWig extends Model {
 		const lField = new OrbitalField( null, [ sideVolume * sideWidthRatio, sideVolume ] );
 		const rField = new OrbitalField( null, [ sideVolume * sideWidthRatio, sideVolume ] );
 
-		field.addAttractors(  [ lField, rField ] );
+		// TODO: look into the issue below
+		// field.addAttractors(  [ lField, rField ] );
 
 		// ................................................
 		// Main Field transformation
@@ -246,13 +251,13 @@ class PompadourWig extends Model {
 }
 
 
-let instance: PompadourWig | null = null;
+let instance: IModel | null = null;
 
-export function drawPompadourWig( field: any, radius: number, type?: string ): PompadourWig {
+export function drawPompadourWig( field: any, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new PompadourWig( field, radius, type );
+    instance = new PompadourWig( field, type ) as IModel;
   }
 
   return instance;

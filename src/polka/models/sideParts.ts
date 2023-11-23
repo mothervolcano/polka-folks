@@ -18,9 +18,9 @@ const GUIDES = '#06E7EF';
 class HairModelTest extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, type?: string  ) {
 
-		super( field, radius );
+		super( field, type );
 
 		return this;
 
@@ -46,8 +46,8 @@ class HairModelTest extends Model {
 		// .............................................
 		// Key points
 
-		const A0 = this.field.attractor.locate(0+spanPos);
-		const B0 = this.field.attractor.locate(0.50-spanPos);
+		const A0 = this.base.attractor.locate(0+spanPos);
+		const B0 = this.base.attractor.locate(0.50-spanPos);
 		const A = this.base.A;
 		const B = this.base.B;
 
@@ -130,11 +130,11 @@ class HairModelTest extends Model {
 
 let instance: HairModelTest | null = null;
 
-export function drawHairModelTest( field: any, radius: number ): HairModelTest {
+export function drawHairModelTest( field: any, type?: string  ): HairModelTest {
   
   if (!instance) {
 
-    instance = new HairModelTest( field, radius );
+    instance = new HairModelTest( field, type );
   }
 
   return instance;

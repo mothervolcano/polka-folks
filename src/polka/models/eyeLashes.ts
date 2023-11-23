@@ -13,9 +13,11 @@ const GUIDES = '#06E7EF';
 export class EyeLashes extends Model {
 
 	
-	constructor( field: any, radius: number, type?: string ) {
+	constructor( field: any, type?: string ) {
 
-		super( field, radius, type );
+		super( field, type );
+
+		this.name = "eye lashes"
 
 		return this;
 
@@ -76,11 +78,11 @@ export class EyeLashes extends Model {
 
 let instance: EyeLashes | null = null;
 
-export function drawEyeLashes( field: any, radius: number, type?: string ): EyeLashes {
+export function drawEyeLashes( field: any, type?: string ): EyeLashes {
   
   if (!instance) {
 
-    instance = new EyeLashes( field, radius, type );
+    instance = new EyeLashes( field, type );
   }
 
   return instance;

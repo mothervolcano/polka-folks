@@ -6,6 +6,7 @@ import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -17,9 +18,11 @@ class Hairline extends Model {
 	private _ridge: number = 0;
 
 
-	constructor( field: any, radius: any, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius, type );
+		super( base, type );
+
+		this.name = "hairline";
 
 	};
 
@@ -48,7 +51,7 @@ class Hairline extends Model {
 		const A = this.base.getPin( PIN_A );
 		const B = this.base.getPin( PIN_B );
 		
-		const C = this.field.attractor.locate(0.25);
+		const C = this.base.attractor.locate(0.25);
 		
 		C.offsetBy( advance, 'VER' );
 
@@ -85,12 +88,12 @@ class Hairline extends Model {
 }
 
 
-let instance: Hairline | null = null;
+let instance: IModel | null = null;
 
-export function drawHairline( field: any, radius: any, type?: string ): Hairline {
+export function drawHairline( base: IModel, type?: string ): IModel {
   
   if (!instance) {
-    instance = new Hairline( field, radius, type ); 
+    instance = new Hairline( base, type ) as IModel; 
   }
 
   return instance;

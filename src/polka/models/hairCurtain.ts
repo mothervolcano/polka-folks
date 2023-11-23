@@ -6,6 +6,7 @@ import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -19,9 +20,9 @@ class HairCurtain extends Model {
 	private _splitAperture: number = 0;
 
 
-	constructor( field: any, radius: any, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 		
-		super( field, radius, type );
+		super( base, type );
 
 	};
 
@@ -52,7 +53,7 @@ class HairCurtain extends Model {
 		
 		const A = this.base.A;
 		const B = this.base.B;
-		const C = this.field.attractor.locate(c);
+		const C = this.base.attractor.locate(c);
 
 		C.offsetBy( splitStart, 'VER' ).steer(0, aperture);
 
@@ -86,11 +87,11 @@ class HairCurtain extends Model {
 }
 
 
-let instance: HairCurtain | null = null;
+let instance: IModel | null = null;
 
-export function drawHairCurtain( field: any, radius: any, type?: string ): HairCurtain {
+export function drawHairCurtain( base: IModel, type?: string ): IModel {
   if (!instance) {
-    instance = new HairCurtain( field, radius, type );
+    instance = new HairCurtain( base, type ) as IModel;
   }
   return instance;
 }

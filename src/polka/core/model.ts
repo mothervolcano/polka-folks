@@ -1,9 +1,14 @@
 import {
 	IHyperPoint,
 	IAttractorField,
+    IAttractor,
+    IAttractorObject,
 } from "../../lib/topo/types";
 
+import AttractorObject from "../../lib/topo/core/attractorObject";
 import Pen from "../../lib/topo/tools/pen";
+
+import { IModel, MetricScale } from "../types";
 import Composer from "./composer";
 
 import {
@@ -16,45 +21,50 @@ import {
 	PHILESSER,
     generateScaleFor,
 } from "../styles/metrics";
-import { IModel, MetricScale } from "../types";
+
+
 
 abstract class Model {
 	protected _pen: any;
+	#name: string = "unknown";
 	#composer: any;
 	#path: any;
 	#base: IModel | null;
-	#field: IAttractorField;
+	#attractor: IAttractor | null;
 
 	#level: any;
-
-	#position: any;
-	#radius: number;
 
 	#A: IHyperPoint | null;
 	#B: IHyperPoint | null;
 	#C: IHyperPoint | null;
 	#T: IHyperPoint | null;
 
-	#PHI: MetricScale;
-	#SIN: MetricScale;
+	#PHI: MetricScale | null = null;
+	#SIN: MetricScale | null = null;
 
 	#ATTS: any;
 	#PINS: any;
 
-	constructor(field: IAttractorField, radius: number, type?: string) {
+	constructor(base: IAttractor | IModel, type?: string) {
 		this._pen = Pen.getInstance();
 
 		this.#composer = new Composer(type);
+		
+		// ------------------------------------------------
+		// Foundational models that don't are not based on any model are defined by an attractor
 
-		this.#base = null;
+		if (this.isAttractor(base)) {
 
-		this.#field = field;
-		this.#radius = radius;
+			this.#base = null;
+			this.#attractor = base;
 
-		this.#position = field.attractor.center;
+			this.setScale(base.length/Math.PI/2);
 
-		this.#PHI = generateScaleFor("PHI", radius);
-		this.#SIN = generateScaleFor("SIN", radius);
+		} else {
+
+			this.#base = base;
+			this.#attractor = null;
+		}
 
 		this.#A = null;
 		this.#B = null;
@@ -65,18 +75,35 @@ abstract class Model {
 		this.#PINS = {};
 	}
 
-	baseOn(model: IModel) {
-		this.#base = model;
+	private isAttractor( input: any ): input is IAttractor {
+
+		return input instanceof AttractorObject
 	}
 
-	hasBase(): boolean {
-		return Boolean(this.#base);
+	// public baseOn(model: IModel) {
+	// 	this.#base = model;
+	// }
+
+	// public hasBase(): boolean {
+	// 	return Boolean(this.#base);
+	// }
+
+	// get radius() {
+	// 	return this.#radius;
+	// }
+
+	set name(value: string) {
+		this.#name = value;
+	}
+
+	get name() {
+		return this.#name;
 	}
 
 	get base() {
 		if (!this.#base) {
 			throw new Error(
-				`ERROR @ Model: No base has been set for this model`,
+				`ERROR @ Model: No base has been set for the ${this.#name} model`,
 			);
 		}
 
@@ -99,20 +126,31 @@ abstract class Model {
 		return this.#level;
 	}
 
-	get position() {
-		return this.#position;
+	set attractor( att: IAttractor ) {
+		this.#attractor = att;
 	}
 
-	get radius() {
-		return this.#radius;
-	}
-
-	get field() {
-		return this.#field;
+	get attractor() {
+		if (!this.#attractor) {
+			throw new Error(
+				`ERROR @ Model: No attractor has been set for the ${this.#name} model`,
+			);
+		}
+		return this.#attractor;
 	}
 
 	get PHI() {
+		if (!this.#PHI) {
+			throw new Error(`PHI scale hasn't been defined on ${this.#name} Model`);
+		}
 		return this.#PHI;
+	}
+
+	get SIN() {
+		if (!this.#SIN) {
+			throw new Error(`SIN scale hasn't been defined on ${this.#name} Model`);
+		}
+		return this.#SIN;
 	}
 
 	get PHIGREATER() {
@@ -123,9 +161,6 @@ abstract class Model {
 		return PHILESSER;
 	}
 
-	get SIN() {
-		return this.#SIN;
-	}
 
 	get SIN9() {
 		return SIN9;
@@ -149,7 +184,7 @@ abstract class Model {
 
 	get A() {
 		if (!this.#A) {
-			throw new Error(`A hasn't been defined on Model`);
+			throw new Error(`A hasn't been defined on ${this.#name} Model`);
 		}
 
 		return this.#A.clone();
@@ -157,7 +192,7 @@ abstract class Model {
 
 	get B() {
 		if (!this.#B) {
-			throw new Error(`B hasn't been defined on Model`);
+			throw new Error(`B hasn't been defined on ${this.#name} Model`);
 		}
 
 		return this.#B.clone();
@@ -165,7 +200,7 @@ abstract class Model {
 
 	get C() {
 		if (!this.#C) {
-			throw new Error(`C hasn't been defined on Model`);
+			throw new Error(`C hasn't been defined on ${this.#name} Model`);
 		}
 
 		return this.#C.clone();
@@ -173,7 +208,7 @@ abstract class Model {
 
 	get T() {
 		if (!this.#T) {
-			throw new Error(`T hasn't been defined on Model`);
+			throw new Error(`T hasn't been defined on ${this.#name} Model`);
 		}
 
 		return this.#T;
@@ -212,7 +247,10 @@ abstract class Model {
 	}
 
 	protected wrap(sgmA: any, sgmB: any) {
-		const headWrap = this.field.attractor.extractPath(sgmA, sgmB);
+
+		const att = this.#attractor ? this.attractor : this.base.attractor;
+
+		const headWrap = att.extractPath(sgmA, sgmB);
 		headWrap.reverse();
 
 		// TODO: it should check if the pen is already set with a path. If not, set this.path as default.
@@ -221,12 +259,18 @@ abstract class Model {
 		this.pen.getPath().join(headWrap);
 	}
 
+	public setScale( baseValue: number ) {
+
+		this.#PHI = generateScaleFor("PHI", baseValue);
+		this.#SIN = generateScaleFor("SIN", baseValue);
+	}
+
 	public setPins(pins: any) {
 
 		if (Object.keys(this.#PINS).length === 0) {
             this.#PINS = pins;
         } else {
-        	throw new Error(`ERROR @Model.setPins(${pins}) -> Pins can only be assigned once.`)
+        	throw new Error(`ERROR @Model.setPins(${pins}) -> Pins can only be assigned once. (${this.#name})`)
         }
 	}
 
@@ -235,7 +279,7 @@ abstract class Model {
 		if (Object.keys(this.#ATTS).length === 0) {
             this.#ATTS = atts;
         } else {
-        	throw new Error(`ERROR @Model.setAtts(${atts}) -> Atts can only be assigned once.`)
+        	throw new Error(`ERROR @Model.setAtts(${atts}) -> Atts can only be assigned once. (${this.#name})`)
         }
 	}
 

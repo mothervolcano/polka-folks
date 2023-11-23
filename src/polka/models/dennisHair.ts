@@ -8,6 +8,7 @@ import { merge, measure, mid, curve, ortoAlign } from '../../lib/topo/tools/stit
 
 import { convertToHyperPoint } from '../../lib/topo/utils/converters';
 import { markPoint, genRandomDec, normalize } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -16,9 +17,9 @@ const GUIDES = '#06E7EF';
 class DennisHair extends Model {
 
 	
-	constructor( field: any, radius: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius, type );
+		super( base, type );
 
 		return this;
 
@@ -47,8 +48,8 @@ class DennisHair extends Model {
 		// Key points
 
 		const A = this.base.A;
-		const C = this.field.attractor.locate( 0.20 );
-		const P = this.field.attractor.locate( latitude );
+		const C = this.base.attractor.locate( 0.20 );
+		const P = this.base.attractor.locate( latitude );
 
 		// .............................................
 		// Construction
@@ -110,7 +111,7 @@ class DennisHair extends Model {
 		this.pen.add( [ B, B1 ] );
 		// this.pen.mirrorRepeat('HOR');
 
-		const headWrap = this.field.attractor.extractPath( convertToHyperPoint(_path2.firstSegment.point), convertToHyperPoint(_path2.lastSegment.point) );
+		const headWrap = this.base.attractor.extractPath( convertToHyperPoint(_path2.firstSegment.point), convertToHyperPoint(_path2.lastSegment.point) );
 		headWrap.reverse();
 		this.pen.trim( headWrap );
 		_path2.join(headWrap);
@@ -142,13 +143,13 @@ class DennisHair extends Model {
 }
 
 
-let instance: DennisHair | null = null;
+let instance: IModel | null = null;
 
-export function drawDennisHair( field: any, radius: number, type?: string ): DennisHair {
+export function drawDennisHair( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new DennisHair( field, radius, type );
+    instance = new DennisHair( base, type ) as IModel;
   }
 
   return instance;

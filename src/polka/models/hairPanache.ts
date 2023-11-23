@@ -6,6 +6,7 @@ import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -14,9 +15,11 @@ const GUIDES = '#06E7EF';
 export class HairPanache extends Model {
 
 	
-	constructor( field: any, radius: any, type?: string) {
+	constructor( base: IModel,type?: string) {
 
-		super( field, radius, type );
+		super( base, type );
+
+		this.name = "panache";
 
 		return this;
 
@@ -31,18 +34,7 @@ export class HairPanache extends Model {
 
 	public plot( params: any, lvl: number, c: number ) {
 
-
-		let O;
-
-		if ( this.hasBase() ) {
-
-			O = this.base.C.clone();
-
-		} else {
-
-			O = this.field.getAttractor().locate(c);
-
-		}
+		const O = this.base.C.clone();
 
 		const { testCtrl } = params;
 
@@ -54,7 +46,9 @@ export class HairPanache extends Model {
 		const attBase = new Orbital( [ baseSize * flatness, baseSize * width ] );
 		const attTop = new Orbital( [ topSize * flatness, topSize * width ] );
 
-		const field = new OrbitalField( O, this.radius );
+		const radius = this.base.attractor.length / Math.PI / 2;
+
+		const field = new OrbitalField( O, radius );
 
 		field.addAttractor( attBase, c );
 		field.addAttractor( attTop, c );
@@ -99,13 +93,13 @@ export class HairPanache extends Model {
 }
 
 
-let instance: HairPanache | null = null;
+let instance: IModel | null = null;
 
-export function drawHairPanache( field: any, radius: any, type?: string ): HairPanache {
+export function drawHairPanache( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new HairPanache( field, radius, type );
+    instance = new HairPanache( base, type ) as IModel;
   }
 
   return instance;

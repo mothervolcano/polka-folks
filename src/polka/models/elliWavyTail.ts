@@ -20,9 +20,9 @@ class ElliWavyTail extends Model {
 	private _length: number = 0;
 
 
-	constructor( field: any, size: any, type?: string ) {
+	constructor( field: any, type?: string ) {
 
-		super( field, size, type );
+		super( field, type );
 
 	}
 
@@ -59,7 +59,7 @@ class ElliWavyTail extends Model {
 		// ...................................................
 		// determine the key points
 
-		const O = this.field.getAttractor().anchor.clone();
+		const O = this.base.attractor.anchor.clone();
 		
 
 		// ...................................................
@@ -156,11 +156,11 @@ class ElliWavyTail extends Model {
 
 let instance: ElliWavyTail | null = null;
 
-export function drawElliWavyTail( field: any, size: any, type?: string ): ElliWavyTail {
+export function drawElliWavyTail( field: any, type?: string ): ElliWavyTail {
   
   if (!instance) {
 
-    instance = new ElliWavyTail( field, size, type );
+    instance = new ElliWavyTail( field, type );
   }
 
   return instance;

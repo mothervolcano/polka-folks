@@ -9,6 +9,7 @@ import EclipseField from "../attractors/eclipseField";
 import { budge } from "../../lib/topo/tools/stitcher";
 
 import { markPoint } from "../../lib/topo/utils/helpers";
+import { IAttractor, IAttractorObject } from "../../lib/topo/types";
 
 const DEBUG_GREEN = "#10FF0C";
 const GUIDES = "#06E7EF";
@@ -28,8 +29,10 @@ class Face extends Model {
 	private _noseSize: number = 0;
 	private _noseWidth: number = 0;
 
-	constructor(field: any, radius: number) {
-		super(field, radius);
+	constructor(att: IAttractor) {
+		super(att);
+
+		this.name = "face";
 
 		this.setPins({
 			L_EYE_C: null,
@@ -103,7 +106,7 @@ class Face extends Model {
 		// .........................................................................
 		// Eyes Construction
 
-		const eyesField = new EclipseField(this.field.attractor.center, [this.radius, this.radius]);
+		const eyesField = new EclipseField(this.attractor.center, [this.PHI.BASE, this.PHI.BASE]);
 
 		this._lEye = new Orbital([eyeSize, eyeSize * eyeRoundness]);
 		this._rEye = new Orbital([eyeSize, eyeSize * eyeRoundness]);
@@ -160,9 +163,9 @@ class Face extends Model {
 
 let instance: Face | null = null;
 
-export function drawFace(field: any, radius: number): Face {
+export function drawFace(att: IAttractor): Face {
 	if (!instance) {
-		instance = new Face(field, radius);
+		instance = new Face(att);
 	}
 
 	return instance;

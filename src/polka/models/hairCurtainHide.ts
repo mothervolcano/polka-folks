@@ -6,6 +6,7 @@ import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
 import { markPoint, genRandomDec } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -15,9 +16,9 @@ class HairCurtainHide extends Model {
 
 
 	
-	constructor( field: any, radius: any, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius, type );
+		super( base, type );
 
 		return this;
 
@@ -62,16 +63,22 @@ class HairCurtainHide extends Model {
 		// Plotting
 
 
-		const AC = this.field.attractor.locate(0.25).offsetBy( level, 'VER' ).scaleHandles(0);
-		const A0 = this.field.attractor.locate(0.75).scaleHandles(0);
-		const A1 = this.field.attractor.locate(0.75).offsetBy( this.radius * -1, 'HOR' ).scaleHandles(0);
-		const A2 = this.field.attractor.locate(0);
+		const AC = this.base.attractor.locate(0.25).offsetBy( level, 'VER' ).scaleHandles(0);
+		const A0 = this.base.attractor.locate(0.75).scaleHandles(0);
+		const A1 = this.base.attractor.locate(0.75).offsetBy( this.PHI.BASE * -1, 'HOR' ).scaleHandles(0);
+		const A2 = this.base.attractor.locate(0);
 
-		const BC = this.field.attractor.locate(0.25).offsetBy( level, 'VER' );
+		const BC = this.base.attractor.locate(0.25).offsetBy( level, 'VER' );
 		BC.steer(0, 315).scaleHandles( 0, true, false );
 
 		const _B = B.steer(60, 180).flip();
 
+		// .............................................
+		// Chart
+
+		this.A = this.base.A.clone();
+		this.B = this.base.B.clone();
+		
 		// .............................................
 		// Drawing
 
@@ -91,29 +98,20 @@ class HairCurtainHide extends Model {
 
 		this.path.reverse();
 
-		const headWrap = this.base.field.attractor.extractPath( this.path.firstSegment, this.path.lastSegment );
+		const headWrap = this.base.base.attractor.extractPath( this.path.firstSegment, this.path.lastSegment );
 		headWrap.reverse();
 		this.pen.trim( headWrap );
 		this.path.join( headWrap );
 
 
-		// const instructions = {
-
-		// 	level: this.level,
-		// 	complete: false,
-		// 	gradient: false
-		// }
-
-		// .............................................
-		// Chart
-
-		this.A = this.base.A.clone();
-		this.B = this.base.B.clone();
-
-		// return [ instructions, this.path ];
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
 
 		this.composer.init();
-		this.composer.addPath(this.path, lvl);
+		this.composer.addPath(this.path, formaProps);
 
 		return this.composer.wrap();
 
@@ -122,13 +120,13 @@ class HairCurtainHide extends Model {
 }
 
 
-let instance: HairCurtainHide | null = null;
+let instance: IModel | null = null;
 
-export function drawHairCurtainHide( field: any, radius: any, type?: string ): HairCurtainHide {
+export function drawHairCurtainHide( base: any, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new HairCurtainHide( field, radius, type );
+    instance = new HairCurtainHide( base, type ) as IModel;
   }
 
   return instance;

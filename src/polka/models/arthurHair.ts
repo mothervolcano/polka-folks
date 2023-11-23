@@ -7,6 +7,7 @@ import OrbitalField from '../attractors/orbitalField';
 import { merge, measure, mid, curve } from '../../lib/topo/tools/stitcher';
 
 import { markPoint, genRandom, genRandomDec } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -15,9 +16,9 @@ const GUIDES = '#06E7EF';
 class ArthurHair extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( base: IModel, type?: string  ) {
 
-		super( field, radius );
+		super( base, type );
 
 		return this;
 
@@ -38,14 +39,14 @@ class ArthurHair extends Model {
 		// Compute parameters
 
 		const span = 0.15;
-		const splitLatitude = this.base.radius * this.SIN9;
+		const splitLatitude = this.base.PHI.BASE * this.SIN9;
 
 		// .............................................
 		// Key points
 
-		const C = this.field.attractor.locate( 0.25 );
-		const A = this.field.attractor.locate( 0.25 - span );
-		const B = this.field.attractor.locate( 0.25 + span );
+		const C = this.base.attractor.locate( 0.25 );
+		const A = this.base.attractor.locate( 0.25 - span );
+		const B = this.base.attractor.locate( 0.25 + span );
 
 		// .............................................
 		// Construction
@@ -105,13 +106,13 @@ class ArthurHair extends Model {
 }
 
 
-let instance: ArthurHair | null = null;
+let instance: IModel | null = null;
 
-export function drawArthurHair( field: any, radius: number ): ArthurHair {
+export function drawArthurHair( base: IModel, type?: string  ): IModel {
   
   if (!instance) {
 
-    instance = new ArthurHair( field, radius );
+    instance = new ArthurHair( base, type ) as IModel;
   }
 
   return instance;

@@ -20,7 +20,7 @@ import { metricUnit, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles
 const hairDome: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawHairDome(f, r, "hair"),
+	create: (f, r) => drawHairDome(f, r),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "XL"),
@@ -33,7 +33,7 @@ const hairDome: ModelConfig = {
 const ionicHair: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawIonicHair(f, r, "hair"),
+	create: (f, r) => drawIonicHair(f, r),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "XL"),
@@ -46,7 +46,7 @@ const ionicHair: ModelConfig = {
 const dennisHair: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawDennisHair(f, r, "hair"),
+	create: (f, r) => drawDennisHair(f, r),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "XL"),
@@ -59,7 +59,7 @@ const dennisHair: ModelConfig = {
 const hairCurtainHide: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawHairCurtainHide(f, r, "hair"),
+	create: (f, r) => drawHairCurtainHide(f, r),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "L"),
@@ -72,7 +72,7 @@ const hairCurtainHide: ModelConfig = {
 const hairCape: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawHairCapeTail(f, r, "hair"),
+	create: (f, r) => drawHairCapeTail(f, r),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "XL"),
@@ -85,7 +85,7 @@ const hairCape: ModelConfig = {
 const hairCap: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawHairCap(f, r, "hair"),
+	create: (f, r) => drawHairCap(f, r),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "L"),
@@ -98,7 +98,7 @@ const hairCap: ModelConfig = {
 const hairCurtain: ModelConfig = {
 	type: "hairline",
 	order: "first",
-	create: (f, r) => drawHairCurtain(f, r, "hair"),
+	create: (f, r) => drawHairCurtain(f, r),
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "XL"),
@@ -111,7 +111,7 @@ const hairCurtain: ModelConfig = {
 const bangs: ModelConfig = {
 	type: "hairline",
 	order: "first",
-	create: (f, r) => drawBangHairline(f, r, "hairline"),
+	create: (f, r) => drawBangHairline(f, r),
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "L"),
@@ -124,7 +124,7 @@ const bangs: ModelConfig = {
 const billyFlaps: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawBillyHairFlaps(f, r, "hair"),
+	create: (f, r) => drawBillyHairFlaps(f, r),
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "L"),
@@ -137,7 +137,7 @@ const billyFlaps: ModelConfig = {
 const arcPattern: ModelConfig = {
 	type: "hair",
 	order: "second",
-	create: (f, r) => drawArcWave(f, r, "hair"),
+	create: (f, r) => drawArcWave(f, r),
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "XL"),
@@ -150,7 +150,7 @@ const arcPattern: ModelConfig = {
 const zigzag: ModelConfig = {
 	type: "hair",
 	order: "second",
-	create: (f, r) => drawArcWave(f, r, "hair"),
+	create: (f, r) => drawArcWave(f, r),
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "XL"),
@@ -163,7 +163,7 @@ const zigzag: ModelConfig = {
 const roundGlasses: ModelConfig = {
 	type: "eyewear",
 	order: "first",
-	create: (f, r) => drawRoundGlasses(f, r, "eyewear"),
+	create: (f, r) => drawRoundGlasses(f, r),
 	use: null,
 	base: "FACE",
 	size: metricUnit("PHI", "XL"),
@@ -176,7 +176,7 @@ const roundGlasses: ModelConfig = {
 const billyMonkHair: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawBillyMonkHair(f, r, "hair"),
+	create: (f, r) => drawBillyMonkHair(f, r),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "XL"),
@@ -189,7 +189,7 @@ const billyMonkHair: ModelConfig = {
 const hairModelTest: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawHairModelTest(f, r, "hair"),
+	create: (f, r) => drawHairModelTest(f, r),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "L"),

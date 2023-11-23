@@ -16,9 +16,9 @@ const GUIDES = '#06E7EF';
 class HairWedgeSpike extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( base: any, type?: string  ) {
 
-		super( field, radius );
+		super( base, type );
 
 		return this;
 
@@ -40,9 +40,9 @@ class HairWedgeSpike extends Model {
 
 		const position = genRandomDec( 0.15, 0.45 );
 		// const span = position < 0.25 ? -0.075 : 0.075;
-		const r = this.base.radius * this.SIN9;
+		const r = this.base.PHI.BASE * this.SIN9;
 
-		const length = this.base.radius + genRandomDec( -this.PHI.S, this.PHI.L );
+		const length = this.base.PHI.BASE + genRandomDec( -this.PHI.S, this.PHI.L );
 
 		// .............................................
 		// Key points
@@ -55,7 +55,8 @@ class HairWedgeSpike extends Model {
 
 		const att = new Orbital( r );
 
-		this.field.addAttractor( att, position );
+		// TODO: add field
+		// this.base.addAttractor( att, position );
 
 		// .............................................
 		// Configure
@@ -110,11 +111,11 @@ class HairWedgeSpike extends Model {
 
 let instance: HairWedgeSpike | null = null;
 
-export function drawHairWedgeSpike( field: any, radius: number ): HairWedgeSpike {
+export function drawHairWedgeSpike( field: any, type?: string  ): HairWedgeSpike {
   
   if (!instance) {
 
-    instance = new HairWedgeSpike( field, radius );
+    instance = new HairWedgeSpike( field, type );
   }
 
   return instance;

@@ -8,6 +8,7 @@ import OrbitalField from '../attractors/orbitalField';
 import { merge, measure, mid, curve } from '../../lib/topo/tools/stitcher';
 
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -16,9 +17,9 @@ const GUIDES = '#06E7EF';
 class BillMonkHair extends Model {
 
 	
-	constructor( field: any, radius: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius, type );
+		super( base, type );
 
 		return this;
 
@@ -99,13 +100,13 @@ class BillMonkHair extends Model {
 }
 
 
-let instance: BillMonkHair | null = null;
+let instance: IModel | null = null;
 
-export function drawBillyMonkHair( field: any, radius: number, type?: string ): BillMonkHair {
+export function drawBillyMonkHair( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new BillMonkHair( field, radius, type );
+    instance = new BillMonkHair( base, type ) as IModel;
   }
 
   return instance;

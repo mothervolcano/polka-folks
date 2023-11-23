@@ -6,6 +6,7 @@ import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -14,9 +15,11 @@ const GUIDES = '#06E7EF';
 class BangHairline extends Model {
 
 
-	constructor( field: any, radius: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius, type );
+		super( base, type );
+
+		this.name = "bang hairline"
 
 		return this;
 
@@ -49,10 +52,10 @@ class BangHairline extends Model {
 		// Construction
 
 
-		// const field = new OrbitalField( this.field.attractor.center, this.field.attractor.radius );
+		// const att = new OrbitalField( this.base.attractor.center, this.base.attractor.radius );
 
-		const A1 	= this.field.attractor.locate(A.position+0.075).offsetBy( -15, 'RAY' ).steer(130).scaleHandles( 0, true, false ).scaleHandles( 2/3, false, true );
-		const C 	= this.field.attractor.locate(c).offsetBy( dist * -1, 'RAY' ).scaleHandles( 2/3 );
+		const A1 	= this.base.attractor.locate(A.position+0.075).offsetBy( -15, 'RAY' ).steer(130).scaleHandles( 0, true, false ).scaleHandles( 2/3, false, true );
+		const C 	= this.base.attractor.locate(c).offsetBy( dist * -1, 'RAY' ).scaleHandles( 2/3 );
 
 		// ..............................................
 
@@ -96,13 +99,13 @@ class BangHairline extends Model {
 }
 
 
-let instance: BangHairline | null = null;
+let instance: IModel | null = null;
 
-export function drawBangHairline( field: any, radius: number, type?: string ): BangHairline {
+export function drawBangHairline( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new BangHairline( field, radius, type );
+    instance = new BangHairline( base, type ) as IModel;
   }
 
   return instance;

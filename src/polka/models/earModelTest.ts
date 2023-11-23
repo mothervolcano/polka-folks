@@ -18,8 +18,10 @@ const GUIDES = "#06E7EF";
 class EarModelTest extends Model {
 	#shapes: any;
 
-	constructor(field: any, radius: number, type?: string) {
-		super(field, radius, type);
+	constructor(field: any, type?: string) {
+		super(field, type);
+
+		this.name = "earring model test";
 
 		// this._shapes = [ useLozenge, useDrop ];
 		this.#shapes = [Lozenge, Drop, Cone];
@@ -39,7 +41,7 @@ class EarModelTest extends Model {
 		// .............................................
 		// Compute parameters
 
-		const baseSize = this.radius * this.SIN36;
+		const baseSize = this.PHI.BASE * this.SIN36;
 		const num = 3;
 
 		// .............................................
@@ -113,9 +115,9 @@ class EarModelTest extends Model {
 
 let instance: EarModelTest | null = null;
 
-export function drawEarModelTest(field: any, radius: number, type?: string): EarModelTest {
+export function drawEarModelTest(field: any, type?: string): EarModelTest {
 	if (!instance) {
-		instance = new EarModelTest(field, radius, type);
+		instance = new EarModelTest(field, type);
 	}
 
 	return instance;

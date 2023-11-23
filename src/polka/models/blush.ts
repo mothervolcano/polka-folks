@@ -15,9 +15,11 @@ export class Blush extends Model {
 
 	private _size: number = 0;
 
-	constructor( field: any, radius: number, type?: string ) {
+	constructor( field: any, type?: string ) {
 
-		super( field, radius, type );
+		super( field, type );
+
+		this.name = "blush";
 
 		return this;
 
@@ -69,11 +71,11 @@ export class Blush extends Model {
 
 let instance: Blush | null = null;
 
-export function drawBlush( field: any, radius: number, type?: string ): Blush {
+export function drawBlush( field: any, type?: string ): Blush {
   
   if (!instance) {
 
-    instance = new Blush( field, radius, type );
+    instance = new Blush( field, type );
   }
 
   return instance;

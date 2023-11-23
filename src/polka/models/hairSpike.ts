@@ -8,6 +8,7 @@ import OrbitalField from '../attractors/orbitalField';
 import SpinalField from '../attractors/spinalField';
 
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -24,9 +25,9 @@ class HairSpike extends Model {
 	private frame: any;
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( base: any, type?: string  ) {
 
-		super( field, radius );
+		super( base, type );
 
 		return this;
 
@@ -62,9 +63,9 @@ class HairSpike extends Model {
 		// .......................................................
 		// key points
 
-		const C = this.field.attractor.locate(c);
-		const A = this.field.attractor.locate(a);
-		const B = this.field.attractor.locate(b);
+		const C = this.base.attractor.locate(c);
+		const A = this.base.attractor.locate(a);
+		const B = this.base.attractor.locate(b);
 
 		C.offsetBy( indent, 'RAY');
 		// A.offsetBy( indent, C.normal );  
@@ -75,7 +76,7 @@ class HairSpike extends Model {
 		// field construction
 
 
-		const field = new SpinalField( this.position, length, 'DIRECTED' );
+		const field = new SpinalField( this.base.attractor.center, length, 'DIRECTED' );
 		field.anchorAt( C, 'RAY' );
 
 		field.addAttractor( new Orbital( [ sharpness, sharpness ] ), 1 );
@@ -119,14 +120,14 @@ class HairSpike extends Model {
 }
 
 
-let instance: HairSpike | null = null;
+let instance: IModel | null = null;
 
 
-export function drawHairSpike( field: any, radius: number ): HairSpike {
+export function  drawHairSpike( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new HairSpike( field, radius );
+    instance = new HairSpike( base, type ) as IModel;
  
   }
 

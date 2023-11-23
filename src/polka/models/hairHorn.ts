@@ -16,9 +16,9 @@ const GUIDES = '#06E7EF';
 class HairHorn extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( base: any, type?: string  ) {
 
-		super( field, radius );
+		super( base, type );
 
 		return this;
 
@@ -40,9 +40,9 @@ class HairHorn extends Model {
 
 		const position = genRandomDec( 0.15, 0.45 );
 		// const span = position < 0.25 ? -0.075 : 0.075;
-		const r = this.base.radius * this.SIN9;
+		const r = this.base.PHI.BASE * this.SIN9;
 
-		const length = this.base.radius + genRandomDec( -this.PHI.S, this.PHI.L );
+		const length = this.base.PHI.BASE + genRandomDec( -this.PHI.S, this.PHI.L );
 
 		// .............................................
 		// Key points
@@ -55,7 +55,8 @@ class HairHorn extends Model {
 
 		const att = new Orbital( r );
 
-		this.field.addAttractor( att, position );
+		//TODO: create field
+		// this.base.addAttractor( att, position );
 
 		// .............................................
 		// Configure
@@ -112,11 +113,11 @@ class HairHorn extends Model {
 
 let instance: HairHorn | null = null;
 
-export function drawHairHorn( field: any, radius: number ): HairHorn {
+export function drawHairHorn( field: any, type?: string  ): HairHorn {
   
   if (!instance) {
 
-    instance = new HairHorn( field, radius );
+    instance = new HairHorn( field, type );
   }
 
   return instance;

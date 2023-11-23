@@ -19,9 +19,11 @@ export class Earrings extends Model {
 	private _length: any;
 
 
-	constructor( field: any, radius: any, type?: string ) {
+	constructor( field: any, type?: string ) {
 
-		super( field, radius, type );
+		super( field, type );
+
+		this.name = "earrings"
 
 	};
 
@@ -99,11 +101,11 @@ export class Earrings extends Model {
 
 let instance: Earrings | null = null;
 
-export function drawEarrings( field: any, radius: any, type?: string ): Earrings {
+export function drawEarrings( field: any, type?: string ): Earrings {
   
   if (!instance) {
 
-    instance = new Earrings( field, radius, type );
+    instance = new Earrings( field, type );
   }
 
   return instance;

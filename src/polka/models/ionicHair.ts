@@ -5,6 +5,7 @@ import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -18,9 +19,9 @@ class IonicHair extends Model {
 	private _height: any;
 
 	
-	constructor( field: any, radius: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius, type );
+		super( base, type );
 
 		return this;
 
@@ -55,10 +56,10 @@ class IonicHair extends Model {
 		// ........................................
 		// Determine key points
 
-		const O = this.field.attractor.center;
+		const O = this.base.attractor.center;
 
-		const A = this.field.attractor.locate(a);
-		const B = this.field.attractor.locate(b);
+		const A = this.base.attractor.locate(a);
+		const B = this.base.attractor.locate(b);
 
 
 		// ........................................
@@ -114,14 +115,14 @@ class IonicHair extends Model {
 }
 
 
-let instance: IonicHair | null = null;
+let instance: IModel | null = null;
 
 
-export function drawIonicHair( field: any, radius: number, type?: string ): IonicHair {
+export function drawIonicHair( field: any, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new IonicHair( field, radius, type );
+    instance = new IonicHair( field, type ) as IModel;
  
   }
 

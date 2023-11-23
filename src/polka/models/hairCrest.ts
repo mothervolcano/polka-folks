@@ -6,6 +6,7 @@ import OrbitalField from '../attractors/orbitalField';
 
 import { measure } from '../../lib/topo/tools/stitcher';
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -17,9 +18,11 @@ class HairCrest extends Model {
 	private _crestSize: any;
 
 	
-	constructor( field: any, size: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, size, type );
+		super( base, type );
+
+		this.name = "crest";
 
 		return this;
 	};
@@ -43,7 +46,7 @@ class HairCrest extends Model {
 		let O;
 		let A;
 
-		if ( this.base ) {
+		// TODO: refactor to not depend on mapped locations. 
 
 			P = this.base.T.clone();
 			O = this.base.T;
@@ -51,14 +54,12 @@ class HairCrest extends Model {
 			
 			P.offsetBy( crestSize*-2, 'VER' );
 
-		} else {
 
-			P = this.field.getAttractor().locate(c);
-			O = this.field.getAttractor().locate(c).flip();
-			A = this.field.getAttractor().locate(c-widthFactor).flip();
+			// P = this.base.getAttractor().locate(c);
+			// O = this.base.getAttractor().locate(c).flip();
+			// A = this.base.getAttractor().locate(c-widthFactor).flip();
 
-			P.offsetBy( crestSize*2, 'RAY' );
-		}
+			// P.offsetBy( crestSize*2, 'RAY' );
 
 
 		const field = new OrbitalField( P, [ crestSize, crestSize/1.5 ] );
@@ -121,13 +122,13 @@ class HairCrest extends Model {
 };
 
 
-let instance: HairCrest | null = null;
+let instance: IModel | null = null;
 
-export function drawHairCrest( field: any, size: number, type?: string ): HairCrest {
+export function drawHairCrest( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new HairCrest( field, size, type );
+    instance = new HairCrest( base, type ) as IModel;
   }
 
   return instance;

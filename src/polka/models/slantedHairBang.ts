@@ -15,9 +15,9 @@ const GUIDES = '#06E7EF';
 class SlantedHairBang extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( base: any, type?: string  ) {
 
-		super( field, radius );
+		super( base, type );
 
 		return this;
 
@@ -40,13 +40,13 @@ class SlantedHairBang extends Model {
 		const position = genRandomDec( 0.28, 0.40 );
 		const angle = genRandomDec( -15, 15 ); // TODO: implement later
 
-		const length = this.base.radius + this.PHI.L + this.SIN.XS;
-		const advance = this.base.radius + this.PHI.L;
+		const length = this.base.PHI.BASE + this.PHI.L + this.SIN.XS;
+		const advance = this.base.PHI.BASE + this.PHI.L;
 
 		// .............................................
 		// Key points
 
-		const C = this.field.attractor.locate( position );
+		const C = this.base.attractor.locate( position );
 
 
 		// .............................................
@@ -106,11 +106,11 @@ class SlantedHairBang extends Model {
 
 let instance: SlantedHairBang | null = null;
 
-export function drawSlantedHairBang( field: any, radius: number ): SlantedHairBang {
+export function drawSlantedHairBang( field: any, type?: string  ): SlantedHairBang {
   
   if (!instance) {
 
-    instance = new SlantedHairBang( field, radius );
+    instance = new SlantedHairBang( field, type );
   }
 
   return instance;

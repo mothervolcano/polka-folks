@@ -8,6 +8,7 @@ import { markPoint, genRandomDec } from '../../lib/topo/utils/helpers';
 import { mergeAllAttractorIntersections } from '../../lib/topo/tools/plotters';
 import { mid, curve } from '../../lib/topo/tools/stitcher';
 import { arch } from '../../lib/topo/tools/envelopes';
+import { IModel } from '../types';
 
 
 const DEBUG_GREEN = '#10FF0C';
@@ -23,9 +24,11 @@ class ArchiCurlCrown extends Model {
 	private _span: number = 0;
 
 	
-	constructor( field: any, size: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, size, type );
+		super( base, type );
+
+		this.name = "archicurl crown"
 
 		return this;
 
@@ -68,14 +71,14 @@ class ArchiCurlCrown extends Model {
 		// .............................................................
 		// Define the key points
 
-		const O = this.field.getAttractor().anchor.clone().offsetBy( height * -1, 'VER' );
-		const K = this.field.getAttractor().locate(0.75).offsetBy( this.SIN.XXS * -1, 'VER' ).steer(0, 230);
+		const O = this.base.attractor.anchor.clone().offsetBy( height * -1, 'VER' );
+		const K = this.base.attractor.locate(0.75).offsetBy( this.SIN.XXS * -1, 'VER' ).steer(0, 230);
 
 
 		// .............................................................
 		// base field construction 
 
-		const baseField = new OrbitalField( this.field.attractor.center, this.radius );
+		const baseField = new OrbitalField( this.base.attractor.center, this.PHI.BASE);
 		baseField.addAttractor( new Orbital( attSize ) );
 		baseField.addAttractor( new Orbital( attSize ) );
 
@@ -212,13 +215,13 @@ class ArchiCurlCrown extends Model {
 }
 
 
-let instance: ArchiCurlCrown | null = null;
+let instance: IModel | null = null;
 
-export function drawArchiCurlCrown( field: any, size: number, type? : string ): ArchiCurlCrown {
+export function drawArchiCurlCrown( base: IModel,  type? : string ): IModel {
   
   if (!instance) {
 
-    instance = new ArchiCurlCrown( field, size, type );
+    instance = new ArchiCurlCrown( base, type ) as IModel;
   }
 
   return instance;

@@ -77,11 +77,18 @@ export interface IAttractor {
   adjustToPolarity( anchor: IHyperPoint ): void;
   reset(): void;
 
+  center: IHyperPoint;
+  length: number;
+  path: any;
+  getPath(): any;
+  extractPath( A: IHyperPoint | number, B: IHyperPoint | number ): any;
+  rotate( angle: number ): void;
+  remove(): void;
 }
 
 export interface IAttractorField {
 
-  readonly attractor: IAttractor & IAttractorObject;
+  readonly attractor: IAttractor;
   readonly attractors: Array<IAttractor>;
   readonly firstAttractor: IAttractor;
   readonly lastAttractor: IAttractor;
@@ -95,6 +102,19 @@ export interface IAttractorField {
 
 
 export interface IAttractorObject {
+
+  // readonly anchor: IHyperPoint;
+  // isDisabled: boolean,
+  // isAxisLocked: boolean,
+  // isSelfAnchored: boolean,
+  // orientation: OrientationType;
+  // polarity: PolarityType;
+  // anchorAt( anchor: IHyperPoint, along?: VectorDirection ): void;
+  // locate( at: number, orient?: boolean ): IHyperPoint | never;
+  // adjustRotationToPosition( anchor: IHyperPoint, isPositive: Function, isNegative: Function ): void;
+  // adjustToOrientation( anchor: IHyperPoint, isPositive: Function, isNegative: Function ): void;
+  // adjustToPolarity( anchor: IHyperPoint ): void;
+  // reset(): void;
 
   center: IHyperPoint;
   length: number;

@@ -8,6 +8,7 @@ import SpinalField from '../attractors/spinalField';
 import OrbitalField from '../attractors/orbitalField';
 
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -19,9 +20,9 @@ class HairShave extends Model {
 
 	private _size: number = 0;
 
-	constructor( field: any, radius: number ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius );
+		super( base, type );
 
 	}
 
@@ -47,7 +48,7 @@ class HairShave extends Model {
 
 
 		const A = this.base.getPin(PIN);
-		const B = this.field.attractor.locate(b);
+		const B = this.base.attractor.locate(b);
 
 		let plots = [];
 		let pts;
@@ -56,7 +57,7 @@ class HairShave extends Model {
 		// ...................................
 
 		// const field1 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
-		const field1 = new OrbitalField( this.field.attractor.center, this.radius );
+		const field1 = new OrbitalField( this.base.attractor.center, this.PHI.BASE );
 
 		for ( let i=0; i<num; i++ ) {
 
@@ -79,7 +80,7 @@ class HairShave extends Model {
 
 		
 		// const field2 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
-		const field2 = new OrbitalField( this.field.attractor.center, this.radius );
+		const field2 = new OrbitalField( this.base.attractor.center, this.PHI.BASE );
 
 		for ( let i=0; i<num-1; i++ ) {
 
@@ -103,7 +104,7 @@ class HairShave extends Model {
 
 		
 		// const field3 = new SpinalField( [ A, B ], null, -1, -1, 'DIRECTED' );
-		const field3 = new OrbitalField( this.field.attractor.center, this.radius );
+		const field3 = new OrbitalField( this.base.attractor.center, this.PHI.BASE );
 
 		for ( let i=0; i<num-1; i++ ) {
 
@@ -153,13 +154,13 @@ class HairShave extends Model {
 }
 
 
-let instance: HairShave | null = null;
+let instance: IModel | null = null;
 
-export function drawHairShave( field: any, radius: number ): HairShave {
+export function drawHairShave( base: IModel, type?: string  ): IModel {
   
   if (!instance) {
 
-    instance = new HairShave( field, radius );
+    instance = new HairShave( base, type ) as IModel;
   }
 
   return instance;

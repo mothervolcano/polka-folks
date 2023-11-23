@@ -15,9 +15,9 @@ const GUIDES = '#06E7EF';
 class SlantedFringe extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, type?: string  ) {
 
-		super( field, radius );
+		super( field, type );
 
 		return this;
 
@@ -40,12 +40,12 @@ class SlantedFringe extends Model {
 		const position = genRandomDec( 0.15, 0.22 );
 		const angle = genRandomDec( -15, 15 ); // TODO: implement later
 
-		const length = this.base.radius * this.PHILESSER;
+		const length = this.base.PHI.BASE * this.PHILESSER;
 
 		// .............................................
 		// Key points
 
-		const C = this.field.attractor.locate( position );
+		const C = this.base.attractor.locate( position );
 
 
 		// .............................................
@@ -105,11 +105,11 @@ class SlantedFringe extends Model {
 
 let instance: SlantedFringe | null = null;
 
-export function drawSlantedFringe( field: any, radius: number ): SlantedFringe {
+export function drawSlantedFringe( field: any, type?: string  ): SlantedFringe {
   
   if (!instance) {
 
-    instance = new SlantedFringe( field, radius );
+    instance = new SlantedFringe( field, type );
   }
 
   return instance;

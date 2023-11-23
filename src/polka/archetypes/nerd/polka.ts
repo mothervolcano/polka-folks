@@ -37,16 +37,10 @@ class PolkaNerd extends Polka {
 
 	render() {
 		this.compositions.forEach((comp) => {
-			if (comp.form !== null) {
-				if (comp.form.type === "path") {
-					this.#styles.get(comp.type).renderer(comp.form.path, this.colorScheme, false);
-				}
-
-				if (comp.form.type === "group") {
-					this.#styles.get(comp.type).renderer(comp.form.path, this.colorScheme, false);
-				}
-				comp.form.path.copyTo(this.getLayer(comp.form.level));
-				comp.form.path.remove();
+			if (comp.forma !== null) {
+				this.#styles.get(comp.type).renderer(comp.forma.path, this.colorScheme, false);
+				comp.forma.path.copyTo(this.getLayer(comp.forma.level));
+				comp.forma.path.remove();
 			}
 		});
 

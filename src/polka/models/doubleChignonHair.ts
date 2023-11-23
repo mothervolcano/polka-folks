@@ -16,9 +16,9 @@ const GUIDES = '#06E7EF';
 class DoubleChignonHair extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, type?: string  ) {
 
-		super( field, radius );
+		super( field, type );
 
 		return this;
 
@@ -38,8 +38,8 @@ class DoubleChignonHair extends Model {
 		// .............................................
 		// Compute parameters
 
-		const area = this.base.radius + this.PHI.S;
-		const size = this.base.radius - this.PHI.M;
+		const area = this.base.PHI.BASE + this.PHI.S;
+		const size = this.base.PHI.BASE - this.PHI.M;
 
 		const wRatio = 1//this.SIN54;
 		const hRatio = this.SIN54;
@@ -47,16 +47,16 @@ class DoubleChignonHair extends Model {
 		const wfRatio = this.SIN72;
 		const hfRatio = 1//this.SIN54;
 
-		const drop = this.base.radius * this.SIN18;
+		const drop = this.base.PHI.BASE * this.SIN18;
 
 		const compression = 0.13;
 
 		// .............................................
 		// Key points
 
-		const O = this.field.attractor.locate(0.75).offsetBy( -this.SIN.L, 'RAY' );
+		const O = this.base.attractor.locate(0.75).offsetBy( -this.SIN.L, 'RAY' );
 
-		const K = this.field.attractor.locate(0.25).offsetBy( -this.SIN.L, 'RAY' )
+		const K = this.base.attractor.locate(0.25).offsetBy( -this.SIN.L, 'RAY' )
 
 
 		// .............................................
@@ -125,11 +125,11 @@ class DoubleChignonHair extends Model {
 
 let instance: DoubleChignonHair | null = null;
 
-export function drawDoubleChignonHair( field: any, radius: number ): DoubleChignonHair {
+export function drawDoubleChignonHair( field: any, type?: string  ): DoubleChignonHair {
   
   if (!instance) {
 
-    instance = new DoubleChignonHair( field, radius );
+    instance = new DoubleChignonHair( field, type );
   }
 
   return instance;

@@ -5,6 +5,7 @@ import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -16,9 +17,9 @@ class HairCapeTail extends Model {
 	private _elevation: number = 0;
 	private _length: number = 0;
 
-	constructor( field: any, radius: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius, type );
+		super( base, type );
 
 	};
 
@@ -95,10 +96,14 @@ class HairCapeTail extends Model {
 		this.A = A1.clone();
 		this.B = B1.clone();
 
-		// return [ instructions, this.path ];
+		const formaProps = {
+			level: lvl,
+			effect: "SOLID",
+			scope: "ALL"
+		}
 
 		this.composer.init();
-		this.composer.addPath(this.path, lvl);
+		this.composer.addPath(this.path, formaProps);
 
 		return this.composer.wrap();
 
@@ -107,13 +112,13 @@ class HairCapeTail extends Model {
 }
 
 
-let instance: HairCapeTail | null = null;
+let instance: IModel | null = null;
 
-export function drawHairCapeTail( field: any, radius: number, type?: string ): HairCapeTail {
+export function drawHairCapeTail( base: any, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new HairCapeTail( field, radius, type );
+    instance = new HairCapeTail( base, type ) as IModel;
   }
 
   return instance;

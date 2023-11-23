@@ -10,6 +10,7 @@ import { markPoint } from '../../lib/topo/utils/helpers';
 import { curve } from '../../lib/topo/tools/stitcher';
 import { arch } from '../../lib/topo/tools/envelopes';
 import { plotAllAttractorIntersections } from '../../lib/topo/tools/plotters';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -21,9 +22,9 @@ class CascadingTail extends Model {
 	private _curlNum: number = 0;
 
 
-	constructor( field: any, size: number, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, size, type );
+		super( base, type );
 
 	};
 
@@ -51,7 +52,7 @@ class CascadingTail extends Model {
 		// ....................................................................
 		// define the key points
 
-		const O = this.field.getAttractor().anchor.clone();
+		const O = this.base.attractor.anchor.clone();
 
 		
 
@@ -164,13 +165,13 @@ class CascadingTail extends Model {
 }
 
 
-let instance: CascadingTail | null = null;
+let instance: IModel | null = null;
 
-export function drawCascadingTail( field: any, size: number, type?: string ): CascadingTail {
+export function drawCascadingTail( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new CascadingTail( field, size, type );
+    instance = new CascadingTail( base, type );
   }
 
   return instance;

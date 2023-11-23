@@ -7,6 +7,7 @@ import OrbitalField from '../attractors/orbitalField';
 import { merge, measure, mid, curve } from '../../lib/topo/tools/stitcher';
 
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -17,9 +18,9 @@ class RoundGlasses extends Model {
 
 	private _glassSize = 0;
 
-	constructor( field: any, radius: any, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( field, radius, type );
+		super( base, type );
 
 	};
 
@@ -103,13 +104,13 @@ class RoundGlasses extends Model {
 }
 
 
-let instance: RoundGlasses | null = null;
+let instance: IModel | null = null;
 
-export function drawRoundGlasses( field: any, radius: any, type?: string ): RoundGlasses {
+export function drawRoundGlasses( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new RoundGlasses( field, radius, type );
+    instance = new RoundGlasses( base, type ) as IModel;
   }
 
   return instance;

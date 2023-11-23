@@ -15,9 +15,9 @@ const GUIDES = '#06E7EF';
 class SydHair extends Model {
 
 	
-	constructor( field: any, radius: number ) {
+	constructor( field: any, type?: string  ) {
 
-		super( field, radius );
+		super( field, type );
 
 		return this;
 
@@ -39,15 +39,15 @@ class SydHair extends Model {
 
 		const position = genRandomDec( 0.15, 0.45 );
 		const span = 0.05;
-		const r = this.base.radius * this.SIN9;
-		const volume = this.base.radius + this.PHI.XS;
+		const r = this.base.PHI.BASE * this.SIN9;
+		const volume = this.base.PHI.BASE + this.PHI.XS;
 
-		const length = this.base.radius + genRandomDec( -this.PHI.S, this.PHI.L );
+		const length = this.base.PHI.BASE + genRandomDec( -this.PHI.S, this.PHI.L );
 
 		// .............................................
 		// Key points
 
-		const O = this.field.attractor.center.offsetBy( -this.base.radius * 0.25, 'VER' );
+		const O = this.base.attractor.center.offsetBy( -this.base.PHI.BASE * 0.25, 'VER' );
 
 
 		// .............................................
@@ -120,11 +120,11 @@ class SydHair extends Model {
 
 let instance: SydHair | null = null;
 
-export function drawSydHair( field: any, radius: number ): SydHair {
+export function drawSydHair( field: any, type?: string  ): SydHair {
   
   if (!instance) {
 
-    instance = new SydHair( field, radius );
+    instance = new SydHair( field, type );
   }
 
   return instance;

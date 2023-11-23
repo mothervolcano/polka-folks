@@ -5,6 +5,7 @@ import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -18,9 +19,11 @@ class Jabot extends Model {
 	private _tieLength2: number = 0;
 	
 
-	constructor( position: any, radius: any, type?: string ) {
+	constructor( base: IModel, type?: string ) {
 
-		super( position, radius, type );
+		super( base, type );
+
+		this.name = "jabot";
 
 	};
 
@@ -46,7 +49,7 @@ class Jabot extends Model {
 		// .....................................
 		// determine the key points
 
-		const C = this.field.attractor.locate(c);
+		const C = this.base.attractor.locate(c);
 
 		const att1 = new Orbital( [ this._jabotSize, this._jabotSize * this.SIN36 ], C );
 
@@ -111,13 +114,13 @@ class Jabot extends Model {
 }
 
 
-let instance: Jabot | null = null;
+let instance: IModel | null = null;
 
-export function drawJabot( position: any, radius: any, type?: string ): Jabot {
+export function drawJabot( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new Jabot(position, radius, type );
+    instance = new Jabot(base, type );
   }
 
   return instance;

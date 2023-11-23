@@ -43,6 +43,7 @@ export function generateScaleFor(scale: MetricScaleType, baseUnit: number): Metr
 	switch (scale) {
 		case "PHI":
 			return {
+				BASE: baseUnit,
 				XXS: baseUnit * PHILESSER * PHILESSER * PHILESSER * PHILESSER * PHILESSER,
 				XS: baseUnit * PHILESSER * PHILESSER * PHILESSER * PHILESSER,
 				S: baseUnit * PHILESSER * PHILESSER * PHILESSER,
@@ -52,6 +53,7 @@ export function generateScaleFor(scale: MetricScaleType, baseUnit: number): Metr
 			};
 		case "SIN":
 			return {
+				BASE: baseUnit,
 				XXS: baseUnit * SIN9,
 				XS: baseUnit * SIN18,
 				S: baseUnit * SIN36,

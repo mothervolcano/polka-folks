@@ -5,6 +5,7 @@ import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
 import { markPoint } from '../../lib/topo/utils/helpers';
+import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
@@ -12,11 +13,9 @@ const GUIDES = '#06E7EF';
 
 class MozartHairline extends Model {
 
+	constructor( base: IModel, type?: string ) {
 
-	
-	constructor( field: any, radius: number, type?: string ) {
-
-		super( field, radius, type );
+		super( base, type );
 
 	}
 
@@ -41,9 +40,9 @@ class MozartHairline extends Model {
 		const A = this.base.getPin( PIN_A );
 		const B = this.base.getPin( PIN_B );
 
-		const C = this.field.attractor.locate(c);
+		const C = this.base.attractor.locate(c);
 
-		const field = new OrbitalField( this.field.attractor.center, this.radius );
+		const field = new OrbitalField( this.base.attractor.center, this.PHI.BASE );
 		const attL = new Orbital( [ inletSize * 0.75, inletSize * 1 ] );
 		const attR = new Orbital( [ inletSize * 0.75, inletSize * 1 ] );
 
@@ -92,13 +91,13 @@ class MozartHairline extends Model {
 }
 
 
-let instance: MozartHairline | null = null;
+let instance: IModel | null = null;
 
-export function drawMozartHairline( field: any, radius: number, type?: string ): MozartHairline {
+export function drawMozartHairline( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new MozartHairline( field, radius, type );
+    instance = new MozartHairline( base, type ) as IModel;
   }
 
   return instance;

@@ -21,7 +21,7 @@ class PolkaBaroque extends Polka {
 
 		const preRender = (renderer: any, ...args: any[]) => {
 			// ...
-			console.log("-----> preRender args: ", args);
+			// console.log("-----> preRender args: ", args);
 
 			if (args[0] instanceof Group && args[1] === "EACH") {
 				for (const path of args[0].children) {
@@ -38,7 +38,7 @@ class PolkaBaroque extends Polka {
 		}
 
 		const renderHairHollow = (path: any, ...args: any[]) => {
-			console.log("-----> render args: ", args);
+			// console.log("-----> render args: ", args);
 
 			const shader = path;
 
@@ -114,7 +114,7 @@ class PolkaBaroque extends Polka {
 		// ...
 
 		this.compositions.forEach((comp) => {
-			console.log(".... RENDERING: ", comp.type);
+			// console.log(".... RENDERING: ", comp.type);
 
 			if (comp.forma !== null) {
 				this.#styles.get(comp.type).formaRenderer(comp.forma.path, comp.forma.scope, comp.forma.effect);
