@@ -44,7 +44,7 @@ class PolkaPunk extends Polka {
 		};
 
 		const renderHair = (path: any, ...args: any[]) => {
-
+			path.fillColor = this.colorScheme.hair;
 		}
 
 		// ------------------------------------------------------------------------

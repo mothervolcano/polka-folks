@@ -8,6 +8,8 @@ import Model from "polka/core/model";
 import Orbital from "polka/attractors/orbital";
 import OrbitalField from "polka/attractors/orbitalField";
 
+import { PHIGREATER } from "polka/styles/metrics";
+
 import Cone from "polka/shapes/cone";
 
 const DEBUG_GREEN = "#10FF0C";
@@ -27,21 +29,28 @@ class Keith extends Model {
 
 	public plot(params: any) {
 		// ...
-		const { spikeNumCtrl, spikeLengthCtrl, spikeSpreadCtrl, shrinkRateCtrl, spikeSharpnessCtrl } = params;
+		const { spikeNumCtrl, spikeRadiusCtrl, spikeLengthCtrl, spikeSpreadCtrl, shrinkRateCtrl, spikeSharpnessCtrl, p7 } = params;
 
 		// .............................................
 		// Compute parameters
 
-		const spikeNum = 3;
+		const spikeNum = spikeNumCtrl;
 
 		let thickness = 0.04; // * p5
 		let indent = 1;
 
-		const compression = 0.25 * spikeSpreadCtrl;
 		const decayRate = shrinkRateCtrl;
-		const step = (0.5 - compression) / spikeNumCtrl;
+		const compression = 0.25*spikeSpreadCtrl;
+		const step = (0.25-compression) / spikeNum;
 		let decay = 0;
-		let length;
+		const radius = this.PHI.XS * spikeRadiusCtrl;
+		const length = radius * 4;
+		const angle = 120*p7-60;
+
+
+		const lengthFn = (value: number) => {
+			return Math.max(value, radius*2);
+		}
 
 		// .............................................
 		// Key points
@@ -53,43 +62,51 @@ class Keith extends Model {
 
 		const field = new OrbitalField(this.base.attractor.center, this.SIN.BASE);
 
-		const attC = new Orbital(this.PHI.XS);
+		// -------------
+		// Center Spike
+
+		const attC = new Orbital(radius*PHIGREATER);
 		attC.anchorAt(field.attractor.locate(0.25));
 		attC.rotate(90)
 
 		const centerShapeProps = {
-				height: 50,
+				height: lengthFn(length * PHIGREATER * Math.max(spikeLengthCtrl - decay, 0)),
 			};
 		plots.push(Cone.draw(attC, centerShapeProps));
+
+		// --------------
+		// Lateral Spikes
 
 		for (let i = 1; i < spikeNum; i++) {
 			decay += decayRate;
 
-			if (isEven(i)) {
-				indent = Math.min(i * (1 / 3), 1);
-				indent -= (1 / spikeNum) * i;
-			} else {
-				// decay += decayRate;
-				indent = 0;
-			}
+			// if (isEven(i)) {
+			// 	indent = Math.min(i * (1 / 3), 1);
+			// 	indent -= (1 / spikeNum) * i;
+			// } else {
+			// 	// decay += decayRate;
+			// 	indent = 0;
+			// }
 
-			length = Math.max(spikeLengthCtrl - decay, 0);
 			thickness -= (1 / i) * 0.0075;
 
-			const attL = new Orbital(this.PHI.XS);
+			const attL = new Orbital(radius);
 			attL.anchorAt(field.attractor.locate(0.25 - step * i));
-			attL.rotate(90-30)
+			attL.rotate(90-angle)
 
-			const attR = new Orbital(this.PHI.XS);
+			const attR = new Orbital(radius);
 			attR.anchorAt(field.attractor.locate(0.25 + step * i));
-			attR.rotate(90+30)
+			attR.rotate(90+angle)
 
 			const shapeProps = {
-				height: 50 * length,
+				height: lengthFn(length * Math.max(spikeLengthCtrl - decay, 0))
 			};
 
 			plots.push(Cone.draw(attL, shapeProps));
 			plots.push(Cone.draw(attR, shapeProps));
+
+			attL.remove()
+			attR.remove()
 		}
 
 		// .............................................
@@ -101,7 +118,7 @@ class Keith extends Model {
 		const drawSpike = (plot: any[]) => {
 			const path = new Path({
 				strokeColor: DEBUG_GREEN,
-				strokeWidth: 1,
+				strokeWidth: 0,
 				closed: true,
 			});
 
