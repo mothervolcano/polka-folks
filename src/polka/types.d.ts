@@ -43,6 +43,7 @@ export interface IModel {
   // radius: number;
   getAtt( LABEL: string ): any;
   getPin( LABEL: string ): any;
+  setAttractor( att?: IAttractor ): void;
   setLevel(value: number): void;
   setScale( baseValue: number ): void;
   configure( ...args: any[] ): void;

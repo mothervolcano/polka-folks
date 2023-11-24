@@ -157,9 +157,9 @@ abstract class Polka {
 		);
 	}
 
-	private parseModel(name: string | IModel): IModel {
-		if (typeof name === "string") {
-			switch (name) {
+	private parseModel(model: string | IModel): IModel {
+		if (typeof model === "string") {
+			switch (model) {
 				case "HEAD":
 					// console.log("baseModel in config: ", this.#head);
 					return this.#head;
@@ -167,10 +167,10 @@ abstract class Polka {
 					// console.log("baseModel in config: ", this.#face);
 					return this.#face;
 				default:
-					throw new Error(`ERROR @Polka.mount: ${name} is not a valid model`);
+					throw new Error(`ERROR @Polka.mount: ${model} is not a valid model`);
 			}
 		} else {
-			return name;
+			return model;
 		}
 	}
 
@@ -246,16 +246,18 @@ abstract class Polka {
 			this.#collection.push(config);
 
 			// ----------------------------------------------------------------------
-			// 4: Check if there are sub-models
+			// 4: Check if the model containes sub-models to base them on the model 
+			// and add them to the queue to be created next.
 
 			if (config.compats.length > 0) {
+				// If the model has sub-models they require an attractor. By default it is set to its own base Model's attractor.
+				config.use.setAttractor();
 				const compatConfig = pickModel(config.compats);
-
-				// compatConfig.base = config.use;
-				compatConfig.use = compatConfig.create(config.use, config.type);
+				compatConfig.base = config.use;
+				// compatConfig.use = compatConfig.create(config.use, config.type);
 				// compatConfig.use.baseOn(config.use);
-				compatConfig.use.setScale(this.parseMetric(config.size));
-				compatConfig.use.configure(...config.settings.map((p: any[]) => this.randomize(p)));
+				// compatConfig.use.setScale(this.parseMetric(config.size));
+				// compatConfig.use.configure(...config.settings.map((p: any[]) => this.randomize(p)));
 
 				modelQueue.push(compatConfig);
 			}

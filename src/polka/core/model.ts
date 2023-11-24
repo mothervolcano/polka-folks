@@ -1,7 +1,6 @@
-import { IHyperPoint, IAttractorField, IAttractor, IAttractorObject } from "../../lib/topo/types";
-
-import AttractorObject from "../../lib/topo/core/attractorObject";
-import Pen from "../../lib/topo/tools/pen";
+import { IHyperPoint, IAttractorField, IAttractor, IAttractorObject } from "lib/topo/types";
+import AttractorObject from "lib/topo/core/attractorObject";
+import Pen from "lib/topo/tools/pen";
 
 import { IModel, MetricScale } from "../types";
 import Composer from "./composer";
@@ -40,11 +39,11 @@ abstract class Model {
 		if (this.isAttractor(base)) {
 			this.#base = null;
 			this.#attractor = base;
-
 			this.setScale(base.length / Math.PI / 2);
 		} else {
 			this.#base = base;
 			this.#attractor = null;
+			// Inherit the base model's level by default
 			this.#level = this.#base.level;
 		}
 
@@ -59,6 +58,19 @@ abstract class Model {
 
 	private isAttractor(input: any): input is IAttractor {
 		return input instanceof AttractorObject;
+	}
+
+	public setAttractor(att?: IAttractor) {
+
+		if (!att && this.#base === null) {
+			throw new Error(`ERROR @Model.setAttractor(). Failed to set attractor. Cannot set a default attractor to a model that isn't based on another model`)
+		}
+
+		if (!att && this.#base !== null) {
+			this.#attractor = this.#base.attractor;
+		} else if (att) {
+			this.#attractor = att;	
+		}
 	}
 
 	/** 
@@ -112,9 +124,9 @@ abstract class Model {
 		return this.#level;
 	}
 
-	set attractor(att: IAttractor) {
-		this.#attractor = att;
-	}
+	// set attractor(att: IAttractor) {
+	// 	this.#attractor = att;
+	// }
 
 	get attractor() {
 		if (!this.#attractor) {
