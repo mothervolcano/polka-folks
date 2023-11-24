@@ -32,7 +32,7 @@ class Cone extends Shape {
  		const radius = (att.length/Math.PI)/2;
 
  		const c = att.center.point;
- 		const p = att.center.clone().offsetBy( -h, 'VER' ).point;
+ 		const p = att.locate(0.25).offsetBy( h-radius, 'RAY' ).point;
 
  		const d = c.getDistance(p);
 
@@ -58,7 +58,7 @@ class Cone extends Shape {
 
 		const P0 = att.locate(0.75)
 		const P1 = att.locate(0)
-		const V = att.center.offsetBy( -h, 'VER' );
+		const V = att.locate(0.25).offsetBy( h-radius, 'RAY' );
 		const P2 = att.locate(0.50)
 
 		iron(Ta, V)
