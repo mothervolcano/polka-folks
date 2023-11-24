@@ -24,14 +24,14 @@ class HairDome extends Model {
 
 		super( base, type );
 
+		this.name = "dome";
+
 		return this;
 
 	}
 
 
 	public configure( latBaseValue: number, cutoffBaseValue: number, volumeBaseValue: number ) {
-
-		this.level = 2;
 
 		this._lat = latBaseValue;
 		this._cutoff = cutoffBaseValue;
@@ -40,7 +40,7 @@ class HairDome extends Model {
 	}
 
 
-	public plot( params: any, lvl: number, latCtrl: number = 1, cutoffCtrl: number = 1, volumeCtrl: number = 1 ) {
+	public plot( params: any, latCtrl: number = 1, cutoffCtrl: number = 1, volumeCtrl: number = 1 ) {
 
 		const { } = params;
 
@@ -96,7 +96,7 @@ class HairDome extends Model {
 		this.pen.add( [ P1, P2, P3, P4 ] )
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

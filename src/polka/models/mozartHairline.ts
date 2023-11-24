@@ -22,11 +22,10 @@ class MozartHairline extends Model {
 
 	public configure() {
 
-		this.level = 2;
 	}
 
 
-	public plot( params: any, lvl: number, PIN_A: string, PIN_B: string, c: number ) {
+	public plot( params: any, PIN_A: string, PIN_B: string, c: number ) {
 
 		const { hairlineLevelCtrl, hairlineRidgeCtrl } = params;
 
@@ -75,7 +74,7 @@ class MozartHairline extends Model {
 		// ..............................................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

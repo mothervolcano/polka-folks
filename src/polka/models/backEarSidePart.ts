@@ -30,8 +30,6 @@ class BackEarSidePart extends Model {
 
 	public configure() {
 
-		this.level = 0;
-
 	};
 
 

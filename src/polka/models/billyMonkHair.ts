@@ -28,8 +28,6 @@ class BillMonkHair extends Model {
 
 	public configure() {
 
-		this.level = 2;
-
 	};
 
 

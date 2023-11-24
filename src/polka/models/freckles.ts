@@ -26,8 +26,6 @@ class Freckles extends Model {
 
 	public configure() {
 
-		this.level = 0;
-
 	};
 
 

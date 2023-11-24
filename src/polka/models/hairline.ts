@@ -29,14 +29,12 @@ class Hairline extends Model {
 
 	configure( levelBaseValue: number, ridgeBaseValue: number ) {
 
-		this.level = 2;
-		
 		this._ridge = ridgeBaseValue;
 
 	};
 
 	
-	plot( params: any, lvl: number, PIN_A: string, PIN_B: string, c: number ) {
+	plot( params: any, PIN_A: string, PIN_B: string, c: number ) {
 
 		const { hairlineLevelCtrl, hairlineRidgeCtrl } = params;
 
@@ -73,7 +71,7 @@ class Hairline extends Model {
 		// ..............................................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

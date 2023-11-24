@@ -45,7 +45,7 @@ class ArchiCurlCrown extends Model {
 	}
 
 
-	public plot( params: any, lvl: number ) {
+	public plot( params: any ) {
 
 
 		const { curlNumCtrl, heightCtrl, volCtrl } = params;
@@ -188,13 +188,13 @@ class ArchiCurlCrown extends Model {
 		// ..............................................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}
 
 		const shadeProps = {
-			level: lvl,
+			level: this.level,
 			effect: "HOLLOW",
 			scope: "EACH"
 		} 

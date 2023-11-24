@@ -36,7 +36,7 @@ class Jabot extends Model {
 	};
 
 
-	public plot( params: any, lvl: number, c: number ) {
+	public plot( params: any, c: number ) {
 
 		const {} = params;
 
@@ -97,7 +97,7 @@ class Jabot extends Model {
 		this.pen.add( [ C1, C2, C3, C4 ] );
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

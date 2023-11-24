@@ -142,14 +142,6 @@ class HairShave extends Model {
 		// plots.push( [ 'L(0)', ...pts.map( (P) => new Orbital( P, this._dotSize-2 ).path ) ] );
 
 
-		const instructions = {
-
-			level: 2,
-			gradient: false
-		}
-
-		return [ instructions, ...plots ];
-
 	}
 }
 

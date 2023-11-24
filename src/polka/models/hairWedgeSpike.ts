@@ -27,8 +27,6 @@ class HairWedgeSpike extends Model {
 
 	public configure() {
 
-		this.level = 0;
-
 	};
 
 

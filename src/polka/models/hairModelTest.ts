@@ -30,13 +30,11 @@ class HairModelTest extends Model {
 
 
 	public configure() {
-
-		this.level = 0;
-
+		
 	};
 
 
-	public plot( params: any, lvl: number, c: number ) {
+	public plot( params: any, c: number ) {
 
 
 		// .............................................
@@ -125,7 +123,7 @@ class HairModelTest extends Model {
 
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

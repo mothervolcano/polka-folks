@@ -37,7 +37,7 @@ class ElliWavyTail extends Model {
 	}
 
 
-	public plot( params: any, lvl: number ) {
+	public plot( params: any ) {
 
 		// ...................................................
 
@@ -139,7 +139,7 @@ class ElliWavyTail extends Model {
 		// ..............................................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

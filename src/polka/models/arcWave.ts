@@ -24,6 +24,10 @@ class ArcWave extends Model {
 
 		super( base, type );
 
+		this.name = "arc wave"
+
+		return this;
+
 	};
 
 
@@ -35,7 +39,7 @@ class ArcWave extends Model {
 	};
 
 
-	public plot( params: any, lvl: number, numCtrl: number, roundnessCtrl: number, indentCtrl: number ) {
+	public plot( params: any, numCtrl: number, roundnessCtrl: number, indentCtrl: number ) {
 
 		const { } = params;
 
@@ -147,7 +151,7 @@ class ArcWave extends Model {
 		this.path.join( this.base.path );
 		
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

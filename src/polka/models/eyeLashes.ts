@@ -30,7 +30,7 @@ export class EyeLashes extends Model {
 	}
 
 
-	public plot( params: any, lvl: number, ATT: string ) {
+	public plot( params: any, ATT: string ) {
 		
 		const eyeAtt = this.base.getAtt(ATT);
 		const r = eyeAtt.radius * this.SIN36;
@@ -52,11 +52,12 @@ export class EyeLashes extends Model {
 
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}
 
+		console.log(`!!! level @${this.name}: `, this.level)
 
 		this.composer.init();
 

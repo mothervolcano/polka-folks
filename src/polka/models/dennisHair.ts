@@ -21,6 +21,8 @@ class DennisHair extends Model {
 
 		super( base, type );
 
+		this.name = "dennis hair"
+
 		return this;
 
 	}
@@ -28,12 +30,10 @@ class DennisHair extends Model {
 
 	public configure() {
 
-		this.level = 2;
-
 	};
 
 
-	public plot( params: any, lvl: number ) {
+	public plot(params: any) {
 
 
 		// .............................................
@@ -117,22 +117,12 @@ class DennisHair extends Model {
 		_path2.join(headWrap);
 
 
-
 		this.path = new CompoundPath([]);
 		this.path.addChildren( [ _path1, _path2 ] );
 
 
-		const instructions = {
-
-			level: this.level,
-			complete: true,
-			gradient: null
-		}
-
 		// .............................................
 		// Chart
-
-		// return [ instructions, this.path ];
 
 		this.composer.init();
 		this.composer.addPath(this.path);

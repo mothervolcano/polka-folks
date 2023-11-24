@@ -26,8 +26,6 @@ class SydHair extends Model {
 
 	public configure() {
 
-		this.level = 0;
-
 	};
 
 

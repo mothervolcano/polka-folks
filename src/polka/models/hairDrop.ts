@@ -27,8 +27,6 @@ class HairDrop extends Model {
 
 	public configure() {
 
-		this.level = 0;
-
 	};
 
 

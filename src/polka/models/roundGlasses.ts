@@ -22,17 +22,19 @@ class RoundGlasses extends Model {
 
 		super( base, type );
 
+		this.name = "round glasses"
+
+		return this;
+
 	};
 
 	configure() {
-
-		this.level = 2;
 
 		this._glassSize = this.PHI.M;
 
 	};
 
-	plot( params: any, lvl: number, ATT_L: string, ATT_R: string ) {
+	plot( params: any, ATT_L: string, ATT_R: string ) {
 
 
 		// .............................................
@@ -83,7 +85,7 @@ class RoundGlasses extends Model {
 		// this.pen.mirrorRepeat('HOR');
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

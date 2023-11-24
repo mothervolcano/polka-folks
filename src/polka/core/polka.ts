@@ -40,7 +40,6 @@ function pickModel(catalog: ModelConfig[]) {
 // ---------------------------------------------------------------------
 
 abstract class Polka {
-
 	#collection: ModelConfig[] = [];
 	#compositions: any[] = [];
 
@@ -55,6 +54,8 @@ abstract class Polka {
 	#l1: any;
 	#l2: any;
 	#l3: any;
+	#l4: any;
+	#l5: any;
 	#guides: any;
 
 	#colorScheme: any;
@@ -72,13 +73,18 @@ abstract class Polka {
 		this.#l1 = new Layer();
 		this.#l2 = new Layer();
 		this.#l3 = new Layer();
+		this.#l4 = new Layer();
+		this.#l5 = new Layer();
 		this.#guides = new Layer();
 
 		this.#frame = new Layer();
-		this.#frame.addChildren([this.#l0, this.#l1, this.#l2, this.#l3, this.#guides]);
+		this.#frame.addChildren([this.#l0, this.#l1, this.#l2, this.#l3, this.#l4, this.#l5, this.#guides]);
 
 		this.#head = drawHead(this.#field.attractor) as IModel;
 		this.#face = drawFace(this.#field.attractor) as IModel;
+
+		this.#head.setLevel(1);
+		this.#face.setLevel(2);
 	}
 
 	get head() {
@@ -102,15 +108,28 @@ abstract class Polka {
 	}
 
 	protected getLayer(level: number) {
+		// Cap the level value
+		if (level < -2) {
+			level = -2;
+		} else if (level > 3) {
+			level = 3;
+		}
+
 		switch (level) {
-			case 0:
+			case -2:
 				return this.#l0;
-			case 1:
+			case -1:
 				return this.#l1;
-			case 2:
+			case 0:
 				return this.#l2;
-			case 3:
+			case 1:
 				return this.#l3;
+			case 2:
+				return this.#l4;
+			case 3:
+				return this.#l5;
+			default:
+				throw new Error(`${level} is not a valid level value.`);
 		}
 	}
 
@@ -193,7 +212,7 @@ abstract class Polka {
 	}
 
 	private mount(pool: ModelConfig[], type: string) {
-		// Configures the model and its sub-models to fit the Polka context and completes/updates the 
+		// Configures the model and its sub-models to fit the Polka context and completes/updates the
 		// configuration for next stage, drawing.
 
 		// Picks the first random model from the archetype's catalog and adds it to the queue
@@ -201,63 +220,51 @@ abstract class Polka {
 
 		const getBase = (config: ModelConfig) => {
 			return config.base === null ? this.#head : this.parseModel(config.base);
-		}
+		};
 
 		while (modelQueue.length > 0 && modelQueue[0] !== undefined) {
 			//
-			const modelConfig = modelQueue.shift();
+			const config = modelQueue.shift();
 
-			if (!modelConfig) {
+			if (!config) {
 				throw new Error(`ERROR @ Archetype: failed to retrieve ${type} Model from queue`);
 			}
 			// ---------------------------------------------------------------------
 			// 1: Instantiate the model and set the size to the current Polka
 
-			modelConfig.use = modelConfig.create(
-				getBase(modelConfig),
-				modelConfig.type
-			);
+			config.use = config.create(getBase(config), config.type);
 
-			console.log(`.... MOUNTING: `, modelConfig.use.name)
-			
-			// // ---------------------------------------------------------------------
-			// // 2: Set the base model
-			// if (modelConfig.base) {
-			// 	modelConfig.use.baseOn(this.parseModel(modelConfig.base));
-			// }
-			
+			console.log(`.... MOUNTING: `, config.use.name);
+
 			// ---------------------------------------------------------------------
 			// 2: Set the structural properties
-			modelConfig.use.setScale(this.parseMetric(modelConfig.size))
-			modelConfig.use.configure(...modelConfig.settings.map((p: any[]) => this.randomize(p)));
+			config.use.setLevel(config.level);
+			config.use.setScale(this.parseMetric(config.size));
+			config.use.configure(...config.settings.map((p: any[]) => this.randomize(p)));
 
 			// ---------------------------------------------------------------------
 			// 3: Add the updated configuration to be used by drawing
-			this.#collection.push(modelConfig);
+			this.#collection.push(config);
 
 			// ----------------------------------------------------------------------
 			// 4: Check if there are sub-models
 
-			if (modelConfig.compats.length > 0) {
-				const nModelConfig = pickModel(modelConfig.compats);
+			if (config.compats.length > 0) {
+				const compatConfig = pickModel(config.compats);
 
-				// nModelConfig.base = modelConfig.use;
-				nModelConfig.use = nModelConfig.create(
-					modelConfig.use,
-					modelConfig.type
-				);
-				// nModelConfig.use.baseOn(modelConfig.use);
-				nModelConfig.use.setScale(this.parseMetric(modelConfig.size))
-				nModelConfig.use.configure(
-					...modelConfig.settings.map((p: any[]) => this.randomize(p)),
-				);
+				// compatConfig.base = config.use;
+				compatConfig.use = compatConfig.create(config.use, config.type);
+				// compatConfig.use.baseOn(config.use);
+				compatConfig.use.setScale(this.parseMetric(config.size));
+				compatConfig.use.configure(...config.settings.map((p: any[]) => this.randomize(p)));
 
-				modelQueue.push(nModelConfig);
+				modelQueue.push(compatConfig);
 			}
 		}
 	}
 
 	public generate(pool: ModelConfig[], layers: string[], params: any) {
+		// ...
 		const { baseParams, archetypeParams } = params;
 
 		this.clear();
@@ -269,11 +276,7 @@ abstract class Polka {
 		const eyeMaxSize = this.#PHI.XS;
 
 		this.#head.configure();
-		this.#face.configure(
-			genRandomDec(eyeMinSize, eyeMaxSize),
-			genRandomDec(0.07, 0.12),
-			genRandomDec(0.5, 0.6),
-		);
+		this.#face.configure(genRandomDec(eyeMinSize, eyeMaxSize), genRandomDec(0.07, 0.12), genRandomDec(0.5, 0.6));
 
 		this.#face.plot(baseParams);
 
@@ -303,12 +306,10 @@ abstract class Polka {
 
 		for (const modelConfig of this.#collection) {
 			if (!modelConfig.use) {
-				throw new Error(
-					`ERROR @ Baroque: model config is missing an instance of the model`,
-				);
+				throw new Error(`ERROR @ Baroque: model config is missing an instance of the model`);
 			}
 
-			const comp = modelConfig.use.plot(archetypeParams, modelConfig.level, ...modelConfig.params);
+			const comp = modelConfig.use.plot(archetypeParams, ...modelConfig.params);
 			this.#compositions.push(comp);
 		}
 

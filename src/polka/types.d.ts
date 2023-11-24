@@ -41,8 +41,9 @@ export interface IModel {
   level: any; // It's a Paper.Layer at the moment. Change when there is a replacement;
   path: any;
   // radius: number;
-  getAtt( LABEL: string );
-  getPin( LABEL: string );
+  getAtt( LABEL: string ): any;
+  getPin( LABEL: string ): any;
+  setLevel(value: number): void;
   setScale( baseValue: number ): void;
   configure( ...args: any[] ): void;
   plot( params: any, ...args: any[] ): any;

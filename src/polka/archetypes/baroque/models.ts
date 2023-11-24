@@ -30,7 +30,7 @@ const antoinette: ModelConfig = {
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "XL"),
-	level: 0,
+	level: 1,
 	settings: [[metricUnit("PHI", "L"), metricUnit("PHI", "XL")], [metricUnit("SIN", "L"), metricUnit("SIN", "S")], [0.2]],
 	params: [0.25],
 	compats: [],

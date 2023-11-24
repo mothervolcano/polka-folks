@@ -21,12 +21,12 @@ class HairCapeTail extends Model {
 
 		super( base, type );
 
+		this.name = "hair cape";
+
 	};
 
 
 	public configure( elevationBaseValue: number ) {
-
-		this.level = 0;
 
 		this._volume = this.SIN.XL;
 		this._elevation = elevationBaseValue;
@@ -35,7 +35,7 @@ class HairCapeTail extends Model {
 	};
 
 
-	public plot( params: any, lvl: number, ) {
+	public plot( params: any ) {
 
 
 		// .............................................
@@ -82,14 +82,6 @@ class HairCapeTail extends Model {
 		this.pen.add( [ A1, A, B, B1 ] );
 
 
-		// const instructions = {
-
-		// 	level: this.level,
-		// 	complete: false,
-		// 	gradient: null
-		// }
-
-
 		// .............................................
 		// Chart
 
@@ -97,7 +89,7 @@ class HairCapeTail extends Model {
 		this.B = B1.clone();
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

@@ -26,8 +26,6 @@ class SlantedFringe extends Model {
 
 	public configure() {
 
-		this.level = 0;
-
 	};
 
 

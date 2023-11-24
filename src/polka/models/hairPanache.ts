@@ -32,7 +32,7 @@ export class HairPanache extends Model {
 	}
 
 
-	public plot( params: any, lvl: number, c: number ) {
+	public plot( params: any, c: number ) {
 
 		const O = this.base.C.clone();
 
@@ -77,7 +77,7 @@ export class HairPanache extends Model {
 		// ..............................................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

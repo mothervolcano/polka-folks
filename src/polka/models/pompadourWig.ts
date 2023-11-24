@@ -52,7 +52,7 @@ class PompadourWig extends Model {
 	};
 
 
-	plot( params: any, lvl: number, c: number ) {
+	plot( params: any, c: number ) {
 
 		
 		const { curlNumCtrl, spanCtrl, heightCtrl, volCtrl } = params;
@@ -223,13 +223,13 @@ class PompadourWig extends Model {
 		// ..............................................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}
 		
 		const shadeProps = {
-			level: lvl,
+			level: this.level,
 			effect: "HOLLOW",
 			scope: "SINGLE"
 		}

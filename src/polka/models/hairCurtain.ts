@@ -24,12 +24,12 @@ class HairCurtain extends Model {
 		
 		super( base, type );
 
+		this.name = "hair curtain"
+
 	};
 
 
 	public configure( splitLatBaseValue: number, splitApertureBaseValue: number ) {
-
-		this.level = 2;
 
 		this._splitLat = splitLatBaseValue;
 		this._splitAperture = splitApertureBaseValue;
@@ -37,7 +37,7 @@ class HairCurtain extends Model {
 	};
 
 
-	public plot( params: any, lvl: number, PIN_A: string, PIN_B: string, c: number ) {
+	public plot( params: any, PIN_A: string, PIN_B: string, c: number ) {
 
 		const { splitLat, splitAperture } = params;
 
@@ -59,14 +59,6 @@ class HairCurtain extends Model {
 
 		// ...........................................
 
-
-		const instructions = {
-
-			level: this.level,
-			complete: true,
-			gradient: false
-		}
-
 		this.path = new Path( { strokeColor: DEBUG_GREEN, closed:true } );
 
 		this.pen.setPath( this.path );
@@ -74,11 +66,14 @@ class HairCurtain extends Model {
 
 		this.wrap( this.path.firstSegment, this.path.lastSegment );
 
-
-		// return [ instructions, this.path ];
+		const formaProps = {
+			level: this.level,
+			effect: "SOLID",
+			scope: "ALL"
+		}
 
 		this.composer.init();
-		this.composer.addPath(this.path, lvl);
+		this.composer.addPath(this.path, formaProps);
 
 		return this.composer.wrap();
 

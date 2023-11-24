@@ -20,6 +20,8 @@ class HairCurtainHide extends Model {
 
 		super( base, type );
 
+		this.name = "hair curtain";
+
 		return this;
 
 	};
@@ -27,11 +29,10 @@ class HairCurtainHide extends Model {
 
 	public configure() {
 
-		this.level = 3;
 	};
 
 
-	public plot( params: any, lvl: number, PIN_A: string, PIN_B: string ) {
+	public plot( params: any, PIN_A: string, PIN_B: string ) {
 
 		const { } = params;
 
@@ -98,14 +99,14 @@ class HairCurtainHide extends Model {
 
 		this.path.reverse();
 
-		const headWrap = this.base.base.attractor.extractPath( this.path.firstSegment, this.path.lastSegment );
+		const headWrap = this.base.attractor.extractPath( this.path.firstSegment, this.path.lastSegment );
 		headWrap.reverse();
 		this.pen.trim( headWrap );
 		this.path.join( headWrap );
 
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

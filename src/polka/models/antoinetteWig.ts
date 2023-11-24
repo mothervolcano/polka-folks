@@ -48,7 +48,7 @@ class AntoinetteWig extends Model {
 	}
 
 
-	public plot( params: any, lvl: number, c: number ) {
+	public plot( params: any, c: number ) {
 
 		// /* DEBUG */ this.frame.activate();
 		// this.frame.removeChildren();
@@ -144,10 +144,12 @@ class AntoinetteWig extends Model {
 		// ..............................................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}
+
+		console.log(`!!! level @${this.name}: `, this.level)
 
 		this.composer.init();
 		this.composer.addPath(path, formaProps);

@@ -21,7 +21,6 @@ class NewModel extends Model {
 	}
 
 	public configure() {
-		this.level = 2;
 	}
 
 	public plot(params: any) {

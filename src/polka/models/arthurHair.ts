@@ -27,8 +27,6 @@ class ArthurHair extends Model {
 
 	public configure() {
 
-		this.level = 2;
-
 	};
 
 

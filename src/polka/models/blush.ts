@@ -33,7 +33,7 @@ export class Blush extends Model {
 	};
 
 
-	public plot( params: any, lvl: number, PIN: string ) {
+	public plot( params: any, PIN: string ) {
 
 		const { } = params;
 
@@ -55,7 +55,7 @@ export class Blush extends Model {
 		// this.pen.mirrorRepeat('HOR');
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

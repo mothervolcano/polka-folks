@@ -22,7 +22,7 @@ class Necklace extends Model {
 
 	public configure() {}
 
-	public plot(params: any, lvl: number, a: number, b: number) {
+	public plot(params: any, a: number, b: number) {
 		const {} = params;
 
 		// ..........................................................
@@ -99,10 +99,12 @@ class Necklace extends Model {
 		// ..............................................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}
+
+		console.log(`!!! level @${this.name}: `, this.level)
 
 		this.composer.init();
 

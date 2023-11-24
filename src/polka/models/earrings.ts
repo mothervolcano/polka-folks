@@ -35,7 +35,7 @@ export class Earrings extends Model {
 	};
 
 
-	plot( params: any, lvl: number, ATT: string, c: number ) {
+	plot( params: any, ATT: string, c: number ) {
 
 		const { volCtrl, heightCtrl } = params;
 
@@ -84,7 +84,7 @@ export class Earrings extends Model {
 		// ................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

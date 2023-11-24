@@ -27,12 +27,10 @@ class HairCap extends Model {
 
 	public configure() {
 
-		this.level = 2;
-
 	};
 
 
-	public plot( params: any, lvl: number ) {
+	public plot( params: any ) {
 
 
 		// .............................................
@@ -88,7 +86,7 @@ class HairCap extends Model {
 		this.B = this.base.B;
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

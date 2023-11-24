@@ -23,14 +23,14 @@ class IonicHair extends Model {
 
 		super( base, type );
 
+		this.name = "ionic hair"
+
 		return this;
 
 	};
 
 
 	public configure( volumeBaseValue: number, apertureBaseValue: number, heightBaseValue: number ) {
-
-		this.level = 2;
 
 		this._vol = volumeBaseValue;
 		this._aperture = apertureBaseValue;
@@ -39,7 +39,7 @@ class IonicHair extends Model {
 	};
 
 
-	public plot( params: any, lvl: number, a: any, b: any, volumeCtrl: number = 0.5, apertureCtrl: number = 1, heightCtrl: number = 0 ) {
+	public plot( params: any, a: any, b: any, volumeCtrl: number = 0.5, apertureCtrl: number = 1, heightCtrl: number = 0 ) {
 
 		
 		const { } = params;
@@ -97,16 +97,8 @@ class IonicHair extends Model {
 
 		this.pen.mirrorRepeat( 'HOR', false, true );
 
-		const instructions = {
-
-			level: this.level,
-			gradient: false
-		}
-
-		// return [ instructions, path ]; 
-
 		this.composer.init();
-		this.composer.addPath(this.path, lvl);
+		this.composer.addPath(this.path, this.level);
 
 		return this.composer.wrap();
 

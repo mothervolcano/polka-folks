@@ -27,8 +27,6 @@ class HairHorn extends Model {
 
 	public configure() {
 
-		this.level = 0;
-
 	};
 
 

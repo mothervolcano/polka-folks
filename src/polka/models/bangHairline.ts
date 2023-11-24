@@ -28,12 +28,10 @@ class BangHairline extends Model {
 
 	public configure() {
 
-		this.level = 3;
-
 	}
 
 
-	public plot( params: any, lvl: number, PIN_A: string, PIN_B: string, c: number ) {
+	public plot( params: any, PIN_A: string, PIN_B: string, c: number ) {
 
 		const { hairlineLevelCtrl, hairlineRidgeCtrl } = params;
 
@@ -76,24 +74,16 @@ class BangHairline extends Model {
 		// ..............................................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}
 
 		this.composer.init();
 		this.composer.addPath(this.path, formaProps);
+
+		
 		return this.composer.wrap();
-
-		// const instructions = {
-
-		// 	level: this.level,
-		// 	complete: true,
-		// 	gradient: null
-
-		// }
-
-		// return [ instructions, this.path ];
 
 	}
 }

@@ -107,14 +107,6 @@ class HairSpike extends Model {
 
 		// ..............................................
 
-		const instructions = {
-
-			level: 2,
-			gradient: null
-		}
-
-		return [ instructions, path ];
-
 	}
 
 }

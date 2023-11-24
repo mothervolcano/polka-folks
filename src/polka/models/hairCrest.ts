@@ -35,7 +35,7 @@ class HairCrest extends Model {
 	};
 
 
-	public plot( params: any, lvl: number, c: number, widthFactor: number ) {
+	public plot( params: any, c: number, widthFactor: number ) {
 
 
 		const { testCtrl } = params;
@@ -108,7 +108,7 @@ class HairCrest extends Model {
 		// ..............................................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

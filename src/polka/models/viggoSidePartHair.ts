@@ -29,8 +29,6 @@ class ViggoSidePartHair extends Model {
 
 	public configure() {
 
-		this.level = 0;
-
 	};
 
 

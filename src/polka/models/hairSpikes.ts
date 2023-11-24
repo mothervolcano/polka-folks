@@ -23,7 +23,7 @@ class HairSpikes extends Model {
 	}
 
 	public configure() {
-		this.level = 2;
+
 	}
 
 	public plot(params: any, lvl: number) {
@@ -119,11 +119,6 @@ class HairSpikes extends Model {
 		this.pen.add([]);
 		// this.pen.mirrorRepeat('HOR');
 
-		const instructions = {
-			level: this.level,
-			complete: true,
-			gradient: null,
-		};
 
 		// .............................................
 		// Chart

@@ -6,9 +6,9 @@ import { drawHairShave } from "../../models/hairShave";
 import { metricUnit, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles/metrics";
 
 const spike: ModelConfig = {
-	create: (f, r) => drawHairSpike(f, r),
 	use: null,
 	type: "SPIKE",
+	create: (f, r) => drawHairSpike(f, r),
 	order: "first",
 	base: null,
 	size: metricUnit("PHI", "XXS"),
@@ -19,9 +19,9 @@ const spike: ModelConfig = {
 };
 
 const hairShave: ModelConfig = {
-	create: (f, r) => drawHairShave(f, r),
 	use: null,
 	type: "",
+	create: (f, r) => drawHairShave(f, r),
 	order: "first",
 	base: null,
 	size: metricUnit("PHI", "XXS"),

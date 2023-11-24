@@ -36,7 +36,7 @@ class CascadingTail extends Model {
 	};
 
 
-	public plot( params: any, lvl: number, B: any, A: any ) {
+	public plot( params: any, B: any, A: any ) {
 
 		const { curlNumCtrl } = params;
 
@@ -150,7 +150,7 @@ class CascadingTail extends Model {
 		// ..............................................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

@@ -34,10 +34,10 @@ class EarModelTest extends Model {
 	}
 
 	public configure() {
-		this.level = 2;
+		
 	}
 
-	public plot(params: any, lvl: number, ATT: string, c: number) {
+	public plot(params: any, ATT: string, c: number) {
 		// .............................................
 		// Compute parameters
 
@@ -81,7 +81,7 @@ class EarModelTest extends Model {
 		// ............................................................
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}

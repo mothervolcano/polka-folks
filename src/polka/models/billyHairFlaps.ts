@@ -21,6 +21,8 @@ class BillyHairFlaps extends Model {
 
 		super( base, type );
 
+		this.name = "billy flaps"
+
 		return this;
 
 	}
@@ -28,12 +30,10 @@ class BillyHairFlaps extends Model {
 
 	public configure() {
 
-		this.level = 2;
-
 	};
 
 
-	public plot( params: any, lvl: number ) {
+	public plot( params: any) {
 
 
 		// .............................................
@@ -125,7 +125,7 @@ class BillyHairFlaps extends Model {
 		// Chart
 
 		const formaProps = {
-			level: lvl,
+			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}
