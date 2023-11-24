@@ -1,7 +1,7 @@
 import { IAttractor, IAttractorObject } from "../lib/topo/types";
 
 export type MetricScaleType = "PHI" | "SIN";
-export type MetricUnitType = "XXS" | "XS" | "S" | "M" | "L" | "XL";
+export type MetricUnitType = "BASE" | "XXS" | "XS" | "S" | "M" | "L" | "XL";
 
 export interface MetricUnit {
   scale: MetricScaleType;
