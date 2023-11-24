@@ -1,17 +1,17 @@
 import { ModelConfig } from "../../types";
 
-import { drawHairSpike } from "../../models/hairSpike";
+import { drawKeith } from "../../models/hair/keith";
 import { drawStubble } from "../../models/face/stubble";
 
 import { metricUnit, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles/metrics";
 
-const spike: ModelConfig = {
+const keith: ModelConfig = {
 	use: null,
-	type: "SPIKE",
-	create: (f, r) => drawHairSpike(f, r),
+	type: "hair",
+	create: (f, r) => drawKeith(f, r),
 	order: "first",
 	base: null,
-	size: metricUnit("PHI", "XXS"),
+	size: metricUnit("PHI", "BASE"),
 	level: 2,
 	settings: [[metricUnit("PHI", "XL")], [metricUnit("PHI", "XXS")], [0]],
 	params: [0.25],
@@ -25,7 +25,7 @@ const hairShave: ModelConfig = {
 	order: "first",
 	base: null,
 	size: metricUnit("PHI", "XXS"),
-	level: 2,
+	level: 0,
 	settings: [],
 	params: ["L_EAR_XT", 0.25],
 	compats: [],
@@ -33,8 +33,8 @@ const hairShave: ModelConfig = {
 
 // ---------------------------------------------
 
-spike.compats = [];
+keith.compats = [];
 
 // ---------------------------------------------
 
-export const pool = [];
+export const pool = [ keith ];

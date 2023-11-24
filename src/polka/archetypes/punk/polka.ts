@@ -105,10 +105,10 @@ render() {
 		this.compositions.forEach((comp) => {
 			console.log(".... RENDERING: ", comp.type);
 
-			if (comp.form !== null) {
-				this.#styles.get(comp.type).formaRenderer(comp.form.path, this.colorScheme, false);
-				comp.form.path.copyTo(this.getLayer(comp.form.level));
-				comp.form.path.remove();
+			if (comp.forma !== null) {
+				this.#styles.get(comp.type).formaRenderer(comp.forma.path, comp.forma.scope, comp.forma.effect);
+				comp.forma.path.copyTo(this.getLayer(comp.forma.level));
+				comp.forma.path.remove();
 			}
 
 			if (comp.shade !== null) {
