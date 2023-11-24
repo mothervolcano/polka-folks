@@ -336,7 +336,7 @@ abstract class AttractorField extends DisplayNode {
 
 		for ( const att of this.filterAttractors() ) {
 
-			att.rotate( angle * att.orientation );
+			att.rotate( angle );
 		}
 
 		return this;

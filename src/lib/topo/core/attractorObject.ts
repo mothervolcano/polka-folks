@@ -347,7 +347,7 @@ abstract class AttractorObject extends DisplayObject {
 
 		if ( !this.isAxisLocked ) {
 
-			this._content.rotate( angle, this._anchor.point );
+			this._content.rotate( angle * this._orientation, this._anchor.point );
 			this.axisAngle += angle;
 		}
 	};
