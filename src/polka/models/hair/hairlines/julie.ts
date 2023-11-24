@@ -1,24 +1,27 @@
 import { Path } from 'paper';
 
-import Model from '../core/model';
-import Orbital from '../attractors/orbital';
-import Spine from '../attractors/spine';
-import OrbitalField from '../attractors/orbitalField';
-import SpinalField from '../attractors/spinalField';
+import { merge, measure, mid, curve, iron, clap, budge, breakIn, breakOut, mirror, ortoAlign } from 'lib/topo/tools/stitcher';
+import { plotAttractorFirstIntersection, plotAttractorLastIntersection } from 'lib/topo/tools/plotters';
+import { traceSegment, markPoint, genRandom, genRandomDec, normalize } from 'lib/topo/utils/helpers';
 
-import { merge, measure, mid, curve, iron, clap, budge, breakIn, breakOut, mirror, ortoAlign } from '../../lib/topo/tools/stitcher';
-import { plotAttractorFirstIntersection, plotAttractorLastIntersection } from '../../lib/topo/tools/plotters';
+import { IModel } from 'polka/types';
+import Model from 'polka/core/model';
+import Orbital from 'polka/attractors/orbital';
+import Spine from 'polka/attractors/spine';
+import OrbitalField from 'polka/attractors/orbitalField';
+import SpinalField from 'polka/attractors/spinalField';
+import { ImportDeclaration } from 'typescript';
 
-import { traceSegment, markPoint, genRandom, genRandomDec, normalize } from '../../lib/topo/utils/helpers';
+
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class JulieHairline extends Model {
+class Julie extends Model {
 
 	
-	constructor( base: any, type?: string  ) {
+	constructor( base: IModel, type?: string  ) {
 
 		super( base, type );
 
@@ -112,13 +115,13 @@ class JulieHairline extends Model {
 }
 
 
-let instance: JulieHairline | null = null;
+let instance: IModel | null = null;
 
-export function drawJulieHairline( field: any, type?: string  ): JulieHairline {
+export function drawJulie( base: IModel, type?: string  ): IModel {
   
   if (!instance) {
 
-    instance = new JulieHairline( field, type );
+    instance = new Julie( base, type ) as IModel;
   }
 
   return instance;

@@ -1,24 +1,24 @@
 import { IModel, ModelConfig } from "../../types";
 
-import { drawPompadourWig } from "../../models/pompadourWig";
-import { drawAntoinetteWig } from "../../models/antoinetteWig";
+import { drawPompadour } from "../../models/hair/pompadour";
+import { drawAntoinette } from "../../models/hair/antoinette";
 import { drawHairCurl } from "../../models/hairCurl";
-import { drawHairline } from "../../models/hairline";
-import { drawMozartHairline } from "../../models/mozartHairline";
-import { drawBangHairline } from "../../models/bangHairline";
+import { drawHairline } from "../../models/hair/hairlines/hairline";
+import { drawMozart } from "../../models/hair/hairlines/mozart";
+import { drawBangHairline } from "../../models/hair/hairlines/bang";
 import { HairPanache, drawHairPanache } from "../../models/hairPanache";
 import { drawHairCrest } from "../../models/hairCrest";
 import { drawElliWavyTail } from "../../models/elliWavyTail";
-import { drawArchiCurlCrown } from "../../models/archiCurlCrown";
+import { drawArchiCurlCrown } from "../../models/hair/archiCurlCrown";
 import { drawCascadingTail } from "../../models/cascadingTail";
-import { Earrings, drawEarrings } from "../../models/earrings";
-import { drawNecklace } from "../../models/necklace";
-import { drawJabot } from "../../models/jabot";
+import { Earrings, drawEarrings } from "../../models/earwear/earrings";
+import { drawNecklace } from "../../models/neckwear/necklace";
+import { drawJabot } from "../../models/neckwear/jabot";
 
-import { EyeLashes, drawEyeLashes } from "../../models/eyeLashes";
-import { Blush, drawBlush } from "../../models/blush";
+import { EyeLashes, drawEyeLashes } from "../../models/eyewear/eyeLashes";
+import { Blush, drawBlush } from "../../models/face/blush";
 
-import { drawEarModelTest } from "../../models/earModelTest";
+import { drawEarModelTest } from "../../models/earwear/earModelTest";
 
 import { metricUnit, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles/metrics";
 
@@ -26,7 +26,7 @@ import { metricUnit, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles
 const antoinette: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, t) => drawAntoinetteWig(f, t),
+	create: (f, t) => drawAntoinette(f, t),
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "XL"),
@@ -39,7 +39,7 @@ const antoinette: ModelConfig = {
 const pompadour: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, t) => drawPompadourWig(f, t),
+	create: (f, t) => drawPompadour(f, t),
 	use: null,
 	base: null,
 	size: metricUnit("SIN", "XL"),
@@ -117,7 +117,7 @@ const bangLine: ModelConfig = {
 const mozartLine: ModelConfig = {
 	type: "hairline",
 	order: "first",
-	create: (f, t) => drawMozartHairline(f, t),
+	create: (f, t) => drawMozart(f, t),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "M"),

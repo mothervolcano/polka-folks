@@ -1,12 +1,12 @@
 import { Path } from 'paper';
 
-import Model from '../core/model';
+import Model from 'polka/core/model';
 
-import Orbital from '../attractors/orbital';
-import OrbitalField from '../attractors/orbitalField';
+import Orbital from 'polka/attractors/orbital';
+import OrbitalField from 'polka/attractors/orbitalField';
 
-import { markPoint } from '../../lib/topo/utils/helpers';
-import { IModel } from '../types';
+import { markPoint } from 'lib/topo/utils/helpers';
+import { IModel } from 'polka/types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';

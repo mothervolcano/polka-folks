@@ -1,19 +1,19 @@
-import { ModelConfig } from "../../types";
+import { ModelConfig } from "polka/types";
 
-import { drawIonicHair } from "../../models/ionicHair";
-import { drawDennisHair } from "../../models/dennisHair";
-import { drawBillyMonkHair } from "../../models/billyMonkHair";
-import { drawHairDome } from "../../models/hairDome";
-import { drawArcWave } from "../../models/arcWave";
-import { drawHairCurtain } from "../../models/hairCurtain";
-import { drawBangHairline } from "../../models/bangHairline";
-import { drawBillyHairFlaps } from "../../models/billyHairFlaps";
-import { drawHairCurtainHide } from "../../models/hairCurtainHide";
-import { drawHairCapeTail } from "../../models/hairCapeTail";
-import { drawHairCap } from "../../models/hairCap";
-import { drawHairModelTest } from "../../models/hairModelTest";
+import { drawIonicHair } from "polka/models/hair/ionic";
+import { drawDennisHair } from "polka/models/hair/dennis";
+import { drawAugustine } from "polka/models/hair/augustine";
+import { drawHairDome } from "polka/models/hairDome";
+import { drawArcWave } from "polka/models/arcWave";
+import { drawHairCurtain } from "polka/models/hairCurtain";
+import { drawBangHairline } from "polka/models/hair/hairlines/bang";
+import { drawBilly } from "polka/models/hair/billy";
+import { drawHairCurtainHide } from "polka/models/hairCurtainHide";
+import { drawHairCapeTail } from "polka/models/hairCapeTail";
+import { drawHairCap } from "polka/models/hairCap";
+import { drawHairModelTest } from "polka/models/hairModelTest";
 
-import { drawRoundGlasses } from "../../models/roundGlasses";
+import { drawRoundGlasses } from "polka/models/eyewear/roundGlasses";
 
 import { metricUnit, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles/metrics";
 
@@ -124,7 +124,7 @@ const bangs: ModelConfig = {
 const billyFlaps: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawBillyHairFlaps(f, r),
+	create: (f, r) => drawBilly(f, r),
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "L"),
@@ -176,7 +176,7 @@ const roundGlasses: ModelConfig = {
 const billyMonkHair: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawBillyMonkHair(f, r),
+	create: (f, r) => drawAugustine(f, r),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "XL"),

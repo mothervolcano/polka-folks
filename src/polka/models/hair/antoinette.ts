@@ -1,18 +1,18 @@
 import { Path } from 'paper';
 
-import Model from '../core/model';
-import Orbital from '../attractors/orbital';
-import OrbitalField from '../attractors/orbitalField';
+import Model from 'polka/core/model';
+import Orbital from 'polka/attractors/orbital';
+import OrbitalField from 'polka/attractors/orbitalField';
 
-import { markPoint, normalize } from '../../lib/topo/utils/helpers';
-import { mid, curve } from '../../lib/topo/tools/stitcher';
-import { IModel } from '../types';
+import { markPoint, normalize } from 'lib/topo/utils/helpers';
+import { mid, curve } from 'lib/topo/tools/stitcher';
+import { IModel } from 'polka/types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class AntoinetteWig extends Model {
+class Antoinette extends Model {
 
 	
 	private _att: any;
@@ -172,11 +172,11 @@ class AntoinetteWig extends Model {
 
 let instance: IModel | null = null;
 
-export function drawAntoinetteWig( field: any,  type?: string ): IModel {
+export function drawAntoinette( field: any,  type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new AntoinetteWig( field, type ) as IModel;
+    instance = new Antoinette( field, type ) as IModel;
   }
 
   return instance;

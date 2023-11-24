@@ -1,24 +1,25 @@
 import { Path } from 'paper';
 
-import Model from '../core/model';
-import Orbital from '../attractors/orbital';
-import OrbitalField from '../attractors/orbitalField';
+import { merge, measure, mid, curve, iron, clap, budge, breakIn, breakOut, mirror } from 'lib/topo/tools/stitcher';
+import { plotAttractorFirstIntersection, plotAttractorLastIntersection } from 'lib/topo/tools/plotters';
+import { traceSegment, markPoint, genRandom, genRandomDec, normalize } from 'lib/topo/utils/helpers';
 
-import { merge, measure, mid, curve, iron, clap, budge, breakIn, breakOut, mirror } from '../../lib/topo/tools/stitcher';
-import { plotAttractorFirstIntersection, plotAttractorLastIntersection } from '../../lib/topo/tools/plotters';
+import { IModel } from 'polka/types';
+import Model from 'polka/core/model';
+import Orbital from 'polka/attractors/orbital';
+import OrbitalField from 'polka/attractors/orbitalField';
 
-import { traceSegment, markPoint, genRandom, genRandomDec, normalize } from '../../lib/topo/utils/helpers';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class DoubleChignonHair extends Model {
+class DoubleChignon extends Model {
 
 	
-	constructor( field: any, type?: string  ) {
+	constructor( base: IModel, type?: string  ) {
 
-		super( field, type );
+		super( base, type );
 
 		return this;
 
@@ -30,7 +31,7 @@ class DoubleChignonHair extends Model {
 	};
 
 
-	public plot( params: any, lvl: number, c: number ) {
+	public plot( params: any, c: number ) {
 
 
 		// .............................................
@@ -104,30 +105,20 @@ class DoubleChignonHair extends Model {
 		this.pen.add( [ C0, L1, K0, R1 ] );
 
 
-		const instructions = {
-
-			level: this.level,
-			complete: false,
-			gradient: null
-		}
-
 		// .............................................
 		// Chart
-
-
-		return [ instructions, this.path ];
 
 	};
 }
 
 
-let instance: DoubleChignonHair | null = null;
+let instance: IModel | null = null;
 
-export function drawDoubleChignonHair( field: any, type?: string  ): DoubleChignonHair {
+export function drawDoubleChignon( base: IModel, type?: string  ): IModel {
   
   if (!instance) {
 
-    instance = new DoubleChignonHair( field, type );
+    instance = new DoubleChignon( base, type ) as IModel;
   }
 
   return instance;

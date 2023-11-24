@@ -1,12 +1,11 @@
 import { Path } from 'paper';
 
-import Model from '../core/model';
-import Orbital from '../attractors/orbital';
-import OrbitalField from '../attractors/orbitalField';
+import { merge, measure, mid, curve, iron, bounce, budge, breakIn, breakOut } from 'lib/topo/tools/stitcher';
+import { markPoint, genRandom, genRandomDec, normalize } from 'lib/topo/utils/helpers';
 
-import { merge, measure, mid, curve, iron, bounce, budge, breakIn, breakOut } from '../../lib/topo/tools/stitcher';
-
-import { markPoint, genRandom, genRandomDec, normalize } from '../../lib/topo/utils/helpers';
+import Model from 'polka/core/model';
+import Orbital from 'polka/attractors/orbital';
+import OrbitalField from 'polka/attractors/orbitalField';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';

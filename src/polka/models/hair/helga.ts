@@ -1,21 +1,21 @@
 import { Path } from 'paper';
 
-import Model from '../core/model';
-import Orbital from '../attractors/orbital';
-import Spine from '../attractors/spine';
-import OrbitalField from '../attractors/orbitalField';
-import SpinalField from '../attractors/spinalField';
+import { merge, measure, mid, curve, iron, clap, budge, breakIn, breakOut, mirror, ortoAlign } from 'lib/topo/tools/stitcher';
+import { plotAttractorFirstIntersection, plotAttractorLastIntersection } from 'lib/topo/tools/plotters';
+import { traceSegment, markPoint, genRandom, genRandomDec, normalize } from 'lib/topo/utils/helpers';
 
-import { merge, measure, mid, curve, iron, clap, budge, breakIn, breakOut, mirror, ortoAlign } from '../../lib/topo/tools/stitcher';
-import { plotAttractorFirstIntersection, plotAttractorLastIntersection } from '../../lib/topo/tools/plotters';
+import Model from 'polka/core/model';
+import Orbital from 'polka/attractors/orbital';
+import Spine from 'polka/attractors/spine';
+import OrbitalField from 'polka/attractors/orbitalField';
+import SpinalField from 'polka/attractors/spinalField';
 
-import { traceSegment, markPoint, genRandom, genRandomDec, normalize } from '../../lib/topo/utils/helpers';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class HelgaHair extends Model {
+class Helga extends Model {
 
 	
 	constructor( base: any, type?: string  ) {
@@ -171,13 +171,13 @@ class HelgaHair extends Model {
 }
 
 
-let instance: HelgaHair | null = null;
+let instance: Helga | null = null;
 
-export function drawHelgaHair( field: any, type?: string  ): HelgaHair {
+export function drawHelga( field: any, type?: string  ): Helga {
   
   if (!instance) {
 
-    instance = new HelgaHair( field, type );
+    instance = new Helga( field, type );
   }
 
   return instance;

@@ -1,20 +1,20 @@
 import { Path } from 'paper';
 
-import Model from '../core/model';
-import Orbital from '../attractors/orbital';
-import OrbitalField from '../attractors/orbitalField';
-import SpinalField from '../attractors/spinalField';
+import { merge, measure, curve } from 'lib/topo/tools/stitcher';
+import { markPoint, normalize, genRandomDec } from 'lib/topo/utils/helpers';
 
-import { merge, measure, curve } from '../../lib/topo/tools/stitcher';
+import { IModel } from 'polka/types';
+import Model from 'polka/core/model';
+import Orbital from 'polka/attractors/orbital';
+import OrbitalField from 'polka/attractors/orbitalField';
+import SpinalField from 'polka/attractors/spinalField';
 
-import { markPoint, normalize, genRandomDec } from '../../lib/topo/utils/helpers';
-import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class BillyHairFlaps extends Model {
+class Billy extends Model {
 
 	
 	constructor( base: IModel, type?: string ) {
@@ -113,13 +113,6 @@ class BillyHairFlaps extends Model {
 
 		this.path.closed = true;
 
-		// const instructions = {
-
-		// 	level: this.level,
-		// 	complete: false,
-		// 	gradient: null
-
-		// }
 
 		// .............................................
 		// Chart
@@ -141,11 +134,11 @@ class BillyHairFlaps extends Model {
 
 let instance: IModel | null = null;
 
-export function drawBillyHairFlaps( base: IModel,  type?: string ): IModel {
+export function drawBilly( base: IModel,  type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new BillyHairFlaps( base, type ) as IModel     ;
+    instance = new Billy( base, type ) as IModel     ;
   }
 
   return instance;

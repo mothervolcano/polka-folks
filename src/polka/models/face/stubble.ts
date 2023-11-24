@@ -1,20 +1,19 @@
 import { Path } from 'paper';
 
-import Model from '../core/model';
+import { markPoint } from 'lib/topo/utils/helpers';
 
-import Orbital from '../attractors/orbital';
-import Spine from '../attractors/spine';
-import SpinalField from '../attractors/spinalField';
-import OrbitalField from '../attractors/orbitalField';
+import { IModel } from 'polka/types';
+import Model from 'polka/core/model';
+import Orbital from 'polka/attractors/orbital';
+import Spine from 'polka/attractors/spine';
+import OrbitalField from 'polka/attractors/orbitalField';
 
-import { markPoint } from '../../lib/topo/utils/helpers';
-import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class HairShave extends Model {
+class Stubble extends Model {
 
 	private _att: any;
 
@@ -23,6 +22,10 @@ class HairShave extends Model {
 	constructor( base: IModel, type?: string ) {
 
 		super( base, type );
+
+		this.name = "shave";
+
+		return this;
 
 	}
 
@@ -148,11 +151,11 @@ class HairShave extends Model {
 
 let instance: IModel | null = null;
 
-export function drawHairShave( base: IModel, type?: string  ): IModel {
+export function drawStubble( base: IModel, type?: string  ): IModel {
   
   if (!instance) {
 
-    instance = new HairShave( base, type ) as IModel;
+    instance = new Stubble( base, type ) as IModel;
   }
 
   return instance;

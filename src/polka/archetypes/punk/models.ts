@@ -1,7 +1,7 @@
 import { ModelConfig } from "../../types";
 
 import { drawHairSpike } from "../../models/hairSpike";
-import { drawHairShave } from "../../models/hairShave";
+import { drawStubble } from "../../models/face/stubble";
 
 import { metricUnit, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles/metrics";
 
@@ -21,7 +21,7 @@ const spike: ModelConfig = {
 const hairShave: ModelConfig = {
 	use: null,
 	type: "",
-	create: (f, r) => drawHairShave(f, r),
+	create: (f, r) => drawStubble(f, r),
 	order: "first",
 	base: null,
 	size: metricUnit("PHI", "XXS"),

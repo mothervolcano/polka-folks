@@ -1,22 +1,20 @@
 import { Path } from 'paper';
 
-import Model from '../core/model';
-import Orbital from '../attractors/orbital';
-import OrbitalField from '../attractors/orbitalField';
+import { merge, bounce, curve, mid, breakOut, breakIn } from 'lib/topo/tools/stitcher';
+import { plotAllAttractorIntersections, mergeAllAttractorIntersections } from 'lib/topo/tools/plotters';
+import { markPoint, normalize, genRandomDec } from 'lib/topo/utils/helpers';
 
-import { merge, bounce, curve, mid, breakOut, breakIn } from '../../lib/topo/tools/stitcher';
-import { plotAllAttractorIntersections, mergeAllAttractorIntersections } from '../../lib/topo/tools/plotters';
+import { IModel } from 'polka/types';
+import Model from 'polka/core/model';
+import Orbital from 'polka/attractors/orbital';
+import OrbitalField from 'polka/attractors/orbitalField';
 
-import { markPoint, normalize, genRandomDec } from '../../lib/topo/utils/helpers';
-import { IModel, IOrbitalField } from '../types';
-import { IAttractor, IAttractorObject } from '../../lib/topo/types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-
-class PompadourWig extends Model {
+class Pompadour extends Model {
 
 	private _att: any;
 
@@ -254,11 +252,11 @@ class PompadourWig extends Model {
 
 let instance: IModel | null = null;
 
-export function drawPompadourWig( field: any, type?: string ): IModel {
+export function drawPompadour( field: any, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new PompadourWig( field, type ) as IModel;
+    instance = new Pompadour( field, type ) as IModel;
   }
 
   return instance;

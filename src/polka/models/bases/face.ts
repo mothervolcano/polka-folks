@@ -1,15 +1,14 @@
 import { Path } from "paper";
 
-import Model from "../core/model";
-import Orbital from "../attractors/orbital";
-import OrbitalField from "../attractors/orbitalField";
-import Eclipse from "../attractors/eclipse";
-import EclipseField from "../attractors/eclipseField";
+import { IAttractor, IAttractorObject } from "lib/topo/types";
+import { budge } from "lib/topo/tools/stitcher";
+import { markPoint } from "lib/topo/utils/helpers";
 
-import { budge } from "../../lib/topo/tools/stitcher";
-
-import { markPoint } from "../../lib/topo/utils/helpers";
-import { IAttractor, IAttractorObject } from "../../lib/topo/types";
+import Model from "polka/core/model";
+import Orbital from "polka/attractors/orbital";
+import OrbitalField from "polka/attractors/orbitalField";
+import Eclipse from "polka/attractors/eclipse";
+import EclipseField from "polka/attractors/eclipseField";
 
 const DEBUG_GREEN = "#10FF0C";
 const GUIDES = "#06E7EF";

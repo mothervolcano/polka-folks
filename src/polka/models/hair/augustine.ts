@@ -1,20 +1,19 @@
 import { Path } from 'paper';
 
-import Model from '../core/model';
+import { merge, measure, mid, curve } from 'lib/topo/tools/stitcher';
+import { markPoint } from 'lib/topo/utils/helpers';
 
-import Orbital from '../attractors/orbital';
-import OrbitalField from '../attractors/orbitalField';
+import { IModel } from 'polka/types';
+import Model from 'polka/core/model';
+import Orbital from 'polka/attractors/orbital';
+import OrbitalField from 'polka/attractors/orbitalField';
 
-import { merge, measure, mid, curve } from '../../lib/topo/tools/stitcher';
-
-import { markPoint } from '../../lib/topo/utils/helpers';
-import { IModel } from '../types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class BillMonkHair extends Model {
+class Augustine extends Model {
 
 	
 	constructor( base: IModel, type?: string ) {
@@ -100,11 +99,11 @@ class BillMonkHair extends Model {
 
 let instance: IModel | null = null;
 
-export function drawBillyMonkHair( base: IModel, type?: string ): IModel {
+export function drawAugustine( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new BillMonkHair( base, type ) as IModel;
+    instance = new Augustine( base, type ) as IModel;
   }
 
   return instance;

@@ -1,18 +1,17 @@
 import { Layer, Path } from "paper";
-import { paper } from "../../components/paperStage";
+import { paper } from "components/paperStage";
 
-import OrbitalField from "../attractors/orbitalField";
-import { convertToHyperPoint } from "../../lib/topo/utils/converters";
+import { IAttractorField } from "lib/topo/types";
+import { convertToHyperPoint } from "lib/topo/utils/converters";
+import { traceSegment, isEven, genRandom, genRandomDec } from "lib/topo/utils/helpers";
 
-import { IModel, MetricScale, MetricScaleType, MetricUnit, ModelConfig } from "../types";
-import { drawHead } from "../models/head";
-import { drawFace } from "../models/face";
-
-import { traceSegment, isEven, genRandom, genRandomDec } from "../../lib/topo/utils/helpers";
-
+import { IModel, MetricScale, MetricScaleType, MetricUnit, ModelConfig } from "polka/types";
+import OrbitalField from "polka/attractors/orbitalField";
+import { drawHead } from "polka/models/bases/head";
+import { drawFace } from "polka/models/bases/face";
 import { PHIGREATER, PHILESSER, SIN54, PHI, SIN, generateScaleFor } from "../styles/metrics";
-import { IAttractorField } from "../../lib/topo/types";
-import { model } from "../../stage";
+
+import { model } from "stage";
 
 // ------------------------
 // DEBUG

@@ -1,13 +1,12 @@
 import { Path } from "paper";
 
-import Model from "../core/model";
-import Orbital from "../attractors/orbital";
-import Spine from "../attractors/spine";
-import OrbitalField from "../attractors/orbitalField";
-import SpinalField from "../attractors/spinalField";
+import { markPoint } from "lib/topo/utils/helpers";
 
-import { markPoint } from "../../lib/topo/utils/helpers";
-import { IModel } from "../types";
+import { IModel } from "polka/types";
+import Model from "polka/core/model";
+import Orbital from "polka/attractors/orbital";
+import Spine from "polka/attractors/spine";
+import SpinalField from "polka/attractors/spinalField";
 
 const DEBUG_GREEN = "#10FF0C";
 const GUIDES = "#06E7EF";

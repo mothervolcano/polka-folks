@@ -1,13 +1,14 @@
 import { Path, CompoundPath } from 'paper';
 
-import Model from '../core/model';
-import Orbital from '../attractors/orbital';
-import OrbitalField from '../attractors/orbitalField';
+import { merge, measure, mid, curve } from 'lib/topo/tools/stitcher';
+import { markPoint, genRandom, genRandomDec } from 'lib/topo/utils/helpers';
 
-import { merge, measure, mid, curve } from '../../lib/topo/tools/stitcher';
+import Model from 'polka/core/model';
+import Orbital from 'polka/attractors/orbital';
+import OrbitalField from 'polka/attractors/orbitalField';
 
-import { markPoint, genRandom, genRandomDec } from '../../lib/topo/utils/helpers';
-import { IModel } from '../types';
+
+import { IModel } from 'polka/types';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';

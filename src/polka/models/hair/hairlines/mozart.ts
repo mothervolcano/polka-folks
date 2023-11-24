@@ -1,21 +1,27 @@
 import { Path } from 'paper';
 
-import Model from '../core/model';
-import Orbital from '../attractors/orbital';
-import OrbitalField from '../attractors/orbitalField';
+import { markPoint } from 'lib/topo/utils/helpers';
 
-import { markPoint } from '../../lib/topo/utils/helpers';
-import { IModel } from '../types';
+
+import { IModel } from 'polka/types';
+import Model from 'polka/core/model';
+import Orbital from 'polka/attractors/orbital';
+import OrbitalField from 'polka/attractors/orbitalField';
+
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class MozartHairline extends Model {
+class Mozart extends Model {
 
 	constructor( base: IModel, type?: string ) {
 
 		super( base, type );
+
+		this.name = "Mozart Hairline"
+
+		return this;
 
 	}
 
@@ -92,11 +98,11 @@ class MozartHairline extends Model {
 
 let instance: IModel | null = null;
 
-export function drawMozartHairline( base: IModel, type?: string ): IModel {
+export function drawMozart( base: IModel, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new MozartHairline( base, type ) as IModel;
+    instance = new Mozart( base, type ) as IModel;
   }
 
   return instance;

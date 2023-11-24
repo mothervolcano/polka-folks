@@ -1,23 +1,24 @@
 import { Path } from 'paper';
 
-import Model from '../core/model';
-import Orbital from '../attractors/orbital';
-import OrbitalField from '../attractors/orbitalField';
+import { merge, measure, mid, curve, iron, bounce, budge, breakIn, breakOut } from 'lib/topo/tools/stitcher';
+import { markPoint, genRandom, genRandomDec } from 'lib/topo/utils/helpers';
 
-import { merge, measure, mid, curve, iron, bounce, budge, breakIn, breakOut } from '../../lib/topo/tools/stitcher';
+import { IModel } from 'polka/types';
+import Model from 'polka/core/model';
+import Orbital from 'polka/attractors/orbital';
+import OrbitalField from 'polka/attractors/orbitalField';
 
-import { markPoint, genRandom, genRandomDec } from '../../lib/topo/utils/helpers';
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class SydHair extends Model {
+class Syd extends Model {
 
 	
-	constructor( field: any, type?: string  ) {
+	constructor( base: IModel, type?: string  ) {
 
-		super( field, type );
+		super( base, type );
 
 		return this;
 
@@ -116,13 +117,13 @@ class SydHair extends Model {
 }
 
 
-let instance: SydHair | null = null;
+let instance: IModel | null = null;
 
-export function drawSydHair( field: any, type?: string  ): SydHair {
+export function drawSyd( base: IModel, type?: string  ): IModel {
   
   if (!instance) {
 
-    instance = new SydHair( field, type );
+    instance = new Syd( base, type ) as IModel;
   }
 
   return instance;
