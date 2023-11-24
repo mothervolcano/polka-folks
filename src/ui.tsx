@@ -109,6 +109,8 @@ const UI = () => {
 
 		const updatedBaseParams = parseParams(currentModel.params);
 		const updatedArchetypeParams = parseParams(currentArchetype.params);
+		setBaseParams(currentModel.params);
+		setParamsForArchetype(currentArchetype.params);
 
 		reset();
 		generate(
@@ -165,7 +167,6 @@ const UI = () => {
 
 	const handleArchetypeSelection = (value: string) => {
 		setCurrentArchetype({ type: value });
-		console.log(`selected: ${value}`, currentArchetype);
 	};
 
 	function handleSaveAction() {
@@ -176,6 +177,7 @@ const UI = () => {
 	// BLOCKS
 
 	function switchConsole(archetype: Archetype) {
+		// ...
 		const ArchetypeConsole = archetype.console;
 
 		return (
