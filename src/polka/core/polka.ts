@@ -246,19 +246,14 @@ abstract class Polka {
 			this.#collection.push(config);
 
 			// ----------------------------------------------------------------------
-			// 4: Check if the model containes sub-models to base them on the model 
-			// and add them to the queue to be created next.
+			// 4: Check if the model containes sub-models to base them on itself
 
 			if (config.compats.length > 0) {
 				// If the model has sub-models they require an attractor. By default it is set to its own base Model's attractor.
 				config.use.setAttractor();
 				const compatConfig = pickModel(config.compats);
 				compatConfig.base = config.use;
-				// compatConfig.use = compatConfig.create(config.use, config.type);
-				// compatConfig.use.baseOn(config.use);
-				// compatConfig.use.setScale(this.parseMetric(config.size));
-				// compatConfig.use.configure(...config.settings.map((p: any[]) => this.randomize(p)));
-
+				// add to the queue to be rendered next
 				modelQueue.push(compatConfig);
 			}
 		}
