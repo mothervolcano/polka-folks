@@ -6,6 +6,7 @@ import { IModel } from 'polka/types';
 import Model from 'polka/core/model';
 import Orbital from 'polka/attractors/orbital';
 import OrbitalField from 'polka/attractors/orbitalField';
+import { curve } from 'lib/topo/tools/stitcher';
 
 
 const DEBUG_GREEN = '#10FF0C';
@@ -14,33 +15,24 @@ const GUIDES = '#06E7EF';
 
 class IonicHair extends Model {
 
-
-	private _vol: any;
-	private _aperture: any;
-	private _height: any;
-
 	
 	constructor( base: IModel, type?: string ) {
 
 		super( base, type );
 
-		this.name = "ionic hair"
+		this.name = "Ionic hair"
 
 		return this;
 
 	};
 
 
-	public configure( volumeBaseValue: number, apertureBaseValue: number, heightBaseValue: number ) {
-
-		this._vol = volumeBaseValue;
-		this._aperture = apertureBaseValue;
-		this._height = heightBaseValue;
+	public configure() {
 
 	};
 
 
-	public plot( params: any, a: any, b: any, volumeCtrl: number = 0.5, apertureCtrl: number = 1, heightCtrl: number = 0 ) {
+	public plot( params: any, a: any, b: any ) {
 
 		
 		const { } = params;
@@ -78,28 +70,40 @@ class IonicHair extends Model {
 
 
 		field.compress( 0 + lift, 0.50 - lift )
-		// this._field.spin( 90*volumeCtrl )
 		field.expandBy( volume, 'RAY');
 
+		A.steer(-45)
 
 		// ........................................
 		// Plotting
 
 
-		const P1 = field.locate(0.90);
-		const P2 = field.locate(0.1);
-		const P3 = field.locate(0.25);
+		const pts1 = field.locate(0.90);
+		const pts2 = field.locate(0.25);
 
+		const P1 = pts1[0];
+		const P2 = pts2[0];
+		const P3 = pts2[1].flip();
+
+		curve(P1, P2, 1);
 
 		const path = new Path( { strokeColor: DEBUG_GREEN, closed: false } );
 
 		this.pen.setPath( path );
-		this.pen.add( [ A, P1[0], P2[0], P3[0], P3[1].flip() ] );
+		// this.pen.add( [ A, P1[0], P2[0], P3[0], P3[1].flip() ] );
+		this.pen.add( [ A, P1, P2, P3 ] );
 
 		this.pen.mirrorRepeat( 'HOR', false, true );
 
+		const formaProps = {
+
+			level: this.level,
+			effect: "SOLID",
+			scope: "ALL"
+		}
+
 		this.composer.init();
-		this.composer.addPath(this.path, this.level);
+		this.composer.addPath(path, formaProps);
 
 		return this.composer.wrap();
 

@@ -159,7 +159,7 @@ const roundGlasses: ModelConfig = {
 	compats: [],
 };
 
-const billyMonkHair: ModelConfig = {
+const augustineHair: ModelConfig = {
 	type: "hair",
 	order: "first",
 	create: (f, r) => drawAugustine(f, r),
@@ -196,7 +196,7 @@ hairDome.compats = [{ ...arcPattern }, { ...zigzag }, { ...billyFlaps }];
 // ..................................................
 
 // export const pool = [fionaHair, hairCurtainHide, hairCap, hairDome, roundGlasses];
-export const pool = [fionaHair, roundGlasses];
+export const pool = [ionicHair, roundGlasses];
 
 
 
