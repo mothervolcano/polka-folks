@@ -76,11 +76,6 @@ class Jabot extends Model {
 		const C3 = att1.locate( 0.75 - wC ).scaleHandles( 0 );
 		const C4 = att1.locate( 0.75 - wC ).offsetBy( lC, 'RAY' ).scaleHandles( 0, true, false );
 
-		const instructions = {
-
-			level: 0,
-			gradient: null
-		}
 
 		const path1 = new Path({ closed: true });
 
@@ -97,16 +92,32 @@ class Jabot extends Model {
 		this.pen.setPath( path3 );
 		this.pen.add( [ C1, C2, C3, C4 ] );
 
+		const capitalProps = {
+			level: this.level+1,
+			effect: "SOLID",
+			scope: "ALL"
+		}
+
 		const formaProps = {
 			level: this.level,
 			effect: "SOLID",
 			scope: "ALL"
 		}
 
+		const shadeProps = {
+			level: this.level,
+			effects: "HOLLOW",
+			scope: "EACH"
+		}
+
 		this.composer.init();
+		this.composer.addCapital(path3, capitalProps);
+		
 		this.composer.addPath(path1, formaProps);
 		this.composer.addPath(path2, formaProps);
-		this.composer.addPath(path3, formaProps);
+
+		this.composer.addShade(path1.clone(), shadeProps);
+		this.composer.addShade(path2.clone(), shadeProps);
 
 		return this.composer.wrap();
 

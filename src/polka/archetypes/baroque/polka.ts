@@ -87,7 +87,14 @@ class PolkaBaroque extends Polka {
 			],
 			[
 				"neckwear",
-				{ formaRenderer: renderHair, shadeRenderer: null, accentRenderer: null, variationRenderer: null },
+				{
+					formaRenderer: renderHair,
+					shadeRenderer: (...args: any[]) => {
+						preRender(renderHairHollow, ...args);
+					},
+					accentRenderer: renderHair,
+					variationRenderer: null,
+				},
 			],
 			[
 				"eyefeature",
@@ -124,6 +131,14 @@ class PolkaBaroque extends Polka {
 
 			if (comp.shade !== null) {
 				this.#styles.get(comp.type).shadeRenderer(comp.shade.path, comp.shade.scope, comp.shade.effect);
+				comp.shade.path.copyTo(this.getLayer(comp.shade.level));
+				comp.shade.path.remove();
+			}
+
+			if (comp.capital !== null) {
+				this.#styles.get(comp.type).accentRenderer(comp.capital.path, comp.capital.scope, comp.capital.effect);
+				comp.capital.path.copyTo(this.getLayer(comp.capital.level));
+				comp.capital.path.remove();
 			}
 		});
 
