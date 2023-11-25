@@ -9,13 +9,14 @@ import OrbitalField from 'polka/attractors/orbitalField';
 
 import ZigZag from 'polka/lines/zigzag';
 import Curtain from 'polka/parts/curtain';
+import Brim from 'polka/parts/brim';
 
 
 const DEBUG_GREEN = '#10FF0C';
 const GUIDES = '#06E7EF';
 
 
-class HairCapeTail extends Model {
+class Fiona extends Model {
 
 	private _volume: number = 0;
 	private _elevation: number = 0;
@@ -63,6 +64,14 @@ class HairCapeTail extends Model {
 		// .............................................
 		// Configure
 
+		const props = {
+			number: 9,
+			height: this.PHI.S
+		}
+
+		ZigZag.configure(props)
+		Brim.configure(props)
+
 		// .............................................
 		// Plotting
 
@@ -72,7 +81,10 @@ class HairCapeTail extends Model {
 		B1.scaleHandles(0);
 		A1.scaleHandles(0);
 
-		const pts = ZigZag.draw(A1, B1);
+		const tailPlot = [ A1, A, B, B1 ];
+		const patternPlot = ZigZag.draw(A1, B1);
+		// const curtainPlot = Curtain.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50)
+		const curtainPlot = Brim.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50)
 
 		// ............................................................
 
@@ -83,7 +95,7 @@ class HairCapeTail extends Model {
 		});
 
 		this.pen.setPath( mainPath );
-		this.pen.add( [ A1, A, B, B1 ] );
+		this.pen.add( tailPlot );
 
 		const closingPath = new Path({
 			strokeColor: DEBUG_GREEN,
@@ -92,7 +104,7 @@ class HairCapeTail extends Model {
 		})
 
 		this.pen.setPath(closingPath);
-		this.pen.add( pts );
+		this.pen.add( patternPlot );
 
 		closingPath.reverse();
 		const path = mainPath.join(closingPath);
@@ -104,10 +116,10 @@ class HairCapeTail extends Model {
 			closed: true
 		})
 
-		const curtainPlot = Curtain.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50)
-
 		this.pen.setPath(curtainPath);
 		this.pen.add(curtainPlot);
+
+		curtainPath.fullySelected = true;
 
 
 		const formaProps = {
@@ -135,11 +147,11 @@ class HairCapeTail extends Model {
 
 let instance: IModel | null = null;
 
-export function drawHairCapeTail( base: any, type?: string ): IModel {
+export function drawFiona( base: any, type?: string ): IModel {
   
   if (!instance) {
 
-    instance = new HairCapeTail( base, type ) as IModel;
+    instance = new Fiona( base, type ) as IModel;
   }
 
   return instance;

@@ -9,7 +9,7 @@ import { drawHairCurtain } from "polka/models/hairCurtain";
 import { drawBangHairline } from "polka/models/hair/hairlines/bang";
 import { drawBilly } from "polka/models/hair/billy";
 import { drawHairCurtainHide } from "polka/models/hairCurtainHide";
-import { drawHairCapeTail } from "polka/models/hairCapeTail";
+import { drawFiona } from "polka/models/hair/fiona";
 import { drawHairCap } from "polka/models/hairCap";
 import { drawHairModelTest } from "polka/models/hairModelTest";
 
@@ -69,10 +69,10 @@ const hairCurtainHide: ModelConfig = {
 	compats: [],
 };
 
-const hairCape: ModelConfig = {
+const fionaHair: ModelConfig = {
 	type: "hair",
 	order: "first",
-	create: (f, r) => drawHairCapeTail(f, r),
+	create: (f, r) => drawFiona(f, r),
 	use: null,
 	base: "HEAD",
 	size: metricUnit("PHI", "XL"),
@@ -203,14 +203,14 @@ const hairModelTest: ModelConfig = {
 
 // hairDome.compats = [ { ...billyFlaps } ];
 // hairCape.compats = [{ ...arcPattern }, { ...zigzag }];
-hairCurtainHide.compats = [{ ...hairCape }];
-hairCap.compats = [{ ...hairCape }, { ...hairCurtainHide }, { ...arcPattern }, { ...zigzag }];
+hairCurtainHide.compats = [{ ...fionaHair }];
+hairCap.compats = [{ ...fionaHair }, { ...hairCurtainHide }, { ...arcPattern }, { ...zigzag }];
 hairDome.compats = [{ ...arcPattern }, { ...zigzag }, { ...billyFlaps }];
 
 // ..................................................
 
-// export const pool = [hairCape, hairCurtainHide, hairCap, hairDome, roundGlasses];
-export const pool = [hairCape, roundGlasses];
+// export const pool = [fionaHair, hairCurtainHide, hairCap, hairDome, roundGlasses];
+export const pool = [fionaHair, roundGlasses];
 
 
 
