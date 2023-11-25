@@ -6,7 +6,6 @@ import { drawAugustine } from "polka/models/hair/augustine";
 import { drawHairDome } from "polka/models/hairDome";
 import { drawArcWave } from "polka/models/arcWave";
 import { drawHairCurtain } from "polka/models/hairCurtain";
-import { drawBangHairline } from "polka/models/hair/hairlines/bang";
 import { drawBilly } from "polka/models/hair/billy";
 import { drawHairCurtainHide } from "polka/models/hairCurtainHide";
 import { drawFiona } from "polka/models/hair/fiona";
@@ -102,19 +101,6 @@ const hairCurtain: ModelConfig = {
 	use: null,
 	base: null,
 	size: metricUnit("PHI", "XL"),
-	level: 3,
-	settings: [],
-	params: ["L_EAR_XT", "R_EAR_XT", 0.25],
-	compats: [],
-};
-
-const bangs: ModelConfig = {
-	type: "hairline",
-	order: "first",
-	create: (f, r) => drawBangHairline(f, r),
-	use: null,
-	base: null,
-	size: metricUnit("PHI", "L"),
 	level: 3,
 	settings: [],
 	params: ["L_EAR_XT", "R_EAR_XT", 0.25],

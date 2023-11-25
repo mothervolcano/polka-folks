@@ -3,9 +3,6 @@ import { IModel, ModelConfig } from "../../types";
 import { drawPompadour } from "../../models/hair/pompadour";
 import { drawAntoinette } from "../../models/hair/antoinette";
 import { drawHairCurl } from "../../models/hairCurl";
-import { drawHairline } from "../../models/hair/hairlines/hairline";
-import { drawMozart } from "../../models/hair/hairlines/mozart";
-import { drawBangHairline } from "../../models/hair/hairlines/bang";
 import { HairPanache, drawHairPanache } from "../../models/hairPanache";
 import { drawHairCrest } from "../../models/hairCrest";
 import { drawElliWavyTail } from "../../models/elliWavyTail";
@@ -85,45 +82,6 @@ const panache: ModelConfig = {
 	level: 0,
 	settings: [],
 	params: [0.25],
-	compats: [],
-};
-
-const hairline: ModelConfig = {
-	type: "hairline",
-	order: "first",
-	create: (f, t) => drawHairline(f, t), 
-	use: null,
-	base: "HEAD",
-	size: metricUnit("PHI", "M"),
-	level: 2,
-	settings: [],
-	params: ["L_EAR_XT", "R_EAR_XT", 0.25],
-	compats: [],
-};
-
-const bangLine: ModelConfig = {
-	type: "hairline",
-	order: "first",
-	create: (f, t) => drawBangHairline(f, t),
-	use: null,
-	base: "HEAD",
-	size: metricUnit("PHI", "M"),
-	level: 2,
-	settings: [],
-	params: ["L_EAR_XT", "R_EAR_XT", 0.25],
-	compats: [],
-};
-
-const mozartLine: ModelConfig = {
-	type: "hairline",
-	order: "first",
-	create: (f, t) => drawMozart(f, t),
-	use: null,
-	base: "HEAD",
-	size: metricUnit("PHI", "M"),
-	level: 2,
-	settings: [],
-	params: ["L_EAR_XT", "R_EAR_XT", 0.25],
 	compats: [],
 };
 
@@ -280,9 +238,6 @@ export const pool = [
 	curlDome,
 	crest,
 	panache,
-	hairline,
-	bangLine,
-	mozartLine,
 	cascadeTail,
 	wavyTail,
 	lashesLeft,

@@ -1,15 +1,15 @@
 import { Path } from 'paper';
 
-import { markPoint } from 'lib/topo/utils/helpers';
+import { genRandom, markPoint } from 'lib/topo/utils/helpers';
 
-import { IModel } from 'polka/types';
+import { IModel, IPart } from 'polka/types';
 import Model from 'polka/core/model';
-import Orbital from 'polka/attractors/orbital';
-import OrbitalField from 'polka/attractors/orbitalField';
 
 import ZigZag from 'polka/lines/zigzag';
 import Curtain from 'polka/parts/curtain';
 import Brim from 'polka/parts/brim';
+import Pinch from 'polka/parts/pinch';
+import Onda from 'polka/parts/onda';
 
 
 const DEBUG_GREEN = '#10FF0C';
@@ -18,9 +18,7 @@ const GUIDES = '#06E7EF';
 
 class Fiona extends Model {
 
-	private _volume: number = 0;
-	private _elevation: number = 0;
-	private _length: number = 0;
+	#parts: IPart[] = []
 
 	constructor( base: IModel, type?: string ) {
 
@@ -33,15 +31,11 @@ class Fiona extends Model {
 
 	public configure( elevationBaseValue: number ) {
 
-		this._volume = this.SIN.XL;
-		this._elevation = elevationBaseValue;
-		this._length = this.PHI.XL;
-
+		this.#parts = [ Curtain, Brim, Pinch, Onda ];
 	};
 
 
 	public plot( params: any ) {
-
 
 		// .............................................
 		// Compute parameters
@@ -83,8 +77,15 @@ class Fiona extends Model {
 
 		const tailPlot = [ A1, A, B, B1 ];
 		const patternPlot = ZigZag.draw(A1, B1);
+
+		const hairline = this.#parts[genRandom(0, this.#parts.length-1)]
 		// const curtainPlot = Curtain.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50)
-		const curtainPlot = Brim.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50)
+		// const curtainPlot = Brim.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50)
+		// const curtainPlot = Pinch.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50)
+		// const curtainPlot = Onda.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50)
+		// const curtainPlot = Onda.draw(this.base.attractor, 0, 0.25, 50)
+
+		const curtainPlot = hairline.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50);
 
 		// ............................................................
 
