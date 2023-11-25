@@ -72,7 +72,8 @@ class Keith extends Model {
 		const centerShapeProps = {
 				height: lengthFn(length * PHIGREATER * Math.max(spikeLengthCtrl - decay, 0)),
 			};
-		plots.push(Cone.draw(attC, centerShapeProps));
+		
+		const centerSpikePlot = Cone.draw(attC, centerShapeProps);
 
 		// --------------
 		// Lateral Spikes
@@ -118,7 +119,7 @@ class Keith extends Model {
 		const drawSpike = (plot: any[]) => {
 			const path = new Path({
 				strokeColor: DEBUG_GREEN,
-				strokeWidth: 0,
+				strokeWidth: 1,
 				closed: true,
 			});
 
@@ -137,7 +138,15 @@ class Keith extends Model {
 			scope: "ALL",
 		};
 
+		const capitalProps = {
+			level: this.level+2,
+			effect: "SOLID",
+			scope: "ALL",
+		}
+
 		this.composer.init();
+
+		this.composer.addCapital( drawSpike(centerSpikePlot), capitalProps);
 
 		this.composer.addPaths(
 			plots.map((p) => drawSpike(p)),

@@ -1,6 +1,5 @@
-import { IAttractor } from "../../lib/topo/types";
-import { SIN9, SIN18, SIN36, SIN54, SIN72, PHIGREATER, PHILESSER, generateScaleFor } from "../styles/metrics";
-import { IShape, MetricScale, ShapeProps } from "../types";
+import { IAttractor } from "lib/topo/types";
+import { IShape, ShapeProps } from "polka/types";
 
 abstract class Shape implements IShape {
 	abstract draw(field:IAttractor, props: ShapeProps): any;

@@ -33,10 +33,17 @@ export function convertToSegment( pt: any, withInHandle: BooleanLike = true, wit
 }
 
 
-export function convertToHyperPoint( pt: PointLike ): IHyperPoint {
+export function convertToHyperPoint( pt: any ): IHyperPoint {
 
-  const P = new HyperPoint( pt );
+  const handleIn = pt.handleIn ? pt.handleIn : null;
+  const handleOut = pt.handleOut ? pt.handleOut : null;
+
+  const p = pt.point ? pt.point : pt;
+
+  const P = new HyperPoint( p, handleIn, handleOut );
   P.spin = 1;
+
+
 
   return P as IHyperPoint;
 }

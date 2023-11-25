@@ -12,7 +12,7 @@ const keith: ModelConfig = {
 	order: "first",
 	base: null,
 	size: metricUnit("PHI", "BASE"),
-	level: -1,
+	level: 0,
 	settings: [[metricUnit("PHI", "XL")], [metricUnit("PHI", "XXS")], [0]],
 	params: [0.25],
 	compats: [],

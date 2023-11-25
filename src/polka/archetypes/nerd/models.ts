@@ -167,7 +167,7 @@ const roundGlasses: ModelConfig = {
 	use: null,
 	base: "FACE",
 	size: metricUnit("PHI", "XL"),
-	level: 0,
+	level: 3,
 	settings: [],
 	params: ["EYE_L", "EYE_R"],
 	compats: [],
@@ -202,15 +202,15 @@ const hairModelTest: ModelConfig = {
 // ...................................................
 
 // hairDome.compats = [ { ...billyFlaps } ];
-hairCape.compats = [{ ...arcPattern }, { ...zigzag }];
+// hairCape.compats = [{ ...arcPattern }, { ...zigzag }];
 hairCurtainHide.compats = [{ ...hairCape }];
 hairCap.compats = [{ ...hairCape }, { ...hairCurtainHide }, { ...arcPattern }, { ...zigzag }];
 hairDome.compats = [{ ...arcPattern }, { ...zigzag }, { ...billyFlaps }];
 
 // ..................................................
 
-export const pool = [hairCape, hairCurtainHide, hairCap, hairDome, roundGlasses];
-// export const pool = [hairCurtainHide];
+// export const pool = [hairCape, hairCurtainHide, hairCap, hairDome, roundGlasses];
+export const pool = [hairCape, roundGlasses];
 
 
 

@@ -57,7 +57,7 @@ class PolkaPunk extends Polka {
 					shadeRenderer: (...args: any[]) => {
 						preRender(renderHair, ...args);
 					},
-					accentRenderer: null,
+					accentRenderer: renderHair,
 					variationRenderer: null,
 				},
 			],
@@ -113,6 +113,12 @@ render() {
 
 			if (comp.shade !== null) {
 				this.#styles.get(comp.type).shadeRenderer(comp.shade.path, comp.shade.scope, comp.shade.effect);
+			}
+
+			if (comp.capital !== null) {
+				this.#styles.get(comp.type).accentRenderer(comp.capital.path, comp.capital.scope, comp.capital.effect);
+				comp.capital.path.copyTo(this.getLayer(comp.capital.level));
+				comp.capital.path.remove();
 			}
 		});
 

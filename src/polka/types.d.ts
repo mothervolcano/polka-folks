@@ -1,4 +1,4 @@
-import { IAttractor, IAttractorObject } from "../lib/topo/types";
+import { IAttractor, IAttractorObject, IHyperPoint } from "../lib/topo/types";
 
 export type MetricScaleType = "PHI" | "SIN";
 export type MetricUnitType = "BASE" | "XXS" | "XS" | "S" | "M" | "L" | "XL";
@@ -60,6 +60,27 @@ export interface ShapeProps {
 export interface IShape {
 
   draw(field: IAttractor & IAttractorObject, props: ShapeProps);
+}
+
+export interface LineProps {
+  number?: number;
+  amplitude?: number;
+  shift?: number;
+}
+
+export interface ILine {
+  configure(props: LineProps): void;
+  draw(A: IHyperPoint, B: IHyperPoint, C?: IHyperPoint): any;
+}
+
+export interface PartProps {
+  height?: number;
+  shift?: number;
+}
+
+export interface IPart {
+  configure(props: PartProps): void;
+  draw(att: IAttractor, a: number, b: number, height: number, c?: number): any;
 }
 
 export interface ModelConfig {

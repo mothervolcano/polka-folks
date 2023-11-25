@@ -10,7 +10,7 @@ class Composer {
 			type: this.#type,
 			forma: null,
 			shade: null,
-			highlight: null,
+			capital: null,
 			contrast: null,
 		};
 	}
@@ -84,7 +84,19 @@ class Composer {
 		}
 	}
 
-	public addHighlight(path: any) {}
+	public addCapital(path: any, props: any) {
+
+		const {level, effect, scope} = props;
+
+		this.#composition.capital = {
+				type: path instanceof Group ? "group" : "path",
+				path: path,
+				scope: scope || 'ALL',
+				inside: false,
+			};
+
+		this.#composition.capital.level = level;
+	}
 
 	public addContrast(path: any) {}
 
@@ -95,7 +107,7 @@ class Composer {
 		// 	type: this.#type,
 		// 	forma: null,
 		// 	shades: null,
-		// 	highlight: null,
+		// 	central: null,
 		// 	contrast: null,
 		// };
 
@@ -108,7 +120,7 @@ class Composer {
 			type: this.#type,
 			forma: null,
 			shade: null,
-			highlight: null,
+			capital: null,
 			contrast: null,
 		};
 	}
