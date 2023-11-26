@@ -293,6 +293,8 @@ class HyperPoint {
 		this._handleOut = new Point({ angle: axis + aperture/2 * this._spin, length: this._handleOut.length * hScale });
 		this._handleIn = new Point({ angle: axis - aperture/2 * this._spin, length: this._handleIn.length * hScale });
 
+		this.tangent = this._handleOut;
+
 		// this._handleOut.angle += ( tilt )
 		// this._handleIn.angle += ( tilt )
 
