@@ -57,8 +57,6 @@ export class EyeLashes extends Model {
 			scope: "ALL"
 		}
 
-		console.log(`!!! level @${this.name}: `, this.level)
-
 		this.composer.init();
 
 		this.composer.addPath(att.getPath(), formaProps);

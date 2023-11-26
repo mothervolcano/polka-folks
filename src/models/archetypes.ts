@@ -102,7 +102,7 @@ const punkParamsSchema: ParamSet = [
 
 const baroqueParamsSchema: ParamSet = [
   {
-    id: "mzp4",
+    id: "mzp1",
     name: "curlNumCtrl",
     value: 2,
     range: [1, 6],
@@ -110,15 +110,15 @@ const baroqueParamsSchema: ParamSet = [
     label: "Curls",
   },
   {
-    id: "mzp5",
-    name: "",
+    id: "mzp2",
+    name: "p2Ctrl",
     value: 1,
-    range: [0, 2],
+    range: [0, 1],
     step: 0.01,
-    label: "Mozart P5",
+    label: "P2",
   },
   {
-    id: "mzp1",
+    id: "mzp3",
     name: "heightCtrl",
     value: 0.5,
     range: [0, 1],
@@ -126,7 +126,7 @@ const baroqueParamsSchema: ParamSet = [
     label: "Height",
   },
   {
-    id: "mzp7",
+    id: "mzp4",
     name: "volCtrl",
     value: 0.5,
     range: [0, 1],
@@ -134,28 +134,28 @@ const baroqueParamsSchema: ParamSet = [
     label: "Volume",
   },
   {
-    id: "mzp2",
-    name: "hairlineLevelCtrl",
+    id: "mzp5",
+    name: "p5Ctrl",
     value: 0.5,
     range: [0, 2],
     step: 0.01,
-    label: "Hairline Level",
-  },
-  {
-    id: "mzp3",
-    name: "hairlineRidgeCtrl",
-    value: 1,
-    range: [0, 2],
-    step: 0.01,
-    label: "Hairline Ridge",
+    label: "P5",
   },
   {
     id: "mzp6",
-    name: "spanCtrl",
+    name: "p6Ctrl",
     value: 1,
     range: [0, 2],
     step: 0.01,
-    label: "Span",
+    label: "P6",
+  },
+  {
+    id: "mzp7",
+    name: "p7Ctrl",
+    value: 1,
+    range: [0, 2],
+    step: 0.01,
+    label: "P7",
   },
 ];
 

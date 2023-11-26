@@ -11,6 +11,7 @@ import { drawCascadingTail } from "../../models/cascadingTail";
 import { Earrings, drawEarrings } from "../../models/earwear/earrings";
 import { drawNecklace } from "../../models/neckwear/necklace";
 import { drawJabot } from "../../models/neckwear/jabot";
+import { drawAscot } from "../../models/neckwear/ascot";
 
 import { EyeLashes, drawEyeLashes } from "../../models/eyewear/eyeLashes";
 import { Blush, drawBlush } from "../../models/face/blush";
@@ -202,6 +203,19 @@ const jabot: ModelConfig = {
 	compats: [],
 };
 
+const ascot: ModelConfig = {
+	type: "neckwear",
+	order: "first",
+	create: (f, t) => drawAscot(f, t),
+	use: null,
+	base: null,
+	size: metricUnit("SIN", "XL"),
+	level: 0,
+	settings: [0.75],
+	params: [],
+	compats: [],
+};
+
 const necklace: ModelConfig = {
 	type: "neckwear",
 	order: "first",
@@ -244,8 +258,9 @@ export const pool = [
 	lashesRight,
 	blushLeft,
 	blushRight,
-	jabot,
-	necklace,
+	// jabot,
+	ascot,
+	// necklace,
 	earModelTest,
 	earringLeft,
 	earringRight

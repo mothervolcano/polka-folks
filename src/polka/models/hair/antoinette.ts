@@ -149,8 +149,6 @@ class Antoinette extends Model {
 			scope: "ALL"
 		}
 
-		console.log(`!!! level @${this.name}: `, this.level)
-
 		this.composer.init();
 		this.composer.addPath(path, formaProps);
 

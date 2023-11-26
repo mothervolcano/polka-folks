@@ -58,13 +58,10 @@ class Fiona extends Model {
 		// .............................................
 		// Configure
 
-		const props = {
+		const specs = {
 			number: 9,
 			height: this.PHI.S
 		}
-
-		ZigZag.configure(props)
-		Brim.configure(props)
 
 		// .............................................
 		// Plotting
@@ -79,13 +76,14 @@ class Fiona extends Model {
 		const patternPlot = ZigZag.draw(A1, B1);
 
 		const hairline = this.#parts[genRandom(0, this.#parts.length-1)]
+		hairline.configure(specs);
 		// const curtainPlot = Curtain.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50)
 		// const curtainPlot = Brim.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50)
 		// const curtainPlot = Pinch.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50)
 		// const curtainPlot = Onda.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50)
 		// const curtainPlot = Onda.draw(this.base.attractor, 0, 0.25, 50)
 
-		const curtainPlot = hairline.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position, 50);
+		const curtainPlot = hairline.draw(this.base.attractor, this.base.getPin("L_EAR_XT").position, this.base.getPin("R_EAR_XT").position);
 
 		// ............................................................
 
@@ -107,6 +105,11 @@ class Fiona extends Model {
 		this.pen.setPath(closingPath);
 		this.pen.add( patternPlot );
 
+		// TODO: this can be a method of an utility module to close a shape with a Line
+		// even before the path is created. The operation can easily be done on the plot.
+		// we generate the line's plot with the first and last point in the plot's array
+		// then we reverse the order of the line's plot and concatenate the line's plot array
+		// with the part's plot array.
 		closingPath.reverse();
 		const path = mainPath.join(closingPath);
 
