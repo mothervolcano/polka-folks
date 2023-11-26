@@ -222,8 +222,8 @@ abstract class AttractorObject extends DisplayObject {
 		extractedPath.splitAt( extractedPath.getNearestLocation( P1 ) )
 		let discardedPath = extractedPath.splitAt( extractedPath.getNearestLocation( P2 ) )
 
-		extractedPath.strokeColor = 'red';
-		extractedPath.strokeWidth = 5;
+		// extractedPath.strokeColor = 'red';
+		// extractedPath.strokeWidth = 5;
 
 		discardedPath.remove();
 
