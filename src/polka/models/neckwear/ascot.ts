@@ -9,7 +9,8 @@ import Orbital from "polka/attractors/orbital";
 import OrbitalField from "polka/attractors/orbitalField";
 import Parabole from "polka/parts/parabole";
 import AttractorField from "lib/topo/core/attractorField";
-import ZigZag from "polka/lines/zigzag";
+import Dimple from "polka/lines/dimple";
+import { PHIGREATER, PHILESSER } from "polka/styles/metrics";
 
 const DEBUG_GREEN = "#10FF0C";
 const GUIDES = "#06E7EF";
@@ -36,9 +37,8 @@ class Ascot extends Model {
 
 		const { curlNumCtrl, p2Ctrl, heightCtrl } = params;
 
-		const knotSpan = 0.20 * p2Ctrl;
-
-		console.log('@Ascot.params: ', p2Ctrl)
+		const size = this.PHI.BASE;
+		const rootSpan = 0.20 * p2Ctrl;
 
 		// .............................................
 		// Key points
@@ -46,30 +46,51 @@ class Ascot extends Model {
 		// .............................................
 		// Configure
 
-		const zigZagSpecs = {
+		const dimpleSpecs = {
 			number: curlNumCtrl,
 			height: this.PHI.S,
 		};
 
-		const mainPartSpecs = {
+		const centerPartSpecs = {
 			height: this.PHI.XL * heightCtrl,
 			amplitude: this.PHI.M,
 		};
 
-		Parabole.configure(mainPartSpecs);
-		ZigZag.configure(zigZagSpecs);
+		const widePartSpecs = {
+			height: this.PHI.L * heightCtrl,
+			amplitude: this.PHI.S,
+		};
+
+		Dimple.configure(dimpleSpecs);
 
 		// .............................................
 		// Construction
 
-		const O = this.base.attractor.locate(this.#c).offsetBy(this.PHI.L, "RAY");
+		const O1 = this.base.attractor.locate(this.#c).offsetBy(this.PHI.M, "RAY");
+		const O2 = this.base.attractor.locate(this.#c).offsetBy(this.SIN.M, "RAY");
 
-		const field = new OrbitalField(O, this.PHI.M);
-		const att = new Orbital(this.PHI.L, O);
+		const attCenter = new Orbital(this.PHI.M, O1);
+		const attWide = new Orbital([this.PHI.BASE, this.SIN.M], O2);
 
-		const mainPlot = Parabole.draw(att, 0 + knotSpan, 0.50 - knotSpan);
-		const patternPlot = ZigZag.draw(mainPlot[0], mainPlot[mainPlot.length - 1]);
-		const plot = [...mainPlot, ...patternPlot.reverse().map((p) => p.flip())];
+		Parabole.configure(centerPartSpecs);
+		const centerPlot = Parabole.draw(attCenter, 0 + rootSpan, 0.50 - rootSpan);
+		const centerDimplePlot = Dimple.draw(centerPlot[0], centerPlot[centerPlot.length - 1]);
+		centerDimplePlot.reverse();
+		centerPlot.shift();
+		centerPlot.pop();
+		const centerPartPlot = [...centerPlot, ...centerDimplePlot.map((p) => p.flip())];
+		curve(centerDimplePlot[centerDimplePlot.length-1], centerPlot[0], 1/3, 2/3);
+		curve(centerPlot[centerPlot.length-1], centerDimplePlot[0], 2/3, 1/3);
+
+		Parabole.configure(widePartSpecs);
+		const widePlot = Parabole.draw(attWide, 0 + rootSpan*2/3, 0.50 - rootSpan*2/3);
+		const wideDimplePlot = Dimple.draw(widePlot[0], widePlot[widePlot.length - 1]);
+		wideDimplePlot.reverse();
+		widePlot.shift();
+		widePlot.pop();
+		const widePartPlot = [...widePlot, ...wideDimplePlot.map((p) => p.flip())];
+		curve(wideDimplePlot[wideDimplePlot.length-1], widePlot[0], 1/3, 2/3);
+		curve(widePlot[widePlot.length-1], wideDimplePlot[0], 2/3, 1/3);
 
 		// .............................................
 		// Plotting
@@ -79,26 +100,47 @@ class Ascot extends Model {
 
 		// ............................................................
 
-		const path = new Path({
+		const centerPath = new Path({
 			strokeColor: DEBUG_GREEN,
 			strokeWidth: 1,
 			closed: true,
 		});
 
-		this.pen.setPath(path);
-		this.pen.add(plot);
+		this.pen.setPath(centerPath);
+		this.pen.add(centerPartPlot);
 		// this.pen.mirrorRepeat('HOR');
+
+		const widePath = new Path({
+			strokeColor: DEBUG_GREEN,
+			strokeWidth: 1,
+			closed: true,
+		});
+
+		this.pen.setPath(widePath);
+		this.pen.add(widePartPlot);
+
+		const capitalSpecs = {
+			level: this.level+1,
+			effect: "SOLID",
+			scope: "ALL",
+		};
 
 		const formaSpecs = {
 			level: this.level,
 			effect: "SOLID",
 			scope: "ALL",
+			shade: {
+				level: 0,
+				effect: "HOLLOW",
+				scope: "ALL"
+			}
 		};
 
-		// path.fullySelected = true;
-
 		this.composer.init();
-		this.composer.addPath(path, formaSpecs);
+		this.composer.addPath(widePath, formaSpecs);
+		this.composer.addCapital(centerPath, capitalSpecs)
+
+		console.log('---> full specs being sent: ', this.composer.wrap())
 
 		return this.composer.wrap();
 	}

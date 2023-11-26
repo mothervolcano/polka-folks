@@ -44,8 +44,8 @@ class Parabole extends Part {
 		const wrapPath = att.extractPath(a, b);
 		const pts = wrapPath.segments.map((sgm: any) => convertToHyperPoint(sgm));
 
-		curve(A0, pts[0], 1/3, 2/3)
-		curve(pts[pts.length-1], B1, 2/3, 1/3)
+		// curve(A0, pts[0], 1, 1/3)
+		// curve(pts[pts.length-1], B1, 1/3, 1)
 
 		return [A0, ...pts, B1];
 	}
