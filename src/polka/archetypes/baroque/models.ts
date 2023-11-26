@@ -19,6 +19,7 @@ import { Blush, drawBlush } from "../../models/face/blush";
 import { drawEarModelTest } from "../../models/earwear/earModelTest";
 
 import { metricUnit, PHIGREATER, PHILESSER, SIN54, PHI, SIN } from "../../styles/metrics";
+import { drawWesternBowTie } from "polka/models/neckwear/westernBowTie";
 
 
 const antoinette: ModelConfig = {
@@ -216,6 +217,19 @@ const ascot: ModelConfig = {
 	compats: [],
 };
 
+const westernBowTie: ModelConfig = {
+	type: "neckwear",
+	order: "first",
+	create: (f, t) => drawWesternBowTie(f, t),
+	use: null,
+	base: null,
+	size: metricUnit("PHI", "M"),
+	level: 0,
+	settings: [0.75],
+	params: [],
+	compats: [],
+};
+
 const necklace: ModelConfig = {
 	type: "neckwear",
 	order: "first",
@@ -258,9 +272,10 @@ export const pool = [
 	lashesRight,
 	blushLeft,
 	blushRight,
-	// jabot,
+	westernBowTie,
+	jabot,
 	ascot,
-	// necklace,
+	necklace,
 	earModelTest,
 	earringLeft,
 	earringRight

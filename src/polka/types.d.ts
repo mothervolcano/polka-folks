@@ -77,6 +77,9 @@ export interface PartProps {
   height?: number;
   shift?: number;
   amplitude?: number;
+  alt1?: boolean;
+  alt2?: boolean;
+  alt3?: boolean;
 }
 
 export interface IPart {

@@ -11,18 +11,21 @@ import Parabole from "polka/parts/parabole";
 import AttractorField from "lib/topo/core/attractorField";
 import Dimple from "polka/lines/dimple";
 import { PHIGREATER, PHILESSER } from "polka/styles/metrics";
+import Stripe from "polka/parts/stripe";
+import Spine from "polka/attractors/spine";
+import SpinalField from "polka/attractors/spinalField";
 
 const DEBUG_GREEN = "#10FF0C";
 const GUIDES = "#06E7EF";
 
-class Ascot extends Model {
+class WesternBowTie extends Model {
 	// ...
 	#c: number = 0;
 
 	constructor(base: IModel, type?: string) {
 		super(base, type);
 
-		this.name = "Ascot";
+		this.name = "WesternBowTie";
 
 		return this;
 	}
@@ -46,9 +49,10 @@ class Ascot extends Model {
 		// .............................................
 		// Configure
 
-		const dimpleSpecs = {
-			number: curlNumCtrl,
-			height: this.PHI.S,
+		const basePartSpecs = {
+			height: 0.05,
+			alt1: true,
+			amplitude: this.PHI.S,
 		};
 
 		const centerPartSpecs = {
@@ -56,71 +60,81 @@ class Ascot extends Model {
 			amplitude: this.PHI.M,
 		};
 
-		const widePartSpecs = {
-			height: this.PHI.L * heightCtrl,
-			amplitude: this.PHI.S,
-		};
+		const lacePartSpecs = {
 
-		Dimple.configure(dimpleSpecs);
+			height: 0.025,
+		}
+
 
 		// .............................................
 		// Construction
 
-		const O1 = this.base.attractor.locate(this.#c).offsetBy(this.PHI.M, "RAY");
-		const O2 = this.base.attractor.locate(this.#c).offsetBy(this.SIN.M, "RAY");
+		const O1 = this.base.attractor.locate(this.#c);
+		const O2 = this.base.attractor.locate(this.#c);
 
-		const attCenter = new Orbital(this.PHI.M, O1);
-		const attWide = new Orbital([this.PHI.BASE, this.SIN.M], O2);
+		const attBase = new Orbital(this.PHI.BASE, O1);
 
-		Parabole.configure(centerPartSpecs);
-		const centerPlot = Parabole.draw(attCenter, 0 + rootSpan, 0.50 - rootSpan);
-		const centerDimplePlot = Dimple.draw(centerPlot[0], centerPlot[centerPlot.length - 1]);
-		centerDimplePlot.reverse();
-		centerPlot.shift();
-		centerPlot.pop();
-		const centerPartPlot = [...centerPlot, ...centerDimplePlot.map((p) => p.flip())];
-		curve(centerDimplePlot[centerDimplePlot.length-1], centerPlot[0], 1/3, 2/3);
-		curve(centerPlot[centerPlot.length-1], centerDimplePlot[0], 2/3, 1/3);
+		const laceField = new OrbitalField(O2, this.PHI.L);
 
-		Parabole.configure(widePartSpecs);
-		const widePlot = Parabole.draw(attWide, 0 + rootSpan*2/3, 0.50 - rootSpan*2/3);
-		const wideDimplePlot = Dimple.draw(widePlot[0], widePlot[widePlot.length - 1]);
-		wideDimplePlot.reverse();
-		widePlot.shift();
-		widePlot.pop();
-		const widePartPlot = [...widePlot, ...wideDimplePlot.map((p) => p.flip())];
-		curve(wideDimplePlot[wideDimplePlot.length-1], widePlot[0], 1/3, 2/3);
-		curve(widePlot[widePlot.length-1], wideDimplePlot[0], 2/3, 1/3);
+		const fieldL = new SpinalField(O2, this.PHI.XL) as any;
+		const fieldR = new SpinalField(O2, this.PHI.XL) as any;
+
+		laceField.addAttractors([fieldL, fieldR]);
+
+		laceField.compress(0.80, 0.70);
+		laceField.expandBy(this.PHI.XL/2, "RAY");
+
+		fieldL.addAttractor(new Spine(this.PHI.M))
+		fieldL.addAttractor(new Spine(this.PHI.M))		
+
+		fieldR.addAttractor(new Spine(this.PHI.M))
+		fieldR.addAttractor(new Spine(this.PHI.M))
+
+
+		Stripe.configure(basePartSpecs);
+		const basePlot = Stripe.draw(attBase, 1-basePartSpecs.height, 0.50+basePartSpecs.height);
+
 
 		// .............................................
 		// Plotting
+
+		const lLacePlot = [ ...fieldL.locate(1).reverse().map( (p:any) => p.scaleHandles(0)), ...fieldL.locate(0).map( (p:any) => p.scaleHandles(0)) ]
+		const rLacePlot = [ ...fieldR.locate(1).reverse().map( (p:any) => p.scaleHandles(0)), ...fieldR.locate(0).map( (p:any) => p.scaleHandles(0)) ]
 
 		// .............................................
 		// Chart
 
 		// ............................................................
 
-		const centerPath = new Path({
+		const basePath = new Path({
 			strokeColor: DEBUG_GREEN,
 			strokeWidth: 1,
 			closed: true,
 		});
 
-		this.pen.setPath(centerPath);
-		this.pen.add(centerPartPlot);
-		// this.pen.mirrorRepeat('HOR');
+		this.pen.setPath(basePath);
+		this.pen.add(basePlot);
 
-		const widePath = new Path({
+		const lLacePath = new Path({
 			strokeColor: DEBUG_GREEN,
 			strokeWidth: 1,
 			closed: true,
 		});
 
-		this.pen.setPath(widePath);
-		this.pen.add(widePartPlot);
+		this.pen.setPath(lLacePath);
+		this.pen.add(lLacePlot);
+
+		const rLacePath = new Path({
+			strokeColor: DEBUG_GREEN,
+			strokeWidth: 1,
+			closed: true,
+		});
+
+		this.pen.setPath(rLacePath);
+		this.pen.add(rLacePlot);
 
 		const capitalSpecs = {
-			level: this.level+1,
+			level: this.level-1,
 			effect: "SOLID",
 			scope: "ALL",
 		};
@@ -137,8 +151,9 @@ class Ascot extends Model {
 		};
 
 		this.composer.init();
-		this.composer.addPath(widePath, formaSpecs);
-		this.composer.addCapital(centerPath, capitalSpecs);
+		this.composer.addPath(basePath, formaSpecs);
+		this.composer.addPath(lLacePath, formaSpecs);
+		this.composer.addPath(rLacePath, formaSpecs);
 
 		return this.composer.wrap();
 	}
@@ -146,9 +161,9 @@ class Ascot extends Model {
 
 let instance: IModel | null = null;
 
-export function drawAscot(base: IModel, type?: string): IModel {
+export function drawWesternBowTie(base: IModel, type?: string): IModel {
 	if (!instance) {
-		instance = new Ascot(base, type) as IModel;
+		instance = new WesternBowTie(base, type) as IModel;
 	}
 
 	return instance;

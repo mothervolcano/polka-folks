@@ -130,7 +130,6 @@ class PolkaBaroque extends Polka {
 				comp.forma.path.remove();
 
 				if (comp.forma.shade !== null && comp.forma.shade !== undefined) {
-					console.log('!!! received forma specs: ', comp.forma)
 					this.#styles.get(comp.type).shadeRenderer(comp.forma.shade.path, comp.forma.shade.scope, comp.forma.shade.effect);
 					comp.forma.shade.path.copyTo(this.getLayer(comp.forma.shade.level));
 					comp.forma.shade.path.remove();
