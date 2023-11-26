@@ -209,7 +209,7 @@ const ascot: ModelConfig = {
 	create: (f, t) => drawAscot(f, t),
 	use: null,
 	base: null,
-	size: metricUnit("SIN", "XL"),
+	size: metricUnit("SIN", "M"),
 	level: 0,
 	settings: [0.75],
 	params: [],

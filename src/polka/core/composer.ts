@@ -18,7 +18,7 @@ class Composer {
 	public addPath(path: any, props: any) {
 		// ...
 
-		const {level, effect, scope} = props;
+		const {level, effect, scope, shade } = props;
 
 		if (this.#composition.forma !== null) {
 			if (this.#composition.forma.path instanceof Group) {
@@ -41,6 +41,14 @@ class Composer {
 			};
 		}
 		this.#composition.forma.level = level;
+
+		// ---------------------
+
+		if (shade) {
+
+			// TODO: apply transformations to the path according to specifications (eg. offset, shift, etc.)
+			this.#composition.forma.shade = { ...shade, level: level + shade.level, path: path.clone() }
+		}
 	}
 
 	public addShade(path: any, props: any) {

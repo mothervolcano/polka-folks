@@ -123,13 +123,21 @@ class PolkaBaroque extends Polka {
 		this.compositions.forEach((comp) => {
 			// console.log(".... RENDERING: ", comp.type);
 
+			
 			if (comp.forma !== null) {
 				this.#styles.get(comp.type).formaRenderer(comp.forma.path, comp.forma.scope, comp.forma.effect);
 				comp.forma.path.copyTo(this.getLayer(comp.forma.level));
 				comp.forma.path.remove();
+
+				if (comp.forma.shade !== null && comp.forma.shade !== undefined) {
+					console.log('!!! received forma specs: ', comp.forma)
+					this.#styles.get(comp.type).shadeRenderer(comp.forma.shade.path, comp.forma.shade.scope, comp.forma.shade.effect);
+					comp.forma.shade.path.copyTo(this.getLayer(comp.forma.shade.level));
+					comp.forma.shade.path.remove();
+				}
 			}
 
-			if (comp.shade !== null) {
+			if (comp.shade !== null && comp.shade !== undefined ) {
 				this.#styles.get(comp.type).shadeRenderer(comp.shade.path, comp.shade.scope, comp.shade.effect);
 				comp.shade.path.copyTo(this.getLayer(comp.shade.level));
 				comp.shade.path.remove();
