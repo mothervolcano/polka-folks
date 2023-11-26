@@ -59,7 +59,7 @@ export interface ShapeProps {
 
 export interface IShape {
 
-  draw(field: IAttractor & IAttractorObject, props: ShapeProps);
+  draw(field: IAttractor & IAttractorObject, specs: ShapeProps);
 }
 
 export interface LineProps {
@@ -69,18 +69,19 @@ export interface LineProps {
 }
 
 export interface ILine {
-  configure(props: LineProps): void;
+  configure(specs: LineProps): void;
   draw(A: IHyperPoint, B: IHyperPoint, C?: IHyperPoint): any;
 }
 
 export interface PartProps {
   height?: number;
   shift?: number;
+  amplitude?: number;
 }
 
 export interface IPart {
-  configure(props: PartProps): void;
-  draw(att: IAttractor, a: number, b: number, height: number, c?: number): any;
+  configure(specs: PartProps): void;
+  draw(att: IAttractor, a: number, b: number, c?: number): any;
 }
 
 export interface ModelConfig {

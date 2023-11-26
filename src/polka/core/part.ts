@@ -3,7 +3,7 @@ import { IPart, PartProps } from "polka/types";
 
 abstract class Part implements IPart {
 	abstract configure(props: PartProps): void;
-	abstract draw(att: IAttractor, a: number, b: number, height: number, c?: number): any;
+	abstract draw(att: IAttractor, a: number, b: number, c?: number): IHyperPoint[];
 }
 
 export default Part;
