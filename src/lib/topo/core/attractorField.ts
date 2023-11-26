@@ -163,7 +163,7 @@ abstract class AttractorField extends DisplayNode {
 	};
 
 
-	public locate( at: number, orient: boolean = false ): any {
+	public locate( at: number, orient: boolean = false ): IHyperPoint[] {
 
 		const attractors = this.filterAttractors();
 		const anchors = attractors
