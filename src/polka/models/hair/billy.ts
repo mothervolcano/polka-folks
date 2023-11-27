@@ -24,7 +24,7 @@ class Billy extends Model {
 
 		super( base, type );
 
-		this.name = "billy flaps"
+		this.name = "Billy Hair"
 
 		return this;
 

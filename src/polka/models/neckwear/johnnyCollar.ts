@@ -25,10 +25,9 @@ class JohnnyCollar extends Model {
 
 		super( base, type );
 
-		this.name = "billy flaps"
+		this.name = "Johnny Collar"
 
 		return this;
-
 	}
 
 
