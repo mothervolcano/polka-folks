@@ -4,7 +4,7 @@ import Model from '../core/model';
 import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
-import { merge, measure, mid, curve, iron } from '../../lib/topo/tools/stitcher';
+import { merge, measure, mid, curve, level } from '../../lib/topo/tools/stitcher';
 
 import { markPoint, genRandom, genRandomDec } from '../../lib/topo/utils/helpers';
 
@@ -61,7 +61,7 @@ class SlantedFringe extends Model {
 		const P0 = C.clone();
 		const P1 = C.clone().offsetBy( -length, 'RAY' );
 
-		iron( P0, P1 );
+		level( P0, P1 );
 
 
 		// ............................................................

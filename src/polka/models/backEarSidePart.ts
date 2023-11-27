@@ -7,7 +7,7 @@ import Spine from '../attractors/spine';
 import OrbitalField from '../attractors/orbitalField';
 import SpinalField from '../attractors/spinalField';
 
-import { merge, measure, mid, curve, iron, clap, budge, breakIn, breakOut, mirror, ortoAlign } from '../../lib/topo/tools/stitcher';
+import { merge, measure, mid, curve, level, clap, budge, breakIn, breakOut, mirror, ortoAlign } from '../../lib/topo/tools/stitcher';
 import { plotAttractorFirstIntersection, plotAttractorLastIntersection } from '../../lib/topo/tools/plotters';
 
 import { traceSegment, markPoint, genRandom, genRandomDec, normalize } from '../../lib/topo/utils/helpers';
@@ -68,7 +68,7 @@ class BackEarSidePart extends Model {
 		const P2 = H.clone().offsetBy( -this.base.PHI.BASE, 'HOR' );
 
 		curve(P0,P1)
-		iron(P2,P0)
+		level(P2,P0)
 
 		this.path = new Path({ 
 

@@ -4,7 +4,7 @@ import Model from '../core/model';
 import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
-import { merge, measure, mid, curve, iron } from '../../lib/topo/tools/stitcher';
+import { merge, measure, mid, curve, level } from '../../lib/topo/tools/stitcher';
 
 import { markPoint, genRandom, genRandomDec } from '../../lib/topo/utils/helpers';
 
@@ -66,8 +66,8 @@ class SlantedHairBang extends Model {
 		const P3 = C.clone().offsetBy( -advance * this.PHILESSER, 'TAN' );
 		const P4 = C.clone().offsetBy( -length, 'RAY' );
 
-		iron( P1, P2 );
-		iron( P0, P4 );
+		level( P1, P2 );
+		level( P0, P4 );
 
 
 		// ............................................................

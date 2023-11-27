@@ -1,6 +1,6 @@
 import { Path } from 'paper';
 
-import { merge, measure, mid, curve, iron, clap, budge, breakIn, breakOut, mirror, ortoAlign } from 'lib/topo/tools/stitcher';
+import { merge, measure, mid, curve, level, clap, budge, breakIn, breakOut, mirror, ortoAlign } from 'lib/topo/tools/stitcher';
 import { plotAttractorFirstIntersection, plotAttractorLastIntersection } from 'lib/topo/tools/plotters';
 import { traceSegment, markPoint, genRandom, genRandomDec, normalize } from 'lib/topo/utils/helpers';
 
@@ -137,7 +137,7 @@ class Helga extends Model {
 
 		breakIn(E1, -90)
 		curve(E1, E2)
-		iron(E2, E3)
+		level(E2, E3)
 		curve(E3, E4, 1, 2/3)
 		breakOut(E4, -90)
 

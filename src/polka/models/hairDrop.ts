@@ -5,7 +5,7 @@ import Model from '../core/model';
 import Orbital from '../attractors/orbital';
 import OrbitalField from '../attractors/orbitalField';
 
-import { merge, measure, mid, curve, iron, clap, budge, breakIn, breakOut } from '../../lib/topo/tools/stitcher';
+import { merge, measure, mid, curve, level, clap, budge, breakIn, breakOut } from '../../lib/topo/tools/stitcher';
 
 import { markPoint, genRandom, genRandomDec, normalize } from '../../lib/topo/utils/helpers';
 

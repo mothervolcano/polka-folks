@@ -1,6 +1,6 @@
 
 import { Point } from "paper";
-import { curve, iron } from "../../lib/topo/tools/stitcher";
+import { curve, level } from "../../lib/topo/tools/stitcher";
 
 import { IAttractor, IAttractorObject } from "../../lib/topo/types";
 import { normalize, radToDeg } from "../../lib/topo/utils/helpers";
@@ -62,8 +62,8 @@ class Cone extends Shape {
 		const V = att.locate(0.25).offsetBy( h-radius, 'RAY' );
 		const P2 = att.locate(0.50)
 
-		iron(Ta, V)
-		iron(V, Tb)
+		level(Ta, V)
+		level(V, Tb)
 
 		// curve(P0, Ta, 4/5, 4/5)
 		// curve(Tb, P0, 4/5, 4/5)

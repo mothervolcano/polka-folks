@@ -6,6 +6,7 @@ import HyperPoint from '../core/hyperPoint';
 
 import { convertToHyperPoint, convertToPoint, convertToSegment } from '../utils/converters'
 import { to360, degToRad, radToDeg, markPoint } from '../utils/helpers'
+import { IHyperPoint } from '../types';
 
 
 export function measure( hpt1: any, hpt2: any, ratio: number = 1 ) {
@@ -40,11 +41,21 @@ export function breakIn( hpt: any, angle: number ) {
 	hpt.handleIn.angle += angle;
 }
 
-export function iron( hpt1: any, hpt2: any ) {
+export function level( hpt1: any, hpt2: any ) {
 
 	hpt1.handleOut = null;
 	hpt2.handleIn = null;
 
+}
+
+export function iron( hpt1: IHyperPoint, hpt2: IHyperPoint ) {
+
+	const v = hpt2.point.subtract(hpt1.point);
+
+	hpt1.handleIn.angle = v.angle - 180;
+	hpt1.handleOut.angle = v.angle;
+	hpt2.handleIn.angle = v.angle - 180;
+	hpt2.handleOut.angle = v.angle;
 }
 
 export function ortoAlign( hpt: any, along: string ) {
@@ -94,6 +105,14 @@ export function clap( hpt: any ) {
 	hpt.handleOut = hpt.handleIn;
 
 	return hpt;
+}
+
+export function balance(hpt1: IHyperPoint, hpt2: IHyperPoint) {
+
+	const avgLength = (hpt1.handleOut.length + hpt2.handleIn.length)/2;
+
+	hpt1.handleOut.length = avgLength;
+	hpt2.handleIn.length = avgLength;
 }
 
 
