@@ -232,7 +232,7 @@ class HyperPoint {
 		
 		if (scaleIn) {
 
-		    if (scale >= 0 && scale <= 1) {
+		    if (scale >= 0 && scale <= 1 && this._handleIn) {
 
 		      this._handleIn.length *= scale;
 
@@ -245,7 +245,7 @@ class HyperPoint {
 
 		if (scaleOut) {
 
-		    if (scale >= 0 && scale <= 1) {
+		    if (scale >= 0 && scale <= 1 && this._handleOut) {
 
 		      this._handleOut.length *= scale;
 
@@ -294,6 +294,9 @@ class HyperPoint {
 		this._handleIn = new Point({ angle: axis - aperture/2 * this._spin, length: this._handleIn.length * hScale });
 
 		this.tangent = this._handleOut;
+		this.normal = this.tangent.rotate(-90, this.tangent.point);
+		this.tangent.normalize();
+		this.normal.normalize();
 
 		// this._handleOut.angle += ( tilt )
 		// this._handleIn.angle += ( tilt )
