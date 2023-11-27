@@ -150,7 +150,7 @@ abstract class AttractorField extends DisplayNode {
 	};
 
 
-	public getAttractor( i?: number ) {
+	public getAttractor( i?: number ): any {
 
 		if ( typeof i === 'number' ) {
 
@@ -158,7 +158,7 @@ abstract class AttractorField extends DisplayNode {
 
 		} else {
 
-			return this._attractor;
+			return this._attractor!;
 		}
 	};
 

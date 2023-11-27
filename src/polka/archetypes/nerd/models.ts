@@ -225,7 +225,7 @@ hairDome.compats = [{ ...arcPattern }, { ...zigzag }];
 
 // export const pool = [fionaHair, hairCurtainHide, hairCap, hairDome, roundGlasses];
 // export const pool = [ionicHair, fionaHair, roundGlasses];
-export const pool = [ billyHair, roundGlasses, johnnyCollar];
+export const pool = [ billyHair, roundGlasses, puritanCollar];
 
 
 

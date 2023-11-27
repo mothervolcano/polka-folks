@@ -12,14 +12,14 @@ class Dimple extends Line {
 	static configure(props: LineProps) {
 
 		const  { amplitude } = props;
+
+		Dimple.amplitude = amplitude ? amplitude : Dimple.amplitude;
 	}
 
 	static draw(A: IHyperPoint, B: IHyperPoint, C?: IHyperPoint): IHyperPoint[] {
 		
 		// .............................................
 		// Compute parameters
-
-		const length = Dimple.amplitude;
 
 
 		// .............................................

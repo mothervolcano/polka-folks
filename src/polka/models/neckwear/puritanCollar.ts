@@ -10,8 +10,10 @@ import OrbitalField from 'polka/attractors/orbitalField';
 import SpinalField from 'polka/attractors/spinalField';
 import Cap from 'polka/extensions/cap';
 import Fold from 'polka/lines/fold';
+import Dimple from 'polka/lines/dimple';
 import Cape from 'polka/lines/cape';
 import Arch from 'polka/extensions/arch';
+import Pinch from 'polka/lines/pinch';
 
 
 const DEBUG_GREEN = '#10FF0C';
@@ -53,16 +55,17 @@ class PuritanCollar extends Model {
 		// .............................................
 		// Construction
 
-		Arch.configure({span: 0.10, height: this.SIN.M * p2Ctrl, diff: p3Ctrl})
-		// const archPlot = Arch.draw(this.base.attractor, 0.50+span, 1-span);
+		Arch.configure({span: 0.10, height: this.SIN.M * p2Ctrl, amplitude: p3Ctrl})
 		const archPlot = Arch.draw(this.base.attractor, 0.50+span, 1-span);
 
 		const A = archPlot[0]
 		const B = archPlot[archPlot.length-1]
 
+		// const closingPlot = Dimple.draw(B, A);
+		const closingPlot = Pinch.draw(B, A);
 
-		const closingPlot = Fold.draw(A, B);
-
+		closingPlot[0].scaleHandles(0, true, false);
+		closingPlot[closingPlot.length-1].scaleHandles(0, false, true);
 
 		// .............................................
 		// Configure
@@ -85,7 +88,6 @@ class PuritanCollar extends Model {
 		this.pen.setPath( mainPath );
 		this.pen.add( archPlot );
 
-		mainPath.fullySelected = true;
 
 
 		const closingPath = new Path({
@@ -97,13 +99,14 @@ class PuritanCollar extends Model {
 		this.pen.setPath(closingPath);
 		this.pen.add( closingPlot );
 		
+		closingPath.fullySelected = true;
 
 		// TODO: this can be a method of an utility module to close a shape with a Line
 		// even before the path is created. The operation can easily be done on the plot.
 		// we generate the line's plot with the first and last point in the plot's array
 		// then we reverse the order of the line's plot and concatenate the line's plot array
 		// with the part's plot array.
-		closingPath.reverse();
+		// closingPath.reverse();
 		const path = mainPath.join(closingPath);
 
 
