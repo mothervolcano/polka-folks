@@ -9,6 +9,8 @@ class Cape extends Line {
 	static configure(props: LineProps) {
 
 		const  { amplitude } = props;
+
+		Cape.amplitude = amplitude ? amplitude : Cape.amplitude;
 	}
 
 	static draw(A: IHyperPoint, B: IHyperPoint, C?: IHyperPoint) {

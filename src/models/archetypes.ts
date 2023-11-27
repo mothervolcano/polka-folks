@@ -12,33 +12,33 @@ import PunkConsole from "../components/consoles/punkConsole";
 
 const nerdParamsSchema: ParamSet = [
   {
-    id: "ogp1",
-    name: "splitLat",
+    id: "nrd1",
+    name: "p1Ctrl",
     value: 1,
-    range: [0, 2],
+    range: [0, 1],
     step: 0.01,
-    label: "Split Drop",
+    label: "P1",
   },
   {
-    id: "ogp2",
-    name: "splitAperture",
+    id: "nrd2",
+    name: "p2Ctrl",
     value: 0.5,
-    range: [0, 2],
+    range: [0, 1],
     step: 0.01,
-    label: "Split Aperture",
+    label: "P2",
   },
-  { id: "ogp3", name: "", value: 1, range: [0, 2], step: 1, label: "Olga P3" },
+  { id: "nrd3", name: "p3Ctrl", value: 0.5, range: [0, 1], step: 0.01, label: "P3" },
   {
-    id: "ogp4",
+    id: "nrd4",
     name: "",
     value: 0.5,
     range: [0, 2],
     step: 1,
-    label: "Olga P4",
+    label: "P4",
   },
-  { id: "ogp5", name: "", value: 1, range: [0, 2], step: 1, label: "Olga P5" },
-  { id: "ogp6", name: "", value: 1, range: [0, 2], step: 1, label: "Olga P6" },
-  { id: "ogp7", name: "", value: 1, range: [0, 2], step: 1, label: "Olga P7" },
+  { id: "nrd5", name: "", value: 1, range: [0, 1], step: 0.01, label: "P5" },
+  { id: "nrd6", name: "", value: 1, range: [0, 1], step: 0.01, label: "P6" },
+  { id: "nrd7", name: "", value: 1, range: [0, 1], step: 0.01, label: "P7" },
 ];
 
 const punkParamsSchema: ParamSet = [

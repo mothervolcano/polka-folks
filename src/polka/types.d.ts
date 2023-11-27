@@ -74,9 +74,12 @@ export interface ILine {
 }
 
 export interface PartProps {
+  span?: number;
   height?: number;
   shift?: number;
+  tilt?: number;
   amplitude?: number;
+  diff?: number;
   alt1?: boolean;
   alt2?: boolean;
   alt3?: boolean;

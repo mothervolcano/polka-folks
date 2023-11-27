@@ -64,7 +64,17 @@ class PolkaNerd extends Polka {
 				},
 			],
 			["earwear", {renderer: renderHair}],
-			["neckwear", {renderer: renderHair}],
+			[
+				"neckwear",
+				{
+					formaRenderer: renderHair,
+					shadeRenderer: (...args: any[]) => {
+						preRender(renderHair, ...args);
+					},
+					accentRenderer: renderHair,
+					variationRenderer: null,
+				},
+			],
 			["eyefeature", {renderer: renderFaceFeature}],
 			["facefeature", {renderer: renderFaceFeature}],
 			[

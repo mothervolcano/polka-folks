@@ -11,6 +11,8 @@ import { drawHairCurtainHide } from "polka/models/hairCurtainHide";
 import { drawFiona } from "polka/models/hair/fiona";
 import { drawHairCap } from "polka/models/hairCap";
 import { drawHairModelTest } from "polka/models/hairModelTest";
+import { drawPuritanCollar } from "polka/models/neckwear/puritanCollar";
+import { drawJohnnyCollar } from "polka/models/neckwear/johnnyCollar";
 
 import { drawRoundGlasses } from "polka/models/eyewear/roundGlasses";
 
@@ -107,7 +109,7 @@ const hairCurtain: ModelConfig = {
 	compats: [],
 };
 
-const billyFlaps: ModelConfig = {
+const billyHair: ModelConfig = {
 	type: "hair",
 	order: "first",
 	create: (f, r) => drawBilly(f, r),
@@ -172,6 +174,32 @@ const augustineHair: ModelConfig = {
 	compats: [],
 };
 
+const puritanCollar: ModelConfig = {
+	type: "neckwear",
+	order: "first",
+	create: (f, r) => drawPuritanCollar(f, r),
+	use: null,
+	base: "HEAD",
+	size: metricUnit("PHI", "L"),
+	level: 0,
+	settings: [],
+	params: [],
+	compats: [],
+};
+
+const johnnyCollar: ModelConfig = {
+	type: "neckwear",
+	order: "first",
+	create: (f, r) => drawJohnnyCollar(f, r),
+	use: null,
+	base: "HEAD",
+	size: metricUnit("PHI", "L"),
+	level: 0,
+	settings: [],
+	params: [],
+	compats: [],
+};
+
 const hairModelTest: ModelConfig = {
 	type: "hair",
 	order: "first",
@@ -191,12 +219,13 @@ const hairModelTest: ModelConfig = {
 // hairCape.compats = [{ ...arcPattern }, { ...zigzag }];
 hairCurtainHide.compats = [{ ...fionaHair }];
 hairCap.compats = [{ ...fionaHair }, { ...hairCurtainHide }, { ...arcPattern }, { ...zigzag }];
-hairDome.compats = [{ ...arcPattern }, { ...zigzag }, { ...billyFlaps }];
+hairDome.compats = [{ ...arcPattern }, { ...zigzag }];
 
 // ..................................................
 
 // export const pool = [fionaHair, hairCurtainHide, hairCap, hairDome, roundGlasses];
-export const pool = [ionicHair, fionaHair, roundGlasses];
+// export const pool = [ionicHair, fionaHair, roundGlasses];
+export const pool = [ billyHair, roundGlasses, johnnyCollar];
 
 
 
