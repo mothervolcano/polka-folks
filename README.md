@@ -1,9 +1,9 @@
 # The Polka Folks
 
-Polka Folks is the testing ground for an evolving vector drawing framework exploring its aptitude for procedural generation.
-They are ever-changing minimalistic characters in a generative playground, pursuing algorithmic life-like variation.
+Polka Folks are ever-changing minimalistic characters in a generative playground, pursuing algorithmic life-like variation.
+This is a testing ground project to test the aptitude of a vector drawing framework I'm working on for procedural generation.
 
-## Topo: A Vector Drawing Framework
+## Topo: A Vector Drawing Framework Idea
 
 ### Concept
 
