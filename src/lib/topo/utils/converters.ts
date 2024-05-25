@@ -63,7 +63,7 @@ export function validatePointInput(input: any): IPoint {
     if (typeof y !== 'number') { y = parseFloat(y); }
 
     if (Number.isNaN(x) && Number.isNaN(y)) {
-      throw new Error('Invalid point input: Invalid numeric values');
+      throw new Error(`Invalid point input: ${input}`);
     }
 
     if (Number.isNaN(x)) { x = 0; }
@@ -95,7 +95,7 @@ export function validatePointInput(input: any): IPoint {
     }
 
     if (Number.isNaN(x) && Number.isNaN(y)) {
-      throw new Error('Invalid point input: Invalid numeric values');
+      throw new Error(`Invalid point input: ${input}`);
     }
 
     if (Number.isNaN(x)) { x = 0; }

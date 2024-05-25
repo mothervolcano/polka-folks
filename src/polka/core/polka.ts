@@ -1,5 +1,4 @@
 import { Layer, Path } from "paper";
-import { paper } from "components/paperStage";
 
 import { IAttractorField } from "lib/topo/types";
 import { convertToHyperPoint } from "lib/topo/utils/converters";
@@ -11,7 +10,7 @@ import { drawHead } from "polka/models/bases/head";
 import { drawFace } from "polka/models/bases/face";
 import { PHIGREATER, PHILESSER, SIN54, PHI, SIN, generateScaleFor } from "../styles/metrics";
 
-import { model } from "stage";
+// import { model } from "stage";
 
 // ------------------------
 // DEBUG
@@ -290,9 +289,7 @@ abstract class Polka {
 		this.mount(pool, "eyewear");
 	}
 
-	public draw(params: any) {
-		const { baseParams, archetypeParams } = params;
-
+	public draw(baseParams: any, archetypeParams: any) {
 		this.clear();
 
 		this.#head.plot(baseParams);
@@ -317,8 +314,8 @@ abstract class Polka {
 	public clear() {
 		this.#frame.children.forEach((child: any) => child.removeChildren());
 
-		const allOtherLayers = paper.project.layers.filter((l) => l.id !== this.#frame.id);
-		allOtherLayers.forEach((layer) => layer.removeChildren());
+		// const allOtherLayers = paper.project.layers.filter((l) => l.id !== this.#frame.id);
+		// allOtherLayers.forEach((layer) => layer.removeChildren());
 	}
 }
 
