@@ -13,7 +13,7 @@ import * as colors from "../../styles/colorSchemes";
 
 class PolkaPunk extends Polka {
 	#styles: Map<any, any>;
-	
+
 	constructor(position: any, radius: number) {
 		super(position, radius);
 
@@ -21,13 +21,17 @@ class PolkaPunk extends Polka {
 
 		this.colorScheme = { ...colors.punkPolka };
 		this.colorScheme.skin =
-			this.colorScheme.skin[genRandom(0, this.colorScheme.skin.length - 1)];
+			this.colorScheme.skin[
+				genRandom(0, this.colorScheme.skin.length - 1)
+			];
 		this.colorScheme.hair = this.colorScheme.hair.filter(
 			(c: any) => c !== this.colorScheme.skin,
 		);
 		this.colorScheme.hair =
-			this.colorScheme.hair[genRandom(0, this.colorScheme.hair.length - 1)];
-		
+			this.colorScheme.hair[
+				genRandom(0, this.colorScheme.hair.length - 1)
+			];
+
 		// ------------------------------------------------------------------------
 
 		const preRender = (renderer: any, ...args: any[]) => {
@@ -39,13 +43,13 @@ class PolkaPunk extends Polka {
 					renderer(path, args.slice(1));
 				}
 			} else {
-				renderer(...args)
+				renderer(...args);
 			}
 		};
 
 		const renderHair = (path: any, ...args: any[]) => {
 			path.fillColor = this.colorScheme.hair;
-		}
+		};
 
 		// ------------------------------------------------------------------------
 
@@ -63,19 +67,39 @@ class PolkaPunk extends Polka {
 			],
 			[
 				"hairline",
-				{ formaRenderer: renderHair, shadeRenderer: null, accentRenderer: null, variationRenderer: null },
+				{
+					formaRenderer: renderHair,
+					shadeRenderer: null,
+					accentRenderer: null,
+					variationRenderer: null,
+				},
 			],
 			[
 				"hairtail",
-				{ formaRenderer: renderHair, shadeRenderer: null, accentRenderer: null, variationRenderer: null },
+				{
+					formaRenderer: renderHair,
+					shadeRenderer: null,
+					accentRenderer: null,
+					variationRenderer: null,
+				},
 			],
 			[
 				"earwear",
-				{ formaRenderer: renderHair, shadeRenderer: null, accentRenderer: null, variationRenderer: null },
+				{
+					formaRenderer: renderHair,
+					shadeRenderer: null,
+					accentRenderer: null,
+					variationRenderer: null,
+				},
 			],
 			[
 				"neckwear",
-				{ formaRenderer: renderHair, shadeRenderer: null, accentRenderer: null, variationRenderer: null },
+				{
+					formaRenderer: renderHair,
+					shadeRenderer: null,
+					accentRenderer: null,
+					variationRenderer: null,
+				},
 			],
 			[
 				"eyefeature",
@@ -96,27 +120,44 @@ class PolkaPunk extends Polka {
 				},
 			],
 		]);
-
 	}
 
-render() {
+	render() {
 		// ...
 
 		this.compositions.forEach((comp) => {
 			console.log(".... RENDERING: ", comp.type);
 
 			if (comp.forma !== null) {
-				this.#styles.get(comp.type).formaRenderer(comp.forma.path, comp.forma.scope, comp.forma.effect);
+				this.#styles
+					.get(comp.type)
+					.formaRenderer(
+						comp.forma.path,
+						comp.forma.scope,
+						comp.forma.effect,
+					);
 				comp.forma.path.copyTo(this.getLayer(comp.forma.level));
 				comp.forma.path.remove();
 			}
 
 			if (comp.shade !== null) {
-				this.#styles.get(comp.type).shadeRenderer(comp.shade.path, comp.shade.scope, comp.shade.effect);
+				this.#styles
+					.get(comp.type)
+					.shadeRenderer(
+						comp.shade.path,
+						comp.shade.scope,
+						comp.shade.effect,
+					);
 			}
 
 			if (comp.capital !== null) {
-				this.#styles.get(comp.type).accentRenderer(comp.capital.path, comp.capital.scope, comp.capital.effect);
+				this.#styles
+					.get(comp.type)
+					.accentRenderer(
+						comp.capital.path,
+						comp.capital.scope,
+						comp.capital.effect,
+					);
 				comp.capital.path.copyTo(this.getLayer(comp.capital.level));
 				comp.capital.path.remove();
 			}
@@ -124,11 +165,29 @@ render() {
 
 		// -----------------------------------------------------------
 
-		this.getLayer(1).addChild(renderFace(this.head.getAtt("HEAD").getPath(), this.colorScheme));
-		this.getLayer(1).addChild(renderEar(this.head.getAtt("EAR_L").getPath(), this.colorScheme));
-		this.getLayer(1).addChild(renderEar(this.head.getAtt("EAR_R").getPath(), this.colorScheme));
-		this.getLayer(1).addChild(renderEye(this.face.getAtt("EYE_L").getPath(), this.colorScheme, false));
-		this.getLayer(1).addChild(renderEye(this.face.getAtt("EYE_R").getPath(), this.colorScheme, false));
+		this.getLayer(1).addChild(
+			renderFace(this.head.getAtt("HEAD").getPath(), this.colorScheme),
+		);
+		this.getLayer(1).addChild(
+			renderEar(this.head.getAtt("EAR_L").getPath(), this.colorScheme),
+		);
+		this.getLayer(1).addChild(
+			renderEar(this.head.getAtt("EAR_R").getPath(), this.colorScheme),
+		);
+		this.getLayer(1).addChild(
+			renderEye(
+				this.face.getAtt("EYE_L").getPath(),
+				this.colorScheme,
+				false,
+			),
+		);
+		this.getLayer(1).addChild(
+			renderEye(
+				this.face.getAtt("EYE_R").getPath(),
+				this.colorScheme,
+				false,
+			),
+		);
 	}
 }
 
